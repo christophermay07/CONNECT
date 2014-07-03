@@ -258,8 +258,8 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <!-- copy configdb.hibernate.build.cfg.xml to nhinc-properties-dir to configdb.hibernate.cfg.xml. The 
-                        embedded GF has a classloader issue with antlr jar loaded by CONNECTDirectConfig. A work around solution that can proceed 
+                    <!-- copy configdb.hibernate.build.cfg.xml to nhinc-properties-dir to configdb.hibernate.cfg.xml. The
+                        embedded GF has a classloader issue with antlr jar loaded by CONNECTDirectConfig. A work around solution that can proceed
                         build avoiding classloader issues.Please Refer CONN-1212 for furthur details. -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -373,25 +373,25 @@
                                 </goals>
                                 <configuration>
                                     <srcFiles>
-										<!-- Drop database and recreate user -->
+                                        <!-- Drop database and recreate user -->
                                         <srcFile>${project.build.directory}/DBScripts/nhincdb/dropall.sql</srcFile>
-										<srcFile>${project.build.directory}/DBScripts/nhincdb/nhincdb.sql</srcFile>
-										
-										<!-- Recreate individual databases -->
-										<srcFile>${project.build.directory}/DBScripts/adminguidb/adminguidb.sql</srcFile>
-										<srcFile>${project.build.directory}/DBScripts/assigningauthoritydb/assigningauthoritydb.sql</srcFile>
-										<srcFile>${project.build.directory}/DBScripts/asyncmsgs/asyncmsgsdb.sql</srcFile>
-										<srcFile>${project.build.directory}/DBScripts/auditlog/auditRepository.sql</srcFile>
-										<srcFile>${project.build.directory}/DBScripts/configdb/configdb.sql</srcFile>
-										<srcFile>${project.build.directory}/DBScripts/DocumentRepository/DocumentRepository.sql</srcFile>
-										<srcFile>${project.build.directory}/DBScripts/eventdb/eventdb.sql</srcFile>
-										<srcFile>${project.build.directory}/DBScripts/logging/logging.sql</srcFile>
-										<srcFile>${project.build.directory}/DBScripts/messagemonitoringdb/messagemonitoringdb.sql</srcFile>
-										<srcFile>${project.build.directory}/DBScripts/PatientCorrelationDB/patientcorrelationdb.sql</srcFile>
-										<srcFile>${project.build.directory}/DBScripts/patientdb/patientdb.sql</srcFile>
-										<srcFile>${project.build.directory}/DBScripts/transrepo/transrepo.sql</srcFile>
-                                        
-										<!-- Test data (required for ValidationSuite -->
+                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/nhincdb.sql</srcFile>
+
+                                        <!-- Recreate individual databases -->
+                                        <srcFile>${project.build.directory}/DBScripts/adminguidb/adminguidb.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/assigningauthoritydb/assigningauthoritydb.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/asyncmsgs/asyncmsgsdb.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/auditlog/auditRepository.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/configdb/configdb.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/DocumentRepository/DocumentRepository.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/eventdb/eventdb.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/logging/logging.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/messagemonitoringdb/messagemonitoringdb.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/PatientCorrelationDB/patientcorrelationdb.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/patientdb/patientdb.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/transrepo/transrepo.sql</srcFile>
+
+                                        <!-- Test data (required for ValidationSuite -->
                                         <srcFile>${project.build.directory}/DBScripts/nhincdb/populateTestData.sql</srcFile>
                                     </srcFiles>
                                 </configuration>
