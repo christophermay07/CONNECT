@@ -75,7 +75,7 @@
                 <executions>
                     <execution>
                         <id>unpack-soapui-test-resources</id>
-                        <!-- Using the initialize phase because it is before 
+                        <!-- Using the initialize phase because it is before
                             the generate sources phase -->
                         <phase>pre-integration-test</phase>
                         <goals>
