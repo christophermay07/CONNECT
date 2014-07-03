@@ -1,8 +1,6 @@
 DROP DATABASE IF EXISTS adminguidb;
 FLUSH PRIVILEGES;
 
-
--- begin adminguidb
 CREATE DATABASE adminguidb;
 
 -- -----------------------------------------------------
@@ -24,7 +22,7 @@ CREATE TABLE IF NOT EXISTS adminguidb.PagePreference (
       FOREIGN KEY (prefRoleId)
       REFERENCES adminguidb.UserRole (roleId)
       ON DELETE NO ACTION
-      ON UPDATE NO ACTION	
+      ON UPDATE NO ACTION
 );
 
 CREATE TABLE IF NOT EXISTS adminguidb.UserLogin (
@@ -40,7 +38,7 @@ CREATE TABLE IF NOT EXISTS adminguidb.UserLogin (
       ON UPDATE NO ACTION
 );
 
-INSERT INTO adminguidb.UserRole 
+INSERT INTO adminguidb.UserRole
 (roleId, roleName)
 VALUES
 (1, "ADMIN"),
@@ -82,4 +80,3 @@ VALUES
 (1, "ABCD", "TxMu4SPUdek0XU5NovS9U2llt3Q=", "CONNECTAdmin", 1);
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON adminguidb.* to nhincuser;
--- end adminguidb

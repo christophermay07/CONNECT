@@ -1,5 +1,9 @@
-DROP TABLE IF EXISTS auditrepo.auditrepository;
-CREATE TABLE auditrepo.auditrepository
+DROP DATABASE IF EXISTS auditrepo;
+FLUSH PRIVILEGES;
+
+CREATE DATABASE auditrepo;
+
+CREATE TABLE IF NOT EXISTS auditrepo.auditrepository
 (
     id BIGINT NOT NULL AUTO_INCREMENT,
     audit_timestamp DATETIME,
@@ -17,5 +21,4 @@ CREATE TABLE auditrepo.auditrepository
     UNIQUE UQ_eventlog_id(id)
 );
 
-
-
+GRANT SELECT,INSERT,UPDATE,DELETE ON auditrepo.* to nhincuser;

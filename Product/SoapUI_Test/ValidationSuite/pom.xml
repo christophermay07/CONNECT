@@ -373,8 +373,25 @@
                                 </goals>
                                 <configuration>
                                     <srcFiles>
+										<!-- Drop database and recreate user -->
                                         <srcFile>${project.build.directory}/DBScripts/nhincdb/dropall.sql</srcFile>
-                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/nhincdb.sql</srcFile>
+										<srcFile>${project.build.directory}/DBScripts/nhincdb/nhincdb.sql</srcFile>
+										
+										<!-- Recreate individual databases -->
+										<srcFile>${project.build.directory}/DBScripts/adminguidb/adminguidb.sql</srcFile>
+										<srcFile>${project.build.directory}/DBScripts/assigningauthoritydb/assigningauthoritydb.sql</srcFile>
+										<srcFile>${project.build.directory}/DBScripts/asyncmsgs/asyncmsgsdb.sql</srcFile>
+										<srcFile>${project.build.directory}/DBScripts/auditlog/auditRepository.sql</srcFile>
+										<srcFile>${project.build.directory}/DBScripts/configdb/configdb.sql</srcFile>
+										<srcFile>${project.build.directory}/DBScripts/DocumentRepository/DocumentRepository.sql</srcFile>
+										<srcFile>${project.build.directory}/DBScripts/eventdb/eventdb.sql</srcFile>
+										<srcFile>${project.build.directory}/DBScripts/logging/logging.sql</srcFile>
+										<srcFile>${project.build.directory}/DBScripts/messagemonitoringdb/messagemonitoringdb.sql</srcFile>
+										<srcFile>${project.build.directory}/DBScripts/PatientCorrelationDB/patientcorrelationdb.sql</srcFile>
+										<srcFile>${project.build.directory}/DBScripts/patientdb/patientdb.sql</srcFile>
+										<srcFile>${project.build.directory}/DBScripts/transrepo/transrepo.sql</srcFile>
+                                        
+										<!-- Test data (required for ValidationSuite -->
                                         <srcFile>${project.build.directory}/DBScripts/nhincdb/populateTestData.sql</srcFile>
                                     </srcFiles>
                                 </configuration>

@@ -6,8 +6,12 @@ This script was intended to be run on MySQL.
 Please see the DatabaseInstructions.txt file for database creation and configuration instructions.
 */
 
-DROP TABLE IF EXISTS docrepository.document CASCADE;
-CREATE TABLE docrepository.document (
+DROP DATABASE IF EXISTS docrepository;
+FLUSH PRIVILEGES;
+
+CREATE DATABASE docrepository;
+
+CREATE TABLE IF NOT EXISTS docrepository.document (
   documentid int(11) NOT NULL,
   DocumentUniqueId varchar(64) NOT NULL,
   DocumentTitle varchar(128) default NULL,
@@ -64,8 +68,7 @@ CREATE TABLE docrepository.document (
   PRIMARY KEY  (documentid)
 );
 
-DROP TABLE IF EXISTS docrepository.eventcode CASCADE;
-CREATE TABLE docrepository.eventcode (
+CREATE TABLE IF NOT EXISTS docrepository.eventcode (
   eventcodeid int(11) NOT NULL,
   documentid int(11) NOT NULL COMMENT 'Foreign key to document table',
   EventCode varchar(64) default NULL,
@@ -73,3 +76,5 @@ CREATE TABLE docrepository.eventcode (
   EventCodeDisplayName varchar(64) default NULL,
   PRIMARY KEY  (eventcodeid)
 );
+
+GRANT SELECT,INSERT,UPDATE,DELETE ON docrepository.* to nhincuser;

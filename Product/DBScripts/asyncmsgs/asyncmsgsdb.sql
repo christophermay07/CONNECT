@@ -1,4 +1,7 @@
-DROP TABLE IF EXISTS asyncmsgs.asyncmsgrepo;
+DROP DATABASE IF EXISTS asyncmsgs;
+FLUSH PRIVILEGES;
+
+CREATE DATABASE asyncmsgs;
 
 CREATE TABLE IF NOT EXISTS asyncmsgs.asyncmsgrepo (
     Id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -17,3 +20,5 @@ CREATE TABLE IF NOT EXISTS asyncmsgs.asyncmsgrepo (
     AckData LONGBLOB NULL DEFAULT NULL,
     PRIMARY KEY (Id)
 );
+
+GRANT SELECT,INSERT,UPDATE,DELETE ON asyncmsgs.* to nhincuser;

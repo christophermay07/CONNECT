@@ -1,4 +1,6 @@
--- begin configdb
+DROP DATABASE IF EXISTS perfrepo;
+FLUSH PRIVILEGES;
+
 CREATE DATABASE configdb;
 
 -- -----------------------------------------------------
@@ -207,7 +209,6 @@ CREATE TABLE IF NOT EXISTS configdb.dnsrecord (
 );
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON configdb.* to nhincuser;
--- end configdb
 
 -- -----------------------------------------------------
 -- The following is a workaround that is required for

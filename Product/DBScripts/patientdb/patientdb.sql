@@ -1,17 +1,12 @@
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+DROP DATABASE IF EXISTS patientdb;
+FLUSH PRIVILEGES;
 
-DROP SCHEMA IF EXISTS `patientdb` ;
-CREATE SCHEMA IF NOT EXISTS `patientdb`;
-USE `patientdb` ;
+CREATE DATABASE patientdb;
 
 -- -----------------------------------------------------
 -- Table `patientdb`.`patient`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS patientdb.patient;
-
-CREATE TABLE patientdb.patient (
+CREATE TABLE IF NOT EXISTS patientdb.patient (
   patientId BIGINT NOT NULL AUTO_INCREMENT,
   dateOfBirth DATE NULL,
   gender CHAR(2) NULL,
@@ -20,13 +15,10 @@ CREATE TABLE patientdb.patient (
   UNIQUE INDEX patientId_UNIQUE (patientId ASC) )
 COMMENT = 'Patient Repository';
 
-
 -- -----------------------------------------------------
 -- Table `patientdb`.`identifier`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS patientdb.identifier;
-
-CREATE TABLE patientdb.identifier (
+CREATE TABLE IF NOT EXISTS patientdb.identifier (
   identifierId BIGINT NOT NULL AUTO_INCREMENT,
   patientId BIGINT NOT NULL,
   id VARCHAR(64) NULL,
@@ -41,13 +33,10 @@ CREATE TABLE patientdb.identifier (
     ON UPDATE NO ACTION)
 COMMENT = 'Identifier definitions';
 
-
 -- -----------------------------------------------------
 -- Table `patientdb`.`personname`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS patientdb.personname;
-
-CREATE TABLE patientdb.personname (
+CREATE TABLE IF NOT EXISTS patientdb.personname (
   personnameId BIGINT NOT NULL AUTO_INCREMENT,
   patientId BIGINT NOT NULL,
   prefix VARCHAR(64) NULL,
@@ -65,13 +54,10 @@ CREATE TABLE patientdb.personname (
     ON UPDATE NO ACTION)
 COMMENT = 'Person Names';
 
-
 -- -----------------------------------------------------
 -- Table `patientdb`.`address`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS patientdb.address;
-
-CREATE TABLE patientdb.address (
+CREATE TABLE IF NOT EXISTS patientdb.address (
   addressId BIGINT NOT NULL AUTO_INCREMENT,
   patientId BIGINT NOT NULL,
   street1 VARCHAR(128) NULL,
@@ -89,13 +75,10 @@ CREATE TABLE patientdb.address (
     ON UPDATE NO ACTION)
 COMMENT = 'Addresses';
 
-
 -- -----------------------------------------------------
 -- Table `patientdb`.`phonenumber`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS patientdb.phonenumber;
-
-CREATE TABLE patientdb.phonenumber (
+CREATE TABLE IF NOT EXISTS patientdb.phonenumber (
   phonenumberId BIGINT NOT NULL AUTO_INCREMENT,
   patientId BIGINT NOT NULL,
   value VARCHAR(64) NULL,
@@ -109,6 +92,4 @@ CREATE TABLE patientdb.phonenumber (
     ON UPDATE NO ACTION)
 COMMENT = 'Phone Numbers';
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+GRANT SELECT,INSERT,UPDATE,DELETE ON patientdb.* to nhincuser;

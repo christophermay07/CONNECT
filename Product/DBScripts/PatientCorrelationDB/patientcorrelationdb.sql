@@ -8,8 +8,12 @@
 -- Table structure for table `patientcorrelationdb.correlatedidentifiers`
 --
 
-DROP TABLE IF EXISTS patientcorrelationdb.correlatedidentifiers;
-CREATE TABLE patientcorrelationdb.correlatedidentifiers (
+DROP DATABASE IF EXISTS patientcorrelationdb;
+FLUSH PRIVILEGES;
+
+CREATE DATABASE patientcorrelationdb;
+
+CREATE TABLE IF NOT EXISTS patientcorrelationdb.correlatedidentifiers (
   correlationId int(10) unsigned NOT NULL auto_increment,
   PatientAssigningAuthorityId varchar(64) NOT NULL,
   PatientId varchar(128) NOT NULL,
@@ -19,8 +23,7 @@ CREATE TABLE patientcorrelationdb.correlatedidentifiers (
   PRIMARY KEY  (correlationId)
 );
 
-DROP TABLE IF EXISTS patientcorrelationdb.pddeferredcorrelation;
-CREATE TABLE patientcorrelationdb.pddeferredcorrelation (
+CREATE TABLE IF NOT EXISTS patientcorrelationdb.pddeferredcorrelation (
   Id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   MessageId VARCHAR(100) NOT NULL,
   AssigningAuthorityId varchar(64) NOT NULL,
@@ -28,3 +31,5 @@ CREATE TABLE patientcorrelationdb.pddeferredcorrelation (
   CreationTime DATETIME NOT NULL,
   PRIMARY KEY (Id)
 );
+
+GRANT SELECT,INSERT,UPDATE,DELETE ON patientcorrelationdb.* to nhincuser;
