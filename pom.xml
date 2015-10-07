@@ -28,8 +28,9 @@ By advancing the adoption of interoperable health IT systems and health informat
         <connect.webservices.version>4.3.0-SNAPSHOT</connect.webservices.version>
         <connect.commontypes.version>4.3.0-SNAPSHOT</connect.commontypes.version>
         <cxf.version>2.7.3</cxf.version>
-        <spring.version>3.0.7.RELEASE</spring.version>
-        <slf4j.version>1.7.0</slf4j.version>
+        <!--cxf.version>2.7.17</cxf.version-->
+        <spring.version>3.2.14.RELEASE</spring.version>
+        <slf4j.version>1.7.12</slf4j.version>
         <openam.version>10.0.1</openam.version>
 
         <!-- SCA and Reporting Plugin Versions -->
