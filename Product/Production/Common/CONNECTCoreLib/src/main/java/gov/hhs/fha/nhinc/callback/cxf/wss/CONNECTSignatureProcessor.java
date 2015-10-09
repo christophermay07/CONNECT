@@ -26,28 +26,24 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf.wss;
 
+import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.util.Base64Coder;
-
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
-
 import javax.activation.DataHandler;
-
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.message.Attachment;
 import org.apache.log4j.Logger;
-import org.apache.ws.security.WSDocInfo;
-import org.apache.ws.security.WSSecurityEngineResult;
-import org.apache.ws.security.WSSecurityException;
-import org.apache.ws.security.handler.RequestData;
-import org.apache.ws.security.processor.SignatureProcessor;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.dom.WSDocInfo;
+import org.apache.wss4j.dom.WSSecurityEngineResult;
+import org.apache.wss4j.dom.handler.RequestData;
+import org.apache.wss4j.dom.processor.SignatureProcessor;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-
-import com.google.common.base.Optional;
 
 /**
  * This class will process the signature element of the Security header. It inherits from the default SignatureProcessor
@@ -89,7 +85,8 @@ public class CONNECTSignatureProcessor extends SignatureProcessor {
             inlineSignatureValueIncludes(signatureElem, attachments);
 
         } catch (IOException ioe) {
-            throw new WSSecurityException("Failed to inline attachments to signature.", ioe);
+            throw new WSSecurityException(WSSecurityException.ErrorCode.FAILURE, ioe,
+                "Failed to inline attachments to signature.");
         }
     }
 

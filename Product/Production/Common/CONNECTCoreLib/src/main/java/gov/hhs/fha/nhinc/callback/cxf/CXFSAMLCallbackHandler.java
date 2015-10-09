@@ -32,24 +32,17 @@ import gov.hhs.fha.nhinc.callback.openSAML.HOKSAMLAssertionBuilder;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-
 import java.io.IOException;
 import java.util.Map;
-
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
-
-import org.apache.log4j.Logger;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.PhaseInterceptorChain;
-import org.apache.ws.security.saml.ext.SAMLCallback;
-import org.opensaml.common.SAMLVersion;
+import org.apache.log4j.Logger;
+import org.apache.wss4j.common.saml.SAMLCallback;
+import org.apache.wss4j.common.saml.bean.Version;
 
-/**
- * @author mweaver
- *
- */
 public class CXFSAMLCallbackHandler implements CallbackHandler {
 
     private static final Logger LOG = Logger.getLogger(CXFSAMLCallbackHandler.class);
@@ -88,7 +81,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
                     SAMLCallback oSAMLCallback = (SAMLCallback) callback;
 
-                    oSAMLCallback.setSamlVersion(SAMLVersion.VERSION_20);
+                    oSAMLCallback.setSamlVersion(Version.SAML_20);
 
                     SamlTokenCreator creator = new SamlTokenCreator();
 

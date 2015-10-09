@@ -28,12 +28,10 @@ package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.properties.PropertyAccessorFileUtilities;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
-import org.apache.ws.security.handler.WSHandlerConstants;
+import org.apache.wss4j.dom.handler.WSHandlerConstants;
 
 /**
  * @author akong
@@ -84,14 +82,13 @@ public class WsSecurityConfigFactory {
 
     private HashMap<String, Object> createWSSecurityConfiguration() {
 
-        HashMap<String, Object> outProps = new HashMap<String, Object>();
+        HashMap<String, Object> outProps = new HashMap<>();
 
         outProps.put(WSHandlerConstants.ACTION, "Timestamp SAMLTokenSigned");
         outProps.put(WSHandlerConstants.TTL_TIMESTAMP, "3600");
         outProps.put(WSHandlerConstants.USER, getIssuerKeyAlias());
         outProps.put(WSHandlerConstants.PW_CALLBACK_CLASS, "gov.hhs.fha.nhinc.callback.cxf.CXFPasswordCallbackHandler");
         outProps.put(WSHandlerConstants.PASSWORD_TYPE, "PasswordDigest");
-        outProps.put(WSHandlerConstants.SAML_PROP_FILE, "saml.properties");
         outProps.put("cryptoProperties", getSignatureProperties());
         outProps.put(WSHandlerConstants.SIG_PROP_REF_ID, "cryptoProperties");
         outProps.put(WSHandlerConstants.SIG_ALGO, "http://www.w3.org/2000/09/xmldsig#rsa-sha1");
@@ -111,7 +108,7 @@ public class WsSecurityConfigFactory {
     }
 
     private Map<String, Object> deepCopy(HashMap<String, Object> configMap) {
-        HashMap<String, Object> clonedMap = new HashMap<String, Object>(configMap);
+        HashMap<String, Object> clonedMap = new HashMap<>(configMap);
 
         Properties cryptoProperties = (Properties) clonedMap.get("cryptoProperties");
         clonedMap.put("cryptoProperties", cryptoProperties.clone());

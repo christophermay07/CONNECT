@@ -26,20 +26,17 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf.wss;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import javax.xml.namespace.QName;
-
 import gov.hhs.fha.nhinc.callback.SamlConstants;
-
+import javax.xml.namespace.QName;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.message.MessageImpl;
 import org.apache.cxf.phase.Phase;
 import org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor;
-import org.apache.ws.security.WSSConfig;
-import org.apache.ws.security.WSSecurityException;
-import org.apache.ws.security.processor.Processor;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.dom.WSSConfig;
+import org.apache.wss4j.dom.processor.Processor;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -69,7 +66,7 @@ public class SecurityConfigInInterceptorTest {
     @Test
     public void verifySecurityConfigWithPresetWSSConfig() throws WSSecurityException {
         Message msg = new MessageImpl();
-        msg.setContextualProperty(WSSConfig.class.getName(), WSSConfig.getNewInstance());
+        msg.put(WSSConfig.class.getName(), WSSConfig.getNewInstance());
 
         SecurityConfigInInterceptor interceptor = new SecurityConfigInInterceptor();
         interceptor.handleMessage(msg);

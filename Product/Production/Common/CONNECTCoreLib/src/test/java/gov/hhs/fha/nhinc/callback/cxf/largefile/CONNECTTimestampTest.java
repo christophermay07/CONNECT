@@ -26,21 +26,19 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf.largefile;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.util.AbstractSuppressRootLoggerTest;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-
-import org.apache.ws.security.WSConstants;
-import org.apache.ws.security.WSSecurityException;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.dom.WSConstants;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
@@ -74,14 +72,10 @@ public class CONNECTTimestampTest extends AbstractSuppressRootLoggerTest{
 		when(createdTimeElement.getNextSibling()).thenReturn(
 				expiresTimeElement, node);
 		when(expiresTimeElement.getNodeType()).thenReturn(Node.ELEMENT_NODE);
-		when(createdTimeElement.getLocalName()).thenReturn(
-				WSConstants.CREATED_LN);
-		when(createdTimeElement.getNamespaceURI()).thenReturn(
-				WSConstants.WSU_NS);
-		when(expiresTimeElement.getLocalName()).thenReturn(
-				WSConstants.EXPIRES_LN);
-		when(expiresTimeElement.getNamespaceURI()).thenReturn(
-				WSConstants.WSU_NS);
+        when(createdTimeElement.getLocalName()).thenReturn(WSConstants.CREATED_LN);
+        when(createdTimeElement.getNamespaceURI()).thenReturn(WSConstants.WSU_NS);
+        when(expiresTimeElement.getLocalName()).thenReturn(WSConstants.EXPIRES_LN);
+        when(expiresTimeElement.getNamespaceURI()).thenReturn(WSConstants.WSU_NS);
 
 		when(createdTimeElement.getFirstChild()).thenReturn(dateTextNode);
 		when(expiresTimeElement.getFirstChild()).thenReturn(dateTextNode);
@@ -90,12 +84,10 @@ public class CONNECTTimestampTest extends AbstractSuppressRootLoggerTest{
 	}
 
 	@Test
-	public void testIsExpired_False() throws WSSecurityException,
-			ParseException {
+    public void testIsExpired_False() throws WSSecurityException, ParseException {
 		Date invocationDate = dateFormat.parse(BEFORE_EXPIRE_TIME);
 
-		CONNECTTimestamp connectTimestamp = new CONNECTTimestamp(
-				timestampElement);
+        CONNECTTimestamp connectTimestamp = new CONNECTTimestamp(timestampElement);
 		boolean result = connectTimestamp.isExpired(invocationDate);
 
 		assertFalse(result);
@@ -105,20 +97,17 @@ public class CONNECTTimestampTest extends AbstractSuppressRootLoggerTest{
 	public void testIsExpired_True() throws ParseException, WSSecurityException {
 		Date invocationDate = dateFormat.parse(AFTER_EXPIRE_TIME);
 
-		CONNECTTimestamp connectTimestamp = new CONNECTTimestamp(
-				timestampElement);
+        CONNECTTimestamp connectTimestamp = new CONNECTTimestamp(timestampElement);
 		boolean result = connectTimestamp.isExpired(invocationDate);
 
 		assertTrue(result);
 	}
 
 	@Test
-	public void testVerifyCreated_Pass() throws ParseException,
-			WSSecurityException {
+    public void testVerifyCreated_Pass() throws ParseException, WSSecurityException {
 		Date invocationDate = dateFormat.parse(INVOCATION_HAPPY_PATH);
 
-		CONNECTTimestamp connectTimestamp = new CONNECTTimestamp(
-				timestampElement);
+        CONNECTTimestamp connectTimestamp = new CONNECTTimestamp(timestampElement);
 
 		boolean result = connectTimestamp.verifyCreated(2, 2, invocationDate);
 
@@ -130,8 +119,7 @@ public class CONNECTTimestampTest extends AbstractSuppressRootLoggerTest{
 			throws ParseException, WSSecurityException {
 		Date invocationDate = dateFormat.parse(INVOCATION_FUTURE_ERROR_TIME);
 
-		CONNECTTimestamp connectTimestamp = new CONNECTTimestamp(
-				timestampElement);
+        CONNECTTimestamp connectTimestamp = new CONNECTTimestamp(timestampElement);
 
 		boolean result = connectTimestamp.verifyCreated(2, 2, invocationDate);
 
@@ -139,12 +127,10 @@ public class CONNECTTimestampTest extends AbstractSuppressRootLoggerTest{
 	}
 
 	@Test
-	public void testVerifyCreated_Fail_CreatedTimeInPast()
-			throws ParseException, WSSecurityException {
+    public void testVerifyCreated_Fail_CreatedTimeInPast() throws ParseException, WSSecurityException {
 		Date invocationDate = dateFormat.parse(INVOCATION_OLD_ERROR_TIME);
 
-		CONNECTTimestamp connectTimestamp = new CONNECTTimestamp(
-				timestampElement);
+        CONNECTTimestamp connectTimestamp = new CONNECTTimestamp(timestampElement);
 
 		boolean result = connectTimestamp.verifyCreated(0, 2, invocationDate);
 

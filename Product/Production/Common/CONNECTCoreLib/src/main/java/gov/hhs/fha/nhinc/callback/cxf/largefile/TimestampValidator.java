@@ -29,19 +29,17 @@ package gov.hhs.fha.nhinc.callback.cxf.largefile;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import java.util.Date;
-
-import org.apache.log4j.Logger;
 import org.apache.cxf.message.Message;
-import org.apache.ws.security.WSSConfig;
-import org.apache.ws.security.WSSecurityException;
-import org.apache.ws.security.handler.RequestData;
-import org.apache.ws.security.validate.Credential;
-import org.apache.ws.security.validate.Validator;
+import org.apache.log4j.Logger;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.dom.WSSConfig;
+import org.apache.wss4j.dom.handler.RequestData;
+import org.apache.wss4j.dom.validate.Credential;
+import org.apache.wss4j.dom.validate.Validator;
 
 /**
- * This class replaces the default WSS4J TimestampValidator (org.apache.ws.security.validate.TimestampValidator). The
+ * This class replaces the default WSS4J TimestampValidator (org.apache.wss4j.dom.validate.TimestampValidator). The
  * validation logic was copied from that class but modified to use a passed in time from the Message Context. This
  * passed in time needs to be set by a CXF interceptor before validation is to occur. In addition, this class will
  * prefer configuration from the CONNECT gateway properties file instead of CXF.
@@ -61,12 +59,13 @@ public class TimestampValidator implements Validator {
      * @param data the RequestData associated with the request
      * @throws WSSecurityException on a failed validation
      */
+    @Override
     public Credential validate(Credential credential, RequestData data) throws WSSecurityException {
         if (credential == null || credential.getTimestamp() == null) {
-            throw new WSSecurityException(WSSecurityException.FAILURE, "noCredential");
+            throw new WSSecurityException(WSSecurityException.ErrorCode.FAILURE, "noCredential");
         }
         if (data.getWssConfig() == null) {
-            throw new WSSecurityException("WSSConfig cannot be null");
+            throw new WSSecurityException(WSSecurityException.ErrorCode.FAILURE, "WSSConfig cannot be null");
         }
         WSSConfig wssConfig = data.getWssConfig();
         boolean timeStampStrict = true;
@@ -95,8 +94,8 @@ public class TimestampValidator implements Validator {
         // Validate whether the security semantics have expired
         if ((timeStampStrict && timeStamp.isExpired(invocationTime))
                 || !timeStamp.verifyCreated(timeStampTTL, futureTimeToLive, invocationTime)) {
-            throw new WSSecurityException(WSSecurityException.MESSAGE_EXPIRED, "invalidTimestamp",
-                    new Object[] { "The security semantics of the message have expired" });
+            throw new WSSecurityException(WSSecurityException.ErrorCode.MESSAGE_EXPIRED, "invalidTimestamp",
+                new Object[]{"The security semantics of the message have expired"});
         }
         return credential;
     }

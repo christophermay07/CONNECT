@@ -26,21 +26,19 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
-import static org.junit.Assert.assertEquals;
-
-import javax.xml.ws.BindingProvider;
-
-import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
-import org.apache.cxf.ws.addressing.JAXWSAConstants;
-import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
-import org.junit.Test;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTTestClient;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
+import javax.xml.ws.BindingProvider;
+import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
+import org.apache.cxf.ws.addressing.AddressingProperties;
+import org.apache.cxf.ws.addressing.JAXWSAConstants;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import org.junit.Test;
 
 /**
  * @author akong
@@ -74,8 +72,8 @@ public class WsAddressingServiceEndpointDecoratorTest {
         CONNECTClient<TestServicePortType> client = createClient(null, null, assertion);
 
         BindingProvider bindingProviderPort = (BindingProvider) client.getPort();
-        AddressingPropertiesImpl addressingProps = (AddressingPropertiesImpl) bindingProviderPort.getRequestContext()
-                .get(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES);
+        AddressingProperties addressingProps = (AddressingProperties) bindingProviderPort.getRequestContext()
+            .get(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES);
 
         assertEquals(messageIdWithPrefix, addressingProps.getMessageID().getValue());
     }
@@ -92,13 +90,13 @@ public class WsAddressingServiceEndpointDecoratorTest {
 
         BindingProvider bindingProviderPort = (BindingProvider) client.getPort();
 
-        AddressingPropertiesImpl addressingProps = (AddressingPropertiesImpl) bindingProviderPort.getRequestContext()
-                .get(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES);
+        AddressingProperties addressingProps = (AddressingProperties) bindingProviderPort.getRequestContext()
+            .get(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES);
 
         assertEquals(wsAddressingTo, addressingProps.getTo().getValue());
         assertEquals(wsAddressingAction, addressingProps.getAction().getValue());
         assertEquals(messageId, addressingProps.getMessageID().getValue());
-        assertEquals(null, addressingProps.getRelatesTo());
+        assertNull(addressingProps.getRelatesTo());
     }
 
     @Test
@@ -113,8 +111,7 @@ public class WsAddressingServiceEndpointDecoratorTest {
 
         BindingProvider bindingProviderPort = (BindingProvider) client.getPort();
 
-        AddressingPropertiesImpl addressingProps = (AddressingPropertiesImpl) bindingProviderPort.getRequestContext()
-                .get(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES);
+        AddressingProperties addressingProps = (AddressingProperties) bindingProviderPort.getRequestContext()                .get(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES);
 
         assertEquals(wsAddressingTo, addressingProps.getTo().getValue());
         assertEquals(wsAddressingAction, addressingProps.getAction().getValue());
@@ -136,8 +133,7 @@ public class WsAddressingServiceEndpointDecoratorTest {
             String messageId, String relatesTo) {
         BindingProvider bindingProviderPort = (BindingProvider) client.getPort();
 
-        AddressingPropertiesImpl addressingProps = (AddressingPropertiesImpl) bindingProviderPort.getRequestContext()
-                .get(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES);
+        AddressingProperties addressingProps = (AddressingProperties) bindingProviderPort.getRequestContext()                .get(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES);
         HTTPClientPolicy httpClientPolicy = (HTTPClientPolicy) bindingProviderPort.getRequestContext().get(
                 HTTPClientPolicy.class.getName());
 
@@ -149,13 +145,13 @@ public class WsAddressingServiceEndpointDecoratorTest {
     }
 
     private CONNECTClient<TestServicePortType> createClient(String wsAddressingTo, String wsAddressingAction,
-            AssertionType assertion) {
-        CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<TestServicePortType>(
-                new TestServicePortDescriptor());
+        AssertionType assertion) {
+
+        CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<>(new TestServicePortDescriptor());
 
         ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
-        serviceEndpoint = new WsAddressingServiceEndpointDecorator<TestServicePortType>(serviceEndpoint,
-                wsAddressingTo, wsAddressingAction, assertion);
+        serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo,
+            wsAddressingAction, assertion);
         serviceEndpoint.configure();
 
         return testClient;
