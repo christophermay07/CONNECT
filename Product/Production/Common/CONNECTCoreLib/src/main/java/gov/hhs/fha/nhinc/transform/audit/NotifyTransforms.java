@@ -39,7 +39,8 @@ import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.ByteArrayOutputStream;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -47,7 +48,7 @@ import org.apache.log4j.Logger;
  */
 public class NotifyTransforms {
 
-    private static final Logger LOG = Logger.getLogger(NotifyTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NotifyTransforms.class);
 
     public LogEventRequestType transformNhinNotifyRequestToAuditMessage(LogNhinNotifyRequestType message) {
         LogEventRequestType response = new LogEventRequestType();

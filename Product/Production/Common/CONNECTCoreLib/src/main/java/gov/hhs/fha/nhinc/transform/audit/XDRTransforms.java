@@ -48,7 +48,8 @@ import javax.xml.bind.Marshaller;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -56,7 +57,7 @@ import org.apache.log4j.Logger;
  */
 public class XDRTransforms {
 
-    private static final Logger LOG = Logger.getLogger(XDRTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XDRTransforms.class);
 
     public LogEventRequestType transformRequestToAuditMsg(ProvideAndRegisterDocumentSetRequestType request,
         AssertionType assertion, NhinTargetSystemType target, String direction, String _interface) {

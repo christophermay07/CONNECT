@@ -39,7 +39,8 @@ import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -47,7 +48,7 @@ import org.apache.log4j.Logger;
  */
 public class DocQueryAuditLog {
 
-    private static final Logger LOG = Logger.getLogger(DocQueryAuditLog.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DocQueryAuditLog.class);
 
     AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
     AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();

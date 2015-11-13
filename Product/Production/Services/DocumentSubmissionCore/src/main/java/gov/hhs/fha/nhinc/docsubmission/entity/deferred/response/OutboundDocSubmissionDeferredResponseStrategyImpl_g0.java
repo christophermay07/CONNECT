@@ -38,7 +38,8 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -46,7 +47,7 @@ import org.apache.log4j.Logger;
  */
 public class OutboundDocSubmissionDeferredResponseStrategyImpl_g0 implements OrchestrationStrategy {
 
-    private static final Logger LOG = Logger.getLogger(OutboundDocSubmissionDeferredResponseStrategyImpl_g0.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundDocSubmissionDeferredResponseStrategyImpl_g0.class);
 
     protected NhinDocSubmissionDeferredResponseProxy getNhinDocSubmissionDeferredResponseProxy() {
         return new NhinDocSubmissionDeferredResponseProxyObjectFactory().getNhinDocSubmissionDeferredResponseProxy();

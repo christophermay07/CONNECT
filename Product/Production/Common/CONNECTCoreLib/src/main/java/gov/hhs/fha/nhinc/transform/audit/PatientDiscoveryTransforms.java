@@ -47,7 +47,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -77,7 +78,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 public class PatientDiscoveryTransforms {
 
     private static final String JAXB_HL7_CONTEXT_NAME = "org.hl7.v3";
-    private static final Logger LOG = Logger.getLogger(PatientDiscoveryTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientDiscoveryTransforms.class);
 
     /**
      * This method tranforms a patient discovery request into an audit log message but it leaves the direction decision

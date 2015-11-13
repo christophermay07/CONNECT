@@ -48,7 +48,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectRefType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -56,7 +57,7 @@ import org.apache.log4j.Logger;
  */
 public class DocumentQueryTransforms {
 
-    private static final Logger LOG = Logger.getLogger(DocumentQueryTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DocumentQueryTransforms.class);
     private static final String PATIENT_ID_SLOT = "$XDSDocumentEntryPatientId";
 
     public DocumentQueryTransforms() {

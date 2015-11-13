@@ -44,7 +44,8 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 
 /**
@@ -54,7 +55,7 @@ import org.oasis_open.docs.wsn.b_2.Subscribe;
  */
 public class SubscribeTransforms {
 
-    private static final Logger LOG = Logger.getLogger(SubscribeTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SubscribeTransforms.class);
     private static final String SLOT_NAME_PATIENT_ID = "$XDSDocumentEntryPatientId";
 
     public LogEventRequestType transformNhinSubscribeRequestToAuditMessage(LogNhinSubscribeRequestType message) {

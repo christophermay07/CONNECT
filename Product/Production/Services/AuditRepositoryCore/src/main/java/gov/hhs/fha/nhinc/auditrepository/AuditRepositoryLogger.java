@@ -80,7 +80,8 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -94,7 +95,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
  */
 public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLogger  {
 
-    private static final Logger LOG = Logger.getLogger(AuditRepositoryLogger.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryLogger.class);
     private final PatientDiscoveryTransforms pdAuditTransformer = new PatientDiscoveryTransforms();
     private final XDRTransforms xdrAuditTransformer = new XDRTransforms();
     private final AdminDistTransforms adAuditTransformer = new AdminDistTransforms();

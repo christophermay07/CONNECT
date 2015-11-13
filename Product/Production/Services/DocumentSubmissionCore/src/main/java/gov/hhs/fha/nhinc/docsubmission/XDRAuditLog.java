@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.docsubmission;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
@@ -42,7 +43,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegi
  * @author dunnek
  */
 public class XDRAuditLog {
-    private static final Logger LOG = Logger.getLogger(XDRAuditLog.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XDRAuditLog.class);
 
     public AcknowledgementType auditProxyRequest(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {

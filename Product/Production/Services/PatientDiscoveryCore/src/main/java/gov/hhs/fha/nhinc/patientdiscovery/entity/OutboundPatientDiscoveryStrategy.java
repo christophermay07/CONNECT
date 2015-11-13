@@ -34,7 +34,8 @@ import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -44,7 +45,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationStrategy {
 
-    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryStrategy.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundPatientDiscoveryStrategy.class);
 
     /*
      * (non-Javadoc)

@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.docsubmission;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
@@ -47,7 +48,7 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  */
 public class XDRAuditLogger {
 
-    private static final Logger LOG = Logger.getLogger(XDRAuditLogger.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XDRAuditLogger.class);
 
     /**
      * This method creates the generic Audit Log message for a NHIN XDR Request

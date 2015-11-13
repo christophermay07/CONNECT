@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
@@ -48,7 +49,7 @@ import java.util.List;
  * @author MFLYNN02
  */
 public class DocumentRetrieveTransforms {
-    private static final Logger LOG = Logger.getLogger(DocumentRetrieveTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DocumentRetrieveTransforms.class);
 
     /**
      *
