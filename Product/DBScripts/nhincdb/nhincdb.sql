@@ -609,9 +609,6 @@ CREATE TABLE IF NOT EXISTS messagemonitoringdb.monitoredmessagenotification (
 GRANT SELECT,INSERT,UPDATE,DELETE ON messagemonitoringdb.* to nhincuser;
 -- end message monitoring db
 
-GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'localhost' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'127.0.0.1' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'{host name}' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
 -- -----------------------------------------------------
