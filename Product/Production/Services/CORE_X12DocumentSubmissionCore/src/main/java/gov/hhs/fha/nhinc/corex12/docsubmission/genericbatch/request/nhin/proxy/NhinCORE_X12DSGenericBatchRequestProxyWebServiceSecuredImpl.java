@@ -46,9 +46,11 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  *
  * @author svalluripalli
  */
-public class NhinCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl implements NhinCORE_X12DSGenericBatchRequestProxy {
+public class NhinCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl implements
+    NhinCORE_X12DSGenericBatchRequestProxy {
 
-    private static final Logger LOG = LoggerFactory.getLogger(NhinCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(
+        NhinCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper proxyHelper = null;
 
     /**
@@ -75,11 +77,13 @@ public class NhinCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl impleme
      * @return COREEnvelopeBatchSubmissionResponse
      */
     @Override
-    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        LOG.info("Begin NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl.batchSubmitTransaction()");
+    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg,
+        AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+        LOG.info("Begin NhinCORE_X12DSGenericBatchRequestWebServiceSecuredImpl.batchSubmitTransaction()");
         COREEnvelopeBatchSubmissionResponse response = null;
         String targetHCID = null;
-        if (targetSystem != null && targetSystem.getHomeCommunity() != null && targetSystem.getHomeCommunity().getHomeCommunityId() != null) {
+        if (targetSystem != null && targetSystem.getHomeCommunity() != null
+            && targetSystem.getHomeCommunity().getHomeCommunityId() != null) {
             targetHCID = targetSystem.getHomeCommunity().getHomeCommunityId();
         }
         try {
@@ -87,7 +91,8 @@ public class NhinCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl impleme
                 NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME, apiLevel);
             if ((url != null) && (!url.isEmpty())) {
                 CORE_X12DSLargePayloadUtils.convertFileLocationToDataIfEnabled(msg);
-                ServicePortDescriptor<GenericBatchTransactionPort> portDescriptor = new NhinCORE_X12DSGenericBatchResponseServicePortDescriptor();
+                ServicePortDescriptor<GenericBatchTransactionPort> portDescriptor
+                    = new NhinCORE_X12DSGenericBatchResponseServicePortDescriptor();
                 CONNECTClient<GenericBatchTransactionPort> client = getCONNECTClientSecured(portDescriptor, assertion,
                     url, targetHCID, NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME);
                 client.enableMtom();
@@ -107,7 +112,7 @@ public class NhinCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl impleme
             response = CORE_X12DSEntityExceptionBuilder.createWebServiceErrorResponse(msg, ex.getMessage());
             return response;
         }
-        LOG.info("End NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl.batchSubmitTransaction()");
+        LOG.info("End NhinCORE_X12DSGenericBatchRequestWebServiceSecuredImpl.batchSubmitTransaction()");
         return response;
     }
 }

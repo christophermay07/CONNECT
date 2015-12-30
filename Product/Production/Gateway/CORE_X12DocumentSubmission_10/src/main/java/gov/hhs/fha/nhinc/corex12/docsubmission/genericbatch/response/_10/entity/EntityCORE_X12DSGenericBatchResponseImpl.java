@@ -54,7 +54,8 @@ public class EntityCORE_X12DSGenericBatchResponseImpl extends CORE_X12DSEntityEx
      *
      * @param outboundCORE_X12DSGenericBatchResponse
      */
-    public EntityCORE_X12DSGenericBatchResponseImpl(OutboundCORE_X12DSGenericBatchResponse outboundCORE_X12DSGenericBatchResponse) {
+    public EntityCORE_X12DSGenericBatchResponseImpl(
+        OutboundCORE_X12DSGenericBatchResponse outboundCORE_X12DSGenericBatchResponse) {
         this.outboundCORE_X12DSGenericBatchResponse = outboundCORE_X12DSGenericBatchResponse;
     }
 
@@ -64,12 +65,18 @@ public class EntityCORE_X12DSGenericBatchResponseImpl extends CORE_X12DSEntityEx
      * @param context
      * @return RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType
      */
-    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType body, WebServiceContext context) {
+    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType batchSubmitTransaction(
+        RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType body, WebServiceContext context) {
+
         AssertionType assertion = getAssertion(context, null);
-        COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse = callOutboundBatchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), assertion, body.getNhinTargetCommunities());
-        RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType oResponse = new RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType();
+        COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse
+            = callOutboundBatchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), assertion,
+                body.getNhinTargetCommunities());
+        RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType oResponse
+            = new RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType();
         oResponse.setCOREEnvelopeBatchSubmissionResponse(oBatchSubmissionResponse);
         return oResponse;
+
     }
 
     /**
@@ -78,18 +85,29 @@ public class EntityCORE_X12DSGenericBatchResponseImpl extends CORE_X12DSEntityEx
      * @param context
      * @return RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType
      */
-    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionRequestType body, WebServiceContext context) {
-        COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse = callOutboundBatchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), body.getAssertion(), body.getNhinTargetCommunities());
-        RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType oResponse = new RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType();
+    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType batchSubmitTransaction(
+        RespondingGatewayCrossGatewayBatchSubmissionRequestType body, WebServiceContext context) {
+
+        COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse
+            = callOutboundBatchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), body.getAssertion(),
+                body.getNhinTargetCommunities());
+        RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType oResponse
+            = new RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType();
         oResponse.setCOREEnvelopeBatchSubmissionResponse(oBatchSubmissionResponse);
         return oResponse;
+
     }
 
-    private COREEnvelopeBatchSubmissionResponse callOutboundBatchSubmitTransaction(COREEnvelopeBatchSubmission oCOREEnvelopeBatchSubmission, AssertionType assertion, NhinTargetCommunitiesType target) {
+    private COREEnvelopeBatchSubmissionResponse callOutboundBatchSubmitTransaction(
+        COREEnvelopeBatchSubmission oCOREEnvelopeBatchSubmission, AssertionType assertion,
+        NhinTargetCommunitiesType target) {
+
         COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse = null;
         try {
             if (null != HomeCommunityMap.getCommunityIdFromTargetCommunities(target) && HomeCommunityMap.getCommunityIdFromTargetCommunities(target).length() > 0) {
-                oBatchSubmissionResponse = outboundCORE_X12DSGenericBatchResponse.batchSubmitTransaction(oCOREEnvelopeBatchSubmission, assertion, target, null);
+                oBatchSubmissionResponse
+                    = outboundCORE_X12DSGenericBatchResponse.batchSubmitTransaction(oCOREEnvelopeBatchSubmission,
+                        assertion, target, null);
             } else {
                 oBatchSubmissionResponse = new COREEnvelopeBatchSubmissionResponse();
                 buildCOREEnvelopeGenericBatchErrorResponse(oCOREEnvelopeBatchSubmission, oBatchSubmissionResponse);
@@ -98,5 +116,7 @@ public class EntityCORE_X12DSGenericBatchResponseImpl extends CORE_X12DSEntityEx
             LOG.error("Failed to send X12DS request to Nwhin. " + e);
         }
         return oBatchSubmissionResponse;
+
     }
+
 }

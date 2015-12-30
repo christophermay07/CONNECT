@@ -44,13 +44,19 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements OutboundCORE_X12DSGenericBatchRequest {
 
-    private final OutboundCORE_X12DSGenericBatchRequestDelegate dsDelegate
-        = new OutboundCORE_X12DSGenericBatchRequestDelegate();
+    private OutboundCORE_X12DSGenericBatchRequestDelegate dsDelegate = null;
     private CORE_X12BatchSubmissionAuditLogger auditLogger = null;
 
     public PassthroughOutboundCORE_X12DSGenericBatchRequest() {
         super();
         this.auditLogger = new CORE_X12BatchSubmissionAuditLogger();
+        this.dsDelegate = new OutboundCORE_X12DSGenericBatchRequestDelegate();
+    }
+
+    public PassthroughOutboundCORE_X12DSGenericBatchRequest(OutboundCORE_X12DSGenericBatchRequestDelegate dsDelegate,
+        CORE_X12BatchSubmissionAuditLogger auditLogger) {
+        this.auditLogger = auditLogger;
+        this.dsDelegate = dsDelegate;
     }
 
     /**

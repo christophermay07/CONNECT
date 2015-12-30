@@ -105,7 +105,7 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequestTest {
 
     private PassthroughOutboundCORE_X12DSGenericBatchRequest createGenericBatchRequest(
         final CORE_X12BatchSubmissionAuditLogger auditLogger) {
-        return new PassthroughOutboundCORE_X12DSGenericBatchRequest(mockDelegate) {
+        return new PassthroughOutboundCORE_X12DSGenericBatchRequest(mockDelegate, auditLogger) {
             @Override
             protected CORE_X12BatchSubmissionAuditLogger getAuditLogger() {
                 return auditLogger;

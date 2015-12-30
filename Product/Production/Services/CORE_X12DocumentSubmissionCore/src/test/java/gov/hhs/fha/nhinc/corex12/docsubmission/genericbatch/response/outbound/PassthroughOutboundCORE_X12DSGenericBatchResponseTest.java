@@ -111,16 +111,7 @@ public class PassthroughOutboundCORE_X12DSGenericBatchResponseTest {
 
     private PassthroughOutboundCORE_X12DSGenericBatchResponse createPassthruOutboundBatchResponse(
         final CORE_X12BatchSubmissionAuditLogger auditLogger) {
-        return new PassthroughOutboundCORE_X12DSGenericBatchResponse() {
-            @Override
-            protected CORE_X12BatchSubmissionAuditLogger getAuditLogger() {
-                return auditLogger;
-            }
-
-            @Override
-            protected OutboundCORE_X12DSGenericBatchResponseDelegate getDelegate() {
-                return mockDelegate;
-            }
+        return new PassthroughOutboundCORE_X12DSGenericBatchResponse(mockDelegate, auditLogger) {
 
             @Override
             protected OutboundCORE_X12DSGenericBatchResponseOrchestratable createOrchestratable(
