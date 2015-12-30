@@ -34,24 +34,23 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
  * @author svalluripalli
  */
 public class OutboundCORE_X12DSGenericBatchRequestFactory {
+
     private static OutboundCORE_X12DSGenericBatchRequestFactory instance;
 
     /**
      * Singleton Constructor
      */
-    private OutboundCORE_X12DSGenericBatchRequestFactory()
-    {
+    private OutboundCORE_X12DSGenericBatchRequestFactory() {
 
     }
 
     /**
      * returns a instance of OutboundCORE_X12DSGenericBatchRequestFactory
+     *
      * @return OutboundCORE_X12DSGenericBatchRequestFactory
      */
-    public static OutboundCORE_X12DSGenericBatchRequestFactory getInstance()
-    {
-        if(instance == null)
-        {
+    public static OutboundCORE_X12DSGenericBatchRequestFactory getInstance() {
+        if (instance == null) {
             instance = new OutboundCORE_X12DSGenericBatchRequestFactory();
         }
         return instance;

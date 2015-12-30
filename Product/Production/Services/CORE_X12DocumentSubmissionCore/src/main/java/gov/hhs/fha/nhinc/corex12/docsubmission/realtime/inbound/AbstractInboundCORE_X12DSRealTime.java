@@ -74,9 +74,9 @@ public abstract class AbstractInboundCORE_X12DSRealTime implements InboundCORE_X
     @Override
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg, AssertionType assertion,
         Properties webContextProperties) {
-        COREEnvelopeRealTimeResponse oResponsse = processCORE_X12DocSubmission(msg, assertion);
-        auditResponseToNhin(msg, oResponsse, assertion, webContextProperties);
-        return oResponsse;
+        COREEnvelopeRealTimeResponse oResponse = processCORE_X12DocSubmission(msg, assertion);
+        auditResponseToNhin(msg, oResponse, assertion, webContextProperties);
+        return oResponse;
     }
 
     /**
@@ -92,9 +92,9 @@ public abstract class AbstractInboundCORE_X12DSRealTime implements InboundCORE_X
         return proxy.realTimeTransaction(request, assertion);
     }
 
-    protected void auditResponseToNhin(COREEnvelopeRealTimeRequest request, COREEnvelopeRealTimeResponse oResponsse,
+    protected void auditResponseToNhin(COREEnvelopeRealTimeRequest request, COREEnvelopeRealTimeResponse oResponse,
         AssertionType assertion, Properties webContextProperties) {
-        getAuditLogger().auditResponseMessage(request, oResponsse, assertion, null,
+        getAuditLogger().auditResponseMessage(request, oResponse, assertion, null,
             NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
             webContextProperties, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
     }

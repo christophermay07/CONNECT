@@ -46,6 +46,10 @@ public class NhinCORE_X12DSGenericBatchResponse implements GenericBatchTransacti
     private WebServiceContext context;
     private InboundCORE_X12DSGenericBatchResponse inboundCORE_X12DSGenericBatchResponse;
 
+    /**
+     *
+     * @param context
+     */
     @Resource
     public void setContext(WebServiceContext context) {
         this.context = context;
@@ -68,5 +72,4 @@ public class NhinCORE_X12DSGenericBatchResponse implements GenericBatchTransacti
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission body) {
         return new NhinCORE_X12DSGenericBatchResponseImpl(inboundCORE_X12DSGenericBatchResponse).batchSubmitTransaction(body, context);
     }
-
 }

@@ -52,8 +52,12 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchRequest implements In
     /**
      *
      * @param adapterFactory
+     * @param auditLogger
      */
-    public AbstractInboundCORE_X12DSGenericBatchRequest(AdapterCORE_X12DSGenericBatchRequestProxyObjectFactory adapterFactory, CORE_X12BatchSubmissionAuditLogger auditLogger) {
+    public AbstractInboundCORE_X12DSGenericBatchRequest(
+        AdapterCORE_X12DSGenericBatchRequestProxyObjectFactory adapterFactory,
+        CORE_X12BatchSubmissionAuditLogger auditLogger) {
+
         oAdapterFactory = adapterFactory;
         this.auditLogger = auditLogger;
     }
@@ -71,6 +75,7 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchRequest implements In
      *
      * @param msg
      * @param assertion
+     * @param webContextProperties
      * @return COREEnvelopeBatchSubmissionResponse
      */
     @Override
@@ -102,8 +107,8 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchRequest implements In
     }
 
     protected void auditResponseToNhin(COREEnvelopeBatchSubmission request,
-        COREEnvelopeBatchSubmissionResponse oResponsse, AssertionType assertion, Properties webContextProperties) {
-        auditLogger.auditResponseMessage(request, oResponsse, assertion, null,
+        COREEnvelopeBatchSubmissionResponse oResponse, AssertionType assertion, Properties webContextProperties) {
+        auditLogger.auditResponseMessage(request, oResponse, assertion, null,
             NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
             webContextProperties, NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME);
     }

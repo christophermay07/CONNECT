@@ -58,11 +58,6 @@ public class EntityCORE_X12DSGenericBatchRequestSecured implements gov.hhs.fha.n
         this.outboundCORE_X12DSGenericBatchRequest = outboundCORE_X12DSGenericBatchRequest;
     }
 
-    /**
-     *
-     * @param body
-     * @return RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType
-     */
     @Override
     public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType body) {
         return new EntityCORE_X12DSGenericBatchRequestImpl(outboundCORE_X12DSGenericBatchRequest).batchSubmitTransaction(body, context);

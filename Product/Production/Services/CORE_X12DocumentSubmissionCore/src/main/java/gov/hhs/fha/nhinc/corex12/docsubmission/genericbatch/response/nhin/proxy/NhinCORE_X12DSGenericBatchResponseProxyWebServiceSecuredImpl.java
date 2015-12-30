@@ -87,7 +87,6 @@ public class NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl implem
             String url = proxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
                 NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME, apiLevel);
             if ((url != null) && (!url.isEmpty())) {
-
                 CORE_X12DSLargePayloadUtils.convertFileLocationToDataIfEnabled(msg);
                 ServicePortDescriptor<GenericBatchTransactionPort> portDescriptor = new NhinCORE_X12DSGenericBatchResponseServicePortDescriptor();
                 CONNECTClient<GenericBatchTransactionPort> client = getCONNECTClientSecured(portDescriptor, assertion,

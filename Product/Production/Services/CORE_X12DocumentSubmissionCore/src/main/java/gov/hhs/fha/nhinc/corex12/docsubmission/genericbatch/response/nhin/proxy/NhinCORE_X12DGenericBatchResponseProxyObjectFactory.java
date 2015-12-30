@@ -38,10 +38,6 @@ public class NhinCORE_X12DGenericBatchResponseProxyObjectFactory extends Compone
     private static final String CONFIG_FILE_NAME = NhincConstants.CORE_X12DS_GENERICBATCH_PROXY_CONFIG_FILE_NAME;
     private static final String BEAN_NAME = "nhincore_x12dsgenericbatchresponse";
 
-    /**
-     *
-     * @return String
-     */
     @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
@@ -54,5 +50,4 @@ public class NhinCORE_X12DGenericBatchResponseProxyObjectFactory extends Compone
     public NhinCORE_X12DSGenericBatchResponseProxy getNhinCORE_X12DSGenericBatchResponseProxy() {
         return getBean(BEAN_NAME, NhinCORE_X12DSGenericBatchResponseProxy.class);
     }
-
 }

@@ -61,11 +61,12 @@ public class EntityCORE_X12DSGenericBatchResponseImpl extends CORE_X12DSEntityEx
     /**
      *
      * @param body
-     * @return RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType
+     * @param context
+     * @return RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType
      */
-    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionRequestType body, WebServiceContext context) {
-        LOG.info("EntityCORE_X12DSGenericBatchResponseImpl.batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionRequestType)");
-        COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse = callOutboundBatchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), body.getAssertion(), body.getNhinTargetCommunities());
+    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType body, WebServiceContext context) {
+        AssertionType assertion = getAssertion(context, null);
+        COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse = callOutboundBatchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), assertion, body.getNhinTargetCommunities());
         RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType oResponse = new RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType();
         oResponse.setCOREEnvelopeBatchSubmissionResponse(oBatchSubmissionResponse);
         return oResponse;
@@ -74,12 +75,11 @@ public class EntityCORE_X12DSGenericBatchResponseImpl extends CORE_X12DSEntityEx
     /**
      *
      * @param body
-     * @return RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType
+     * @param context
+     * @return RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType
      */
-    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType body, WebServiceContext context) {
-        LOG.info("EntityCORE_X12DSGenericBatchResponseImpl.batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType)");
-        AssertionType assertion = getAssertion(context, null);
-        COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse = callOutboundBatchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), assertion, body.getNhinTargetCommunities());
+    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionRequestType body, WebServiceContext context) {
+        COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse = callOutboundBatchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), body.getAssertion(), body.getNhinTargetCommunities());
         RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType oResponse = new RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType();
         oResponse.setCOREEnvelopeBatchSubmissionResponse(oBatchSubmissionResponse);
         return oResponse;

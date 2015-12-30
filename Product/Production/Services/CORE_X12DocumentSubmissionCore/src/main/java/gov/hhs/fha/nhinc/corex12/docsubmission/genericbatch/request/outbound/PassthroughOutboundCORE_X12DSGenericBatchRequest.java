@@ -44,25 +44,12 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements OutboundCORE_X12DSGenericBatchRequest {
 
-    private OutboundCORE_X12DSGenericBatchRequestDelegate dsDelegate
+    private final OutboundCORE_X12DSGenericBatchRequestDelegate dsDelegate
         = new OutboundCORE_X12DSGenericBatchRequestDelegate();
     private CORE_X12BatchSubmissionAuditLogger auditLogger = null;
 
-    /**
-     * Constructor..
-     */
     public PassthroughOutboundCORE_X12DSGenericBatchRequest() {
         super();
-        this.auditLogger = new CORE_X12BatchSubmissionAuditLogger();
-    }
-
-    /**
-     * Constructor with parameters..
-     *
-     * @param dsDelegate
-     */
-    public PassthroughOutboundCORE_X12DSGenericBatchRequest(OutboundCORE_X12DSGenericBatchRequestDelegate dsDelegate) {
-        this.dsDelegate = dsDelegate;
         this.auditLogger = new CORE_X12BatchSubmissionAuditLogger();
     }
 
@@ -77,15 +64,17 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements Outboun
     @Override
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg,
         AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        COREEnvelopeBatchSubmissionResponse oResponse = null;
-        NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
-            targets);
+
+        NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance()
+            .convertFirstToNhinTargetSystemType(targets);
         assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
         this.auditRequestToNhin(msg, assertion, targetSystem);
+
         OutboundCORE_X12DSGenericBatchRequestOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, msg,
             targetSystem, assertion);
-        oResponse = ((OutboundCORE_X12DSGenericBatchRequestOrchestratable) dsDelegate.process(dsOrchestratable)).getResponse();
-        return oResponse;
+
+        return ((OutboundCORE_X12DSGenericBatchRequestOrchestratable) dsDelegate.process(dsOrchestratable))
+            .getResponse();
     }
 
     /**
@@ -99,6 +88,7 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements Outboun
     public OutboundCORE_X12DSGenericBatchRequestOrchestratable createOrchestratable(
         OutboundCORE_X12DSGenericBatchRequestDelegate delegate, COREEnvelopeBatchSubmission request,
         NhinTargetSystemType targetSystem, AssertionType assertion) {
+
         OutboundCORE_X12DSGenericBatchRequestOrchestratable core_x12dsOrchestratable
             = new OutboundCORE_X12DSGenericBatchRequestOrchestratable(delegate);
         core_x12dsOrchestratable.setAssertion(assertion);
@@ -115,6 +105,6 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements Outboun
     }
 
     protected CORE_X12BatchSubmissionAuditLogger getAuditLogger() {
-        return this.auditLogger;
+        return auditLogger;
     }
 }

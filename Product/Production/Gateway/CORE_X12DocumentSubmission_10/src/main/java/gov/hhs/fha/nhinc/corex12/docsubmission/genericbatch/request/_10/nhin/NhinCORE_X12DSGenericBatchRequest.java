@@ -48,19 +48,19 @@ public class NhinCORE_X12DSGenericBatchRequest implements GenericBatchTransactio
 
     /**
      *
-     * @param inboundCORE_X12DSGenericBatchRequest
-     */
-    public void setInboundCORE_X12DSGenericBatchRequest(InboundCORE_X12DSGenericBatchRequest inboundCORE_X12DSGenericBatchRequest) {
-        this.inboundCORE_X12DSGenericBatchRequest = inboundCORE_X12DSGenericBatchRequest;
-    }
-
-    /**
-     *
      * @param context
      */
     @Resource
     public void setContext(WebServiceContext context) {
         this.context = context;
+    }
+
+    /**
+     *
+     * @param inboundCORE_X12DSGenericBatchRequest
+     */
+    public void setInboundCORE_X12DSGenericBatchRequest(InboundCORE_X12DSGenericBatchRequest inboundCORE_X12DSGenericBatchRequest) {
+        this.inboundCORE_X12DSGenericBatchRequest = inboundCORE_X12DSGenericBatchRequest;
     }
 
     /**
