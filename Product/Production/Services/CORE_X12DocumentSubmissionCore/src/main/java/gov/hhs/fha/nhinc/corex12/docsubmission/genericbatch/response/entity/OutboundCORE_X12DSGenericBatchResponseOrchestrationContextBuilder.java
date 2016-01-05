@@ -38,7 +38,8 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
  *
  * @author svalluripalli
  */
-public abstract class OutboundCORE_X12DSGenericBatchResponseOrchestrationContextBuilder implements OrchestrationContextBuilder {
+public abstract class OutboundCORE_X12DSGenericBatchResponseOrchestrationContextBuilder implements
+    OrchestrationContextBuilder {
 
     private AssertionType assertionType;
     private OutboundDelegate nhinDelegate;

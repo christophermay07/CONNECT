@@ -81,6 +81,7 @@ public class PassthroughOutboundCORE_X12DSGenericBatchResponse implements Outbou
 
         return ((OutboundCORE_X12DSGenericBatchResponseOrchestratable) dsDelegate.process(dsOrchestratable))
             .getResponse();
+
     }
 
     /**
@@ -105,12 +106,9 @@ public class PassthroughOutboundCORE_X12DSGenericBatchResponse implements Outbou
 
     private void auditRequestToNhin(COREEnvelopeBatchSubmission body, AssertionType assertion,
         NhinTargetSystemType targetSystem) {
-        getAuditLogger().auditRequestMessage(body, assertion, targetSystem,
+        this.auditLogger.auditRequestMessage(body, assertion, targetSystem,
             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
             Boolean.TRUE, null, NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
     }
 
-    protected CORE_X12BatchSubmissionAuditLogger getAuditLogger() {
-        return auditLogger;
-    }
 }

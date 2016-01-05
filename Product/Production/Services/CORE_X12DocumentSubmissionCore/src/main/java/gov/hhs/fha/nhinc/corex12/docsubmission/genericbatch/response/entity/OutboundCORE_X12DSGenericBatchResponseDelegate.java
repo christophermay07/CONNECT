@@ -66,11 +66,13 @@ public class OutboundCORE_X12DSGenericBatchResponseDelegate implements OutboundD
     @Override
     public OutboundOrchestratable process(OutboundOrchestratable message) {
         if (message instanceof OutboundCORE_X12DSGenericBatchResponseOrchestratable) {
-            LOG.debug("Processing CORE X12 DS GenericBatchRequest Orchestratable");
-            OutboundCORE_X12DSGenericBatchResponseOrchestratable dsMessage = (OutboundCORE_X12DSGenericBatchResponseOrchestratable) message;
+            LOG.debug("Processing CORE X12 DS GenericBatchResponse Orchestratable");
+            OutboundCORE_X12DSGenericBatchResponseOrchestratable dsMessage
+                = (OutboundCORE_X12DSGenericBatchResponseOrchestratable) message;
 
             OrchestrationContextBuilder contextBuilder = getOrchestrationContextFactory().getBuilder(
-                dsMessage.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.CORE_X12DS_GENERICBATCH_RESPONSE);
+                dsMessage.getTarget().getHomeCommunity(),
+                NhincConstants.NHIN_SERVICE_NAMES.CORE_X12DS_GENERICBATCH_RESPONSE);
 
             if (contextBuilder instanceof OutboundCORE_X12DSGenericBatchResponseOrchestrationContextBuilder_g0) {
                 ((OutboundCORE_X12DSGenericBatchResponseOrchestrationContextBuilder_g0) contextBuilder).init(message);

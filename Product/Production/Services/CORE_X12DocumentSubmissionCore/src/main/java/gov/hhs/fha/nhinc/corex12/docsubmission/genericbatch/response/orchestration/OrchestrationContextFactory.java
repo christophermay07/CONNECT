@@ -58,7 +58,8 @@ public class OrchestrationContextFactory extends AbstractOrchestrationContextFac
 
         switch (serviceName) {
             case CORE_X12DS_GENERICBATCH_RESPONSE:
-                return OutboundCORE_X12DSGenericBatchResponseFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+                return OutboundCORE_X12DSGenericBatchResponseFactory.getInstance().
+                    createOrchestrationContextBuilder(apiLevel);
         }
 
         return null;

@@ -77,7 +77,8 @@ public class NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl implem
     @Override
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         LOG.info("Begin NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl.batchSubmitTransaction()");
-        COREEnvelopeBatchSubmissionResponse response = null;
+
+        COREEnvelopeBatchSubmissionResponse response = new COREEnvelopeBatchSubmissionResponse();
 
         String targetHCID = null;
         if (targetSystem != null && targetSystem.getHomeCommunity() != null && targetSystem.getHomeCommunity().getHomeCommunityId() != null) {

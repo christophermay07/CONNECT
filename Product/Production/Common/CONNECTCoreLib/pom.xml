@@ -23,6 +23,12 @@
             <artifactId>javaee-api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>PerformanceTestTools</artifactId>
+            <version>4.6.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- CONNECT Modules / Web Services -->
         <dependency>
             <groupId>org.connectopensource</groupId>
