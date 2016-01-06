@@ -35,8 +35,7 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
  */
 public class OutboundCORE_X12DSGenericBatchRequestFactory {
 
-    private static OutboundCORE_X12DSGenericBatchRequestFactory instance;
-
+    //private static OutboundCORE_X12DSGenericBatchRequestFactory instance;
     /**
      * Singleton Constructor
      */
@@ -49,13 +48,12 @@ public class OutboundCORE_X12DSGenericBatchRequestFactory {
      *
      * @return OutboundCORE_X12DSGenericBatchRequestFactory
      */
-    public static OutboundCORE_X12DSGenericBatchRequestFactory getInstance() {
-        if (instance == null) {
-            instance = new OutboundCORE_X12DSGenericBatchRequestFactory();
-        }
-        return instance;
-    }
-
+    /*public static OutboundCORE_X12DSGenericBatchRequestFactory getInstance() {
+     if (instance == null) {
+     instance = new OutboundCORE_X12DSGenericBatchRequestFactory();
+     }
+     return instance;
+     }*/
     /**
      *
      * @param apiLevel
@@ -63,5 +61,15 @@ public class OutboundCORE_X12DSGenericBatchRequestFactory {
      */
     public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         return new OutboundCORE_X12DSGenericBatchRequestOrchestrationContextBuilder_g0();
+    }
+
+    private static class SingletonHelper {
+
+        private static final OutboundCORE_X12DSGenericBatchRequestFactory FACTORY_INSTANCE
+            = new OutboundCORE_X12DSGenericBatchRequestFactory();
+    }
+
+    public static OutboundCORE_X12DSGenericBatchRequestFactory getInstance() {
+        return SingletonHelper.FACTORY_INSTANCE;
     }
 }

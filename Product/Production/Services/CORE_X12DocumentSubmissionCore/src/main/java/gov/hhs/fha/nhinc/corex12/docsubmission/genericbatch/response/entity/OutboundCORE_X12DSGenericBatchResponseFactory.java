@@ -49,13 +49,12 @@ public class OutboundCORE_X12DSGenericBatchResponseFactory {
      *
      * @return OutboundCORE_X12DSGenericBatchRequestFactory
      */
-    public static OutboundCORE_X12DSGenericBatchResponseFactory getInstance() {
-        if (instance == null) {
-            instance = new OutboundCORE_X12DSGenericBatchResponseFactory();
-        }
-        return instance;
-    }
-
+    /*public static OutboundCORE_X12DSGenericBatchResponseFactory getInstance() {
+     if (instance == null) {
+     instance = new OutboundCORE_X12DSGenericBatchResponseFactory();
+     }
+     return instance;
+     }*/
     /**
      *
      * @param apiLevel
@@ -63,5 +62,15 @@ public class OutboundCORE_X12DSGenericBatchResponseFactory {
      */
     public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         return new OutboundCORE_X12DSGenericBatchResponseOrchestrationContextBuilder_g0();
+    }
+
+    private static class SingletonHelper {
+
+        private static final OutboundCORE_X12DSGenericBatchResponseFactory FACTORY_INSTANCE
+            = new OutboundCORE_X12DSGenericBatchResponseFactory();
+    }
+
+    public static OutboundCORE_X12DSGenericBatchResponseFactory getInstance() {
+        return SingletonHelper.FACTORY_INSTANCE;
     }
 }

@@ -58,7 +58,8 @@ public class OutboundCORE_X12DSGenericBatchResponseStrategyImpl_g0 implements Or
 
     private void process(OutboundCORE_X12DSGenericBatchResponseOrchestratable message) {
         LOG.info("Begin OutboundCORE_X12DSGenericBatchResponseStrategyImpl_g0.process()");
-        NhinCORE_X12DGenericBatchResponseProxyObjectFactory factory = new NhinCORE_X12DGenericBatchResponseProxyObjectFactory();
+        NhinCORE_X12DGenericBatchResponseProxyObjectFactory factory
+            = new NhinCORE_X12DGenericBatchResponseProxyObjectFactory();
         NhinCORE_X12DSGenericBatchResponseProxy proxy = factory.getNhinCORE_X12DSGenericBatchResponseProxy();
         COREEnvelopeBatchSubmissionResponse oResponse = proxy.batchSubmitTransaction(message.getRequest(),
             message.getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);

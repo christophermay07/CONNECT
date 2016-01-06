@@ -35,9 +35,11 @@ import org.slf4j.LoggerFactory;
  * @author svalluripalli
  *
  */
-public class OutboundCORE_X12DSGenericBatchRequestOrchestrationContextBuilder_g0 extends OutboundCORE_X12DSGenericBatchRequestOrchestrationContextBuilder {
+public class OutboundCORE_X12DSGenericBatchRequestOrchestrationContextBuilder_g0 extends
+    OutboundCORE_X12DSGenericBatchRequestOrchestrationContextBuilder {
 
-    private static final Logger LOG = LoggerFactory.getLogger(OutboundCORE_X12DSGenericBatchRequestOrchestrationContextBuilder_g0.class);
+    private static final Logger LOG = LoggerFactory.getLogger(
+        OutboundCORE_X12DSGenericBatchRequestOrchestrationContextBuilder_g0.class);
 
     /**
      *
