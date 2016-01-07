@@ -65,6 +65,7 @@ public class OutboundCORE_X12DSGenericBatchResponseDelegate implements OutboundD
      */
     @Override
     public OutboundOrchestratable process(OutboundOrchestratable message) {
+
         if (message instanceof OutboundCORE_X12DSGenericBatchResponseOrchestratable) {
             LOG.debug("Processing CORE X12 DS GenericBatchResponse Orchestratable");
             OutboundCORE_X12DSGenericBatchResponseOrchestratable dsMessage

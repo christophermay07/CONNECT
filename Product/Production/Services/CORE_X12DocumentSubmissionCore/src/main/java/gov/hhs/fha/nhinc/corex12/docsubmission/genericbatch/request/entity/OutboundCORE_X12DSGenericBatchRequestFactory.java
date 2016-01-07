@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
  */
 public class OutboundCORE_X12DSGenericBatchRequestFactory {
 
-    //private static OutboundCORE_X12DSGenericBatchRequestFactory instance;
     /**
      * Singleton Constructor
      */
@@ -43,17 +42,6 @@ public class OutboundCORE_X12DSGenericBatchRequestFactory {
 
     }
 
-    /**
-     * returns a instance of OutboundCORE_X12DSGenericBatchRequestFactory
-     *
-     * @return OutboundCORE_X12DSGenericBatchRequestFactory
-     */
-    /*public static OutboundCORE_X12DSGenericBatchRequestFactory getInstance() {
-     if (instance == null) {
-     instance = new OutboundCORE_X12DSGenericBatchRequestFactory();
-     }
-     return instance;
-     }*/
     /**
      *
      * @param apiLevel
@@ -69,6 +57,11 @@ public class OutboundCORE_X12DSGenericBatchRequestFactory {
             = new OutboundCORE_X12DSGenericBatchRequestFactory();
     }
 
+    /**
+     * returns a instance of OutboundCORE_X12DSGenericBatchRequestFactory
+     *
+     * @return OutboundCORE_X12DSGenericBatchRequestFactory
+     */
     public static OutboundCORE_X12DSGenericBatchRequestFactory getInstance() {
         return SingletonHelper.FACTORY_INSTANCE;
     }

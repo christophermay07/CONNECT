@@ -81,7 +81,8 @@ public class NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl implem
         COREEnvelopeBatchSubmissionResponse response = new COREEnvelopeBatchSubmissionResponse();
 
         String targetHCID = null;
-        if (targetSystem != null && targetSystem.getHomeCommunity() != null && targetSystem.getHomeCommunity().getHomeCommunityId() != null) {
+        if (targetSystem != null && targetSystem.getHomeCommunity() != null
+            && targetSystem.getHomeCommunity().getHomeCommunityId() != null) {
             targetHCID = targetSystem.getHomeCommunity().getHomeCommunityId();
         }
         try {
@@ -89,18 +90,23 @@ public class NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl implem
                 NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME, apiLevel);
             if ((url != null) && (!url.isEmpty())) {
                 CORE_X12DSLargePayloadUtils.convertFileLocationToDataIfEnabled(msg);
-                ServicePortDescriptor<GenericBatchTransactionPort> portDescriptor = new NhinCORE_X12DSGenericBatchResponseServicePortDescriptor();
-                CONNECTClient<GenericBatchTransactionPort> client = getCONNECTClientSecured(portDescriptor, assertion,
-                    url, targetHCID, NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
-                client.enableMtom();
-                response = (COREEnvelopeBatchSubmissionResponse) client.invokePort(GenericBatchTransactionPort.class,
-                    "batchSubmitTransaction", msg);
-                if (response != null && response.getPayload() != null) {
-                    CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(response);
+                synchronized (response) {
+                    ServicePortDescriptor<GenericBatchTransactionPort> portDescriptor
+                        = new NhinCORE_X12DSGenericBatchResponseServicePortDescriptor();
+                    CONNECTClient<GenericBatchTransactionPort> client = getCONNECTClientSecured(portDescriptor,
+                        assertion, url, targetHCID, NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
+                    client.enableMtom();
+                    response = (COREEnvelopeBatchSubmissionResponse) client.invokePort(GenericBatchTransactionPort.class,
+                        "batchSubmitTransaction", msg);
+                    if (response != null && response.getPayload() != null) {
+                        CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(response);
+                    }
                 }
             } else {
-                response = CORE_X12DSEntityExceptionBuilder.createErrorResponse(msg, targetHCID);
-                return response;
+                synchronized (response) {
+                    response = CORE_X12DSEntityExceptionBuilder.createErrorResponse(msg, targetHCID);
+                    return response;
+                }
             }
         } catch (Exception ex) {
             // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases
