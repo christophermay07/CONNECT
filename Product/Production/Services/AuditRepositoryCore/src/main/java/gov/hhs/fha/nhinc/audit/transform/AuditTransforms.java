@@ -98,6 +98,7 @@ public abstract class AuditTransforms<T, K> {
     public final LogEventRequestType transformRequestToAuditMsg(T request, AssertionType assertion,
         NhinTargetSystemType target, String direction, String _interface, boolean isRequesting,
         Properties webContextProperties, String serviceName) {
+
         setRequest(request);
         setTarget(target);
         setAssertion(assertion);
@@ -129,6 +130,7 @@ public abstract class AuditTransforms<T, K> {
     public final LogEventRequestType transformResponseToAuditMsg(T request, K response, AssertionType assertion,
         NhinTargetSystemType target, String direction, String _interface, boolean isRequesting,
         Properties webContextProperties, String serviceName) {
+
         setRequest(request);
         setAssertion(assertion);
         // TODO: auditMsg should either use a builder, or modify in-method with no return
@@ -205,7 +207,7 @@ public abstract class AuditTransforms<T, K> {
         ActiveParticipant participant = new ActiveParticipant();
 
         // Set the User Id
-        if (userInfo != null && userInfo.getUserName() != null && userInfo.getUserName().length() > 0) {
+        if (userInfo != null && userInfo.getUserName() != null && !userInfo.getUserName().isEmpty()) {
             participant.setUserID(userInfo.getUserName());
         }
 
@@ -231,13 +233,13 @@ public abstract class AuditTransforms<T, K> {
             GregorianCalendar today = new java.util.GregorianCalendar(TimeZone.getTimeZone("GMT"));
             DatatypeFactory factory = javax.xml.datatype.DatatypeFactory.newInstance();
             XMLGregorianCalendar calendar = factory.newXMLGregorianCalendar(
-                today.get(java.util.GregorianCalendar.YEAR), today.get(java.util.GregorianCalendar.MONTH) + 1,
-                today.get(java.util.GregorianCalendar.DAY_OF_MONTH), today.get(java.util.GregorianCalendar.HOUR_OF_DAY),
-                today.get(java.util.GregorianCalendar.MINUTE), today.get(java.util.GregorianCalendar.SECOND),
+                today.get(java.util.GregorianCalendar.YEAR), today.get(GregorianCalendar.MONTH) + 1,
+                today.get(java.util.GregorianCalendar.DAY_OF_MONTH), today.get(GregorianCalendar.HOUR_OF_DAY),
+                today.get(java.util.GregorianCalendar.MINUTE), today.get(GregorianCalendar.SECOND),
                 today.get(java.util.GregorianCalendar.MILLISECOND), 0);
             eventIdentification.setEventDateTime(calendar);
         } catch (DatatypeConfigurationException | ArrayIndexOutOfBoundsException e) {
-            LOG.error("Exception when creating XMLGregorian Date: " + e.getLocalizedMessage(), e);
+            LOG.error("Exception when creating XMLGregorian Date: {}", e.getLocalizedMessage(), e);
             // TODO -- do we need to set anything on failure, or throw an exception?
         }
 
@@ -286,7 +288,6 @@ public abstract class AuditTransforms<T, K> {
             participant.setUserName(userName);
         }
         return participant;
-
     }
 
     /**
@@ -365,6 +366,7 @@ public abstract class AuditTransforms<T, K> {
     protected String getWebServiceRequestUrl(Properties webContextProperties) {
         if (webContextProperties != null && !webContextProperties.isEmpty() && webContextProperties.getProperty(
             NhincConstants.WEB_SERVICE_REQUEST_URL) != null) {
+
             return webContextProperties.getProperty(NhincConstants.WEB_SERVICE_REQUEST_URL);
         }
         return AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE;
@@ -375,17 +377,16 @@ public abstract class AuditTransforms<T, K> {
             try {
                 return getConnectionManagerCache().getEndpointURLFromNhinTarget(target, serviceName);
             } catch (ConnectionManagerException ex) {
-                LOG.error("Error retrieving endpoint URL from target: " + ex.getLocalizedMessage(), ex);
+                LOG.error("Error retrieving endpoint URL from target: {}", ex.getLocalizedMessage(), ex);
             }
         }
         return AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE;
     }
 
     protected String getInboundReplyToFromHeader(Properties webContextProperties) {
-
         String inboundReplyTo = null;
-        if (webContextProperties != null && !webContextProperties.isEmpty() && webContextProperties.getProperty(
-            NhincConstants.INBOUND_REPLY_TO) != null) {
+        if (webContextProperties != null && !webContextProperties.isEmpty()
+            && webContextProperties.getProperty(NhincConstants.INBOUND_REPLY_TO) != null) {
 
             inboundReplyTo = webContextProperties.getProperty(NhincConstants.INBOUND_REPLY_TO);
         }
@@ -396,7 +397,7 @@ public abstract class AuditTransforms<T, K> {
         try {
             return InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException ex) {
-            LOG.error("Error while returning local host Address: " + ex.getLocalizedMessage(), ex);
+            LOG.error("Error while returning local host Address: {}", ex.getLocalizedMessage(), ex);
             return AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
         }
     }
@@ -532,12 +533,10 @@ public abstract class AuditTransforms<T, K> {
         String userName = null;
         if (userInfo != null && userInfo.getPersonName() != null) {
             if (NullChecker.isNotNullish(userInfo.getPersonName().getGivenName())) {
-
                 userName = userInfo.getPersonName().getGivenName();
             }
 
             if (NullChecker.isNotNullish(userInfo.getPersonName().getFamilyName())) {
-
                 if (userName != null) {
                     userName += " " + userInfo.getPersonName().getFamilyName();
                 } else {
@@ -549,9 +548,9 @@ public abstract class AuditTransforms<T, K> {
         return userName;
     }
 
-    private LogEventRequestType buildLogEventRequestType(AuditMessageType auditMsg, String direction, String communityId,
-        String serviceName, AssertionType assertion, String eventId, BigInteger outcome, XMLGregorianCalendar eventDate,
-        String userId) {
+    private LogEventRequestType buildLogEventRequestType(AuditMessageType auditMsg, String direction,
+        String communityId, String serviceName, AssertionType assertion, String eventId, BigInteger outcome,
+        XMLGregorianCalendar eventDate, String userId) {
 
         LogEventRequestType result = new LogEventRequestType();
         result.setAuditMessage(auditMsg);
@@ -597,7 +596,7 @@ public abstract class AuditTransforms<T, K> {
 
     protected abstract String getServiceEventActionCodeResponder();
 
-    //PD Deferred Response services require incoming Request. so getters and setters are created.
+    // PD Deferred Response services require incoming request
     protected void setRequest(T request) {
         this.request = request;
     }
@@ -606,8 +605,7 @@ public abstract class AuditTransforms<T, K> {
         return request;
     }
 
-    //Getter and setters are provided for NhinTargetSystemType as DQ requires to store the responding gateway HCID in
-    //ParticpantObjectDetail element
+    // DQ services require storing responding gateway HCID in ParticpantObjectDetail element
     protected NhinTargetSystemType getTarget() {
         return target;
     }
@@ -616,7 +614,7 @@ public abstract class AuditTransforms<T, K> {
         this.target = target;
     }
 
-    //DS Deferred Response services require assertion. so getters and setters are created.
+    // DS Deferred Response services require assertion
     protected AssertionType getAssertion() {
         return assertion;
     }

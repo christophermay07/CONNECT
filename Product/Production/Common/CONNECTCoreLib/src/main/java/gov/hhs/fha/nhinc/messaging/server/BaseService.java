@@ -50,6 +50,10 @@ public abstract class BaseService {
 
     private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
 
+    protected AssertionType getAssertion(WebServiceContext context) {
+        return getAssertion(context, null);
+    }
+
     protected AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion;
         if (oAssertionIn == null) {
