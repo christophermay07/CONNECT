@@ -45,9 +45,6 @@ public class ConnectionManagerCommunityMapping {
         mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
     }
 
-
-
-
     /**
      * @param mappingDao
      */
@@ -55,26 +52,19 @@ public class ConnectionManagerCommunityMapping {
         this.mappingDao = mappingDao;
     }
 
-
-
-
     /**
      *
-     * @param requestType
-     * @return GetHomeCommunityByAssigningAuthorityResponseType
+     * @param assigningAuthId
+     * @return HomeCommunityType
      */
-    public  HomeCommunityType getHomeCommunityByAssigningAuthority(String assigningAuthId) {
-        HomeCommunityType hc = new HomeCommunityType();
+    public HomeCommunityType getHomeCommunityByAssigningAuthority(String assigningAuthId) {
+        HomeCommunityType homeCommunity = null;
 
-        // Verify assigning authority id is valid
         if (NullChecker.isNotNullish(assigningAuthId)) {
-            hc.setHomeCommunityId(mappingDao.getHomeCommunityId(assigningAuthId));
-        } else {
-            hc = null;
+            homeCommunity = new HomeCommunityType();
+            homeCommunity.setHomeCommunityId(mappingDao.getHomeCommunityId(assigningAuthId));
         }
 
-        return hc;
+        return homeCommunity;
     }
-
-
 }

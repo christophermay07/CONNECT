@@ -47,6 +47,8 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessEntity;
 import org.w3._2005._08.addressing.AttributedURIType;
 import org.w3._2005._08.addressing.EndpointReferenceType;
@@ -58,6 +60,7 @@ import org.w3._2005._08.addressing.EndpointReferenceType;
 public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
 
     private PropertyAccessor accessor;
+    private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerCacheTest.class);
 
     protected ConnectionManagerCache createConnectionManager_Empty() throws ConnectionManagerException {
         return new ConnectionManagerCache() {
@@ -88,8 +91,8 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
     }
 
     protected ConnectionManagerCache createConnectionManager() throws ConnectionManagerException {
-
         accessor = mock(PropertyAccessor.class);
+
         return new ConnectionManagerCache(accessor) {
             @Override
             protected UddiConnectionInfoDAOFileImpl getUddiConnectionManagerDAO() {
@@ -153,8 +156,8 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             ConnectionManagerCache connectionManager = createConnectionManager_Empty();
             assertTrue(connectionManager.getAllBusinessEntities().isEmpty());
         } catch (Throwable t) {
-            t.printStackTrace();
-            fail("Error running testGetAllCommunities_EmptyBusinessDetail test: " + t.getMessage());
+            LOG.error(t.getLocalizedMessage(), t);
+            fail("Error running testGetAllCommunities_EmptyBusinessDetail test: " + t.getLocalizedMessage());
         }
     }
 
@@ -164,8 +167,8 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             ConnectionManagerCache connectionManager = createConnectionManager_EmptyBusinessEntity();
             assertTrue(connectionManager.getAllBusinessEntities().isEmpty());
         } catch (Throwable t) {
-            t.printStackTrace();
-            fail("Error running testGetAllCommunities_EmptyBusinessEntity test: " + t.getMessage());
+            LOG.error(t.getLocalizedMessage(), t);
+            fail("Error running testGetAllCommunities_EmptyBusinessEntity test: " + t.getLocalizedMessage());
         }
     }
 
@@ -175,8 +178,8 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             ConnectionManagerCache connectionManager = createConnectionManager();
             assertEquals(2, connectionManager.getAllBusinessEntities().size());
         } catch (Throwable t) {
-            t.printStackTrace();
-            fail("Error running testGetAllCommunities test: " + t.getMessage());
+            LOG.error(t.getLocalizedMessage(), t);
+            fail("Error running testGetAllCommunities test: " + t.getLocalizedMessage());
         }
     }
 
@@ -186,13 +189,12 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             ConnectionManagerCache connectionManager = createConnectionManager();
             BusinessEntity businessEntity = connectionManager.getBusinessEntity(HCID_1);
             ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
-            String HCID_3 = "3.3";
             connectionManager.setCommunityId(businessEntity, HCID_3);
             String newHCID = helper.getCommunityId(businessEntity);
             assertTrue(newHCID.equals(HCID_3));
         } catch (Throwable t) {
-            t.printStackTrace();
-            fail("Error running testSetCommunityId test: " + t.getMessage());
+            LOG.error(t.getLocalizedMessage(), t);
+            fail("Error running testSetCommunityId test: " + t.getLocalizedMessage());
         }
     }
 
@@ -227,8 +229,8 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             assertTrue(url.equals("https://server4:8181/UddiQueryForDocuments"));
 
         } catch (Throwable t) {
-            t.printStackTrace();
-            fail("Error running testGetAllBusinessEntities test: " + t.getMessage());
+            LOG.error(t.getLocalizedMessage(), t);
+            fail("Error running testGetAllBusinessEntities test: " + t.getLocalizedMessage());
         }
     }
 
@@ -239,8 +241,8 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             assertNotNull(connectionManager.getBusinessEntityByHCID(HCID_1));
             assertNotNull(connectionManager.getBusinessEntityByHCID(HCID_2));
         } catch (Throwable t) {
-            t.printStackTrace();
-            fail("Error running getBusinessEntityByHCID test: " + t.getMessage());
+            LOG.error(t.getLocalizedMessage(), t);
+            fail("Error running getBusinessEntityByHCID test: " + t.getLocalizedMessage());
         }
     }
 
@@ -258,8 +260,8 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             url = connectionManager.getDefaultEndpointURLByServiceName(HCID_1, QUERY_FOR_DOCUMENTS_NAME);
             assertEquals(QUERY_FOR_DOCUMENTS_URL, url);
         } catch (Throwable t) {
-            t.printStackTrace();
-            fail("Error running testMerging test: " + t.getMessage());
+            LOG.error(t.getLocalizedMessage(), t);
+            fail("Error running testMerging test: " + t.getLocalizedMessage());
         }
     }
 
@@ -271,20 +273,19 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             List<String> hcidList = new ArrayList<>();
             hcidList.add(HCID_1);
             hcidList.add(HCID_2);
+
             Set<BusinessEntity> entitySet = connectionManager.getBusinessEntitySet(hcidList);
             assertEquals(2, entitySet.size());
 
-            entitySet = connectionManager.getBusinessEntitySet(null);
-            assertNull(entitySet);
+            assertNull(connectionManager.getBusinessEntitySet(null));
 
             hcidList = new ArrayList<>();
             hcidList.add("hcidValue1123");
             hcidList.add("hcidValue2123");
-            entitySet = connectionManager.getBusinessEntitySet(hcidList);
-            assertNull(entitySet);
+            assertNull(connectionManager.getBusinessEntitySet(hcidList));
         } catch (Throwable t) {
-            t.printStackTrace();
-            fail("Error running testGetBusinessEntitySet test: " + t.getMessage());
+            LOG.error(t.getLocalizedMessage(), t);
+            fail("Error running testGetBusinessEntitySet test: " + t.getLocalizedMessage());
         }
     }
 
@@ -302,8 +303,8 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             url = connectionManager.getDefaultEndpointURLByServiceName(HCID_2, DOC_QUERY_DEFERRED_NAME);
             assertEquals(QUERY_FOR_DOCUMENTS_DEFERRED_URL_22, url);
         } catch (Throwable t) {
-            t.printStackTrace();
-            fail("Error running testGetEndpointURLByServiceName test: " + t.getMessage());
+            LOG.error(t.getLocalizedMessage(), t);
+            fail("Error running testGetEndpointURLByServiceName test: " + t.getLocalizedMessage());
         }
     }
 
@@ -324,11 +325,13 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
     }
 
     protected NhinTargetSystemType createNhinTargetSystem() {
-        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
-        EndpointReferenceType endpointReference = new EndpointReferenceType();
         AttributedURIType address = new AttributedURIType();
         address.setValue(NHIN_TARGET_ENDPOINT_URL_VALUE);
+
+        EndpointReferenceType endpointReference = new EndpointReferenceType();
         endpointReference.setAddress(address);
+
+        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
         targetSystem.setEpr(endpointReference);
 
         return targetSystem;
@@ -342,14 +345,17 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
     }
 
     protected NhinTargetSystemType createNhinTargetSystem_HCIDOnly() {
-        return createNhinTargetSystem_HCIDOnly(HCID_1,null);
+        return createNhinTargetSystem_HCIDOnly(HCID_1, null);
     }
-    protected NhinTargetSystemType createNhinTargetSystem_HCIDOnly(String hcid, String userSpec) {
-        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
+
+    protected NhinTargetSystemType createNhinTargetSystem_HCIDOnly(String hcid, String useSpec) {
         HomeCommunityType homeCommunity = new HomeCommunityType();
         homeCommunity.setHomeCommunityId(hcid);
+
+        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
         targetSystem.setHomeCommunity(homeCommunity);
-        targetSystem.setUseSpecVersion(userSpec);
+        targetSystem.setUseSpecVersion(useSpec);
+
         return targetSystem;
     }
 
@@ -359,62 +365,70 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
             String url = connectionManager.getEndpointURLFromNhinTarget(createNhinTargetSystem(),
-                    QUERY_FOR_DOCUMENTS_NAME);
+                QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(url.equals(NHIN_TARGET_ENDPOINT_URL_VALUE));
 
             url = connectionManager.getEndpointURLFromNhinTarget(createNhinTargetSystem_UrlOnly(),
-                    QUERY_FOR_DOCUMENTS_NAME);
+                QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(url.equals(NHIN_TARGET_ENDPOINT_URL_VALUE));
 
             url = connectionManager.getEndpointURLFromNhinTarget(createNhinTargetSystem_HCIDOnly(),
-                    QUERY_FOR_DOCUMENTS_NAME);
+                QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(url.equals(QUERY_FOR_DOCUMENTS_URL));
-            url = connectionManager.getEndpointURLFromNhinTarget(createNhinTargetSystem_HCIDOnly(HCID_2,VERSION_OF_SERVICE_2_0),
-                    QUERY_FOR_DOCUMENTS_NAME);
+
+            url = connectionManager.getEndpointURLFromNhinTarget(
+                createNhinTargetSystem_HCIDOnly(HCID_2, VERSION_OF_SERVICE_2_0), QUERY_FOR_DOCUMENTS_NAME);
             assertEquals(QUERY_FOR_DOCUMENTS_URL_2, url);
-            url = connectionManager.getEndpointURLFromNhinTarget(createNhinTargetSystem_HCIDOnly(HCID_2,VERSION_OF_SERVICE_3_0),
-                    QUERY_FOR_DOCUMENTS_NAME);
+
+            url = connectionManager.getEndpointURLFromNhinTarget(
+                createNhinTargetSystem_HCIDOnly(HCID_2, VERSION_OF_SERVICE_3_0), QUERY_FOR_DOCUMENTS_NAME);
             assertEquals(QUERY_FOR_DOCUMENTS_URL_3, url);
         } catch (Throwable t) {
-            t.printStackTrace();
-            fail("Error running testGetEndpointURLFromNhinTarget test: " + t.getMessage());
+            LOG.error(t.getLocalizedMessage(), t);
+            fail("Error running testGetEndpointURLFromNhinTarget test: " + t.getLocalizedMessage());
         }
     }
 
     protected NhinTargetCommunitiesType createNhinTargetCommunites() {
-        NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
-        NhinTargetCommunityType targetCommunity = new NhinTargetCommunityType();
         HomeCommunityType homeCommunity = new HomeCommunityType();
         homeCommunity.setHomeCommunityId(HCID_1);
+
+        NhinTargetCommunityType targetCommunity = new NhinTargetCommunityType();
         targetCommunity.setHomeCommunity(homeCommunity);
         targetCommunity.setRegion(FL_REGION_VALUE);
         targetCommunity.setList("Unimplemented");
+
+        NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
         targetCommunities.getNhinTargetCommunity().add(targetCommunity);
 
         return targetCommunities;
     }
 
     protected NhinTargetCommunitiesType createNhinTargetCommunitesForNullendPoints() {
-        NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
-        NhinTargetCommunityType targetCommunity = new NhinTargetCommunityType();
         HomeCommunityType homeCommunity = new HomeCommunityType();
         homeCommunity.setHomeCommunityId(HCID_3);
+
+        NhinTargetCommunityType targetCommunity = new NhinTargetCommunityType();
         targetCommunity.setHomeCommunity(homeCommunity);
         targetCommunity.setRegion(FL_REGION_VALUE);
         targetCommunity.setList("Unimplemented");
+
+        NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
         targetCommunities.getNhinTargetCommunity().add(targetCommunity);
 
         return targetCommunities;
     }
 
     protected NhinTargetCommunitiesType createNhinTargetCommunitesWithDuplicateTargetCommunities() {
-        NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
-        NhinTargetCommunityType targetCommunity = new NhinTargetCommunityType();
         HomeCommunityType homeCommunity = new HomeCommunityType();
         homeCommunity.setHomeCommunityId(HCID_1);
+
+        NhinTargetCommunityType targetCommunity = new NhinTargetCommunityType();
         targetCommunity.setHomeCommunity(homeCommunity);
         targetCommunity.setRegion(FL_REGION_VALUE);
         targetCommunity.setList("Unimplemented");
+
+        NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
         targetCommunities.getNhinTargetCommunity().add(targetCommunity);
 
         NhinTargetCommunityType targetCommunityStateOnly = new NhinTargetCommunityType();
@@ -431,15 +445,14 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
             List<UrlInfo> endpointUrlList = connectionManager.getEndpointURLFromNhinTargetCommunities(
-                    createNhinTargetCommunites(), QUERY_FOR_DOCUMENTS_NAME);
+                createNhinTargetCommunites(), QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(endpointUrlList.get(0).getUrl().equals(QUERY_FOR_DOCUMENTS_URL));
 
             endpointUrlList = connectionManager.getEndpointURLFromNhinTargetCommunities(null, QUERY_FOR_DOCUMENTS_NAME);
             assertEquals(2, endpointUrlList.size());
-
         } catch (Throwable t) {
-            t.printStackTrace();
-            fail("Error running testGetEndpointURLFromNhinTargetCommunities test: " + t.getMessage());
+            LOG.error(t.getLocalizedMessage(), t);
+            fail("Error running testGetEndpointURLFromNhinTargetCommunities test: " + t.getLocalizedMessage());
         }
     }
 
@@ -449,12 +462,11 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
             List<UrlInfo> endpointUrlList = connectionManager.getEndpointURLFromNhinTargetCommunities(
-                    createNhinTargetCommunitesForNullendPoints(), QUERY_FOR_DOCUMENTS_NAME);
+                createNhinTargetCommunitesForNullendPoints(), QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(endpointUrlList.get(0).getUrl().equals(QUERY_FOR_DOCUMENTS_NULL_URL));
-
         } catch (Throwable t) {
-            t.printStackTrace();
-            fail("Error running testGetEndpointURLFromNhinTargetCommunities test: " + t.getMessage());
+            LOG.error(t.getLocalizedMessage(), t);
+            fail("Error running testGetEndpointURLFromNhinTargetCommunities test: " + t.getLocalizedMessage());
         }
     }
 
@@ -464,18 +476,17 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
             List<UrlInfo> endpointUrlList = connectionManager.getEndpointURLFromNhinTargetCommunities(
-                    createNhinTargetCommunitesWithDuplicateTargetCommunities(), QUERY_FOR_DOCUMENTS_NAME);
+                createNhinTargetCommunitesWithDuplicateTargetCommunities(), QUERY_FOR_DOCUMENTS_NAME);
             assertEquals(1, endpointUrlList.size());
 
         } catch (Throwable t) {
-            t.printStackTrace();
-            fail("Error running testGetEndpointURLFromNhinTargetCommunities test: " + t.getMessage());
+            LOG.error(t.getLocalizedMessage(), t);
+            fail("Error running testGetEndpointURLFromNhinTargetCommunities test: " + t.getLocalizedMessage());
         }
     }
 
     @Test
     public void testGetAdapterEndpointURL() throws ConnectionManagerException, PropertyAccessException {
-
         ConnectionManagerCache connectionManager = createConnectionManager();
         String localHomeCommunityId = "1.1";
         when(accessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(localHomeCommunityId);
@@ -486,7 +497,5 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
         url = connectionManager.getAdapterEndpointURL(DOC_QUERY_DEFERRED_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
         assertNotNull(url);
         assertTrue(url.equals(QUERY_FOR_DOCUMENTS_DEFERRED_URL));
-
     }
-
 }

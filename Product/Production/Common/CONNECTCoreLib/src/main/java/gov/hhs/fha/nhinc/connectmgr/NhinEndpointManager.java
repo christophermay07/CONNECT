@@ -33,10 +33,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class NhinEndpointManager {
 
-	private static final Logger LOG = LoggerFactory.getLogger(NhinEndpointManager.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhinEndpointManager.class);
 
     protected ConnectionManagerCacheHelper getConnectionManagerCacheHelper() {
         return new ConnectionManagerCacheHelper();
@@ -52,26 +51,29 @@ public class NhinEndpointManager {
 
     public GATEWAY_API_LEVEL getApiVersion(String homeCommunityId, NhincConstants.NHIN_SERVICE_NAMES serviceName) {
         GATEWAY_API_LEVEL result = null;
-        ConnectionManagerCacheHelper helper = getConnectionManagerCacheHelper();
+
         try {
-            List<UDDI_SPEC_VERSION> specVersions = getConnectionManagerCache().getSpecVersions(homeCommunityId, serviceName);
-            UDDI_SPEC_VERSION specVersion = helper.getHighestUDDISpecVersion(specVersions);
+            List<UDDI_SPEC_VERSION> specVersions = getConnectionManagerCache()
+                .getSpecVersions(homeCommunityId, serviceName);
+            UDDI_SPEC_VERSION specVersion = getConnectionManagerCacheHelper().getHighestUDDISpecVersion(specVersions);
             result = getHighestGatewayApiLevelSupportedBySpec(specVersion, serviceName);
         } catch (Exception ex) {
-            LOG.error("Error getting API version: ", ex);
+            LOG.error("Error getting API version: {}", ex.getLocalizedMessage(), ex);
         }
 
         return (result == null) ? GATEWAY_API_LEVEL.LEVEL_g1 : result;
     }
 
-    private GATEWAY_API_LEVEL getHighestGatewayApiLevelSupportedBySpec(UDDI_SPEC_VERSION specVersion, NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+    private GATEWAY_API_LEVEL getHighestGatewayApiLevelSupportedBySpec(UDDI_SPEC_VERSION specVersion,
+        NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+
         GATEWAY_API_LEVEL highestApiLevel = null;
 
         try {
-        	UddiSpecVersionRegistry specRegistry = getUddiSpecVersionRegistry();
-        	highestApiLevel = specRegistry.getSupportedGatewayAPI(specVersion, serviceName);
+            highestApiLevel = getUddiSpecVersionRegistry().getSupportedGatewayAPI(specVersion, serviceName);
         } catch (Exception ex) {
-            LOG.error("Error in getting highest gateway API level supported by specification: ", ex);
+            LOG.error("Error in getting highest gateway API level supported by specification: {}",
+                ex.getLocalizedMessage(), ex);
         }
 
         return highestApiLevel;

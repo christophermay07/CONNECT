@@ -52,14 +52,15 @@ public interface ConnectionManager {
     /**
      * This class returns the business entity information associated with the specified home community ID.
      *
-     * @param sHomeCommunityId The home commuinity ID that is being searched for.
+     * @param homeCommunityId The home community ID that is being searched for.
      * @return the business entity information for the specified home community.
      * @throws gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException
      */
-    public BusinessEntity getBusinessEntity(String sHomeCommunityId) throws ConnectionManagerException;
+    public BusinessEntity getBusinessEntity(String homeCommunityId) throws ConnectionManagerException;
 
     /**
      * Returns the name of the entity for the given home community id.
+     *
      * @param homeCommunityId
      * @return
      * @throws ConnectionManagerException
@@ -69,33 +70,33 @@ public interface ConnectionManager {
     /**
      * This method returns the business entity information for the set of home communities.
      *
-     * @param saHomeCommunityId The set of home communities to be retrieved.
+     * @param homeCommunityId The set of home communities to be retrieved.
      * @return The business entities found.
      * @throws gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException
      */
-    public Set<BusinessEntity> getBusinessEntitySet(List<String> saHomeCommunityId) throws ConnectionManagerException;
+    public Set<BusinessEntity> getBusinessEntitySet(List<String> homeCommunityId) throws ConnectionManagerException;
 
     /**
-     * This method retrieves the business entity that containts the specific home community and service name. Also note:
-     * This currently does not deal with version. If there are multiple versions of the same serviec, this will return
+     * This method retrieves the business entity that contains the specific home community and service name. Also note:
+     * This currently does not deal with version. If there are multiple versions of the same service, this will return
      * the first one it sees in the list of services. As always, it will always first look in the InternalConnectionInfo
      * cache for the business entity. If it finds the business entity there, it will not look in the UDDI cache. (This
      * means that if the internal cache contains the given business entity, but it does not contain the requested
      * service, it will behave as if the service does not exist - regardless of whether it is in the UDDI cache or not.
      *
-     * @param sHomeCommunityId The home community ID of the gateway that is being looked up.
-     * @param sUniformServiceName The name of the service to locate.
+     * @param homeCommunityId The home community ID of the gateway that is being looked up.
+     * @param uniformServiceName The name of the service to locate.
      * @return The Business Entity information along with only the requested service. if the service is not found, then
-     *         null is returned.
+     * null is returned.
      * @throws ConnectionManagerException
      */
-    public BusinessEntity getBusinessEntityByServiceName(String sHomeCommunityId, String sUniformServiceName)
-            throws ConnectionManagerException;
+    public BusinessEntity getBusinessEntityByServiceName(String homeCommunityId, String uniformServiceName)
+        throws ConnectionManagerException;
 
-    public BusinessEntity getBusinessEntityByHCID(String sHomeCommunityId) throws ConnectionManagerException;
+    public BusinessEntity getBusinessEntityByHCID(String homeCommunityId) throws ConnectionManagerException;
 
     /**
-     * This method retrieves a set of business entity that containts the set of home communities and service name. Also
+     * This method retrieves a set of business entity that contains the set of home communities and service name. Also
      * note: This currently does not deal with version. If there are multiple versions of the same service, this will
      * return the first one it sees in the list of services. As always, it will always first look in the
      * InternalConnectionInfo cache for the business entity. If it finds the business entity there, it will not look in
@@ -103,14 +104,14 @@ public interface ConnectionManager {
      * contain the requested service, it will behave as if the service does not exist - regardless of whether it is in
      * the UDDI cache or not.
      *
-     * @param saHomeCommunityId The home community IDs of the gateways that is being looked up.
-     * @param sUniformServiceName The name of the service to locate.
+     * @param homeCommunityIds The home community IDs of the gateways that are being looked up.
+     * @param uniformServiceName The name of the service to locate.
      * @return The Business Entity information along with only the requested service. If the service is not found, it
-     *         will not be returned even if the business entity information exists.
+     * will not be returned even if the business entity information exists.
      * @throws ConnectionManagerException
      */
-    public Set<BusinessEntity> getBusinessEntitySetByServiceName(List<String> saHomeCommunityId,
-            String sUniformServiceName) throws ConnectionManagerException;
+    public Set<BusinessEntity> getBusinessEntitySetByServiceName(List<String> homeCommunityIds,
+        String uniformServiceName) throws ConnectionManagerException;
 
     /**
      * This method retrieves the business entity information and service information for the set of home communities
@@ -122,54 +123,79 @@ public interface ConnectionManager {
      * business entity, but it does not contain the requested service, it will behave as if the service does not exist -
      * regardless of whether it is in the UDDI cache or not.
      *
-     * @param sUniformServiceName The name of the service being searched for.
+     * @param uniformServiceName The name of the service being searched for.
      * @return The business entities that have this service defined.
      * @throws gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException
      */
-    public Set<BusinessEntity> getAllBusinessEntitySetByServiceName(String sUniformServiceName)
-            throws ConnectionManagerException;
+    public Set<BusinessEntity> getAllBusinessEntitySetByServiceName(String uniformServiceName)
+        throws ConnectionManagerException;
 
-    public List<UDDI_SPEC_VERSION> getSpecVersions(String homeCommunityId, NhincConstants.NHIN_SERVICE_NAMES serviceName);
+    /**
+     * TODO: Javadoc
+     *
+     * @param homeCommunityId
+     * @param serviceName
+     * @return
+     */
+    public List<UDDI_SPEC_VERSION> getSpecVersions(String homeCommunityId,
+        NhincConstants.NHIN_SERVICE_NAMES serviceName);
 
+    /**
+     * TODO: Javadoc
+     *
+     * @param sHomeCommunityId
+     * @param sServiceName
+     * @param level
+     * @return
+     * @throws ConnectionManagerException
+     */
     public String getAdapterEndpointURL(String sHomeCommunityId, String sServiceName, ADAPTER_API_LEVEL level)
-            throws ConnectionManagerException;
+        throws ConnectionManagerException;
 
+    /**
+     * TODO: Javadoc
+     *
+     * @param sServiceName
+     * @param level
+     * @return
+     * @throws ConnectionManagerException
+     */
     public String getAdapterEndpointURL(String sServiceName, ADAPTER_API_LEVEL level) throws ConnectionManagerException;
 
     /**
      * This method returns url for a specified service and home community id .
      *
-     * @param sHomeCommunityId The home community ID of the gateway that is being looked up.
-     * @param sUniformServiceName The name of the service to locate.
+     * @param homeCommunityId The home community ID of the gateway that is being looked up.
+     * @param uniformServiceName The name of the service to locate.
      * @return The URL for only the requested service at the specified home community. If the service is not found, then
-     *         null is returned.
+     * null is returned.
      * @throws ConnectionManagerException
      */
-    public String getDefaultEndpointURLByServiceName(String sHomeCommunityId, String sUniformServiceName)
-            throws ConnectionManagerException;
+    public String getDefaultEndpointURLByServiceName(String homeCommunityId, String uniformServiceName)
+        throws ConnectionManagerException;
 
     /**
-     * This method returns url for a specified service and home community id .
+     * This method returns the url for a specified service and home community id .
      *
-     * @param sHomeCommunityId The home community ID of the gateway that is being looked up.
-     * @param sUniformServiceName The name of the service to locate.
+     * @param homeCommunityId The home community ID of the gateway that is being looked up.
+     * @param uniformServiceName The name of the service to locate.
      * @param version The version of the service to locate.
      * @return The URL for only the requested service at the specified home community. If the service is not found, then
-     *         null is returned.
+     * null is returned.
      * @throws ConnectionManagerException
      */
-    public String getEndpointURLByServiceNameSpecVersion(String sHomeCommunityId, String sUniformServiceName,
-            UDDI_SPEC_VERSION version) throws ConnectionManagerException;
+    public String getEndpointURLByServiceNameSpecVersion(String homeCommunityId, String uniformServiceName,
+        UDDI_SPEC_VERSION version) throws ConnectionManagerException;
 
     /**
      * This method returns a local url for a specified service.
      *
-     * @param sUniformServiceName The name of the service to locate.
+     * @param uniformServiceName The name of the service to locate.
      * @return The URL for only the requested service at the local home community. If the service is not found, then
-     *         null is returned.
+     * null is returned.
      * @throws ConnectionManagerException
      */
-    public String getInternalEndpointURLByServiceName(String sUniformServiceName) throws ConnectionManagerException;
+    public String getInternalEndpointURLByServiceName(String uniformServiceName) throws ConnectionManagerException;
 
     /**
      * This method retrieves the URL from the contents of the NhinTargetSystem type. It will first check to see if the
@@ -184,7 +210,7 @@ public interface ConnectionManager {
      * @throws ConnectionManagerException
      */
     public String getEndpointURLFromNhinTarget(NhinTargetSystemType targetSystem, String serviceName)
-            throws ConnectionManagerException;
+        throws ConnectionManagerException;
 
     /**
      * This method retrieves a set of unique URLs from the contents of the NhinTargetCommunities type. For each
@@ -200,6 +226,5 @@ public interface ConnectionManager {
      * @throws ConnectionManagerException
      */
     public List<UrlInfo> getEndpointURLFromNhinTargetCommunities(NhinTargetCommunitiesType targets, String serviceName)
-            throws ConnectionManagerException;
-
+        throws ConnectionManagerException;
 }

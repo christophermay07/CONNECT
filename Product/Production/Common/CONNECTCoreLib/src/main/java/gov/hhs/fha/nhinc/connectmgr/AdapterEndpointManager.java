@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.connectmgr;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.HashSet;
 import java.util.Set;
@@ -39,16 +40,17 @@ import org.uddi.api_v3.BusinessService;
 import org.uddi.api_v3.KeyedReference;
 
 public class AdapterEndpointManager {
+
     public static final String ADAPTER_API_LEVEL_KEY = "CONNECT:adapter:apilevel";
     public static final Logger LOG = LoggerFactory.getLogger(AdapterEndpointManager.class);
 
     public ADAPTER_API_LEVEL getApiVersion(String serviceName) {
         ADAPTER_API_LEVEL result = null;
+
         try {
-            Set<ADAPTER_API_LEVEL> apiLevels = getAdapterAPILevelsByServiceName(serviceName);
-            result = getHighestGatewayApiLevel(apiLevels);
+            result = getHighestGatewayApiLevel(getAdapterApiLevelsByServiceName(serviceName));
         } catch (Exception ex) {
-            LOG.error("Error getting API version: ", ex);
+            LOG.error("Error getting API version: {}", ex.getLocalizedMessage(), ex);
         }
 
         return (result == null) ? ADAPTER_API_LEVEL.LEVEL_a1 : result;
@@ -64,47 +66,46 @@ public class AdapterEndpointManager {
                 }
             }
         } catch (Exception ex) {
-            LOG.error("Error getting highest API Level: ", ex);
+            LOG.error("Error getting highest API Level: {}", ex.getLocalizedMessage(), ex);
         }
 
         return highestApiLevel;
     }
 
-    public Set<ADAPTER_API_LEVEL> getAdapterAPILevelsByServiceName(String serviceName) {
+    public Set<ADAPTER_API_LEVEL> getAdapterApiLevelsByServiceName(String serviceName) {
         Set<ADAPTER_API_LEVEL> apiLevels = null;
         ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
 
         try {
-            String sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-            BusinessEntity businessEntity = ConnectionManagerCache.getInstance().getBusinessEntity(sHomeCommunityId);
+            String homeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+            BusinessEntity businessEntity = ConnectionManagerCache.getInstance().getBusinessEntity(homeCommunityId);
             BusinessService businessService = helper.getBusinessServiceByServiceName(businessEntity, serviceName);
-            apiLevels = getAPILevelsFromBusinessService(businessService);
-
-        } catch (Exception ex) {
-            LOG.error("Error getting API Level by Service Name: ", ex);
+            apiLevels = getApiLevelsFromBusinessService(businessService);
+        } catch (PropertyAccessException | ConnectionManagerException ex) {
+            LOG.error("Error getting API Level by Service Name: {}", ex.getLocalizedMessage(), ex);
         }
 
         return apiLevels;
     }
 
-    private Set<ADAPTER_API_LEVEL> getAPILevelsFromBusinessService(BusinessService businessService) {
+    private Set<ADAPTER_API_LEVEL> getApiLevelsFromBusinessService(BusinessService businessService) {
         Set<ADAPTER_API_LEVEL> apiLevels = new HashSet<>();
 
         if (businessService.getBindingTemplates() != null) {
             for (BindingTemplate bindingTemplate : businessService.getBindingTemplates().getBindingTemplate()) {
                 if (bindingTemplate.getCategoryBag() != null
-                        && bindingTemplate.getCategoryBag().getKeyedReference() != null) {
+                    && bindingTemplate.getCategoryBag().getKeyedReference() != null) {
+
                     for (KeyedReference reference : bindingTemplate.getCategoryBag().getKeyedReference()) {
-                        String keyName = reference.getTModelKey();
-                        String specVersionValue = reference.getKeyValue();
-                        if (keyName.equals(ADAPTER_API_LEVEL_KEY)) {
-                            apiLevels.add(ADAPTER_API_LEVEL.valueOf(specVersionValue));
+                        if (reference.getTModelKey().equals(ADAPTER_API_LEVEL_KEY)) {
+                            apiLevels.add(ADAPTER_API_LEVEL.valueOf(reference.getKeyValue()));
                         }
                     }
                 }
             }
         }
+
         return apiLevels;
     }
 }

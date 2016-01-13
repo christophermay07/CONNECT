@@ -32,6 +32,7 @@ package gov.hhs.fha.nhinc.connectmgr;
  * @author Les Westberg
  */
 public class ConnectionManagerException extends Exception {
+
     private static final long serialVersionUID = -2763323716005332016L;
 
     /**
@@ -42,7 +43,7 @@ public class ConnectionManagerException extends Exception {
     }
 
     /**
-     * Constructor with an envloping exception.
+     * Constructor with an enveloping exception.
      *
      * @param e The exception that caused this one.
      */
@@ -53,20 +54,19 @@ public class ConnectionManagerException extends Exception {
     /**
      * Constructor with the given exception and message.
      *
-     * @param sMessage The message to place in the exception.
+     * @param message The message to place in the exception.
      * @param e The exception that triggered this one.
      */
-    public ConnectionManagerException(String sMessage, Exception e) {
-        super(sMessage, e);
+    public ConnectionManagerException(String message, Exception e) {
+        super(message, e);
     }
 
     /**
      * Constructor with a given message.
      *
-     * @param sMessage The message for the exception.
+     * @param message The message for the exception.
      */
-    public ConnectionManagerException(String sMessage) {
-        super(sMessage);
+    public ConnectionManagerException(String message) {
+        super(message);
     }
-
 }
