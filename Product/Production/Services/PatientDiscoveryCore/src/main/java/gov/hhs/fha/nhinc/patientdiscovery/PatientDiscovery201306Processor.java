@@ -81,7 +81,7 @@ public class PatientDiscovery201306Processor {
         LOG.debug("Begin storeMapping: hcid" + hcid);
         List<String> assigningAuthorityIds;
         assigningAuthorityIds = extractAAListFrom201306(request);
-        // String assigningAuthority = extractAAFrom201306(request);
+
         for (String assigningAuthority : assigningAuthorityIds) {
             LOG.debug("storeMapping: assigningAuthority" + assigningAuthority);
             if (NullChecker.isNullish(hcid)) {

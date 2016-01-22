@@ -51,7 +51,6 @@ public class DocRetrieveTransformHelper {
     public static CheckPolicyRequestType transformDocRetrieveToCheckPolicy(DocRetrieveEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
         // TODO: Need to handle DocumentSet
-        // DocRetrieveMessageType docRetrieve = event.getMessage();
         RequestType request = new RequestType();
 
         if (InboundOutboundChecker.isInbound(event.getDirection())) {

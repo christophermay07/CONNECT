@@ -125,14 +125,14 @@ public class AttributeHelper {
                                 } else {
                                     LOG.debug("Attribute name can not be processed");
                                 }
-                            } // for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
+                            }
                         } else {
                             LOG.debug("Attribute map is null");
                         }
                     } else {
                         LOG.debug("Expected AttributeValue to have a Node child");
                     }
-                } // for (int idx = 0; idx < numNodes; idx++) {
+                }
             } else {
                 LOG.error("The AttributeValue for " + codeId + " should have a Child Node");
             }

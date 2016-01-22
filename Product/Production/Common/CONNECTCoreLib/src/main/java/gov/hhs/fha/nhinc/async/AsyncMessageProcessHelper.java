@@ -334,7 +334,6 @@ public class AsyncMessageProcessHelper {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommon");
             Marshaller marshaller = jc.createMarshaller();
-            // marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();

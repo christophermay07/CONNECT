@@ -41,12 +41,6 @@ public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationS
 
     private static final Logger LOG = LoggerFactory.getLogger(OutboundPatientDiscoveryStrategy.class);
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy#execute(gov.hhs.fha.nhinc.orchestration.Orchestratable)
-     */
     @Override
     public void execute(Orchestratable message) {
         if (message instanceof OutboundPatientDiscoveryOrchestratable) {
@@ -54,8 +48,6 @@ public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationS
         } else {
             // shouldn't get here
             LOG.error("NhinPatientDiscoveryStrategy input Orchestratable was not an EntityPatientDiscoveryOrchestratable!!!");
-            // throw new
-            // Exception("NhinPatientDiscoveryStrategy input message was not an EntityPatientDiscoveryOrchestratable!!!");
         }
     }
 

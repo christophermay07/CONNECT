@@ -281,7 +281,6 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     return EffectType.DENY;
                 }
                 List<RuleType> rules = new ArrayList<>();
-                // rules = policy.getRule();
                 if ((policy.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition() != null)) {
                     LOG.debug("getCombinerParametersOrRuleCombinerParametersOrVariableDefinition list size: "
                         + policy.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().size());
@@ -506,7 +505,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         } else if (policyMatchId.equals(AdapterPDPConstants.MATCHID_FUNCTION_ANYURI_EQUAL)) {
             isMatch = evaluateMatchWithAnyUriEqualFunction(policyAttrValue, requestAttrValue);
         }
-        // log.debug("evaluateMatchWithFunction - isMatch: " + isMatch);
+
         return isMatch;
     }
 
@@ -521,17 +520,13 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                 isMatch = true;
             }
         }
-        // log.debug("evaluateMatchWithStringEqualFunction -isMatch: " + isMatch);
+
         return isMatch;
     }
 
     private boolean evaluateMatchWithAnyUriEqualFunction(String policyAttrValue, String requestAttrValue) {
         // Need to work on this
-        boolean isMatch;
-        isMatch = evaluateMatchWithStringEqualFunction(policyAttrValue, requestAttrValue);
-        // log.debug("evaluateMatchWithAnyUriEqualFunction -isMatch: " + isMatch);
-
-        return isMatch;
+        return evaluateMatchWithStringEqualFunction(policyAttrValue, requestAttrValue);
     }
 
     private Response createResponse(EffectType effect) {

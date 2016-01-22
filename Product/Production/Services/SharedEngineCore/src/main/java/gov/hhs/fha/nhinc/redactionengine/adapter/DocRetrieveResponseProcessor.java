@@ -135,10 +135,7 @@ public class DocRetrieveResponseProcessor {
             return allowSharing;
         }
         if (null != patientPreferences.getAssigningAuthority() && null != patientPreferences.getPatientId()) {
-
             try {
-                // AdhocQueryRequest oRequest = createAdhocQueryRequest(patientPreferences.getPatientId(),
-                // patientPreferences.getAssigningAuthority());
                 AdhocQueryRequest oRequest = createAdhocQueryRequestByDocumentId(
                     retrieveResponse.getDocumentUniqueId(), retrieveResponse.getRepositoryUniqueId());
                 oResponse = getAdhocQueryResponse(oRequest);
@@ -306,7 +303,6 @@ public class DocRetrieveResponseProcessor {
                     LOG.debug("Looking at classification scheme (" + classification.getClassificationScheme()
                         + ") compared to (" + EBXML_RESPONSE_TYPECODE_CLASS_SCHEME + ")");
                     value = classification.getNodeRepresentation();
-                    // value = parseInternationalType(classification.getName());
                     LOG.debug("Value extracted from classification: " + value);
                 }
             }

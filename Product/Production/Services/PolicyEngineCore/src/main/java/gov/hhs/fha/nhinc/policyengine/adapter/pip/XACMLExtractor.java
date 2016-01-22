@@ -185,11 +185,11 @@ public class XACMLExtractor {
                             if ((sValue != null) && (sValue.length() > 0)) {
                                 return sValue;
                             }
-                        } // if ((oResourceMatch != null) &&
-                    } // for (ResourceMatchType oResourceMatch : olResMatch)
-                } // if ((oResource != null) &&
-            } // for (ResourceType oResource : olResource)
-        } // if ((oRule != null) &&
+                        }
+                    }
+                }
+            }
+        }
 
         return null;
     }
@@ -230,11 +230,11 @@ public class XACMLExtractor {
                                     .equals(XACMLConstants.ATTRIBUTE_VALUE_TYPE_X500)) {
                                 return UserIdFormatType.X_500;
                             }
-                        } // if ((oResourceMatch != null) &&
-                    } // for (ResourceMatchType oResourceMatch : olResMatch)
-                } // if ((oResource != null) &&
-            } // for (ResourceType oResource : olResource)
-        } // if ((oRule != null) &&
+                        }
+                    }
+                }
+            }
+        }
 
         return null;
     }
@@ -270,11 +270,11 @@ public class XACMLExtractor {
                             if ((sValue != null) && (sValue.length() > 0)) {
                                 return sValue;
                             }
-                        } // if ((oResourceMatch != null) &&
-                    } // for (ResourceMatchType oResourceMatch : olResMatch)
-                } // if ((oResource != null) &&
-            } // for (ResourceType oResource : olResource)
-        } // if ((oRule != null) &&
+                        }
+                    }
+                }
+            }
+        }
 
         return null;
     }
@@ -310,11 +310,11 @@ public class XACMLExtractor {
                             if ((sValue != null) && (sValue.length() > 0)) {
                                 return sValue;
                             }
-                        } // if ((oResourceMatch != null) &&
-                    } // for (ResourceMatchType oResourceMatch : olResMatch)
-                } // if ((oResource != null) &&
-            } // for (ResourceType oResource : olResource)
-        } // if ((oRule != null) &&
+                        }
+                    }
+                }
+            }
+        }
 
         return null;
     }
@@ -338,10 +338,9 @@ public class XACMLExtractor {
                 String sErrorMessage = "Date had invalid XML format: " + sXMLDateTime + ".  Error = " + e.getMessage();
                 throw new AdapterPIPException(sErrorMessage, e);
             }
-        }
-        // Date + Time
-        // ------------
-        else if ((sXMLDateTime != null) && (sXMLDateTime.length() > 10)) {
+        } else if ((sXMLDateTime != null) && (sXMLDateTime.length() > 10)) {
+            // Date + Time
+            // ------------
             try {
                 Date oXMLDate = oXMLDateTimeFormatter.parse(sXMLDateTime);
                 sHL7Date = oHL7DateTimeFormatter.format(oXMLDate);
@@ -350,14 +349,12 @@ public class XACMLExtractor {
                         + e.getMessage();
                 throw new AdapterPIPException(sErrorMessage, e);
             }
-        }
-        // Do not know format - put it in as is.
-        else {
+        } else {
+            // Do not know format - put it in as is.
             sHL7Date = sXMLDateTime;
         }
 
         return sHL7Date;
-
     }
 
     /**
@@ -506,7 +503,8 @@ public class XACMLExtractor {
         // Just a double check to be sure that this has fine grained criteria...
         // -----------------------------------------------------------------------
         if (containsSimpleOptInSetting(oConsentXACML)) {
-            return null; // Get out of here... We do not want to proceed.
+            // Get out of here... We do not want to proceed.
+            return null;
         }
 
         // We know that it is not simple opt-in/opt-out - Now lets see if there
@@ -535,7 +533,8 @@ public class XACMLExtractor {
                 && (oFineGrainCriteria.getFineGrainedPolicyCriterion().size() > 0)) {
             return oFineGrainCriteria;
         } else {
-            return null; // No fine grained criteria was found - return null.
+            // No fine grained criteria was found - return null.
+            return null;
         }
     }
 
@@ -586,12 +585,12 @@ public class XACMLExtractor {
                                         oPtPref.setAssigningAuthority(sAssigningAuthority);
                                     }
                                 }
-                            } // if ((oResMatch.getAttributeValue().getContent().get(0) != null) &&
-                        } // if ((oResMatch.getResourceAttributeDesignator() != null) &&
-                    } // for (ResourceMatchType oResMatch : olResourceMatch)
-                } // if ((oResource.getResourceMatch() != null) &&
-            } // for (ResourceType oResource : olResources)
-        } // if ((oConsentXACML != null) &&
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -617,7 +616,8 @@ public class XACMLExtractor {
         if (containsSimpleOptInSetting(oConsentXACML)) {
             oPtPref.setOptIn(extractSimpleOptInSetting(oConsentXACML));
         } else {
-            oPtPref.setOptIn(false); // initialize it - it is not being used if there are fine grained criteria.
+            // initialize it - it is not being used if there are fine grained criteria.
+            oPtPref.setOptIn(false);
             FineGrainedPolicyCriteriaType oFineGrainCriteria = extractFineGrainedCriteriaFromXACML(oConsentXACML);
             if (oFineGrainCriteria != null) {
                 oPtPref.setFineGrainedPolicyCriteria(oFineGrainCriteria);
@@ -625,7 +625,5 @@ public class XACMLExtractor {
         }
 
         return oPtPref;
-
     }
-
 }

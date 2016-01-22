@@ -53,7 +53,6 @@ public class PRPAIN201309UVParser {
     private static String STATUS_CD = "active";
     private static String CNTRL_SUBJ_EVENT_SUBJ_CLASS_CODE = "PAT";
     private static String PATIENTPERSON_CLASSCODE = "PSN";
-    // private static String DETERMINER_CODE = "INSTANCE";
     private static String QUERY_RESPONSE = "OK";
 
 

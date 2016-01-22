@@ -248,7 +248,6 @@ public class AdhocQueryTransformHelper {
     }
 
     public static String extractPatientIdentifierId(AdhocQueryRequest docQuery) {
-        // return PatientIdFormatUtil.parsePatientId(extractPatientIdentifier(docQuery));
         return extractPatientIdentifier(docQuery);
     }
 

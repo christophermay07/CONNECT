@@ -158,7 +158,7 @@ public class ConnectionManagerCacheHelper {
                     oEntities.set(i, oEntity);
                     return; // We are done
                 }
-            } // for (int i = 0; i < iCnt; i++)
+            }
 
             oEntities.add(oEntity);
         }

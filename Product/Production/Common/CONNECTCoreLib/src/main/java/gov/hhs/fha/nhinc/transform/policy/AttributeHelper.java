@@ -183,10 +183,13 @@ public class AttributeHelper {
         return matchingAttribute;
     }
 
+    /**
+     * Extracts the first content value of the first attribute value; error if there are multiple values.
+     *
+     * @param attribute
+     * @return the content value; null if there is none.
+     */
     public Object getSingleContentValue(AttributeType attribute) {
-        // returns attribute.getAttributeValue().get(0).getContent().get(0);
-        // if there a multiple attribute value or contents, return error
-        // if no attribute value or content, return null
         Object contentValue = null;
         if (attribute != null) {
             if (attribute.getAttributeValue().size() > 1) {

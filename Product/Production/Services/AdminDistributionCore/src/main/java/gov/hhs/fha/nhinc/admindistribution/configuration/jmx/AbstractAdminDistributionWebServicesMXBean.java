@@ -60,47 +60,26 @@ public abstract class AbstractAdminDistributionWebServicesMXBean extends Abstrac
     /** The Constant Passthrough_InboundOrch_AD_BEAN_NAME. */
     private static final String PtInbound_AD_Bean_Name = "ptADInbound";
 
-
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getStandardOutboundBeanName()
-     */
     @Override
     protected String getStandardOutboundBeanName() {
         return StdOutbound_AD_Bean_Name;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getPassthroughOutboundBeanName()
-     */
     @Override
     protected String getPassthroughOutboundBeanName() {
         return PtOutbound_AD_Bean_Name;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getStandardInboundBeanName()
-     */
     @Override
     protected String getStandardInboundBeanName() {
         return StdInbound_AD_Bean_Name;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getPassthroughInboundBeanName()
-     */
     @Override
     protected String getPassthroughInboundBeanName() {
         return PtInbound_AD_Bean_Name;
     }
+
     /**
      * Configure outbound Standard implementation. This method is abstract because subclass implementations must use
      * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
@@ -158,37 +137,4 @@ public abstract class AbstractAdminDistributionWebServicesMXBean extends Abstrac
     public AbstractAdminDistributionWebServicesMXBean(ServletContext sc) {
         super(sc);
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getNhinBeanName()
-     */
-/*    @Override
-    protected String getNhinBeanName() {
-        return NHIN_AD_BEAN_NAME;
-    }
-*/
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getEntityUnsecuredBeanName()
-     */
-/*    @Override
-    protected String getEntityUnsecuredBeanName() {
-        return ENTITY_UNSECURED_AD_BEAN_NAME;
-    }
-*/
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getEntitySecuredBeanName()
-     */
-/*
-    @Override
-    protected String getEntitySecuredBeanName() {
-        return ENTITY_SECURED_AD_BEAN_NAME;
-    }
-*/
-
 }

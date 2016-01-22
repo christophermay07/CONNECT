@@ -224,7 +224,6 @@ public class Retriever {
         SessionFactory fact;
         Session sess = null;
         List<CorrelatedIdentifiers> result = null;
-        // List<CorrelatedIdentifiers> modifiedResult = null;
 
         try {
             fact = HibernateUtil.getSessionFactory();
@@ -268,11 +267,6 @@ public class Retriever {
             }
         }
 
-        // only non-expired patient correlation records will be returned.
-        // expired correlation records will be removed from the datebase.
-        // modifiedResult = removeExpiredCorrelations(result);
-
-        // return modifiedResult;
         return result;
     }
 

@@ -90,13 +90,14 @@ public class QueryUtil {
                                     && (oSlot.getValueList().getValue().size() > 0)
                                     && (oSlot.getValueList().getValue().get(0).length() > 0)) {
                                 sPatientId = oSlot.getValueList().getValue().get(0).trim();
-                                break; // Get out of the loop - we found what we want.
+                                // Get out of the loop - we found what we want.
+                                break;
                             }
-                        } // for (SlotType1 oSlot : olSlot)
-                    } // if ((oExtObj.getSlot() != null) && ...
-                } // if ((oJAXBObj != null) &&
-            } // for (JAXBElement<? extends IdentifiableType> oJAXBObj : olRegObjs)
-        } // if ((oResponse != null) && ...
+                        }
+                    }
+                }
+            }
+        }
 
         return sPatientId;
     }
@@ -211,8 +212,8 @@ public class QueryUtil {
                                     sHL7PatientId = oSlot.getValueList().getValue().get(0).trim();
                                     sHomeCommunityId = PatientIdFormatUtil.parseCommunityId(sHL7PatientId);
                                 }
-                            } // for (SlotType1 oSlot : olSlot)
-                        } // if ((oExtObj.getSlot() != null) && ...
+                            }
+                        }
 
                         // Repository ID
                         // ---------------
@@ -227,8 +228,8 @@ public class QueryUtil {
                                     && oSlot.getValueList().getValue().get(0).length() > 0) {
                                     sRepositoryId = oSlot.getValueList().getValue().get(0).trim();
                                 }
-                            } // for (SlotType1 oSlot : olSlot)
-                        } // if ((oExtObj.getSlot() != null) && ...
+                            }
+                        }
 
                         // Document Unique ID
                         // -------------------
@@ -240,8 +241,8 @@ public class QueryUtil {
                                     && (oExtId.getValue() != null) && (oExtId.getValue().length() > 0)) {
                                     sDocumentId = oExtId.getValue().trim();
                                 }
-                            } // for (ExternalIdentifierType oExtid : olExtId)
-                        } // if ((oExtObj.getExternalIdentifier() != null) &&
+                            }
+                        }
                     }
 
                     DocumentRequest oDocRequest = new DocumentRequest();
@@ -250,8 +251,8 @@ public class QueryUtil {
                     oDocRequest.setDocumentUniqueId(sDocumentId);
                     olDocReq.add(oDocRequest);
 
-                } // if ((oJAXBObj != null) &&
-            } // for (JAXBElement<? extends IdentifiableType> oJAXBObj : olRegObjs)
+                }
+            }
         }
 
         return olDocReq;

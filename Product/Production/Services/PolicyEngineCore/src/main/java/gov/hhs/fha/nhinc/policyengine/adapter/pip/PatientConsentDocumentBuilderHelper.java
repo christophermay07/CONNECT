@@ -144,9 +144,6 @@ public class PatientConsentDocumentBuilderHelper {
         setPatientInfo(oSlots, oPtPref, oRimObjectFactory, sMimeType, sDocUniqueId);
         setTitle(oExtObj, oPtPref, oRimObjectFactory, sMimeType, sDocUniqueId);
 
-        // ClassificationType oClassificationCDAR2 = createCDARClassification(sDocUniqueId,
-        // oRimObjectFactory);
-        // oExtObj.getClassification().add(oClassificationCDAR2);
         setClassCode(oExtObj, oPtPref, oRimObjectFactory, sDocUniqueId, sMimeType);
 
         setConfidentialityCode(oExtObj, oRimObjectFactory, sDocUniqueId, oPtPref, sMimeType);
@@ -178,7 +175,6 @@ public class PatientConsentDocumentBuilderHelper {
         oRegistryPackage.getExternalIdentifier().add(oExtIdTypePatForReg);
 
         String sSubmissionSetUniqueId = PropertyAccessor.getInstance().getProperty(FILE_NAME, "submissionsetuniqueid");
-        // getOidFromProperty("submissionsetuniqueid");
         oExtIdTypePatForReg = createExternalIdentifier(oRimObjectFactory,
                 CDAConstants.EXTERNAL_IDENTIFICATION_SCHEMA_REGISTRYOBJECT,
                 CDAConstants.EXTERNAL_IDENTIFICATION_SCHEMA_UNIQUEID, CDAConstants.EXTERNAL_OBJECT_IDENTIFIER_TYPE,
@@ -535,12 +531,6 @@ public class PatientConsentDocumentBuilderHelper {
                     sPid11 = oPtPref.getFineGrainedPolicyMetadata().getPid11();
                 }
             }
-            // if (NullChecker.isNullish(sPid3))
-            // {
-            // // TODO: What is this about? PID3 required?
-            // sPid3 = "pid1^^^domain";
-            // }
-            // oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_SOURCE_PATIENT_INFO, "PID-3|" + sPid3));
             if (NullChecker.isNotNullish(sPid3)) {
                 oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_SOURCE_PATIENT_INFO, "PID-3|" + sPid3));
             }
@@ -890,30 +880,6 @@ public class PatientConsentDocumentBuilderHelper {
         }
     }
 
-    /**
-     *
-     * @param sDocId
-     * @param oFactory
-     * @param oPatCD
-     * @return ClassificationType
-     */
-    // private ClassificationType createCDARClassification(String sDocId, ObjectFactory oFactory)
-    // {
-    // log.info("------- Begin PatientConsentDocumentBuilderHelper.createCDARClassification -------");
-    // ClassificationType cClass = createClassification(oFactory,
-    // CDAConstants.CLASSIFICATION_SCHEMA_IDENTIFIER_CDAR2,
-    // sDocId,
-    // "",
-    // CDAConstants.NODE_REPRESENTATION_CDAR2,
-    // CDAConstants.CLASSIFICATION_REGISTRY_OBJECT,
-    // CDAConstants.CLASSIFICATION_SCHEMA_CDNAME,
-    // CDAConstants.CDAR2_VALUE,
-    // CDAConstants.CHARACTER_SET,
-    // CDAConstants.LANGUAGE_CODE_ENGLISH,
-    // CDAConstants.NODE_REPRESENTATION_CDAR2);
-    // log.info("------- End PatientConsentDocumentBuilderHelper.createCDARClassification -------");
-    // return cClass;
-    // }
     /**
      *
      * @param fact

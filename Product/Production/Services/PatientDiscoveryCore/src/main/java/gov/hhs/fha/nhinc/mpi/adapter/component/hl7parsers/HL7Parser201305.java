@@ -468,8 +468,6 @@ public class HL7Parser201305 {
         Patient mpiPatient = new Patient();
 
         if (params != null) {
-
-            // mpiPatient.setName(ExtractPersonName(params));
             mpiPatient.getNames().add(extractPersonName(params));
             mpiPatient.setGender(extractGender(params));
 

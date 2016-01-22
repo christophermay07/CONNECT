@@ -120,7 +120,6 @@ public class XACMLCreator {
         oActionAttrDesig.setAttributeId(sAttributeId);
 
         return oAction;
-
     }
 
     /**
@@ -177,7 +176,6 @@ public class XACMLCreator {
         oResAttrDesig.setAttributeId(XACMLConstants.PATIENT_SUBJECT_ID);
 
         return oResource;
-
     }
 
     /**
@@ -208,8 +206,6 @@ public class XACMLCreator {
         // ---------------------------------------------------------------
         if (sDataType.equals(XACMLConstants.ATTRIBUTE_VALUE_TYPE_IID)) {
             Map<QName, String> mapAttrValueAttrs = oAttributeValue.getOtherAttributes();
-            // QName oHL7Attr = new QName(XACMLConstants.NAMESPACE_HL7_V3, XACMLConstants.QNAME_NAMESPACE_PREFIX,
-            // XACMLConstants.QNAME_NAMESPACE_LOCALPART_HL7);
             QName oHL7Attr = new QName("xmlns:hl7");
             mapAttrValueAttrs.put(oHL7Attr, XACMLConstants.NAMESPACE_HL7_V3);
             oAttributeValue.getContent().add(sAttributeValue);
@@ -225,7 +221,6 @@ public class XACMLCreator {
         oResAttrDesig.setAttributeId(sAttributeId);
 
         return oResource;
-
     }
 
     /**
@@ -261,7 +256,6 @@ public class XACMLCreator {
         oSubjAttrDesig.setAttributeId(sAttributeId);
 
         return oSubject;
-
     }
 
     /**
@@ -298,7 +292,6 @@ public class XACMLCreator {
         oEnvAttrDesig.setAttributeId(sAttributeId);
 
         return oEnvironment;
-
     }
 
     /**
@@ -320,9 +313,9 @@ public class XACMLCreator {
                 String sErrorMessage = "Date had invalid HL7 format: " + sHL7DateTime + ".  Error = " + e.getMessage();
                 throw new AdapterPIPException(sErrorMessage, e);
             }
-        } // Date + Time
-        // ------------
-        else if ((sHL7DateTime != null) && (sHL7DateTime.length() > 8)) {
+        } else if ((sHL7DateTime != null) && (sHL7DateTime.length() > 8)) {
+            // Date + Time
+            // ------------
             try {
                 Date oHL7Date = oHL7DateTimeFormatter.parse(sHL7DateTime);
                 sXMLDate = oXMLDateTimeFormatter.format(oHL7Date);
@@ -331,13 +324,12 @@ public class XACMLCreator {
                     + e.getMessage();
                 throw new AdapterPIPException(sErrorMessage, e);
             }
-        } // Do not know format - put it in as is.
-        else {
+        } else {
+            // Do not know format - put it in as is.
             sXMLDate = sHL7DateTime;
         }
 
         return sXMLDate;
-
     }
 
     /**
@@ -390,8 +382,8 @@ public class XACMLCreator {
                 .getCode());
             olSubject.add(oSubject);
             bHaveSubjectInfo = true;
-
-        } // User Role
+        }
+        // User Role
 
         // Organization ID
         // -----------------
@@ -401,7 +393,8 @@ public class XACMLCreator {
                 oCriterion.getOrganizationId());
             olSubject.add(oSubject);
             bHaveSubjectInfo = true;
-        } // Organization ID
+        }
+        // Organization ID
 
         // Home Community ID
         // ------------------
@@ -411,7 +404,8 @@ public class XACMLCreator {
                 oCriterion.getHomeCommunityId());
             olSubject.add(oSubject);
             bHaveSubjectInfo = true;
-        } // Organization ID
+        }
+        // Organization ID
 
         // User ID
         // --------
@@ -429,7 +423,8 @@ public class XACMLCreator {
             }
             olSubject.add(oSubject);
             bHaveSubjectInfo = true;
-        } // Organization ID
+        }
+        // Organization ID
 
         // Purpose of Use
         // ----------------
@@ -440,7 +435,8 @@ public class XACMLCreator {
                 .getPurposeOfUse().getCode());
             olSubject.add(oSubject);
             bHaveSubjectInfo = true;
-        } // User Role
+        }
+        // User Role
 
         // if we had subject data, put it in now.
         // ---------------------------------------
@@ -649,7 +645,8 @@ public class XACMLCreator {
 
         // Rules...
         // ---------
-        int iRuleIdx = 1; // Index for each rule number.
+        // Index for each rule number.
+        int iRuleIdx = 1;
         List<Object> olRules = oPolicy.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition();
 
         // Put blanket opt-in or opt-out rule if there is no fine-grained criteria.
@@ -678,5 +675,4 @@ public class XACMLCreator {
 
         return oPolicy;
     }
-
 }

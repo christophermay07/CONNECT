@@ -214,14 +214,13 @@ public class CdaPdfCreator {
                 bHaveData = true;
             }
 
-        } // if (oCE != null)
+        }
 
         if (bHaveData) {
             return oHl7Ce;
         } else {
             return null;
         }
-
     }
 
     /**
@@ -299,14 +298,13 @@ public class CdaPdfCreator {
                 bHaveData = true;
             }
 
-        } // if (oCs != null)
+        }
 
         if (bHaveData) {
             return oHl7Cs;
         } else {
             return null;
         }
-
     }
 
     /**
@@ -393,15 +391,13 @@ public class CdaPdfCreator {
                 oHL7Ad.getContent().add(oElement);
                 bHaveData = true;
             }
-
-        } // if (oAddress != null)
+        }
 
         if (bHaveData) {
             return oHL7Ad;
         } else {
             return null;
         }
-
     }
 
     /**
@@ -456,14 +452,13 @@ public class CdaPdfCreator {
                 bHaveData = true;
             }
 
-        } // if (oName != null)
+        }
 
         if (bHaveData) {
             return oHL7Pn;
         } else {
             return null;
         }
-
     }
 
     /**
@@ -501,8 +496,8 @@ public class CdaPdfCreator {
                         oPatientRole.getAddr().add(oHL7Address);
                         bHaveData = true;
                     }
-                } // for (AddressType oAddress : oPatientInfo.getAddr().getAddress())
-            } // if ((oPatientInfo.getAddr() != null) &&
+                }
+            }
 
             // Fill in the patient tag.
             // -------------------------
@@ -543,14 +538,13 @@ public class CdaPdfCreator {
                 oPatientRole.setPatient(oPatientTag);
                 bHaveData = true;
             }
-        } // if (oPatientInfo != null)
+        }
 
         if (bHaveData) {
             return oRecordTarget;
         } else {
             return null;
         }
-
     }
 
     /**
@@ -706,7 +700,6 @@ public class CdaPdfCreator {
         } else {
             return null;
         }
-
     }
 
     /**
@@ -751,7 +744,6 @@ public class CdaPdfCreator {
         } else {
             return null;
         }
-
     }
 
     /**
@@ -880,7 +872,6 @@ public class CdaPdfCreator {
         } else {
             return null;
         }
-
     }
 
     /**
@@ -1024,7 +1015,6 @@ public class CdaPdfCreator {
         } else {
             return null;
         }
-
     }
 
     /**
@@ -1057,7 +1047,6 @@ public class CdaPdfCreator {
         oServiceEvent.setEffectiveTime(oTimeInterval);
 
         return oDocOf; // Always return one of these - even if it is only with our default values.
-
     }
 
     /**
@@ -1097,7 +1086,6 @@ public class CdaPdfCreator {
         } else {
             return null;
         }
-
     }
 
     /**
@@ -1188,14 +1176,13 @@ public class CdaPdfCreator {
             // ----------
             oCda.setComponent(createComponent(oCriterion));
 
-        } // if (oCriterion != null)
+        }
 
         if (bHaveData) {
             return oCda;
         } else {
             return null;
         }
-
     }
 
     /**

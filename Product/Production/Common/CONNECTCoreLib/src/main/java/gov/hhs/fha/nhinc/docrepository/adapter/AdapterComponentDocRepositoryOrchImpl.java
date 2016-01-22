@@ -157,7 +157,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     LOG.debug("RepositoryId not found");
                 }
 
-            } // while (iterDocRequest.hasNext())
+            }
 
             if ((!documentUniqueIds.isEmpty()) && (!repositoryUniqueIds.isEmpty())) {
                 boolean repositoryIdMatched = true;
@@ -260,7 +260,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         XDS_DOCUMENT_UNIQUE_ID_ERROR, XDS_DOCUMENT_UNIQUE_ID_ERROR + " Document Id is empty.");
                 regErrList.getRegistryError().add(regErr);
             }
-            // response.getRegistryResponse().setStatus(responseStatus);
+
             if (response.getRegistryResponse().getStatus().equals(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE)
                     && (response.getDocumentResponse().size() > 0)) {
                 response.getRegistryResponse().setStatus(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_PARTIALSUCCESS);
@@ -552,7 +552,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             saveDocument(doc, requestHasReplacementAssociation, documentUniqueId, errorList);
 
             return doc;
-        } // if (extrinsicObject != null)
+        }
         return null;
     }
 
@@ -760,10 +760,9 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     } else {
                         replacementAssociationExists = false;
                     }
-
-                } // else associationObj.getAssociationType() is not null
-            } // if (tempObj instanceof oasis.names.tc.ebxml_regrep.xsd.rim._3.AssociationType1)
-        } // for (int i = 0; i < identifiableObjectList.size(); i++)
+                }
+            }
+        }
 
         LOG.debug("replacementAssociationExists = " + replacementAssociationExists);
         return replacementAssociationExists;
@@ -822,7 +821,6 @@ public class AdapterComponentDocRepositoryOrchImpl {
                 EventCode eventCode = new EventCode();
                 eventCode.setDocument(doc);
 
-                // eventCode.setEventCodeId(getChildElementLongValue(eventCodeElement, "codeId"));
                 eventCode.setEventCode(classification.getNodeRepresentation());
                 eventCode.setEventCodeScheme(docRepoHelper.extractMetadataFromSlots(classification.getSlot(),
                         DocRepoConstants.XDS_CODING_SCHEME_SLOT, 0));
@@ -831,7 +829,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                 eventCodes.add(eventCode);
             }
 
-        } // for (oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType classification : classifications)
+        }
 
         doc.setEventCodes(eventCodes);
         LOG.trace("End extractEventCodes");

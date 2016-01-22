@@ -68,12 +68,6 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryProcessor#process201305(org.hl7.v3.PRPAIN201305UV02,
-     * gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
-     */
     @Override
     public PRPAIN201306UV02 process201305(PRPAIN201305UV02 request, AssertionType assertion)
             throws PatientDiscoveryException {
@@ -99,7 +93,6 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
                     II requestPatId = providedPatientId(request);
                     if (requestPatId != null) {
                         // Create a patient correlation
-                        // createPatientCorrelation(response, patIdOverride, assertion, request);
                         createPatientCorrelation(response, assertion, request);
                     }
                     response = addAuthorOrPerformer(response);
@@ -124,7 +117,6 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         II patId;
         PatientDiscovery201306PolicyChecker policyChecker = PatientDiscovery201306PolicyChecker.getInstance();
 
-        // ************************************************************************************************
         List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<>();
         if (response != null && response.getControlActProcess() != null
                 && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
@@ -174,16 +166,13 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         } else {
             LOG.debug("checkPolicy - after policy Check-response/subjects is null");
         }
-        // ************************************************************************************************
 
-        // return policyChecker.check201305Policy(response, patIdOverride, assertion);
         return isPermit;
     }
 
     protected boolean checkEmptySubject(PRPAIN201306UV02 response) {
         boolean isSubjectEmpty = true;
 
-        // ************************************************************************************************
         if (response != null && response.getControlActProcess() != null
                 && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
             isSubjectEmpty = false;

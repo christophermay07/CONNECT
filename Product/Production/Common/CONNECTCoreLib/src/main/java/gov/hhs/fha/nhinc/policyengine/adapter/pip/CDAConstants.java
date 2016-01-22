@@ -70,7 +70,6 @@ public class CDAConstants {
     public static final String METADATA_CLASS_CODE_DISPLAY_NAME = "Privacy Policy";
     public static final String METADATA_FORMAT_CODE_SYSTEM = "1.3.6.1.4.1.19376.1.2.3";
     public static final String METADATA_FORMAT_CODE_XACML = "urn:nhin:names:acp:XACML";
-    // public static final String METADATA_FORMAT_CODE_XACML_DISPLAY_NAME = "Privacy Policy";
     public static final String METADATA_FORMAT_CODE_PDF = "urn:ihe:iti:xds-sd:pdf:2008";
     public static final String METADATA_FORMAT_CODE_SCANNED_TEXT = "urn:ihe:iti:xds-sd:text:2008";
     public static final String METADATA_EVENT_CODE_SYSTEM = "N/A";

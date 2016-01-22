@@ -109,7 +109,6 @@ public class HL7PRPA201306Transforms {
                 createQUQIMT021001UV01ControlActProcess(patient, localDeviceId, query, receiverAAID, receiverOID));
 
         return result;
-
     }
 
     /**
@@ -125,7 +124,7 @@ public class HL7PRPA201306Transforms {
         if (oRequest == null) {
             LOG.error("The incomming patient discovery request, PRPAIN201305UV02, message was null.");
             return null;
-        } // else continue
+        }
 
         boolean bRequiredFieldsAreNull = areIncommingRequiredPRPAIN201305FieldsNull(oRequest);
         if (bRequiredFieldsAreNull) {
@@ -184,7 +183,7 @@ public class HL7PRPA201306Transforms {
         if (oRequest == null) {
             LOG.error("The incomming patient discovery request, PRPAIN201305UV02, message was null.");
             return null;
-        } // else continue
+        }
 
         boolean bRequiredFieldsAreNull = areIncommingRequiredPRPAIN201305FieldsNull(oRequest);
         if (bRequiredFieldsAreNull) {
@@ -394,7 +393,6 @@ public class HL7PRPA201306Transforms {
 
         subject.getTypeCode().add("SUBJ");
 
-        // subject.setRegistrationEvent(createRegEvent(patient, query, patientId, aaId, orgId));
         return subject;
     }
 
@@ -704,8 +702,9 @@ public class HL7PRPA201306Transforms {
         } else if (oRequest.getControlActProcess().getQueryByParameter().getValue().getQueryId() == null) {
             LOG.error("The queryId object in the request's controlActProcess object is null.");
             return true;
-        } // else all is well, fields are not null; return false
+        }
+
+        // all is well, fields are not null; return false
         return false;
     }
-
 }

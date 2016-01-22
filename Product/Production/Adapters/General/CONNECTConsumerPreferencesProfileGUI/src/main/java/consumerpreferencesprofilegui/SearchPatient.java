@@ -514,8 +514,6 @@ public class SearchPatient extends AbstractPageBean {
             LOG.info("createPatientSearchCriteria - aaId: " + aaId.getText().toString());
         }
 
-        // criteria.setOrganizationID("2.16.840.1.113883.0.202.1");
-
         return criteria;
     }
 
@@ -631,19 +629,9 @@ public class SearchPatient extends AbstractPageBean {
 
     private void activatePatientPreferencesTab() {
         this.patientPreferencesTab.setDisabled(false);
-        /*
-         * String tabLabelStyle = this.getPatientPreferencesTab().getStyle(); if
-         * (tabLabelStyle.contains("color: gray; ")) { String newStyle = tabLabelStyle.replace("color: gray; ", "");
-         * this.patientPreferencesTab.setStyle(newStyle); }
-         */
     }
 
     private void deactivatePatientPreferencesTab() {
-        /*
-         * String tabLabelStyle = this.patientPreferencesTab.getStyle(); if (!tabLabelStyle.contains("color: gray; ")) {
-         * StringBuffer newStyle = new StringBuffer(tabLabelStyle); newStyle.insert(0, "color: gray; ");
-         * this.patientPreferencesTab.setStyle(newStyle.toString()); }
-         */
         this.patientPreferencesTab.setDisabled(true);
     }
 
@@ -893,10 +881,6 @@ public class SearchPatient extends AbstractPageBean {
 
     public String displayFineGrainedPreferences() {
         this.errorMessages.setText("");
-
-        // this.policyOID.setStyle("color: green; text-decoration: underline");
-
-        // String selectedPolicyOID = this.policyOID.getText().toString();
 
         String selectedPolicyOID = this.userSelectedPolicyOID.getValue().toString();
 

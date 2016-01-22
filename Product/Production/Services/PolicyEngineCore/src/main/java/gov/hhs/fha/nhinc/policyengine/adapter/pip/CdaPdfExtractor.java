@@ -110,7 +110,6 @@ public class CdaPdfExtractor {
         } else {
             return null;
         }
-
     }
 
     /**
@@ -128,7 +127,6 @@ public class CdaPdfExtractor {
         }
 
         return oCe;
-
     }
 
     /**
@@ -146,7 +144,6 @@ public class CdaPdfExtractor {
         }
 
         return oCe;
-
     }
 
     /**
@@ -160,7 +157,8 @@ public class CdaPdfExtractor {
         boolean bHaveData = false;
 
         if (oHL7Addr == null) {
-            return null; // Get out of here there is nothing to do.
+            // Get out of here there is nothing to do.
+            return null;
         }
 
         // Addresses are set up in HL7 in a somewhat strange way. They can
@@ -208,17 +206,16 @@ public class CdaPdfExtractor {
                                 bHaveData = true;
                             }
                         }
-                    } // if (oJAXBElement.getValue() != null)
-                } // if (oSerialElement instanceof JAXBElement)
-            } // for (Serializable oSerialElement : oHL7Addr.getContent())
-        } // if ((oHL7Addr.getContent() != null) && ...
+                    }
+                }
+            }
+        }
 
         if (bHaveData) {
             return oAddr;
         } else {
             return null;
         }
-
     }
 
     /**
@@ -253,40 +250,35 @@ public class CdaPdfExtractor {
                                 oPersonName.setPrefix(oPrefix.getContent());
                                 bHaveData = true;
                             }
-                        } // if (oJAXBElement.getValue() instanceof EnExplicitPrefix)
-                        else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
+                        } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
                             EnExplicitGiven oGiven = (EnExplicitGiven) oJAXBElement.getValue();
                             if ((oGiven != null) && (oGiven.getContent() != null)) {
                                 oPersonName.setGivenName(oGiven.getContent());
                                 bHaveData = true;
                             }
-                        } // if (oJAXBElement.getValue() instanceof EnExplicitGiven)
-                        else if (oJAXBElement.getValue() instanceof EnExplicitFamily) {
+                        } else if (oJAXBElement.getValue() instanceof EnExplicitFamily) {
                             EnExplicitFamily oFamily = (EnExplicitFamily) oJAXBElement.getValue();
                             if ((oFamily != null) && (oFamily.getContent() != null)) {
                                 oPersonName.setFamilyName(oFamily.getContent());
                                 bHaveData = true;
                             }
-                        } // if (oJAXBElement.getValue() instanceof EnExplicitFamily)
-                        else if (oJAXBElement.getValue() instanceof EnExplicitSuffix) {
+                        } else if (oJAXBElement.getValue() instanceof EnExplicitSuffix) {
                             EnExplicitSuffix oSuffix = (EnExplicitSuffix) oJAXBElement.getValue();
                             if ((oSuffix != null) && (oSuffix.getContent() != null)) {
                                 oPersonName.setSuffix(oSuffix.getContent());
                                 bHaveData = true;
                             }
-                        } // if (oJAXBElement.getValue() instanceof EnExplicitFamily)
-
-                    } // if (oJAXBElement.getValue() != null)
-                } // if (oSerialElement instanceof JAXBElement)
-            } // for (Serializable oSerialElement : oHL7Addr.getContent())
-        } // if ((oHL7Addr.getContent() != null) && ...
+                        }
+                    }
+                }
+            }
+        }
 
         if (bHaveData) {
             return oPersonName;
         } else {
             return null;
         }
-
     }
 
     /**
@@ -305,9 +297,9 @@ public class CdaPdfExtractor {
                     if (oAddr != null) {
                         oAddrs.getAddress().add(oAddr);
                     }
-                } // if (oHL7Addr != null)
-            } // for (AD oHL7Addr : oHL7Addrs)
-        } // if ((oHL7Addrs != null) && ...
+                }
+            }
+        }
 
         if (oAddrs.getAddress().size() > 0) {
             return oAddrs;
@@ -336,7 +328,7 @@ public class CdaPdfExtractor {
                 oPatientInfo.setAddr(oAddrs);
                 bHaveData = true;
             }
-        } // if (oCda.getRecordTarget().get(0).getPatientRole().getAddr() != null)
+        }
 
         // Patient Name
         // --------------
@@ -349,7 +341,7 @@ public class CdaPdfExtractor {
                 oPatientInfo.setName(oPersonName);
                 bHaveData = true;
             }
-        } // if (oCda.getRecordTarget().get(0).getPatientRole().getAddr() != null)
+        }
 
         // Patient Gender
         // ---------------
@@ -375,7 +367,6 @@ public class CdaPdfExtractor {
         } else {
             return null;
         }
-
     }
 
     /**
@@ -397,8 +388,8 @@ public class CdaPdfExtractor {
                         return oHL7Author;
                     }
                 }
-            } // if ((oHL7Author.getTemplateId() != null) && ...
-        } // for (POCDMT000040Author oHL7Author : oHL7Authors)
+            }
+        }
 
         // If we got here - we never found the author we were looking for....
         // -------------------------------------------------------------------
@@ -431,11 +422,11 @@ public class CdaPdfExtractor {
                 bHaveData = true;
             }
 
+            // There should only be one - if more, then we will use the first.
             if ((oHL7Author.getAssignedAuthor() != null) && (oHL7Author.getAssignedAuthor().getId() != null)
                 && (oHL7Author.getAssignedAuthor().getId().size() > 0)
-                && (oHL7Author.getAssignedAuthor().getId().get(0) != null)) // There should only be one - if more
-            // then we will use the first.
-            {
+                && (oHL7Author.getAssignedAuthor().getId().get(0) != null)) {
+
                 // Assigned Person Assigning Authority
                 // -------------------------------------
                 if ((oHL7Author.getAssignedAuthor().getId().get(0).getRoot() != null)
@@ -452,18 +443,16 @@ public class CdaPdfExtractor {
                     oOriginalAuthor.setAuthorId(oHL7Author.getAssignedAuthor().getId().get(0).getExtension());
                     bHaveData = true;
                 }
-            } // if ((oHL7Author.getAssignedAuthor() != null) && ...
+            }
 
             // Author name
             // ------------
             if ((oHL7Author.getAssignedAuthor() != null)
                 && (oHL7Author.getAssignedAuthor().getAssignedPerson() != null)
                 && (oHL7Author.getAssignedAuthor().getAssignedPerson().getName() != null)
-                && (oHL7Author.getAssignedAuthor().getAssignedPerson().getName().size() > 0) && // Should only be
-                // one name - if
-                // more take the
-                // first.
+                && (oHL7Author.getAssignedAuthor().getAssignedPerson().getName().size() > 0) &&
                 (oHL7Author.getAssignedAuthor().getAssignedPerson().getName().get(0) != null)) {
+                // Should only be one name - if more, take the first.
                 PersonNameType oPersonName = createPersonName(oHL7Author.getAssignedAuthor().getAssignedPerson()
                     .getName().get(0));
                 if (oPersonName != null) {
@@ -472,17 +461,11 @@ public class CdaPdfExtractor {
                 }
             }
 
+            // Should only be one - if more, take the first.
             if ((oHL7Author.getAssignedAuthor() != null)
                 && (oHL7Author.getAssignedAuthor().getRepresentedOrganization() != null)) {
                 if ((oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId() != null)
-                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().size() > 0) && // Should
-                    // only
-                    // be one
-                    // - if
-                    // more
-                    // take
-                    // the
-                    // first.
+                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().size() > 0) && 
                     (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0) != null)) {
                     // Represented organization ID assigning authority
                     // -------------------------------------------------
@@ -504,20 +487,19 @@ public class CdaPdfExtractor {
                             .getRepresentedOrganization().getId().get(0).getExtension());
                         bHaveData = true;
                     }
-                } // if ((oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId() != null) && ...
+                }
 
                 // Represented Organization Name
                 // ------------------------------
+                // Should only be one - if more then take the first.
                 if ((oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName() != null)
                     && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName().size() > 0)
                     && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName().get(0) != null)
-                    && // Should only be one - if more then take the first.
-                    (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName().get(0).getContent() != null)
+                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName().get(0).getContent() != null)
                     && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName().get(0).getContent()
                     .size() > 0)) {
                     // In this case we should only have serializable objects that are "Strings". Gather all of the
-                    // strings up and concatenate them
-                    // together.
+                    // strings up and concatenate them together.
                     // -----------------------------------------------------------------------------------------------
                     StringBuilder sbName = new StringBuilder();
                     for (Serializable oSerialElement : oHL7Author.getAssignedAuthor().getRepresentedOrganization()
@@ -528,14 +510,14 @@ public class CdaPdfExtractor {
                                 sbName.append(sName);
                             }
                         }
-                    } // for (Serializable oSerialElement :
-                    // oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName().get(0).getContent())
+                    }
+
                     if (sbName.length() > 0) {
                         oOriginalAuthor.setRepresentedOrganizationName(sbName.toString());
                         bHaveData = true;
                     }
                 }
-            } // if ((oHL7Author.getAssignedAuthor() != null) &&
+            }
         }
 
         if (bHaveData) {
@@ -564,12 +546,12 @@ public class CdaPdfExtractor {
                         sbText.append(sElement);
                     }
                 }
-            } // for (Serializable oSerialElement : oHL7Sc.getContent())
+            }
 
             if (sbText.length() > 0) {
                 sText = sbText.toString();
             }
-        } // if ((oHL7Sc != null) && ...
+        }
 
         return sText;
     }
@@ -589,7 +571,6 @@ public class CdaPdfExtractor {
         }
 
         return sText;
-
     }
 
     /**
@@ -607,7 +588,6 @@ public class CdaPdfExtractor {
         }
 
         return sText;
-
     }
 
     /**
@@ -657,7 +637,7 @@ public class CdaPdfExtractor {
                     oScannerAuthor.setAuthorId(oHL7Author.getAssignedAuthor().getId().get(0).getExtension());
                     bHaveData = true;
                 }
-            } // if ((oHL7Author.getAssignedAuthor() != null) && ...
+            }
 
             if ((oHL7Author.getAssignedAuthor() != null)
                 && (oHL7Author.getAssignedAuthor().getAssignedAuthoringDevice() != null)) {
@@ -693,23 +673,23 @@ public class CdaPdfExtractor {
                         bHaveData = true;
                     }
                 }
-            } // if ((oHL7Author.getAssignedAuthor() != null) && ...
+            }
 
             if ((oHL7Author.getAssignedAuthor() != null)
                 && (oHL7Author.getAssignedAuthor().getRepresentedOrganization() != null)) {
                 // Represented Organization Assigning Authority
                 // ----------------------------------------------
+                // Should only be one - if more take the first.
                 if ((oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId() != null)
                     && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().size() > 0)
-                    && // Should only be one - if more take the first.
-                    (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0) != null)
+                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0) != null)
                     && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0).getRoot() != null)
                     && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0).getRoot()
                     .length() > 0)) {
                     oScannerAuthor.setRepresentedOrganizationIdAssigningAuthority(oHL7Author.getAssignedAuthor()
                         .getRepresentedOrganization().getId().get(0).getRoot());
                     bHaveData = true;
-                } // if ((oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId() != null) && ...
+                }
 
                 // Represented Organization Name
                 // ------------------------------
@@ -728,19 +708,9 @@ public class CdaPdfExtractor {
                 // ---------------------------------
                 if ((oHL7Author.getAssignedAuthor().getRepresentedOrganization().getAddr() != null)
                     && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getAddr().size() > 0)
-                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getAddr().get(0) != null)) // Should
-                // only
-                // be
-                // one.
-                // If
-                // there
-                // is
-                // more
-                // then
-                // use
-                // the
-                // first.
-                {
+                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getAddr().get(0) != null)) {
+
+                    // Should only be one. If there is more than one, use the first.
                     AddressType oAddr = createAddr(oHL7Author.getAssignedAuthor().getRepresentedOrganization()
                         .getAddr().get(0));
                     if (oAddr != null) {
@@ -748,8 +718,8 @@ public class CdaPdfExtractor {
                         bHaveData = true;
                     }
                 }
-            } // if ((oHL7Author.getAssignedAuthor() != null) &&...
-        } // if (oHL7Author != null) ...
+            }
+        }
 
         if (bHaveData) {
             return oScannerAuthor;
@@ -781,9 +751,9 @@ public class CdaPdfExtractor {
 
             if ((oHL7DataEnterer.getAssignedEntity() != null) && (oHL7DataEnterer.getAssignedEntity().getId() != null)
                 && (oHL7DataEnterer.getAssignedEntity().getId().size() > 0)
-                && (oHL7DataEnterer.getAssignedEntity().getId().get(0) != null)) // There should only be one - if
-            // more then we will use the first.
-            {
+                && (oHL7DataEnterer.getAssignedEntity().getId().get(0) != null)) {
+
+                // There should only be one - if more, then we will use the first.
                 // Assigned Person Assigning Authority
                 // -------------------------------------
                 if ((oHL7DataEnterer.getAssignedEntity().getId().get(0).getRoot() != null)
@@ -800,7 +770,7 @@ public class CdaPdfExtractor {
                     oDataEnterer.setDataEntererId(oHL7DataEnterer.getAssignedEntity().getId().get(0).getExtension());
                     bHaveData = true;
                 }
-            } // if ((oHL7DataEnterer.getAssignedEntity() != null) && ...
+            }
 
             // Data Enterer Name
             // -------------------
@@ -808,13 +778,9 @@ public class CdaPdfExtractor {
                 && (oHL7DataEnterer.getAssignedEntity().getAssignedPerson() != null)
                 && (oHL7DataEnterer.getAssignedEntity().getAssignedPerson().getName() != null)
                 && (oHL7DataEnterer.getAssignedEntity().getAssignedPerson().getName().size() > 0)
-                && (oHL7DataEnterer.getAssignedEntity().getAssignedPerson().getName().get(0) != null)) // Should
-            // only be
-            // one - if
-            // there is
-            // more - use
-            // the first.
-            {
+                && (oHL7DataEnterer.getAssignedEntity().getAssignedPerson().getName().get(0) != null)) {
+
+                // Should only be one - if there are more, use the first.
                 PersonNameType oName = createPersonName(oHL7DataEnterer.getAssignedEntity().getAssignedPerson()
                     .getName().get(0));
                 if (oName != null) {
@@ -822,14 +788,13 @@ public class CdaPdfExtractor {
                     bHaveData = true;
                 }
             }
-        } // if (oHL7DataEnterer != null)
+        }
 
         if (bHaveData) {
             return oDataEnterer;
         } else {
             return null;
         }
-
     }
 
     /**
@@ -847,10 +812,10 @@ public class CdaPdfExtractor {
                 && (oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization() != null)) {
                 // Represented Organization Assigning Authority
                 // ----------------------------------------------
+                // Should only be one - if more take the first.
                 if ((oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId() != null)
                     && (oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId().size() > 0)
-                    && // Should only be one - if more take the first.
-                    (oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId().get(0) != null)
+                    && (oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId().get(0) != null)
                     && (oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId().get(0)
                     .getRoot() != null)
                     && (oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId().get(0)
@@ -858,8 +823,7 @@ public class CdaPdfExtractor {
                     oCustodian.setOrganizationIdAssigningAuthority(oHL7Custodian.getAssignedCustodian()
                         .getRepresentedCustodianOrganization().getId().get(0).getRoot());
                     bHaveData = true;
-                } // if ((oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId() != null) &&
-                // ...
+                }
 
                 // Represented Organization Name
                 // ------------------------------
@@ -882,7 +846,7 @@ public class CdaPdfExtractor {
                         bHaveData = true;
                     }
                 }
-            } // if ((oHL7Custodian.getAssignedCustodian() != null) && ...
+            }
         }
 
         if (bHaveData) {
@@ -890,7 +854,6 @@ public class CdaPdfExtractor {
         } else {
             return null;
         }
-
     }
 
     /**
@@ -927,10 +890,9 @@ public class CdaPdfExtractor {
             if (oHL7Authenticator.getAssignedEntity() != null) {
                 if ((oHL7Authenticator.getAssignedEntity().getId() != null)
                     && (oHL7Authenticator.getAssignedEntity().getId().size() > 0)
-                    && (oHL7Authenticator.getAssignedEntity().getId().get(0) != null)) // There should only be one -
-                // if more then we will use
-                // the first.
-                {
+                    && (oHL7Authenticator.getAssignedEntity().getId().get(0) != null)) {
+
+                    // There should only be one - if more, then we will use the first.
                     // Assigned Entity Assigning Authority
                     // -------------------------------------
                     if ((oHL7Authenticator.getAssignedEntity().getId().get(0).getRoot() != null)
@@ -948,24 +910,16 @@ public class CdaPdfExtractor {
                             .getExtension());
                         bHaveData = true;
                     }
-                } // if ((oHL7Authenticator.getAssignedEntity().getId() != null) && ...
+                }
 
                 // Name
                 // -----
                 if ((oHL7Authenticator.getAssignedEntity().getAssignedPerson() != null)
                     && (oHL7Authenticator.getAssignedEntity().getAssignedPerson().getName() != null)
-                    && (oHL7Authenticator.getAssignedEntity().getAssignedPerson().getName().size() > 0) && // Should
-                    // be
-                    // only
-                    // one -
-                    // if
-                    // more
-                    // than
-                    // one
-                    // use
-                    // the
-                    // first.
+                    && (oHL7Authenticator.getAssignedEntity().getAssignedPerson().getName().size() > 0) &&
                     (oHL7Authenticator.getAssignedEntity().getAssignedPerson().getName().get(0) != null)) {
+
+                    // should be only one - if more than one, use the first.
                     PersonNameType oName = createPersonName(oHL7Authenticator.getAssignedEntity().getAssignedPerson()
                         .getName().get(0));
                     if (oName != null) {
@@ -973,8 +927,8 @@ public class CdaPdfExtractor {
                         bHaveData = true;
                     }
                 }
-            } // if (oHL7Authenticator.getAssignedEntity() != null)
-        } // if (oHL7Authenticator != null)
+            }
+        }
 
         if (bHaveData) {
             return oAuthenticator;
@@ -996,7 +950,8 @@ public class CdaPdfExtractor {
         boolean bHaveData = false;
 
         if (oCda == null) {
-            return null; // there is nothing to convert so get out of here.
+            // there is nothing to convert so get out of here.
+            return null;
         }
 
         // Set required lement storeAction to none by default
@@ -1107,11 +1062,11 @@ public class CdaPdfExtractor {
             }
         }
 
+        // Should only be one - if there is more than one use the first.
         if ((oCda.getDocumentationOf() != null)
             && (oCda.getDocumentationOf().size() > 0)
             && (oCda.getDocumentationOf().get(0) != null)
-            && // Should only be one - if there is more than one use the first.
-            (oCda.getDocumentationOf().get(0).getServiceEvent() != null)
+            && (oCda.getDocumentationOf().get(0).getServiceEvent() != null)
             && (oCda.getDocumentationOf().get(0).getServiceEvent().getEffectiveTime() != null)
             && (oCda.getDocumentationOf().get(0).getServiceEvent().getEffectiveTime().getContent() != null)
             && (oCda.getDocumentationOf().get(0).getServiceEvent().getEffectiveTime().getContent().size() > 0)) {
@@ -1127,7 +1082,7 @@ public class CdaPdfExtractor {
                         oCriterion.setStartDate(oHL7LowTime.getValue());
                         bHaveData = true;
                     }
-                } // if ((oJaxbElement.getName() != null) &&
+                }
                 // End Time
                 // ------------
                 else if ((oJaxbElement.getName() != null) && (oJaxbElement.getName().getLocalPart() != null)
@@ -1138,10 +1093,9 @@ public class CdaPdfExtractor {
                         oCriterion.setEndDate(oHL7HighTime.getValue());
                         bHaveData = true;
                     }
-                } // else if ((oJaxbElement.getName() != null) &&
-            } // for (JAXBElement oJaxbElement :
-            // oCda.getDocumentationOf().get(0).getServiceEvent().getEffectiveTime().getContent())
-        } // if ((oCda.getDocumentationOf() != null) &&
+                }
+            }
+        }
 
         // Mime type
         // -----------
@@ -1177,7 +1131,5 @@ public class CdaPdfExtractor {
         } else {
             return null;
         }
-
     }
-
 }

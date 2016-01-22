@@ -150,14 +150,18 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
         boolean returnContext = ((XACMLAuthzDecisionQuery) samlpRequest).getReturnContext();
 
         boolean permitAccess = false;
-        String obligationId = null; // obligation on emergency, uba, ma
+
+        // obligation on emergency, uba, ma
+        String obligationId = null;
         String fullfillOn = null;
 
         // subject attributes
         String userId;
         Set userRoles;
         String userLocality;
-        String pou; // purpose of use
+
+        // purpose of use
+        String pou;
 
         // resource attributes
         String resourceId = null;
@@ -224,9 +228,7 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
         StatusCode code = ContextFactory.getInstance().createStatusCode();
         StatusMessage message = ContextFactory.getInstance().createStatusMessage();
         StatusDetail detail = ContextFactory.getInstance().createStatusDetail();
-        // Try this
-        // detail.getElement().insertBefore(detail.getElement().cloneNode(true), null);
-        // Instead of this
+
         try {
             Document doc = detail.getElement().getOwnerDocument();
             Text textNode = doc.createTextNode(detailText);
@@ -276,9 +278,6 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
 
         XACMLAuthzDecisionStatement statement = ContextFactory.getInstance().createXACMLAuthzDecisionStatement();
         statement.setResponse(response);
-        if (returnContext) {
-            // statement.setRequest(xacmlRequest);
-        }
 
         com.sun.identity.saml2.protocol.Response samlpResponse = createSamlpResponse(statement, status.getStatusCode()
             .getValue());

@@ -46,7 +46,6 @@ public class AdapterComponentMpiOrchImpl {
      * @return The patients found.
      */
     public PRPAIN201306UV02 findCandidates(org.hl7.v3.PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion) {
-        // return PatientChecker.FindPatient(findCandidatesRequest);
         LOG.trace("Entering AdapterComponentMpiOrchImpl.findCandidates method...");
 
         AdapterComponentMpiChecker oMpiChecker;

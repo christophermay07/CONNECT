@@ -323,13 +323,13 @@ public class PatientConsentManager {
                         String sRepoObjMimeType = oExtObj.getMimeType();
                         LOG.info("Evaluate id: " + oExtObj.getId() + " of type: " + sRepoObjMimeType);
 
-                    // If we are looking for a XACML type and this is of that type
+                        // If we are looking for a XACML type and this is of that type
                         // save it as a possiblity
                         if (XACML_MIME_TYPE.equals(sRepoObjMimeType) && XACML_MIME_TYPE.equals(sMimeType)) {
                             sFoundXACMLDoc = oExtObj.getId();
                         }
 
-                    // Get found Document Unique ID
+                        // Get found Document Unique ID
                         // -----------------------------
                         if ((oExtObj.getExternalIdentifier() != null) && (oExtObj.getExternalIdentifier().size() > 0)) {
                             List<ExternalIdentifierType> olExtId = oExtObj.getExternalIdentifier();
@@ -339,7 +339,7 @@ public class PatientConsentManager {
                                     && (oExtId.getValue() != null) && (oExtId.getValue().length() > 0)) {
                                     String sDocumentId = oExtId.getValue().trim();
 
-                                // If this matches the document id that we are
+                                    // If this matches the document id that we are
                                     // looking for save the target id and exit
                                     // ---------------------------------------------
                                     if (sDocumentId.equals(sUniqueDocumentId)) {
@@ -350,8 +350,8 @@ public class PatientConsentManager {
                                         LOG.info("Non-matching document id: " + sDocumentId);
                                     }
                                 }
-                            } // for (ExternalIdentifierType oExtid : olExtId)
-                        } // if ((oExtObj.getExternalIdentifier() != null) &&
+                            }
+                        }
                     }
                 }
 
@@ -779,7 +779,8 @@ public class PatientConsentManager {
      */
     private class CPPDocumentInfo {
 
-        long lDocumentId = 0; // note this is only used by our internal document repository service
+        // note this is only used by our internal document repository service
+        long lDocumentId = 0;
         String sHomeCommunityId = "";
         String sRepositoryId = "";
         String sDocumentUniqueId = "";

@@ -384,7 +384,6 @@ public class AdapterComponentDocRegistryOrchImpl {
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_PATIENT_ID);
         if ((slotValues != null) && (!slotValues.isEmpty())) {
             String formattedPatientId = slotValues.get(0);
-            // patientId = PatientIdFormatUtil.parsePatientId(formattedPatientId);
             patientId = PatientIdFormatUtil.stripQuotesFromPatientId(formattedPatientId);
             LOG.debug("extractPatientIdentifier - patientId: " + patientId);
         }
@@ -763,10 +762,6 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Patient ID
                 // -----------
                 if (NullChecker.isNotNullish(doc.getPatientId())) {
-                    // Commented call to apply HL7 Encoding to the patient id as Doc Repo now stores the patient id in
-                    // HL7 Encoded format
-                    // String formattedPatientId = PatientIdFormatUtil.hl7EncodePatientId(doc.getPatientId(),
-                    // homeCommunityId);
                     String formattedPatientId = doc.getPatientId();
                     ExternalIdentifierType oExtId = new ExternalIdentifierType();
                     oExtId.setId("");

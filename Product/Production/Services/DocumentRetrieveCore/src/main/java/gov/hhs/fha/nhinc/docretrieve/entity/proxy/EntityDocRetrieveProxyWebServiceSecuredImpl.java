@@ -69,13 +69,6 @@ public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRet
             message.setNhinTargetCommunities(targets);
             message.setRetrieveDocumentSetRequest(body);
 
-            /* TODO: WTH is this?
-             *
-             * SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.DOC_QUERY_ACTION);
-
-            ((BindingProvider) port).getRequestContext().putAll(requestContext);*/
-
             ServicePortDescriptor<EntityDocRetrieveSecuredPortType> portDescriptor = new EntityDocRetrieveSecuredServicePortDescriptor();
             CONNECTClient<EntityDocRetrieveSecuredPortType> client = getCONNECTClientSecured(portDescriptor, url, assertion);
 
