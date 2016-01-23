@@ -57,15 +57,15 @@ public class HL7SenderTransforms {
      * Create sender element. The passed OID will be used as the HL7 device application id and the organization home
      * community id.
      *
-     * @param OID
+     * @param oid
      * @return sender
      */
-    public static MCCIMT000200UV01Sender createMCCIMT000200UV01Sender(String OID) {
+    public static MCCIMT000200UV01Sender createMCCIMT000200UV01Sender(String oid) {
         MCCIMT000200UV01Sender sender = new MCCIMT000200UV01Sender();
 
         // Check the input parameter
-        if (OID == null) {
-            OID = "";
+        if (oid == null) {
+            oid = "";
         }
 
         sender.setTypeCode(CommunicationFunctionType.SND);
@@ -73,14 +73,14 @@ public class HL7SenderTransforms {
         MCCIMT000200UV01Device senderDevice = new MCCIMT000200UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
         senderDevice.setClassCode(EntityClassDevice.DEV);
-        LOG.debug("Setting sender device id (applicationId) to " + OID);
-        senderDevice.getId().add(HL7DataTransformHelper.IIFactory(OID));
+        LOG.debug("Setting sender device id (applicationId) to " + oid);
+        senderDevice.getId().add(HL7DataTransformHelper.IIFactory(oid));
 
         MCCIMT000200UV01Agent agent = new MCCIMT000200UV01Agent();
         MCCIMT000200UV01Organization org = new MCCIMT000200UV01Organization();
         org.setClassCode(HL7Constants.ORG_CLASS_CODE);
         org.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
-        II id = HL7DataTransformHelper.IIFactory(OID);
+        II id = HL7DataTransformHelper.IIFactory(oid);
         org.getId().add(id);
 
         javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3",
@@ -105,15 +105,15 @@ public class HL7SenderTransforms {
      * Create sender element. The passed OID will be used as the HL7 device application id and the organization home
      * community id.
      *
-     * @param OID
+     * @param oid
      * @return sender
      */
-    public static MCCIMT000100UV01Sender createMCCIMT000100UV01Sender(String OID) {
+    public static MCCIMT000100UV01Sender createMCCIMT000100UV01Sender(String oid) {
         MCCIMT000100UV01Sender sender = new MCCIMT000100UV01Sender();
 
         // Check the input parameter
-        if (OID == null) {
-            OID = "";
+        if (oid == null) {
+            oid = "";
         }
 
         sender.setTypeCode(CommunicationFunctionType.SND);
@@ -121,13 +121,13 @@ public class HL7SenderTransforms {
         MCCIMT000100UV01Device senderDevice = new MCCIMT000100UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
         senderDevice.setClassCode(EntityClassDevice.DEV);
-        senderDevice.getId().add(HL7DataTransformHelper.IIFactory(OID));
+        senderDevice.getId().add(HL7DataTransformHelper.IIFactory(oid));
 
         MCCIMT000100UV01Agent agent = new MCCIMT000100UV01Agent();
         MCCIMT000100UV01Organization org = new MCCIMT000100UV01Organization();
         org.setClassCode(HL7Constants.ORG_CLASS_CODE);
         org.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
-        II id = HL7DataTransformHelper.IIFactory(OID);
+        II id = HL7DataTransformHelper.IIFactory(oid);
         org.getId().add(id);
 
         javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3",
@@ -152,15 +152,15 @@ public class HL7SenderTransforms {
      * Create sender element. The passed OID will be used as the HL7 device application id and the organization home
      * community id.
      *
-     * @param OID
+     * @param oid
      * @return sender
      */
-    public static MCCIMT000300UV01Sender createMCCIMT000300UV01Sender(String OID) {
+    public static MCCIMT000300UV01Sender createMCCIMT000300UV01Sender(String oid) {
         MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
 
         // Check the input parameter
-        if (OID == null) {
-            OID = "";
+        if (oid == null) {
+            oid = "";
         }
 
         sender.setTypeCode(CommunicationFunctionType.SND);
@@ -168,13 +168,13 @@ public class HL7SenderTransforms {
         MCCIMT000300UV01Device senderDevice = new MCCIMT000300UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
         senderDevice.setClassCode(EntityClassDevice.DEV);
-        senderDevice.getId().add(HL7DataTransformHelper.IIFactory(OID));
+        senderDevice.getId().add(HL7DataTransformHelper.IIFactory(oid));
 
         MCCIMT000300UV01Agent agent = new MCCIMT000300UV01Agent();
         MCCIMT000300UV01Organization org = new MCCIMT000300UV01Organization();
         org.setClassCode(HL7Constants.ORG_CLASS_CODE);
         org.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
-        II id = HL7DataTransformHelper.IIFactory(OID);
+        II id = HL7DataTransformHelper.IIFactory(oid);
         org.getId().add(id);
 
         javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3",

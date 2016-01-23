@@ -213,10 +213,10 @@ public class EventCodeDao {
                     criteria.add(Subqueries.propertyIn("document", subCriteria));
                     criteria.addOrder(Order.asc("document"));
                     eventCodes = criteria.list();
-                    List<Long> DocumentIds;
-                    DocumentIds = getDocumentIds(eventCodes);
+                    List<Long> documentIds;
+                    documentIds = getDocumentIds(eventCodes);
                     List<Long> uniqueDocumentIds;
-                    uniqueDocumentIds = getUniqueDocumentIds(DocumentIds);
+                    uniqueDocumentIds = getUniqueDocumentIds(documentIds);
                     boolean present;
                     List<Long> documentNotPresent = new ArrayList<>();
                     for (int i = 0; i < uniqueDocumentIds.size(); i++) {
@@ -254,24 +254,24 @@ public class EventCodeDao {
      * @return the document ids
      */
     protected List<Long> getDocumentIds(List<EventCode> eventCodes) {
-        List<Long> DocumentIds = new ArrayList<>();
+        List<Long> documentIds = new ArrayList<>();
         for (int i = 0; i < eventCodes.size(); i++) {
-            DocumentIds.add(eventCodes.get(i).getDocument().getDocumentid());
+            documentIds.add(eventCodes.get(i).getDocument().getDocumentid());
         }
-        return DocumentIds;
+        return documentIds;
     }
 
     /**
      * Gets the unique document ids.
      *
-     * @param DocumentIds the document ids
+     * @param documentIds the document ids
      * @return the unique document ids
      */
-    private List<Long> getUniqueDocumentIds(List<Long> DocumentIds) {
-        Set<Long> uniqueDocumentRef = new HashSet<>(DocumentIds);
-        DocumentIds.clear();
-        DocumentIds.addAll(uniqueDocumentRef);
-        return DocumentIds;
+    private List<Long> getUniqueDocumentIds(List<Long> documentIds) {
+        Set<Long> uniqueDocumentRef = new HashSet<>(documentIds);
+        documentIds.clear();
+        documentIds.addAll(uniqueDocumentRef);
+        return documentIds;
     }
 
     /**

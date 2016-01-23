@@ -78,8 +78,8 @@ public class ConnectionHelper {
         return organizationMap;
     }
 
-    private boolean checkLocalHcid(String EntityHcid) {
-        return formatHcid(EntityHcid).equals(formatHcid(getLocalHcid()));
+    private boolean checkLocalHcid(String entityHcid) {
+        return formatHcid(entityHcid).equals(formatHcid(getLocalHcid()));
     }
 
     public String getHcidFromKeyedReference(List<KeyedReference> keyedRef) {

@@ -60,7 +60,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetTrustBundleByNameResponse {
 
     @XmlElement(name = "return", namespace = "")
-    private TrustBundle _return;
+    private TrustBundle returnValue;
 
     /**
      *
@@ -68,16 +68,16 @@ public class GetTrustBundleByNameResponse {
      *     returns TrustBundle
      */
     public TrustBundle getReturn() {
-        return this._return;
+        return this.returnValue;
     }
 
     /**
      *
-     * @param _return
-     *     the value for the _return property
+     * @param returnValue
+     *     the value for the returnValue property
      */
-    public void setReturn(TrustBundle _return) {
-        this._return = _return;
+    public void setReturn(TrustBundle returnValue) {
+        this.returnValue = returnValue;
     }
 
 }

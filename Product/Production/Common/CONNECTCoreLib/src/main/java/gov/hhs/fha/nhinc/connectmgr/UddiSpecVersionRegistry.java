@@ -39,7 +39,7 @@ public class UddiSpecVersionRegistry {
     private transactionWrapper tw = null;
 
     protected UddiSpecVersionRegistry() {
-    	tw = new transactionWrapper();
+        tw = new transactionWrapper();
     }
 
     public static UddiSpecVersionRegistry getInstance() {
@@ -50,21 +50,21 @@ public class UddiSpecVersionRegistry {
     }
 
     public ArrayList<UDDI_SPEC_VERSION> getSupportedSpecs(GATEWAY_API_LEVEL apiLevel, NhincConstants.NHIN_SERVICE_NAMES serviceName) {
-    	ArrayList<UDDI_SPEC_VERSION> list = new ArrayList<>();
-    	HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> map = tw.getAPIToSpecMapping(serviceName);
-    	if (map != null) {
-    		list = map.get(apiLevel);
-    	}
+        ArrayList<UDDI_SPEC_VERSION> list = new ArrayList<>();
+        HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> map = tw.getAPIToSpecMapping(serviceName);
+        if (map != null) {
+            list = map.get(apiLevel);
+        }
         return list;
     }
 
     public GATEWAY_API_LEVEL getSupportedGatewayAPI(UDDI_SPEC_VERSION specVersion, NhincConstants.NHIN_SERVICE_NAMES serviceName) {
-    	GATEWAY_API_LEVEL api = null;
-    	HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> map = tw.getSpecToAPIMapping(serviceName);
-    	if (map != null) {
-    		api = map.get(specVersion);
-    	}
-    	return api;
+        GATEWAY_API_LEVEL api = null;
+        HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> map = tw.getSpecToAPIMapping(serviceName);
+        if (map != null) {
+            api = map.get(specVersion);
+        }
+        return api;
     }
 
     boolean isSupported(GATEWAY_API_LEVEL apiLevel, String specVersion, NhincConstants.NHIN_SERVICE_NAMES serviceName) {
@@ -84,115 +84,114 @@ public class UddiSpecVersionRegistry {
     }
 
     private static class transactionWrapper {
-    	private HashMap<NhincConstants.NHIN_SERVICE_NAMES, HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>>> apiToSpecMap = null;
-    	private HashMap<NhincConstants.NHIN_SERVICE_NAMES, HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL>> specToApiMap = null;
+        private HashMap<NhincConstants.NHIN_SERVICE_NAMES, HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>>> apiToSpecMap = null;
+        private HashMap<NhincConstants.NHIN_SERVICE_NAMES, HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL>> specToApiMap = null;
 
-    	private transactionWrapper()
-    	{
-    		apiToSpecMap = new HashMap<>();
-    		specToApiMap = new HashMap<>();
+        private transactionWrapper() {
+            apiToSpecMap = new HashMap<>();
+            specToApiMap = new HashMap<>();
 
-    		// Patient Discovery
-    		HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> PDApiToSpecMap = new HashMap<>();
-    		ArrayList<UDDI_SPEC_VERSION> PDG0SpecVersions = new ArrayList<>();
-    		PDG0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_1_0);
-    		PDApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, PDG0SpecVersions);
-    		ArrayList<UDDI_SPEC_VERSION> PDG1SpecVersions = new ArrayList<>();
-    		PDG1SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
-    		PDApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g1, PDG1SpecVersions);
-    		apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY, PDApiToSpecMap);
+            // Patient Discovery
+            HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> pdApiToSpecMap = new HashMap<>();
+            ArrayList<UDDI_SPEC_VERSION> pdG0SpecVersions = new ArrayList<>();
+            pdG0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_1_0);
+            pdApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, pdG0SpecVersions);
+            ArrayList<UDDI_SPEC_VERSION> pdG1SpecVersions = new ArrayList<>();
+            pdG1SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
+            pdApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g1, pdG1SpecVersions);
+            apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY, pdApiToSpecMap);
 
-    		HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> PDSpecToApiMap = new HashMap<>();
-    		PDSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_1_0, GATEWAY_API_LEVEL.LEVEL_g0);
-    		PDSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g1);
-    		specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY, PDSpecToApiMap);
+            HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> pdSpecToApiMap = new HashMap<>();
+            pdSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_1_0, GATEWAY_API_LEVEL.LEVEL_g0);
+            pdSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g1);
+            specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY, pdSpecToApiMap);
 
-    		// Document Submission
-    		HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> DSApiToSpecMap = new HashMap<>();
-    		ArrayList<UDDI_SPEC_VERSION> DSG0SpecVersions = new ArrayList<>();
-    		DSG0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_1_1);
-    		DSApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, DSG0SpecVersions);
-    		ArrayList<UDDI_SPEC_VERSION> DSG1SpecVersions = new ArrayList<>();
-    		DSG1SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
-    		DSApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g1, DSG1SpecVersions);
-    		apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION, DSApiToSpecMap);
+            // Document Submission
+            HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> dsApiToSpecMap = new HashMap<>();
+            ArrayList<UDDI_SPEC_VERSION> dsG0SpecVersions = new ArrayList<>();
+            dsG0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_1_1);
+            dsApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, dsG0SpecVersions);
+            ArrayList<UDDI_SPEC_VERSION> dsG1SpecVersions = new ArrayList<>();
+            dsG1SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
+            dsApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g1, dsG1SpecVersions);
+            apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION, dsApiToSpecMap);
 
-    		HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> DSSpecToApiMap = new HashMap<>();
-    		DSSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_1_1, GATEWAY_API_LEVEL.LEVEL_g0);
-    		DSSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g1);
-    		specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION, DSSpecToApiMap);
+            HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> dsSpecToApiMap = new HashMap<>();
+            dsSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_1_1, GATEWAY_API_LEVEL.LEVEL_g0);
+            dsSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g1);
+            specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION, dsSpecToApiMap);
 
-    		// Administrative Distribution
-    		HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> ADApiToSpecMap = new HashMap<>();
-    		ArrayList<UDDI_SPEC_VERSION> ADG0SpecVersions = new ArrayList<>();
-    		ADG0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_1_0);
-    		ADApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, ADG0SpecVersions);
-    		ArrayList<UDDI_SPEC_VERSION> ADG1SpecVersions = new ArrayList<>();
-    		ADG1SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
-    		ADApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g1, ADG1SpecVersions);
-    		apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.ADMINISTRATIVE_DISTRIBUTION, ADApiToSpecMap);
+            // Administrative Distribution
+            HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> adApiToSpecMap = new HashMap<>();
+            ArrayList<UDDI_SPEC_VERSION> adG0SpecVersions = new ArrayList<>();
+            adG0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_1_0);
+            adApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, adG0SpecVersions);
+            ArrayList<UDDI_SPEC_VERSION> adG1SpecVersions = new ArrayList<>();
+            adG1SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
+            adApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g1, adG1SpecVersions);
+            apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.ADMINISTRATIVE_DISTRIBUTION, adApiToSpecMap);
 
-    		HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> ADSpecToApiMap = new HashMap<>();
-    		ADSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_1_0, GATEWAY_API_LEVEL.LEVEL_g0);
-    		ADSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g1);
-    		specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.ADMINISTRATIVE_DISTRIBUTION, ADSpecToApiMap);
+            HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> adSpecToApiMap = new HashMap<>();
+            adSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_1_0, GATEWAY_API_LEVEL.LEVEL_g0);
+            adSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g1);
+            specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.ADMINISTRATIVE_DISTRIBUTION, adSpecToApiMap);
 
-    		// Document Query
-    		HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> DQApiToSpecMap = new HashMap<>();
-    		ArrayList<UDDI_SPEC_VERSION> DQG0SpecVersions = new ArrayList<>();
-    		DQG0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
-    		DQApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, DQG0SpecVersions);
-    		ArrayList<UDDI_SPEC_VERSION> DQG1SpecVersions = new ArrayList<>();
-    		DQG1SpecVersions.add(UDDI_SPEC_VERSION.SPEC_3_0);
-    		DQApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g1, DQG1SpecVersions);
-    		apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY, DQApiToSpecMap);
+            // Document Query
+            HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> dqApiToSpecMap = new HashMap<>();
+            ArrayList<UDDI_SPEC_VERSION> dqG0SpecVersions = new ArrayList<>();
+            dqG0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
+            dqApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, dqG0SpecVersions);
+            ArrayList<UDDI_SPEC_VERSION> dqG1SpecVersions = new ArrayList<>();
+            dqG1SpecVersions.add(UDDI_SPEC_VERSION.SPEC_3_0);
+            dqApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g1, dqG1SpecVersions);
+            apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY, dqApiToSpecMap);
 
-    		HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> DQSpecToApiMap = new HashMap<>();
-    		DQSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g0);
-    		DQSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_3_0, GATEWAY_API_LEVEL.LEVEL_g1);
-    		specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY, DQSpecToApiMap);
+            HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> dqSpecToApiMap = new HashMap<>();
+            dqSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g0);
+            dqSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_3_0, GATEWAY_API_LEVEL.LEVEL_g1);
+            specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY, dqSpecToApiMap);
 
-    		// Document Retrieve
-    		HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> DRApiToSpecMap = new HashMap<>();
-    		ArrayList<UDDI_SPEC_VERSION> DR0SpecVersions = new ArrayList<>();
-    		DR0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
-    		DRApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, DR0SpecVersions);
-    		ArrayList<UDDI_SPEC_VERSION> DRG1SpecVersions = new ArrayList<>();
-    		DRG1SpecVersions.add(UDDI_SPEC_VERSION.SPEC_3_0);
-    		DRApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g1, DRG1SpecVersions);
-    		apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE, DRApiToSpecMap);
+            // Document Retrieve
+            HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> drApiToSpecMap = new HashMap<>();
+            ArrayList<UDDI_SPEC_VERSION> drG0SpecVersions = new ArrayList<>();
+            drG0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
+            drApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, drG0SpecVersions);
+            ArrayList<UDDI_SPEC_VERSION> drG1SpecVersions = new ArrayList<>();
+            drG1SpecVersions.add(UDDI_SPEC_VERSION.SPEC_3_0);
+            drApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g1, drG1SpecVersions);
+            apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE, drApiToSpecMap);
 
-    		HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> DRSpecToApiMap = new HashMap<>();
-    		DRSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g0);
-    		DRSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_3_0, GATEWAY_API_LEVEL.LEVEL_g1);
-    		specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE, DRSpecToApiMap);
+            HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> drSpecToApiMap = new HashMap<>();
+            drSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g0);
+            drSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_3_0, GATEWAY_API_LEVEL.LEVEL_g1);
+            specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE, drSpecToApiMap);
 
         }
 
-    	public HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> getAPIToSpecMapping(NhincConstants.NHIN_SERVICE_NAMES serviceName) {
-    		switch (serviceName) {
-    		case PATIENT_DISCOVERY_DEFERRED_REQUEST:
-    		case PATIENT_DISCOVERY_DEFERRED_RESPONSE:
-    			return apiToSpecMap.get(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
-    		case DOCUMENT_SUBMISSION_DEFERRED_REQUEST:
-    		case DOCUMENT_SUBMISSION_DEFERRED_RESPONSE:
-    			return apiToSpecMap.get(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
-    		default:
-    			return apiToSpecMap.get(serviceName);
-    		}
-    	}
+        public HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> getAPIToSpecMapping(NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+            switch (serviceName) {
+                case PATIENT_DISCOVERY_DEFERRED_REQUEST:
+                case PATIENT_DISCOVERY_DEFERRED_RESPONSE:
+                    return apiToSpecMap.get(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
+                case DOCUMENT_SUBMISSION_DEFERRED_REQUEST:
+                case DOCUMENT_SUBMISSION_DEFERRED_RESPONSE:
+                    return apiToSpecMap.get(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
+                default:
+                    return apiToSpecMap.get(serviceName);
+            }
+        }
 
-    	public HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> getSpecToAPIMapping(NhincConstants.NHIN_SERVICE_NAMES serviceName) {
-    		switch (serviceName) {
-    		case PATIENT_DISCOVERY_DEFERRED_REQUEST:
-    		case PATIENT_DISCOVERY_DEFERRED_RESPONSE:
-    			return specToApiMap.get(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
-    		case DOCUMENT_SUBMISSION_DEFERRED_REQUEST:
-    		case DOCUMENT_SUBMISSION_DEFERRED_RESPONSE:
-    			return specToApiMap.get(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
-    		default:
-    			return specToApiMap.get(serviceName);
-    		}
-    	}
+        public HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> getSpecToAPIMapping(NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+            switch (serviceName) {
+                case PATIENT_DISCOVERY_DEFERRED_REQUEST:
+                case PATIENT_DISCOVERY_DEFERRED_RESPONSE:
+                    return specToApiMap.get(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
+                case DOCUMENT_SUBMISSION_DEFERRED_REQUEST:
+                case DOCUMENT_SUBMISSION_DEFERRED_RESPONSE:
+                    return specToApiMap.get(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
+                default:
+                    return specToApiMap.get(serviceName);
+            }
+        }
     }
 }

@@ -61,9 +61,9 @@ public class SamlTokenCreator {
         Map<String, Object> requestContext = new HashMap<>();
 
         if (assertion != null) {
-            String NPI = assertion.getNationalProviderId();
-            if (NullChecker.isNotNullish(NPI)) {
-                requestContext.put(NhincConstants.ATTRIBUTE_NAME_NPI, NPI);
+            String npi = assertion.getNationalProviderId();
+            if (NullChecker.isNotNullish(npi)) {
+                requestContext.put(NhincConstants.ATTRIBUTE_NAME_NPI, npi);
             }
 
             UserType userInfo = assertion.getUserInfo();

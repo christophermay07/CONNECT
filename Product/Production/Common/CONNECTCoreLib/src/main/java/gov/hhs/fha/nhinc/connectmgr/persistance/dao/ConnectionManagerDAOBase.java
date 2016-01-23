@@ -57,14 +57,14 @@ public class ConnectionManagerDAOBase {
         return resp;
     }
 
-    protected void saveBusinessDetail(BusinessDetail BusinessDetail, File file) {
+    protected void saveBusinessDetail(BusinessDetail businessDetail, File file) {
         try {
             synchronized (file) {
                 JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
                 ObjectFactory factory = new ObjectFactory();
                 Marshaller marshaller = context.createMarshaller();
                 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-                marshaller.marshal(factory.createBusinessDetail(BusinessDetail), file);
+                marshaller.marshal(factory.createBusinessDetail(businessDetail), file);
             }
         } catch (JAXBException ex) {
             throw new RuntimeException("Unable to save to Connection Information File " + file.getName(), ex);

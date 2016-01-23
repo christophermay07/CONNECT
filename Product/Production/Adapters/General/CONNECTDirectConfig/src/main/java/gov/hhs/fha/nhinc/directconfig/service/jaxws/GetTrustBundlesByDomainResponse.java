@@ -61,7 +61,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetTrustBundlesByDomainResponse {
 
     @XmlElement(name = "return", namespace = "")
-    private Collection<TrustBundleDomainReltn> _return;
+    private Collection<TrustBundleDomainReltn> returnValue;
 
     /**
      *
@@ -69,16 +69,16 @@ public class GetTrustBundlesByDomainResponse {
      *     returns Collection<TrustBundleDomainReltn>
      */
     public Collection<TrustBundleDomainReltn> getReturn() {
-        return this._return;
+        return this.returnValue;
     }
 
     /**
      *
-     * @param _return
-     *     the value for the _return property
+     * @param returnValue
+     *     the value for the returnValue property
      */
-    public void setReturn(Collection<TrustBundleDomainReltn> _return) {
-        this._return = _return;
+    public void setReturn(Collection<TrustBundleDomainReltn> returnValue) {
+        this.returnValue = returnValue;
     }
 
 }

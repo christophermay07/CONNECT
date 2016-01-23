@@ -58,17 +58,18 @@ public class AuditRepositoryLogger {
      *
      * @param message The Audit Query Request message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @param serviceInterface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logFindAuditEvents(FindAuditEventsMessageType message, String direction,
-        String _interface) {
+        String serviceInterface) {
+
         LOG.debug("Entering AuditRepositoryLogger.logFindAuditEvents(...)");
         LogEventRequestType auditMsg;
         LogFindAuditEventsRequestType logReqMsg = new LogFindAuditEventsRequestType();
         logReqMsg.setMessage(message);
         logReqMsg.setDirection(direction);
-        logReqMsg.setInterface(_interface);
+        logReqMsg.setInterface(serviceInterface);
         auditMsg = FindAuditEventsTransforms.transformFindAuditEventsReq2AuditMsg(logReqMsg);
         LOG.debug("Exiting AuditRepositoryLogger.logFindAuditEvents(...)");
         return auditMsg;
@@ -107,14 +108,14 @@ public class AuditRepositoryLogger {
      * @param assertion The assertion to be audited
      * @param target
      * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is sent from(NHIN, Adapter, or Entity)
+     * @param serviceInterface The interface this message is sent from(NHIN, Adapter, or Entity)
      * @return
      */
     public LogEventRequestType logNhincAdminDist(EDXLDistribution message, AssertionType assertion,
-        NhinTargetSystemType target, String direction, String _interface) {
+        NhinTargetSystemType target, String direction, String serviceInterface) {
 
         return adAuditTransformer.transformEDXLDistributionRequestToAuditMsg(message, assertion, target, direction,
-            _interface);
+            serviceInterface);
     }
 
     /**
@@ -123,12 +124,13 @@ public class AuditRepositoryLogger {
      * @param message The Admin Distribution message to be audited
      * @param assertion The assertion to be audited
      * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is sent from(NHIN, Adapter, or Entity)
+     * @param serviceInterface The interface this message is sent from(NHIN, Adapter, or Entity)
      * @return
      */
     public LogEventRequestType logNhincAdminDist(EDXLDistribution message, AssertionType assertion, String direction,
-        String _interface) {
+        String serviceInterface) {
 
-        return adAuditTransformer.transformEDXLDistributionRequestToAuditMsg(message, assertion, direction, _interface);
+        return adAuditTransformer.transformEDXLDistributionRequestToAuditMsg(message, assertion, direction,
+            serviceInterface);
     }
 }

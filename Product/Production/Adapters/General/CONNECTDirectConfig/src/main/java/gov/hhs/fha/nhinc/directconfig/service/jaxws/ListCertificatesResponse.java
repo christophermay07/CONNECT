@@ -61,7 +61,7 @@ import javax.xml.bind.annotation.XmlType;
 public class ListCertificatesResponse {
 
     @XmlElement(name = "return", namespace = "")
-    private Collection<Certificate> _return;
+    private Collection<Certificate> returnValue;
 
     /**
      *
@@ -69,16 +69,16 @@ public class ListCertificatesResponse {
      *     returns Collection<Certificate>
      */
     public Collection<Certificate> getReturn() {
-        return this._return;
+        return this.returnValue;
     }
 
     /**
      *
-     * @param _return
-     *     the value for the _return property
+     * @param returnValue
+     *     the value for the returnValue property
      */
-    public void setReturn(Collection<Certificate> _return) {
-        this._return = _return;
+    public void setReturn(Collection<Certificate> returnValue) {
+        this.returnValue = returnValue;
     }
 
 }

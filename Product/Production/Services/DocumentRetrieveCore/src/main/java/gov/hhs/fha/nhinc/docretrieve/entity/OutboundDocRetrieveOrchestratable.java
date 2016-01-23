@@ -51,16 +51,16 @@ public abstract class OutboundDocRetrieveOrchestratable implements OutboundOrche
      * @return a concrete instance of the orchestratable
      */
     abstract public OutboundDocRetrieveOrchestratable create(PolicyTransformer pt,
-        OutboundDelegate nd, NhinAggregator na);
+        OutboundDelegate od, NhinAggregator na);
 
     protected RetrieveDocumentSetRequestType request = null;
     protected RetrieveDocumentSetResponseType response = null;
     protected NhinTargetSystemType target = null;
-    private AssertionType _assertion = null;
+    private AssertionType assertion = null;
     private final String serviceName = NhincConstants.DOC_RETRIEVE_SERVICE_NAME;
-    private PolicyTransformer _policyTransformer = null;
-    private OutboundDelegate _nhinDelegate = null;
-    private NhinAggregator _nhinAggregator = null;
+    private PolicyTransformer policyTransformer = null;
+    private OutboundDelegate nhinDelegate = null;
+    private NhinAggregator nhinAggregator = null;
 
     public NhinTargetSystemType getTarget() {
         return target;
@@ -70,8 +70,8 @@ public abstract class OutboundDocRetrieveOrchestratable implements OutboundOrche
         this.target = target;
     }
 
-    public void setAssertion(AssertionType _assertion) {
-        this._assertion = _assertion;
+    public void setAssertion(AssertionType assertion) {
+        this.assertion = assertion;
     }
 
     public OutboundDocRetrieveOrchestratable() {
@@ -80,13 +80,15 @@ public abstract class OutboundDocRetrieveOrchestratable implements OutboundOrche
 
     public OutboundDocRetrieveOrchestratable(PolicyTransformer pt, OutboundDelegate ad,
         NhinAggregator na) {
-        _policyTransformer = pt;
-        _nhinDelegate = ad;
-        _nhinAggregator = na;
+
+        policyTransformer = pt;
+        nhinDelegate = ad;
+        nhinAggregator = na;
     }
 
-    public OutboundDocRetrieveOrchestratable(PolicyTransformer pt, OutboundDelegate nd,
-        NhinAggregator na, RetrieveDocumentSetRequestType body, AssertionType assertion, NhinTargetSystemType target) {
+    public OutboundDocRetrieveOrchestratable(PolicyTransformer pt, OutboundDelegate nd, NhinAggregator na,
+        RetrieveDocumentSetRequestType body, AssertionType assertion, NhinTargetSystemType target) {
+
         this(pt, nd, na);
         setRequest(body);
         setAssertion(assertion);
@@ -102,17 +104,17 @@ public abstract class OutboundDocRetrieveOrchestratable implements OutboundOrche
     }
 
     public OutboundDelegate getNhinDelegate() {
-        return _nhinDelegate;
+        return nhinDelegate;
     }
 
     @Override
     public PolicyTransformer getPolicyTransformer() {
-        return _policyTransformer;
+        return policyTransformer;
     }
 
     @Override
     public AssertionType getAssertion() {
-        return _assertion;
+        return assertion;
     }
 
     @Override
@@ -122,7 +124,7 @@ public abstract class OutboundDocRetrieveOrchestratable implements OutboundOrche
 
     @Override
     public NhinAggregator getAggregator() {
-        return _nhinAggregator;
+        return nhinAggregator;
     }
 
     @Override
@@ -137,5 +139,4 @@ public abstract class OutboundDocRetrieveOrchestratable implements OutboundOrche
     public void setResponse(RetrieveDocumentSetResponseType response) {
         this.response = response;
     }
-
 }

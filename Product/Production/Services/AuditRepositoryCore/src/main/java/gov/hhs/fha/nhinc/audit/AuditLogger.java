@@ -60,16 +60,16 @@ public abstract class AuditLogger<T, K> {
      * @param assertion assertion to be audited
      * @param target target community
      * @param direction defines the Outbound/Inbound message
-     * @param _interface Entity, Adapter or Nwhin
+     * @param serviceInterface Entity, Adapter or Nwhin
      * @param isRequesting true for initiator, false for responder
      * @param webContextProperties Properties loaded from message context
      * @param serviceName Name of the Service being audited
      */
     public void auditRequestMessage(T request, AssertionType assertion, NhinTargetSystemType target, String direction,
-        String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName) {
+        String serviceInterface, Boolean isRequesting, Properties webContextProperties, String serviceName) {
         LOG.trace("--- Before auditing of request message ---");
         if (isAuditLoggingOn(serviceName) && getAuditLogger() != null) {
-            getAuditLogger().auditRequestMessage(request, assertion, target, direction, _interface, isRequesting,
+            getAuditLogger().auditRequestMessage(request, assertion, target, direction, serviceInterface, isRequesting,
                 webContextProperties, serviceName, getAuditTransforms());
         }
         LOG.trace("--- After auditing of request message ---");
@@ -85,28 +85,28 @@ public abstract class AuditLogger<T, K> {
      * @param assertion assertion to be audited
      * @param target target community
      * @param direction defines the Outbound/Inbound message
-     * @param _interface Entity, Adapter or Nwhin
+     * @param serviceInterface Entity, Adapter or Nwhin
      * @param isRequesting true/false identifies initiator/responder
      * @param webContextProperties Properties loaded from message context
      * @param serviceName Name of the Service being audited
      */
     public void auditResponseMessage(T request, K response, AssertionType assertion, NhinTargetSystemType target,
-        String direction, String _interface, Boolean isRequesting, Properties webContextProperties,
+        String direction, String serviceInterface, Boolean isRequesting, Properties webContextProperties,
         String serviceName) {
 
         LOG.trace("--- Before auditing of response message ---");
         if (isAuditLoggingOn(serviceName) && getAuditLogger() != null) {
-            getAuditLogger().auditResponseMessage(request, response, assertion, target, direction, _interface,
+            getAuditLogger().auditResponseMessage(request, response, assertion, target, direction, serviceInterface,
                 isRequesting, webContextProperties, serviceName, getAuditTransforms());
         }
         LOG.trace("--- After auditing of response message ---");
     }
 
-    protected AuditEJBLogger getAuditLogger() {
+    protected AuditEJBLogger<T,K> getAuditLogger() {
         try {
             String globalAuditLoggerAsyncEJBName = "java:app/" + NhincConstants.EJB_CORE_MODULE_NAME + "/"
                 + NhincConstants.AUDIT_LOGGER_EJB_BEAN_NAME;
-            return (AuditEJBLogger) (new InitialContext()).lookup(globalAuditLoggerAsyncEJBName);
+            return (AuditEJBLogger<T,K>) (new InitialContext()).lookup(globalAuditLoggerAsyncEJBName);
         } catch (NamingException ex) {
             LOG.error("JNDI EJB Lookup Failed : " + ex.getMessage(), ex);
             return null;
@@ -121,7 +121,6 @@ public abstract class AuditLogger<T, K> {
     protected abstract AuditTransforms<T, K> getAuditTransforms();
 
     protected boolean isAuditLoggingOn(String serviceName) {
-
         try {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.AUDIT_LOGGING_PROPERTY_FILE,
                 serviceName);

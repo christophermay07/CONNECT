@@ -63,7 +63,6 @@ public interface DirectConfigProxy {
      * Direct Config proxy call to add given direct domain.
      *
      * @param domain
-     * @throws Exception
      * @throws DomainException
      */
     public void addDomain(AddDomain domain) throws DomainException;
@@ -81,7 +80,6 @@ public interface DirectConfigProxy {
      *
      * @param updateDomain
      * @return
-     * @throws Exception
      * @throws DomainException
      */
     public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws DomainException;
@@ -123,10 +121,10 @@ public interface DirectConfigProxy {
      * Direct Config proxy call to add a direct setting with given key value pair.
      *
      * @param name
-     * @param Value
+     * @param value
      * @throws Exception
      */
-    public void addSetting(String name, String Value) throws Exception;
+    public void addSetting(String name, String value) throws Exception;
 
     /**
      * Direct Config proxy call to get all direct settings.

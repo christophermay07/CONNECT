@@ -31,26 +31,25 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
  * POJO class used by the UI to render the data
  *
  * @author Naresh Subramanyan
  */
 public class Patient {
 
-   //used in the UI
+    // used in the UI
     private int patientIndex;
 
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
     private String gender;
-    private String SSN;
+    private String ssn;
     private String organization;
     private String organizationName;
     private String patientId;
-    //Not sure if we need these fields, Remove it if we don't
-    //need it
+
+    // Not sure if we need these fields, remove it if we don't need it
     private String middleName;
     private String streetname;
     private String city;
@@ -66,7 +65,6 @@ public class Patient {
     public Patient() {
         this.documentList = new ArrayList<>();
     }
-
 
     /**
      * @return the firstName
@@ -125,17 +123,17 @@ public class Patient {
     }
 
     /**
-     * @return the SSN
+     * @return the ssn
      */
     public String getSSN() {
-        return SSN;
+        return ssn;
     }
 
     /**
-     * @param SSN the SSN to set
+     * @param ssn the ssn to set
      */
-    public void setSSN(String SSN) {
-        this.SSN = SSN;
+    public void setSSN(String ssn) {
+        this.ssn = ssn;
     }
 
     /**
@@ -349,5 +347,4 @@ public class Patient {
     public void setDomain(String domain) {
         this.domain = domain;
     }
-
 }

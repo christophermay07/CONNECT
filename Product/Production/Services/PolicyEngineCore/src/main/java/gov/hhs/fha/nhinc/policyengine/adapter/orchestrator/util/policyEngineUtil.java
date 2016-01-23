@@ -156,21 +156,21 @@ public class policyEngineUtil {
             LOG.debug("assertion check failed");
             return oResponse;
         }
-        ResponseType Response = new ResponseType();
+        ResponseType response = new ResponseType();
         ResultType oResult = new ResultType();
         oResult.setDecision(DecisionType.PERMIT);
-        Response.getResult().add(oResult);
-        oResponse.setResponse(Response);
+        response.getResult().add(oResult);
+        oResponse.setResponse(response);
         LOG.debug("Exiting out from CheckPolicyResponseType without any error");
         return oResponse;
     }
 
-    private CheckPolicyResponseType createResponseWithDENY(CheckPolicyResponseType response) {
-        ResponseType Response = new ResponseType();
+    private CheckPolicyResponseType createResponseWithDENY(CheckPolicyResponseType responseType) {
+        ResponseType response = new ResponseType();
         ResultType oResult = new ResultType();
         oResult.setDecision(DecisionType.DENY);
-        Response.getResult().add(oResult);
-        response.setResponse(Response);
-        return response;
+        response.getResult().add(oResult);
+        responseType.setResponse(response);
+        return responseType;
     }
 }

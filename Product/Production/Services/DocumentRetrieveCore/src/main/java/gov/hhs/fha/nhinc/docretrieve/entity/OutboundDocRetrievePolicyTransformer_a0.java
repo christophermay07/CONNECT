@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
 import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType;
+import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
@@ -48,21 +49,21 @@ public class OutboundDocRetrievePolicyTransformer_a0 implements PolicyTransforme
         return policyReq;
     }
 
-    public CheckPolicyRequestType tranform(OutboundDocRetrieveOrchestratable EntityDROrchMessage, Direction direction) {
+    public CheckPolicyRequestType tranform(OutboundDocRetrieveOrchestratable entityDROrchMessage, Direction direction) {
         CheckPolicyRequestType policyReq;
         DocRetrieveEventType policyCheckReq = new DocRetrieveEventType();
-        if (Direction.INBOUND == direction)
+        if (Direction.INBOUND == direction) {
             policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
-        else
+        } else {
             policyCheckReq.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
+        }
 
-        gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveMessageType request = new gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveMessageType();
-        request.setAssertion(EntityDROrchMessage.getAssertion());
-        request.setRetrieveDocumentSetRequest(EntityDROrchMessage.getRequest());
+        DocRetrieveMessageType request = new DocRetrieveMessageType();
+        request.setAssertion(entityDROrchMessage.getAssertion());
+        request.setRetrieveDocumentSetRequest(entityDROrchMessage.getRequest());
         policyCheckReq.setMessage(request);
         PolicyEngineChecker policyChecker = new PolicyEngineChecker();
         policyReq = policyChecker.checkPolicyDocRetrieve(policyCheckReq);
         return policyReq;
     }
-
 }

@@ -96,10 +96,10 @@ public class DocumentRetrieveResults {
 
     /**
      *
-     * @param HCID Set the HCID from DoucmentRetrieve Response.
+     * @param hcid Set the HCID from DoucmentRetrieve Response.
      */
-    public void setHCID(String HCID) {
-        this.hcid = HCID;
+    public void setHCID(String hcid) {
+        this.hcid = hcid;
     }
 
     /**

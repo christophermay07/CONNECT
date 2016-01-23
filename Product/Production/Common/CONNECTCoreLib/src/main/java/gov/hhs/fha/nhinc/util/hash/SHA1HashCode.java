@@ -44,10 +44,10 @@ public class SHA1HashCode {
      * @return The HEX string representation of the byte array.
      */
     private static String convertToHex(byte[] data) {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         for (int i = 0; i < data.length; i++) {
             int halfbyte = (data[i] >>> 4) & 0x0F;
-            int two_halfs = 0;
+            int twoHalves = 0;
             do {
                 if ((0 <= halfbyte) && (halfbyte <= 9)) {
                     buf.append((char) ('0' + halfbyte));
@@ -55,7 +55,7 @@ public class SHA1HashCode {
                     buf.append((char) ('a' + (halfbyte - 10)));
                 }
                 halfbyte = data[i] & 0x0F;
-            } while (two_halfs++ < 1);
+            } while (twoHalves++ < 1);
         }
         return buf.toString();
     }
@@ -70,12 +70,9 @@ public class SHA1HashCode {
      */
     public static String calculateSHA1(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         if (text != null) {
-            MessageDigest md;
-            md = MessageDigest.getInstance("SHA-1");
-            byte[] sha1hash = null;
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
             md.update(text.getBytes("iso-8859-1"), 0, text.length());
-            sha1hash = md.digest();
-            return convertToHex(sha1hash);
+            return convertToHex(md.digest());
         } else {
             return "";
         }

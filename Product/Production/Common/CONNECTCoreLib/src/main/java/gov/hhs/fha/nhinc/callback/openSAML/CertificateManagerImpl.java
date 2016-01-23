@@ -102,17 +102,11 @@ public class CertificateManagerImpl implements CertificateManager {
         };
     }
 
-    /**
-     * @return the keyStore
-     */
     @Override
     public KeyStore getKeyStore() {
         return keyStore;
     }
 
-    /**
-     * @return the trustStore
-     */
     @Override
     public KeyStore getTrustStore() {
         return trustStore;
@@ -153,14 +147,8 @@ public class CertificateManagerImpl implements CertificateManager {
                     is = new FileInputStream(storeLoc);
                 }
                 keyStore.load(is, password.toCharArray());
-            } catch (NoSuchAlgorithmException ex) {
-                LOG.error("Error initializing KeyStore: " + ex.getLocalizedMessage(), ex);
-                throw new Exception(ex.getMessage());
-            } catch (CertificateException ex) {
-                LOG.error("Error initializing KeyStore: " + ex.getLocalizedMessage(), ex);
-                throw new Exception(ex.getMessage());
-            } catch (KeyStoreException ex) {
-                LOG.error("Error initializing KeyStore: " + ex.getLocalizedMessage(), ex);
+            } catch (NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
+                LOG.error("Error initializing KeyStore: {}", ex.getLocalizedMessage(), ex);
                 throw new Exception(ex.getMessage());
             } finally {
                 try {
@@ -232,21 +220,11 @@ public class CertificateManagerImpl implements CertificateManager {
         LOG.debug("SamlCallbackHandler.initTrustStore() -- End");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CertificateManager#getDefaultCertificate()
-     */
     @Override
     public X509Certificate getDefaultCertificate() throws Exception {
         return (X509Certificate) getPrivateKeyEntry().getCertificate();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CertificateManager#getDefaultPrivateKey()
-     */
     @Override
     public PrivateKey getDefaultPrivateKey() throws Exception {
         return getPrivateKeyEntry().getPrivateKey();
@@ -256,23 +234,16 @@ public class CertificateManagerImpl implements CertificateManager {
         LOG.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- Begin");
         KeyStore.PrivateKeyEntry pkEntry = null;
 
-        String client_key_alias = StoreUtil.getInstance().getPrivateKeyAlias();
-        if (client_key_alias != null) {
+        String clientKeyAlias = StoreUtil.getInstance().getPrivateKeyAlias();
+        if (clientKeyAlias != null) {
             String password = getKeyStoreSystemProperties().get(KEY_STORE_PASSWORD_KEY);
             if (password != null) {
                 try {
-                    pkEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(client_key_alias,
+                    pkEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(clientKeyAlias,
                         new KeyStore.PasswordProtection(password.toCharArray()));
-
-                } catch (NoSuchAlgorithmException ex) {
-                    LOG.error("Error initializing Private Key: " + ex);
-                    throw new Exception(ex.getMessage());
-                } catch (KeyStoreException ex) {
-                    LOG.error("Error initializing Private Key: " + ex);
-                    throw new Exception(ex.getMessage());
-                } catch (UnrecoverableEntryException ex) {
-                    LOG.error("Error initializing Private Key: " + ex);
-                    throw new Exception(ex.getMessage());
+                } catch (NoSuchAlgorithmException | KeyStoreException | UnrecoverableEntryException ex) {
+                    LOG.error("Error initializing Private Key: {}", ex.getLocalizedMessage(), ex);
+                    throw new Exception(ex.getLocalizedMessage());
                 }
 
             } else {
@@ -287,11 +258,6 @@ public class CertificateManagerImpl implements CertificateManager {
         return pkEntry;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CertificateManager#getDefaultPublicKey()
-     */
     @Override
     public RSAPublicKey getDefaultPublicKey() {
         try {
@@ -319,5 +285,4 @@ public class CertificateManagerImpl implements CertificateManager {
         map.put(KEY_STORE_PASSWORD_KEY, System.getProperty(KEY_STORE_PASSWORD_KEY));
         return map;
     }
-
 }

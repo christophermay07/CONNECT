@@ -60,7 +60,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetPolicyGroupsByDomainResponse {
 
     @XmlElement(name = "return", namespace = "")
-    private Collection<CertPolicyGroupDomainReltn> _return;
+    private Collection<CertPolicyGroupDomainReltn> returnValue;
 
     /**
      *
@@ -68,16 +68,16 @@ public class GetPolicyGroupsByDomainResponse {
      *     returns Collection<CertPolicyGroupDomainReltn>
      */
     public Collection<CertPolicyGroupDomainReltn> getReturn() {
-        return this._return;
+        return this.returnValue;
     }
 
     /**
      *
-     * @param _return
-     *     the value for the _return property
+     * @param returnValue
+     *     the value for the returnValue property
      */
-    public void setReturn(Collection<CertPolicyGroupDomainReltn> _return) {
-        this._return = _return;
+    public void setReturn(Collection<CertPolicyGroupDomainReltn> returnValue) {
+        this.returnValue = returnValue;
     }
 
 }

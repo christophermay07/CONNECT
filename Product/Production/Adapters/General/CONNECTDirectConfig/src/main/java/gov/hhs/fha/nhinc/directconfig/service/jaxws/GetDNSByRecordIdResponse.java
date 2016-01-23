@@ -60,7 +60,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetDNSByRecordIdResponse {
 
     @XmlElement(name = "return", namespace = "")
-    private DNSRecord _return;
+    private DNSRecord returnValue;
 
     /**
      *
@@ -68,16 +68,16 @@ public class GetDNSByRecordIdResponse {
      *     returns DNSRecord
      */
     public DNSRecord getReturn() {
-        return this._return;
+        return this.returnValue;
     }
 
     /**
      *
-     * @param _return
-     *     the value for the _return property
+     * @param returnValue
+     *     the value for the returnValue property
      */
-    public void setReturn(DNSRecord _return) {
-        this._return = _return;
+    public void setReturn(DNSRecord returnValue) {
+        this.returnValue = returnValue;
     }
 
 }

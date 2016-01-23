@@ -287,11 +287,13 @@ public class GatewayService {
      * Internal method to populate the patient data to the Patient bean used in the UI.
      *
      */
-    private void populatePatientBeanWithDQResults(DocumentMetadataResults DocumentQueryResults, PatientSearchBean patientQuerySearch) {
+    private void populatePatientBeanWithDQResults(DocumentMetadataResults documentQueryResults,
+        PatientSearchBean patientQuerySearch) {
+
         int documentIndex = 0;
         //start with a clean slate
         patientQuerySearch.getSelectedCurrentPatient().getDocumentList().clear();
-        for (DocumentMetadataResult documentMetadataResult : DocumentQueryResults.getResults()) {
+        for (DocumentMetadataResult documentMetadataResult : documentQueryResults.getResults()) {
             Document patientDocument = new Document();
             patientDocument.setAuthorInstitution(documentMetadataResult.getAuthorInstitution());
             patientDocument.setAuthorPerson(documentMetadataResult.getAuthorPerson());

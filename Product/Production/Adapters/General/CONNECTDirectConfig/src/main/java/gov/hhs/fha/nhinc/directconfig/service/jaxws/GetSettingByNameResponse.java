@@ -59,7 +59,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetSettingByNameResponse {
 
     @XmlElement(name = "return", namespace = "")
-    private Setting _return;
+    private Setting returnValue;
 
     /**
      *
@@ -67,16 +67,16 @@ public class GetSettingByNameResponse {
      *     returns Setting
      */
     public Setting getReturn() {
-        return this._return;
+        return this.returnValue;
     }
 
     /**
      *
-     * @param _return
-     *     the value for the _return property
+     * @param returnValue
+     *     the value for the returnValue property
      */
-    public void setReturn(Setting _return) {
-        this._return = _return;
+    public void setReturn(Setting returnValue) {
+        this.returnValue = returnValue;
     }
 
 }

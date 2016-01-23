@@ -37,7 +37,7 @@ import java.util.Date;
 public class AsyncMsgRecord implements Serializable {
 
     private static final long serialVersionUID = 2515212314474911391L;
-    private Long Id = null;
+    private Long id = null;
     private String messageId = null;
     private Date creationTime = null;
     private Date responseTime = null;
@@ -56,19 +56,19 @@ public class AsyncMsgRecord implements Serializable {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
-    public void setId(Long Id) {
-        this.Id = Id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(String MessageId) {
-        this.messageId = MessageId;
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
     }
 
     public Date getCreationTime() {
@@ -107,79 +107,79 @@ public class AsyncMsgRecord implements Serializable {
         return duration;
     }
 
-    public void setDuration(Long Duration) {
-        this.duration = Duration;
+    public void setDuration(Long duration) {
+        this.duration = duration;
     }
 
     public String getServiceName() {
         return serviceName;
     }
 
-    public void setServiceName(String ServiceName) {
-        this.serviceName = ServiceName;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
     public String getDirection() {
         return direction;
     }
 
-    public void setDirection(String Direction) {
-        this.direction = Direction;
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
     public String getCommunityId() {
         return communityId;
     }
 
-    public void setCommunityId(String CommunityId) {
-        this.communityId = CommunityId;
+    public void setCommunityId(String communityId) {
+        this.communityId = communityId;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String Status) {
-        this.status = Status;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getResponseType() {
         return responseType;
     }
 
-    public void setResponseType(String ResponseType) {
-        this.responseType = ResponseType;
+    public void setResponseType(String responseType) {
+        this.responseType = responseType;
     }
 
     public String getReserved() {
         return reserved;
     }
 
-    public void setReserved(String Reserved) {
-        this.reserved = Reserved;
+    public void setReserved(String reserved) {
+        this.reserved = reserved;
     }
 
     public Blob getMsgData() {
         return msgData;
     }
 
-    public void setMsgData(Blob MsgData) {
-        this.msgData = MsgData;
+    public void setMsgData(Blob msgData) {
+        this.msgData = msgData;
     }
 
     public Blob getRspData() {
         return rspData;
     }
 
-    public void setRspData(Blob RspData) {
-        this.rspData = RspData;
+    public void setRspData(Blob rspData) {
+        this.rspData = rspData;
     }
 
     public Blob getAckData() {
         return ackData;
     }
 
-    public void setAckData(Blob AckData) {
-        this.ackData = AckData;
+    public void setAckData(Blob ackData) {
+        this.ackData = ackData;
     }
 }

@@ -46,28 +46,28 @@ public class NhinTargetCommunitiesBuilderImpl implements NhinTargetCommunitiesBu
     private NhinTargetCommunitiesType targets = null;
 
     /**
-     * The HCI ds.
+     * The HCIDs.
      */
-    private List<String> HCIDs = null;
+    private List<String> hcids = null;
 
     @Override
     public void setTarget(String targetHCID) {
-        HCIDs = Collections.singletonList(targetHCID);
+        hcids = Collections.singletonList(targetHCID);
     }
 
     @Override
     public void setTargets(List<String> targetHCIDs) {
-        HCIDs = targetHCIDs;
+        hcids = targetHCIDs;
     }
 
     @Override
     public void build() {
         targets = new NhinTargetCommunitiesType();
-        for (String s : HCIDs) {
+        for (String s : hcids) {
             NhinTargetCommunityType target = new NhinTargetCommunityType();
-            HomeCommunityType HCID = new HomeCommunityType();
-            HCID.setHomeCommunityId(s);
-            target.setHomeCommunity(HCID);
+            HomeCommunityType hcid = new HomeCommunityType();
+            hcid.setHomeCommunityId(s);
+            target.setHomeCommunity(hcid);
             targets.getNhinTargetCommunity().add(target);
         }
     }
@@ -76,5 +76,4 @@ public class NhinTargetCommunitiesBuilderImpl implements NhinTargetCommunitiesBu
     public NhinTargetCommunitiesType getNhinTargetCommunities() {
         return targets;
     }
-
 }

@@ -39,23 +39,23 @@ public class MpiDataAccess {
         return LookupPatients(patient, true);
     }
 
-    public static Patients LookupPatients(PRPAMT201301UV02Patient patient, boolean AllowSearchByDemographics) {
-        return LookupPatients(HL7Parser201301.ExtractMpiPatientFromHL7Patient(patient), AllowSearchByDemographics);
+    public static Patients LookupPatients(PRPAMT201301UV02Patient patient, boolean allowSearchByDemographics) {
+        return LookupPatients(HL7Parser201301.ExtractMpiPatientFromHL7Patient(patient), allowSearchByDemographics);
     }
 
     public static Patients LookupPatients(Patient searchParams) {
         return LookupPatients(searchParams, true);
     }
 
-    public static Patients LookupPatients(Patient searchParams, boolean AllowSearchByDemographics) {
+    public static Patients LookupPatients(Patient searchParams, boolean allowSearchByDemographics) {
         MiniMpi mpi = MiniMpi.getInstance();
-        return mpi.search(searchParams, AllowSearchByDemographics);
+        return mpi.search(searchParams, allowSearchByDemographics);
     }
 
-    public static Patients LookupPatients(Patient searchParams, boolean AllowSearchByDemographics,
+    public static Patients LookupPatients(Patient searchParams, boolean allowSearchByDemographics,
             boolean includeOptOutPatient) {
         MiniMpi mpi = MiniMpi.getInstance();
-        return mpi.search(searchParams, AllowSearchByDemographics, includeOptOutPatient);
+        return mpi.search(searchParams, allowSearchByDemographics, includeOptOutPatient);
     }
 
     public static Patient SavePatient(Patient patient) {

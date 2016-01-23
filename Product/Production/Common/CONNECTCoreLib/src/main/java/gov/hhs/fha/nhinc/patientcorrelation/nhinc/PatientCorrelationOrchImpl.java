@@ -92,10 +92,10 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
         List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = retrieveQualifiedPatientIdentifiers(inputQualifiedPatientIdentifier,
             dataSourceList);
         List<II> iiList = buildList(qualifiedPatientIdentifiers);
-        PRPAIN201310UV02 IN201310 = PixRetrieveResponseBuilder.createPixRetrieveResponse(
+        PRPAIN201310UV02 in201310 = PixRetrieveResponseBuilder.createPixRetrieveResponse(
             retrievePatientCorrelationsRequest, iiList);
         RetrievePatientCorrelationsResponseType result = new RetrievePatientCorrelationsResponseType();
-        result.setPRPAIN201310UV02(IN201310);
+        result.setPRPAIN201310UV02(in201310);
         return result;
     }
 
@@ -168,10 +168,10 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
         return result;
     }
 
-    private static List<String> extractDataSourceList(PRPAIN201309UV02 IN201309) {
+    private static List<String> extractDataSourceList(PRPAIN201309UV02 in201309) {
         List<String> dataSourceStringList = new ArrayList<>();
         PRPAMT201307UV02ParameterList parameterList = PRPAIN201309UVParser
-            .parseHL7ParameterListFrom201309Message(IN201309);
+            .parseHL7ParameterListFrom201309Message(in201309);
 
         List<PRPAMT201307UV02DataSource> dataSources = parameterList.getDataSource();
         if (!dataSources.isEmpty()) {

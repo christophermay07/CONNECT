@@ -48,8 +48,8 @@ public class DocumentRetrieveRequestBuilderImpl implements DocumentRetrieveReque
     }
 
     @Override
-    public void setHCID(String HCID) {
-        this.hcid = HCID;
+    public void setHCID(String hcid) {
+        this.hcid = hcid;
     }
 
     @Override

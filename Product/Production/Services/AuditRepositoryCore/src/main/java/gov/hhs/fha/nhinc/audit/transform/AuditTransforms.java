@@ -91,14 +91,14 @@ public abstract class AuditTransforms<T, K> {
      * @param assertion Assertion Object
      * @param target Target Community
      * @param direction Inbound/Outbound
-     * @param _interface Entity, Adapter or Nwhin
+     * @param serviceInterface Entity, Adapter or Nwhin
      * @param isRequesting Initiating/Responding Gateway
      * @param webContextProperties Properties which hold destination URL and remote IP
      * @param serviceName Service Name
      * @return Audit Request
      */
     public final LogEventRequestType transformRequestToAuditMsg(T request, AssertionType assertion,
-        NhinTargetSystemType target, String direction, String _interface, boolean isRequesting,
+        NhinTargetSystemType target, String direction, String serviceInterface, boolean isRequesting,
         Properties webContextProperties, String serviceName) {
 
         setRequest(request);
@@ -123,14 +123,14 @@ public abstract class AuditTransforms<T, K> {
      * @param assertion Assertion Object
      * @param target Target Community
      * @param direction Inbound/Outbound
-     * @param _interface Entity, Adapter or Nwhin
+     * @param serviceInterface Entity, Adapter or Nwhin
      * @param isRequesting Initiating/Responding Gateway
      * @param webContextProperties Properties hold destination URL and remote IP
      * @param serviceName Service Name
      * @return Audit Request
      */
     public final LogEventRequestType transformResponseToAuditMsg(T request, K response, AssertionType assertion,
-        NhinTargetSystemType target, String direction, String _interface, boolean isRequesting,
+        NhinTargetSystemType target, String direction, String serviceInterface, boolean isRequesting,
         Properties webContextProperties, String serviceName) {
 
         setRequest(request);

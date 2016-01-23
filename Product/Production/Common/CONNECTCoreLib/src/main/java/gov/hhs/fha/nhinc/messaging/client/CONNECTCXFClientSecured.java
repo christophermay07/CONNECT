@@ -44,9 +44,10 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
     private static final Logger LOG = LoggerFactory.getLogger(CONNECTCXFClientSecured.class);
 
     CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
-            String wsAddressingTo, String SoapHeader) {
+        String wsAddressingTo, String soapHeader) {
+
         super(portDescriptor, url, assertion, new CachingCXFSecuredServicePortBuilder<>(portDescriptor));
-        decorateEndpoint(assertion, wsAddressingTo, portDescriptor.getWSAddressingAction(), SoapHeader, null, null);
+        decorateEndpoint(assertion, wsAddressingTo, portDescriptor.getWSAddressingAction(), soapHeader, null, null);
 
         serviceEndpoint.configure();
     }

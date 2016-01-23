@@ -157,7 +157,7 @@ public class DocumentMetadataResult {
      */
     private String mimeType;
 
-    private boolean Opaque;
+    private boolean opaque;
 
     private int size;
 
@@ -602,17 +602,17 @@ public class DocumentMetadataResult {
     }
 
     /**
-     * @return the Opague
+     * @return the opaque
      */
-    public boolean isOpague() {
-        return Opaque;
+    public boolean isOpaque() {
+        return opaque;
     }
 
     /**
-     * @param Opague the Opague to set
+     * @param opaque the opaque to set
      */
-    public void setOpague(boolean Opague) {
-        this.Opaque = Opague;
+    public void setOpaque(boolean opaque) {
+        this.opaque = opaque;
     }
 
     /**
@@ -623,10 +623,10 @@ public class DocumentMetadataResult {
     }
 
     /**
-     * @param Size the Size to set
+     * @param size the size to set
      */
-    public void setSize(int Size) {
-        this.size = Size;
+    public void setSize(int size) {
+        this.size = size;
     }
 
     /**

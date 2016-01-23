@@ -93,7 +93,7 @@ class DocumentMetadataResultModelBuilderImpl implements DocumentMetadataResultMo
         result.setHash(helper.getSingleSlotValue(ResponseSlotName.hash, extrinsicObject));
         result.setHome(extrinsicObject.getHome());
 
-        result.setOpague(extrinsicObject.isIsOpaque());
+        result.setOpaque(extrinsicObject.isIsOpaque());
         result.setId(extrinsicObject.getId());
         result.setMimeType(extrinsicObject.getMimeType());
         result.setObjectType(extrinsicObject.getObjectType());

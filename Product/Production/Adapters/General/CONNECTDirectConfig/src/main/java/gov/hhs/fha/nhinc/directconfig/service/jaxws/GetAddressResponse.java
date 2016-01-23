@@ -61,7 +61,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetAddressResponse {
 
     @XmlElement(name = "return", namespace = "")
-    private Collection<Address> _return;
+    private Collection<Address> returnValue;
 
     /**
      *
@@ -69,16 +69,16 @@ public class GetAddressResponse {
      *     returns Collection<Address>
      */
     public Collection<Address> getReturn() {
-        return this._return;
+        return this.returnValue;
     }
 
     /**
      *
-     * @param _return
-     *     the value for the _return property
+     * @param returnValue
+     *     the value for the returnValue property
      */
-    public void setReturn(Collection<Address> _return) {
-        this._return = _return;
+    public void setReturn(Collection<Address> returnValue) {
+        this.returnValue = returnValue;
     }
 
 }

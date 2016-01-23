@@ -86,8 +86,8 @@ public class Document {
     private String documentUri;
     private byte[] rawData;
     private boolean onDemand;
-    private String NewDocumentUniqueId;
-    private String NewRepositoryUniqueId;
+    private String newDocumentUniqueId;
+    private String newRepositoryUniqueId;
     private boolean persistent;
     private Set<EventCode> eventCodes;
 
@@ -528,19 +528,19 @@ public class Document {
     }
 
     public String getNewDocumentUniqueId() {
-        return NewDocumentUniqueId;
+        return newDocumentUniqueId;
     }
 
-    public void setNewDocumentUniqueId(String NewDocumentUniqueId) {
-        this.NewDocumentUniqueId = NewDocumentUniqueId;
+    public void setNewDocumentUniqueId(String newDocumentUniqueId) {
+        this.newDocumentUniqueId = newDocumentUniqueId;
     }
 
     public String getNewRepositoryUniqueId() {
-        return NewRepositoryUniqueId;
+        return newRepositoryUniqueId;
     }
 
-    public void setNewRepositoryUniqueId(String NewRepositoryUniqueId) {
-        this.NewRepositoryUniqueId = NewRepositoryUniqueId;
+    public void setNewRepositoryUniqueId(String newRepositoryUniqueId) {
+        this.newRepositoryUniqueId = newRepositoryUniqueId;
     }
 
     public boolean isPersistent() {

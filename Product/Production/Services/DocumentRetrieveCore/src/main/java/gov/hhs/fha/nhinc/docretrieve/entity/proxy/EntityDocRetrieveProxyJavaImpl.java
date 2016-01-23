@@ -52,14 +52,14 @@ public class EntityDocRetrieveProxyJavaImpl implements EntityDocRetrieveProxy {
     @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
         AssertionType assertion, NhinTargetCommunitiesType targets) {
+
         PolicyTransformer pt = new OutboundDocRetrievePolicyTransformer_a0();
         OutboundDelegate nd = new OutboundDocRetrieveDelegate();
         NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
-        OutboundDocRetrieveOrchestratable EntityDROrchImpl = new OutboundStandardDocRetrieveOrchestratable(pt, nd,
+        OutboundDocRetrieveOrchestratable entityDROrchImpl = new OutboundStandardDocRetrieveOrchestratable(pt, nd,
             na, body, assertion, null);
-        OutboundStandardDocRetrieveOrchestrator oOrchestrator = new OutboundStandardDocRetrieveOrchestrator();
-        oOrchestrator.process(EntityDROrchImpl);
-        return EntityDROrchImpl.getResponse();
+        OutboundStandardDocRetrieveOrchestrator orchestrator = new OutboundStandardDocRetrieveOrchestrator();
+        orchestrator.process(entityDROrchImpl);
+        return entityDROrchImpl.getResponse();
     }
-
 }

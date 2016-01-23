@@ -33,7 +33,7 @@ package gov.hhs.fha.nhinc.mpilib;
 public interface IMPI {
     Patient addUpdate(Patient value);
 
-    Patients search(Patient searchParams, boolean AllowSearchByDemographics);
+    Patients search(Patient searchParams, boolean allowSearchByDemographics);
 
     Patients search(Patient searchParams);
 }

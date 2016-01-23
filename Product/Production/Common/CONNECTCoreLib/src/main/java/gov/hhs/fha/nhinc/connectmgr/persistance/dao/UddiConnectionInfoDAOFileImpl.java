@@ -98,8 +98,8 @@ public class UddiConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase impl
     }
 
     @Override
-    public void saveBusinessDetail(BusinessDetail BusinessDetail) {
-        super.saveBusinessDetail(BusinessDetail, file);
+    public void saveBusinessDetail(BusinessDetail businessDetail) {
+        super.saveBusinessDetail(businessDetail, file);
     }
 
     public long getLastModified() {

@@ -59,7 +59,7 @@ import javax.xml.bind.annotation.XmlType;
 public class ContainsResponse {
 
     @XmlElement(name = "return", namespace = "")
-    private boolean _return;
+    private boolean returnValue;
 
     /**
      *
@@ -67,16 +67,15 @@ public class ContainsResponse {
      *     returns boolean
      */
     public boolean isReturn() {
-        return this._return;
+        return this.returnValue;
     }
 
     /**
      *
-     * @param _return
-     *     the value for the _return property
+     * @param returnValue
+     *     the value for the returns property
      */
-    public void setReturn(boolean _return) {
-        this._return = _return;
+    public void setReturn(boolean returnValue) {
+        this.returnValue = returnValue;
     }
-
 }

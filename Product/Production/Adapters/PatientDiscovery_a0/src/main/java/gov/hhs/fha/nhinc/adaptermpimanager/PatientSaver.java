@@ -51,8 +51,8 @@ public class PatientSaver {
     }
 
     private static org.hl7.v3.MCCIIN000002UV01 SaveAnnouncePatient(PRPAIN201301UV02 message,
-        boolean AllowSearchByDemographics, boolean CreatePatientIfDoesNotExist, boolean UpdateDemographicsIfNeeded,
-        boolean ConfirmDemographicMatchPriorToUpdatingCorrelation) {
+        boolean allowSearchByDemographics, boolean createPatientIfDoesNotExist, boolean updateDemographicsIfNeeded,
+        boolean confirmDemographicMatchPriorToUpdatingCorrelation) {
 
         LOG.info("in SaveAnnouncePatient (PRPAIN201301UV)");
         MCCIIN000002UV01 result;
@@ -101,11 +101,11 @@ public class PatientSaver {
             Patient sourcePatient = HL7Parser201301.ExtractMpiPatientFromHL7Patient(patient);
             LOG.info("perform patient lookup in mpi");
 
-            Patients searchResults = MpiDataAccess.LookupPatients(sourcePatient, AllowSearchByDemographics);
+            Patients searchResults = MpiDataAccess.LookupPatients(sourcePatient, allowSearchByDemographics);
 
             if (CommonChecks.isZeroSearchResult(searchResults)) {
                 LOG.info("patient not found in MPI");
-                if (CreatePatientIfDoesNotExist) {
+                if (createPatientIfDoesNotExist) {
                     LOG.info("creating patient");
                     MpiDataAccess.SavePatient(sourcePatient);
                     msgText = "Patient Successfully added to the MPI";

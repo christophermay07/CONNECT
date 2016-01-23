@@ -196,8 +196,8 @@ public class HL7Parser201301 {
             ids.add(id);
         }
 
-        List<PRPAMT201301UV02OtherIDs> OtherIds = person.getAsOtherIDs();
-        for (PRPAMT201301UV02OtherIDs otherPersonIds : OtherIds) {
+        List<PRPAMT201301UV02OtherIDs> otherIds = person.getAsOtherIDs();
+        for (PRPAMT201301UV02OtherIDs otherPersonIds : otherIds) {
             for (II otherPersonId : otherPersonIds.getId()) {
                 if (!(otherPersonId.getRoot().contentEquals(HL7Parser.SSN_OID))) {
                     Identifier id = new Identifier();
@@ -216,8 +216,8 @@ public class HL7Parser201301 {
     public static String ExtractSsn(PRPAMT201301UV02Person person) {
         String ssn = null;
 
-        List<PRPAMT201301UV02OtherIDs> OtherIds = person.getAsOtherIDs();
-        for (PRPAMT201301UV02OtherIDs otherPersonIds : OtherIds) {
+        List<PRPAMT201301UV02OtherIDs> otherIds = person.getAsOtherIDs();
+        for (PRPAMT201301UV02OtherIDs otherPersonIds : otherIds) {
             for (II otherPersonId : otherPersonIds.getId()) {
                 if (otherPersonId.getRoot().contentEquals(HL7Parser.SSN_OID)) {
                     ssn = otherPersonId.getExtension();

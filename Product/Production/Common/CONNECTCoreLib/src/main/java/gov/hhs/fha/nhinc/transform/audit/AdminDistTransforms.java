@@ -50,19 +50,19 @@ public class AdminDistTransforms {
     private static final Logger LOG = LoggerFactory.getLogger(AdminDistTransforms.class);
 
     public LogEventRequestType transformEDXLDistributionRequestToAuditMsg(EDXLDistribution body,
-        AssertionType assertion, NhinTargetSystemType target, String direction, String _interface) {
+        AssertionType assertion, NhinTargetSystemType target, String direction, String serviceInterface) {
 
-        return getLogEventRequestType(body, assertion, direction, target, _interface);
+        return getLogEventRequestType(body, assertion, direction, target, serviceInterface);
     }
 
     public LogEventRequestType transformEDXLDistributionRequestToAuditMsg(EDXLDistribution body,
-        AssertionType assertion, String direction, String _interface) {
+        AssertionType assertion, String direction, String serviceInterface) {
 
-        return getLogEventRequestType(body, assertion, direction, null, _interface);
+        return getLogEventRequestType(body, assertion, direction, null, serviceInterface);
     }
 
     protected LogEventRequestType getLogEventRequestType(EDXLDistribution body, AssertionType assertion,
-        String direction, NhinTargetSystemType target, String _interface) {
+        String direction, NhinTargetSystemType target, String serviceInterface) {
         LOG.trace("Entering ADTransform-getLogEventRequestType() method.");
 
         LogEventRequestType result = new LogEventRequestType();
@@ -94,7 +94,7 @@ public class AdminDistTransforms {
 
         /* Assign AuditSourceIdentification */
         String communityId = getAdminDistributionMessageCommunityID(assertion, direction,
-            _interface, target);
+            serviceInterface, target);
 
         /* Create the AuditSourceIdentifierType object */
         AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(
@@ -102,7 +102,7 @@ public class AdminDistTransforms {
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         result.setAuditMessage(auditMsg);
-        result.setDirection(_interface + " " + direction);
+        result.setDirection(serviceInterface + " " + direction);
         result.setRemoteHCID(HomeCommunityMap.formatHomeCommunityId(communityId));
         result.setEventType(NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
         result.setEventID(auditMsg.getEventIdentification().getEventID().getDisplayName());
@@ -150,15 +150,15 @@ public class AdminDistTransforms {
         return false;
     }
 
-    public String getAdminDistributionMessageCommunityID(AssertionType assertion, String direction, String _interface,
-        NhinTargetSystemType target) {
+    public String getAdminDistributionMessageCommunityID(AssertionType assertion, String direction,
+        String serviceInterface, NhinTargetSystemType target) {
 
         String communityId = null;
 
-        if (NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE.equalsIgnoreCase(_interface)
-            || NhincConstants.AUDIT_LOG_ENTITY_INTERFACE.equalsIgnoreCase(_interface)) {
+        if (NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE.equalsIgnoreCase(serviceInterface)
+            || NhincConstants.AUDIT_LOG_ENTITY_INTERFACE.equalsIgnoreCase(serviceInterface)) {
             communityId = getHomeCommunityFromMapping();
-        } else if (NhincConstants.AUDIT_LOG_NHIN_INTERFACE.equalsIgnoreCase(_interface)) {
+        } else if (NhincConstants.AUDIT_LOG_NHIN_INTERFACE.equalsIgnoreCase(serviceInterface)) {
             if (NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION.equalsIgnoreCase(direction)) {
                 communityId = HomeCommunityMap.getCommunityIdFromTargetSystem(target);
             } else {

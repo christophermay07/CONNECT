@@ -60,7 +60,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetDomainResponse {
 
     @XmlElement(name = "return", namespace = "")
-    private Domain _return;
+    private Domain returnValue;
 
     /**
      *
@@ -68,16 +68,16 @@ public class GetDomainResponse {
      *     returns Domain
      */
     public Domain getReturn() {
-        return this._return;
+        return this.returnValue;
     }
 
     /**
      *
-     * @param _return
-     *     the value for the _return property
+     * @param returnValue
+     *     the value for the returnValue property
      */
-    public void setReturn(Domain _return) {
-        this._return = _return;
+    public void setReturn(Domain returnValue) {
+        this.returnValue = returnValue;
     }
 
 }

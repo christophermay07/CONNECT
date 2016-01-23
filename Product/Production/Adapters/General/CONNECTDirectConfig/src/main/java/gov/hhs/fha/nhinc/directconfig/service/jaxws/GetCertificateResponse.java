@@ -60,7 +60,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetCertificateResponse {
 
     @XmlElement(name = "return", namespace = "")
-    private Certificate _return;
+    private Certificate returnValue;
 
     /**
      *
@@ -68,16 +68,16 @@ public class GetCertificateResponse {
      *     returns Certificate
      */
     public Certificate getReturn() {
-        return this._return;
+        return this.returnValue;
     }
 
     /**
      *
-     * @param _return
-     *     the value for the _return property
+     * @param returnValue
+     *     the value for the returnValue property
      */
-    public void setReturn(Certificate _return) {
-        this._return = _return;
+    public void setReturn(Certificate returnValue) {
+        this.returnValue = returnValue;
     }
 
 }

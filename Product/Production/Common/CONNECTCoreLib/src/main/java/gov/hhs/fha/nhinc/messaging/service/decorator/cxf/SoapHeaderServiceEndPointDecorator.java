@@ -63,11 +63,11 @@ public class SoapHeaderServiceEndPointDecorator<T> extends ServiceEndpointDecora
 
         if (subscriptionId != null) {
             List<Header> headers = new ArrayList<>();
-            Header SoapHeader;
+            Header soapHeader;
             try {
-                SoapHeader = new Header(new QName("http://www.hhs.gov/healthit/nhin", "SubscriptionId"),
+                soapHeader = new Header(new QName("http://www.hhs.gov/healthit/nhin", "SubscriptionId"),
                         subscriptionId, new JAXBDataBinding(String.class));
-                headers.add(SoapHeader);
+                headers.add(soapHeader);
             } catch (JAXBException e) {
                 LOG.error("Failed to set subscription id to header", e);
             }

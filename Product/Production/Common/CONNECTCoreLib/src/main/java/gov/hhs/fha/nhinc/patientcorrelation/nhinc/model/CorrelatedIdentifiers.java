@@ -61,16 +61,16 @@ public class CorrelatedIdentifiers {
         return CorrelatedPatientAssigningAuthorityId;
     }
 
-    public void setCorrelatedPatientAssigningAuthorityId(String CorrelatedPatientAssigningAuthority) {
-        this.CorrelatedPatientAssigningAuthorityId = CorrelatedPatientAssigningAuthority;
+    public void setCorrelatedPatientAssigningAuthorityId(String correlatedPatientAssigningAuthority) {
+        this.CorrelatedPatientAssigningAuthorityId = correlatedPatientAssigningAuthority;
     }
 
     public String getCorrelatedPatientId() {
         return CorrelatedPatientId;
     }
 
-    public void setCorrelatedPatientId(String CorrelatedPatientId) {
-        this.CorrelatedPatientId = CorrelatedPatientId;
+    public void setCorrelatedPatientId(String correlatedPatientId) {
+        this.CorrelatedPatientId = correlatedPatientId;
     }
 
     public Long getCorrelationId() {

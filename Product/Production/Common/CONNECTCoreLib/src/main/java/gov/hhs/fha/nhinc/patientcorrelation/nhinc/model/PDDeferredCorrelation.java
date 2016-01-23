@@ -44,8 +44,8 @@ public class PDDeferredCorrelation {
         return id;
     }
 
-    public void setId(Long Id) {
-        this.id = Id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getMessageId() {

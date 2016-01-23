@@ -142,12 +142,11 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
      * Initializes system preferences using the Direct {@link OptionsManager} pattern.
      */
     public synchronized static void initJVMParams() {
-
-        final Map<String, String> JVM_PARAMS = new HashMap<>();
-        JVM_PARAMS.put(BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED,
+        final Map<String, String> jvmParams = new HashMap<>();
+        jvmParams.put(BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED,
             "gov.hhs.fha.nhinc.directconfig.processor.impl.bundlerefresh.AllowNonVerifiedSSL");
 
-        OptionsManager.addInitParameters(JVM_PARAMS);
+        OptionsManager.addInitParameters(jvmParams);
     }
 
     /**
@@ -389,10 +388,10 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
             // open the URL as in input stream
             inputStream = connection.getInputStream();
 
-            int BUF_SIZE = 2048;
+            int bufferSize = 2048;
             int count;
 
-            final byte buf[] = new byte[BUF_SIZE];
+            final byte buf[] = new byte[bufferSize];
 
             while ((count = inputStream.read(buf)) > -1) {
                 outStream.write(buf, 0, count);
