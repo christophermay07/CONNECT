@@ -45,6 +45,9 @@ public class FindAndReplaceFile {
 
     private static final Logger LOG = LoggerFactory.getLogger(FindAndReplaceFile.class);
 
+    private FindAndReplaceFile() {
+    }
+
     /**
      * Copy contents of the file from the src to the dest. If the dest exists, it will be deleted first.
      *

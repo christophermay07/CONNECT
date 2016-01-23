@@ -46,6 +46,9 @@ public class PatientSaver {
     private static final String PROPERTY_FILE = "adapter";
     private static final String PROPERTY_NAME = "assigningAuthorityId";
 
+    private PatientSaver() {
+    }
+
     public static org.hl7.v3.MCCIIN000002UV01 SavePatient(org.hl7.v3.PRPAIN201301UV02 message) {
         return PatientSaver.SaveAnnouncePatient(message, true, true, true, false);
     }
@@ -122,9 +125,7 @@ public class PatientSaver {
             }
         }
 
-        result = HL7AckTransforms.createAckMessage(localDeviceId, message.getId(), ackTypeCode, msgText, senderOID,
+        return HL7AckTransforms.createAckMessage(localDeviceId, message.getId(), ackTypeCode, msgText, senderOID,
             receiverOID);
-
-        return result;
     }
 }

@@ -44,6 +44,9 @@ public class Storer {
 
     private static final Logger LOG = LoggerFactory.getLogger(Storer.class);
 
+    private Storer() {
+    }
+
     public static void addPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         LOG.info("patient correlation add requested");
         if (!Retriever.doesCorrelationExist(correlatedIdentifers)) {

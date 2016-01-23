@@ -41,31 +41,27 @@ public class HL7ReceiverTransformsTest {
     @Test
     public void createMCCIMT000200UV01Receiver() {
         String OID = null;
-        HL7ReceiverTransforms transforms = new HL7ReceiverTransforms();
-        MCCIMT000200UV01Receiver receiver = transforms.createMCCIMT000200UV01Receiver(OID);
+        MCCIMT000200UV01Receiver receiver = HL7ReceiverTransforms.createMCCIMT000200UV01Receiver(OID);
         assertNull(receiver.getDevice().getId().get(0).getRoot());
         assertNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0)
-                .getRoot());
+            .getRoot());
     }
 
     @Test
     public void createMCCIMT000100UV01Receiver() {
         String OID = null;
-        HL7ReceiverTransforms transforms = new HL7ReceiverTransforms();
-        MCCIMT000100UV01Receiver receiver = transforms.createMCCIMT000100UV01Receiver(OID);
+        MCCIMT000100UV01Receiver receiver = HL7ReceiverTransforms.createMCCIMT000100UV01Receiver(OID);
         assertNull(receiver.getDevice().getId().get(0).getRoot());
         assertNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0)
-                .getRoot());
+            .getRoot());
     }
 
     @Test
     public void createMCCIMT000300UV01Receiver() {
         String OID = null;
-        HL7ReceiverTransforms transforms = new HL7ReceiverTransforms();
-        MCCIMT000300UV01Receiver receiver = transforms.createMCCIMT000300UV01Receiver(OID);
+        MCCIMT000300UV01Receiver receiver = HL7ReceiverTransforms.createMCCIMT000300UV01Receiver(OID);
         assertNull(receiver.getDevice().getId().get(0).getRoot());
         assertNull(receiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0)
-                .getRoot());
+            .getRoot());
     }
-
 }

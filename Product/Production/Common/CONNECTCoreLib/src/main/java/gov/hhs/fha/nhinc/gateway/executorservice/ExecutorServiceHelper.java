@@ -104,6 +104,9 @@ public class ExecutorServiceHelper {
     private static class SingletonHolder {
 
         public static final ExecutorServiceHelper INSTANCE = new ExecutorServiceHelper();
+
+        private SingletonHolder() {
+        }
     }
 
     // singleton

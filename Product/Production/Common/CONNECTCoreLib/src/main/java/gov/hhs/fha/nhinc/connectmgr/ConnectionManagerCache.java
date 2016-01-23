@@ -101,6 +101,9 @@ public class ConnectionManagerCache implements ConnectionManager {
     private static class SingletonHolder {
 
         public static final ConnectionManagerCache INSTANCE = new ConnectionManagerCache();
+
+        private SingletonHolder() {
+        }
     }
 
     public static ConnectionManagerCache getInstance() {

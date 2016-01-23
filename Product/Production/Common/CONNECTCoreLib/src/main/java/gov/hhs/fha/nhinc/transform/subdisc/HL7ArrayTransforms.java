@@ -63,6 +63,9 @@ import org.hl7.v3.QUQIMT021001UV01DataEnterer;
  */
 public class HL7ArrayTransforms {
 
+    private HL7ArrayTransforms() {
+    }
+
     public static PRPAIN201301UV02 copyNullFlavors(PRPAIN201305UV02 from, PRPAIN201301UV02 to) {
         if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();

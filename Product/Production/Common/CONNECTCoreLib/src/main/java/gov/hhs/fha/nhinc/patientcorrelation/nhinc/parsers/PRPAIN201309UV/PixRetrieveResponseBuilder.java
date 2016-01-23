@@ -59,6 +59,9 @@ public class PixRetrieveResponseBuilder {
     private static final String ProcessingModeCode = "T";
     private static final String ITSVersion = "XML_1.0";
 
+    private PixRetrieveResponseBuilder() {
+    }
+
     public static PRPAIN201310UV02 createPixRetrieveResponse(PRPAIN201309UV02 retrievePatientCorrelationsRequest,
             List<II> resultListII) {
         PRPAIN201310UV02 message = createTransmissionWrapper(

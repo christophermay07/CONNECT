@@ -38,6 +38,10 @@ import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
  * @author mflynn02
  */
 public class HL7PRPA201309Transforms {
+
+    private HL7PRPA201309Transforms() {
+    }
+
     public static PRPAIN201309UV02 createPRPA201309(String homeCommunityId, String patientId) {
         PRPAIN201309UV02 result = new PRPAIN201309UV02();
 

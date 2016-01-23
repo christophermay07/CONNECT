@@ -46,6 +46,9 @@ public class XpathHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(XpathHelper.class);
 
+    private XpathHelper() {
+    }
+
     public static Node performXpathQuery(String sourceXml, String xpathQuery) throws XPathExpressionException {
         javax.xml.xpath.XPathFactory factory = javax.xml.xpath.XPathFactory.newInstance();
         javax.xml.xpath.XPath xpath = factory.newXPath();

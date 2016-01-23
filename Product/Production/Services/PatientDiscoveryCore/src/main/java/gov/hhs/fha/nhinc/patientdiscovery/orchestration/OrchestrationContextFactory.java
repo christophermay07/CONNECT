@@ -41,7 +41,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatie
  */
 public class OrchestrationContextFactory extends AbstractOrchestrationContextFactory {
 
-    private static OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
+    private static final OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
 
     private OrchestrationContextFactory() {
     }
@@ -73,5 +73,4 @@ public class OrchestrationContextFactory extends AbstractOrchestrationContextFac
         }
         return null;
     }
-
 }

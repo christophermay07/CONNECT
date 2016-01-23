@@ -42,6 +42,9 @@ public class OutboundPatientDiscoveryProcessorHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(OutboundPatientDiscoveryProcessorHelper.class);
 
+    private OutboundPatientDiscoveryProcessorHelper() {
+    }
+
     /**
      * constructs a new OutboundPatientDiscoveryOrchestratable object with associated new cumulativeResponse
      *

@@ -38,6 +38,9 @@ import org.hl7.v3.PRPAMT201306UV02ParameterList;
  */
 public class MpiDataAccess {
 
+    private MpiDataAccess() {
+    }
+
     /**
      * Method to lookup a Patient in the MPI using a PRPAMT201306UV02ParameterList.
      * Assumes the lookup should attempt a search by demographics.

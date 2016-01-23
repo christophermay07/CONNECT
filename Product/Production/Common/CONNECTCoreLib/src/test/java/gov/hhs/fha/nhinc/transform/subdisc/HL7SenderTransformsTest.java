@@ -42,33 +42,29 @@ public class HL7SenderTransformsTest {
     public void createMCCIMT000200UV01Sender() {
         MCCIMT000200UV01Sender sender;
         String OID = null;
-        HL7SenderTransforms transforms = new HL7SenderTransforms();
-        sender = transforms.createMCCIMT000200UV01Sender(OID);
+        sender = HL7SenderTransforms.createMCCIMT000200UV01Sender(OID);
         assertNull(sender.getDevice().getId().get(0).getRoot());
         assertNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0)
-                .getRoot());
+            .getRoot());
     }
 
     @Test
     public void createMCCIMT000100UV01Sender() {
         MCCIMT000100UV01Sender sender;
         String OID = null;
-        HL7SenderTransforms transforms = new HL7SenderTransforms();
-        sender = transforms.createMCCIMT000100UV01Sender(OID);
+        sender = HL7SenderTransforms.createMCCIMT000100UV01Sender(OID);
         assertNull(sender.getDevice().getId().get(0).getRoot());
         assertNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0)
-                .getRoot());
+            .getRoot());
     }
 
     @Test
     public void createMCCIMT000300UV01Sender() {
         MCCIMT000300UV01Sender sender;
         String OID = null;
-        HL7SenderTransforms transforms = new HL7SenderTransforms();
-        sender = transforms.createMCCIMT000300UV01Sender(OID);
+        sender = HL7SenderTransforms.createMCCIMT000300UV01Sender(OID);
         assertNull(sender.getDevice().getId().get(0).getRoot());
         assertNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0)
-                .getRoot());
+            .getRoot());
     }
-
 }

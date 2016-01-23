@@ -55,6 +55,9 @@ public class HibernateUtil {
         }
     }
 
+    private HibernateUtil() {
+    }
+
     /**
      * Method returns an instance of Hibernate SessionFactory.
      *
@@ -75,5 +78,4 @@ public class HibernateUtil {
 
         return result;
     }
-
 }

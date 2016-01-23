@@ -58,4 +58,6 @@ public class DocSubmissionAuditTransformsConstants {
     public static final String EVENT_ACTION_CODE_SOURCE = "R";
     public static final String EVENT_ACTION_CODE_RECIPIENT = "C";
 
+    private DocSubmissionAuditTransformsConstants() {
+    }
 }

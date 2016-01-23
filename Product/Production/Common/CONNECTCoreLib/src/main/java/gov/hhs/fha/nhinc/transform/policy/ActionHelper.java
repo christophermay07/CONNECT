@@ -36,6 +36,9 @@ public class ActionHelper {
 
     private static final String ActionAttributeId = "urn:oasis:names:tc:xacml:1.0:action:action-id";
 
+    private ActionHelper() {
+    }
+
     public static ActionType actionFactory(String actionValue) {
         ActionType action = new ActionType();
         return actionFactory(action, actionValue);

@@ -53,6 +53,9 @@ public class HL7ReceiverTransforms {
 
     private static final Logger LOG = LoggerFactory.getLogger(HL7DataTransformHelper.class);
 
+    private HL7ReceiverTransforms() {
+    }
+
     /**
      * Create receiver element. The passed OID will be used as the HL7 device application id and the organization home
      * community id.

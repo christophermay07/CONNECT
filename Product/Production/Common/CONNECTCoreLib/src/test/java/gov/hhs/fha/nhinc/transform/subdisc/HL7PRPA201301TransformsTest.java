@@ -24,9 +24,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.transform.subdisc;
+package gov.hhs.fha.nhinc.HL7PRPA201301Transforms.subdisc;
 
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
 import org.hl7.v3.CE;
 import org.hl7.v3.COCTMT090100UV01AssignedPerson;
 import org.hl7.v3.COCTMT090100UV01Person;
@@ -79,94 +81,90 @@ public class HL7PRPA201301TransformsTest {
         String senderOID = "1.1";
         String receiverOID = "2.2";
         PRPAMT201301UV02Patient patient = createPRPAMT201301UV02Patient();
-        HL7PRPA201301Transforms transform = new HL7PRPA201301Transforms();
-        PRPAIN201301UV02 request = transform.createPRPA201301(patient, localDeviceId, senderOID, receiverOID);
+        PRPAIN201301UV02 request = HL7PRPA201301Transforms.createPRPA201301(patient, localDeviceId, senderOID,
+            receiverOID);
         assertEquals(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
-                .getPatient().getId().get(0).getExtension(), "1.16.17.19");
+            .getPatient().getId().get(0).getExtension(), "1.16.17.19");
     }
 
     @Test
     public void createPRPA201301Request() {
         String localDeviceId = "1.1";
-        HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201301UV02 request;
-        request = transforms.createPRPA201301(createPRPAIN201305UV02(), localDeviceId);
+        request = HL7PRPA201301Transforms.createPRPA201301(createPRPAIN201305UV02(), localDeviceId);
         assertEquals(request.getAttentionLine().get(0).getRealmCode().get(0).getCode(), "CONNECT");
         assertEquals(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue()
-                .getId().get(0).getExtension(), "1.16.17.19");
-
+            .getId().get(0).getExtension(), "1.16.17.19");
     }
 
     @Test
     public void createPRPA201301RequestNull() {
         String localDeviceId = "1.1";
-        HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201305UV02 req = null;
-        assertNull(transforms.createPRPA201301(req, localDeviceId));
+        assertNull(HL7PRPA201301Transforms.createPRPA201301(req, localDeviceId));
     }
 
     @Test
     public void createPRPA201301RequestWhenContolActIdNull() {
         String localDeviceId = "1.1";
-        HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
-        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
+        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess
+            = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
         controlActProcess.getAuthorOrPerformer().add(createPRPAIN201305UV02AuthorOrPerformer());
         controlActProcess.setTypeId(createII());
         controlActProcess.setQueryByParameter(createQueryByParameter());
         request.setControlActProcess(controlActProcess);
         request.getControlActProcess();
         PRPAIN201301UV02 result;
-        result = transforms.createPRPA201301(request, localDeviceId);
+        result = HL7PRPA201301Transforms.createPRPA201301(request, localDeviceId);
         assertTrue(result.getControlActProcess().getId().isEmpty());
     }
 
     @Test
     public void createPRPA201301RequestWhenContolActRealmCodeNull() {
         String localDeviceId = "1.1";
-        HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
-        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
+        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess
+            = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
         controlActProcess.getAuthorOrPerformer().add(createPRPAIN201305UV02AuthorOrPerformer());
         controlActProcess.setTypeId(createII());
         controlActProcess.setQueryByParameter(createQueryByParameter());
         request.setControlActProcess(controlActProcess);
         PRPAIN201301UV02 result;
-        result = transforms.createPRPA201301(request, localDeviceId);
+        result = HL7PRPA201301Transforms.createPRPA201301(request, localDeviceId);
         assertTrue(result.getControlActProcess().getRealmCode().isEmpty());
     }
 
     @Test
     public void createPRPA201301RequestWhenContolActDataEntererNull() {
         String localDeviceId = "1.1";
-        HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
-        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
+        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess
+            = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
         controlActProcess.getAuthorOrPerformer().add(createPRPAIN201305UV02AuthorOrPerformer());
         controlActProcess.setTypeId(createII());
         controlActProcess.setQueryByParameter(createQueryByParameter());
         request.setControlActProcess(controlActProcess);
         PRPAIN201301UV02 result;
-        result = transforms.createPRPA201301(request, localDeviceId);
+        result = HL7PRPA201301Transforms.createPRPA201301(request, localDeviceId);
         assertTrue(result.getControlActProcess().getDataEnterer().isEmpty());
     }
 
     @Test
     public void createPRPA201301RequestWhenContolActProcessNull() {
         String localDeviceId = "1.1";
-        HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
         PRPAIN201301UV02 result;
-        result = transforms.createPRPA201301(request, localDeviceId);
+        result = HL7PRPA201301Transforms.createPRPA201301(request, localDeviceId);
         assertNull(result.getControlActProcess());
     }
 
     @Test
     public void createPRPA201301RequestWhenAuthorOrPerformerNull() {
         String localDeviceId = "1.1";
-        HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
-        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
+        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess
+            = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
         QUQIMT021001UV01AuthorOrPerformer authorOrPerformer = new QUQIMT021001UV01AuthorOrPerformer();
         authorOrPerformer.setAssignedDevice(createPRPAIN201305UV02AssignedDevice());
         authorOrPerformer.setAssignedPerson(createPRPAIN201305UV02AssignedPerson());
@@ -175,7 +173,7 @@ public class HL7PRPA201301TransformsTest {
         controlActProcess.setQueryByParameter(createQueryByParameter());
         request.setControlActProcess(controlActProcess);
         PRPAIN201301UV02 result;
-        result = transforms.createPRPA201301(request, localDeviceId);
+        result = HL7PRPA201301Transforms.createPRPA201301(request, localDeviceId);
         assertTrue(result.getControlActProcess().getAuthorOrPerformer().get(0).getRealmCode().isEmpty());
         assertTrue(result.getControlActProcess().getAuthorOrPerformer().get(0).getTemplateId().isEmpty());
     }
@@ -183,91 +181,85 @@ public class HL7PRPA201301TransformsTest {
     @Test
     public void createPRPA201301forPRPAIN201306UV02Request() {
         String localDeviceId = "1.1";
-        HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201301UV02 request;
-        request = transforms.createPRPA201301(createPRPAIN201306UV02(), localDeviceId);
+        request = HL7PRPA201301Transforms.createPRPA201301(createPRPAIN201306UV02(), localDeviceId);
         assertEquals(request.getAttentionLine().get(0).getRealmCode().get(0).getCode(), "CONNECT");
         assertEquals(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue()
-                .getId().get(0).getExtension(), "1.16.17.19");
+            .getId().get(0).getExtension(), "1.16.17.19");
     }
 
     @Test
     public void createPRPA201301RequestNullforPRPAIN201306UV02() {
         String localDeviceId = "1.1";
-        HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201306UV02 req = null;
-        assertNull(transforms.createPRPA201301(req, localDeviceId));
+        assertNull(HL7PRPA201301Transforms.createPRPA201301(req, localDeviceId));
     }
 
     @Test
     public void copyControlActProcess2() {
         String localDeviceId = "1.1";
-        HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess cap = transforms.copyControlActProcess2(
-                createPRPAIN201306UV02ControlActProcess(), localDeviceId);
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess cap = HL7PRPA201301Transforms.copyControlActProcess2(
+            createPRPAIN201306UV02ControlActProcess(), localDeviceId);
         assertEquals(cap.getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getExtension(),
-                "1.16.17.19");
+            "1.16.17.19");
     }
 
     @Test
     public void createPRPA201301RequestForPRPAIN201306WhenContolActIdNull() {
         String localDeviceId = "1.1";
-        HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201306UV02 request = new PRPAIN201306UV02();
-        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
+        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess
+            = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
         controlActProcess.getAuthorOrPerformer().add(createPRPAIN201306UV02AuthorOrPerformer());
         controlActProcess.setTypeId(createII());
         controlActProcess.setQueryByParameter(createQueryByParameter());
         request.setControlActProcess(controlActProcess);
         request.getControlActProcess();
         PRPAIN201301UV02 result;
-        result = transforms.createPRPA201301(request, localDeviceId);
+        result = HL7PRPA201301Transforms.createPRPA201301(request, localDeviceId);
         assertTrue(result.getControlActProcess().getId().isEmpty());
     }
 
     @Test
     public void createPRPA201301RequestForPRPAIN201306WhenContolActRealmCodeNull() {
         String localDeviceId = "1.1";
-        HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201306UV02 request = new PRPAIN201306UV02();
-        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
+        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess
+            = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
         controlActProcess.getAuthorOrPerformer().add(createPRPAIN201306UV02AuthorOrPerformer());
         controlActProcess.setTypeId(createII());
         controlActProcess.setQueryByParameter(createQueryByParameter());
         request.setControlActProcess(controlActProcess);
         PRPAIN201301UV02 result;
-        result = transforms.createPRPA201301(request, localDeviceId);
+        result = HL7PRPA201301Transforms.createPRPA201301(request, localDeviceId);
         assertTrue(result.getControlActProcess().getRealmCode().isEmpty());
     }
 
     @Test
     public void createPRPA201301RequestForPRPAIN201306WhenContolActDataEntererNull() {
         String localDeviceId = "1.1";
-        HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201306UV02 request = new PRPAIN201306UV02();
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
         controlActProcess.setTypeId(createII());
         controlActProcess.setQueryByParameter(createQueryByParameter());
         request.setControlActProcess(controlActProcess);
         PRPAIN201301UV02 result;
-        result = transforms.createPRPA201301(request, localDeviceId);
+        result = HL7PRPA201301Transforms.createPRPA201301(request, localDeviceId);
         assertTrue(result.getControlActProcess().getDataEnterer().isEmpty());
     }
 
     @Test
     public void createPRPA201301RequestForPRPAIN201306WhenContolActProcessNull() {
         String localDeviceId = "1.1";
-        HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201306UV02 request = new PRPAIN201306UV02();
         PRPAIN201301UV02 result;
-        result = transforms.createPRPA201301(request, localDeviceId);
+        result = HL7PRPA201301Transforms.createPRPA201301(request, localDeviceId);
         assertNull(result.getControlActProcess());
     }
 
     @Test
     public void createPRPA201301RequestForPRPAIN201306WhenAuthorOrPerformerNull() {
         String localDeviceId = "1.1";
-        HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201306UV02 request = new PRPAIN201306UV02();
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
         MFMIMT700711UV01AuthorOrPerformer authorOrPerformer = new MFMIMT700711UV01AuthorOrPerformer();
@@ -278,7 +270,7 @@ public class HL7PRPA201301TransformsTest {
         controlActProcess.setQueryByParameter(createQueryByParameter());
         request.setControlActProcess(controlActProcess);
         PRPAIN201301UV02 result;
-        result = transforms.createPRPA201301(request, localDeviceId);
+        result = HL7PRPA201301Transforms.createPRPA201301(request, localDeviceId);
         assertTrue(result.getControlActProcess().getAuthorOrPerformer().get(0).getRealmCode().isEmpty());
         assertTrue(result.getControlActProcess().getAuthorOrPerformer().get(0).getTemplateId().isEmpty());
     }
@@ -308,7 +300,7 @@ public class HL7PRPA201301TransformsTest {
 
         org.hl7.v3.ObjectFactory oJaxbObjectFactory = new org.hl7.v3.ObjectFactory();
         JAXBElement<MCCIMT000300UV01Organization> repOrg = oJaxbObjectFactory
-                .createMCCIMT000300UV01AgentRepresentedOrganization(repOrgVal);
+            .createMCCIMT000300UV01AgentRepresentedOrganization(repOrgVal);
         repOrg.setValue(repOrgVal);
         agentVal.setRepresentedOrganization(repOrg);
 
@@ -336,7 +328,7 @@ public class HL7PRPA201301TransformsTest {
         org.getId().add(createII());
         org.hl7.v3.ObjectFactory JaxbObjectFactory = new org.hl7.v3.ObjectFactory();
         JAXBElement<MCCIMT000300UV01Organization> repOrgReceiver = JaxbObjectFactory
-                .createMCCIMT000300UV01AgentRepresentedOrganization(org);
+            .createMCCIMT000300UV01AgentRepresentedOrganization(org);
         repOrgReceiver.setValue(org);
         agent.setRepresentedOrganization(repOrgReceiver);
         JAXBElement<MCCIMT000300UV01Agent> agentReceiver = JaxbObjectFactory.createMCCIMT000300UV01DeviceAsAgent(agent);
@@ -345,7 +337,8 @@ public class HL7PRPA201301TransformsTest {
     }
 
     private PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createPRPAIN201306UV02ControlActProcess() {
-        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
+        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess
+            = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
         controlActProcess.getAuthorOrPerformer().add(createPRPAIN201306UV02AuthorOrPerformer());
         controlActProcess.setTypeId(createII());
         controlActProcess.getId().add(createII());
@@ -417,7 +410,7 @@ public class HL7PRPA201301TransformsTest {
         org.getId().add(createII());
         org.hl7.v3.ObjectFactory JaxbObjectFactory = new org.hl7.v3.ObjectFactory();
         JAXBElement<MCCIMT000100UV01Organization> repOrgReceiver = JaxbObjectFactory
-                .createMCCIMT000100UV01AgentRepresentedOrganization(org);
+            .createMCCIMT000100UV01AgentRepresentedOrganization(org);
         repOrgReceiver.setValue(org);
         agent.setRepresentedOrganization(repOrgReceiver);
         JAXBElement<MCCIMT000100UV01Agent> agentReceiver = JaxbObjectFactory.createMCCIMT000100UV01DeviceAsAgent(agent);
@@ -439,7 +432,8 @@ public class HL7PRPA201301TransformsTest {
     }
 
     private PRPAIN201305UV02QUQIMT021001UV01ControlActProcess createPRPAIN201305UV02ControlActProcess() {
-        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
+        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess
+            = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
         controlActProcess.getAuthorOrPerformer().add(createPRPAIN201305UV02AuthorOrPerformer());
         controlActProcess.setTypeId(createII());
         controlActProcess.getId().add(createII());
@@ -454,9 +448,9 @@ public class HL7PRPA201301TransformsTest {
         PRPAMT201306UV02QueryByParameter parameter = new PRPAMT201306UV02QueryByParameter();
         parameter.setQueryId(createII());
         parameter.setParameterList(createPRPAMT201306UV02ParameterList());
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
+        QName xmlqname = new QName("urn:hl7-org:v3", "parameter");
         JAXBElement<PRPAMT201306UV02QueryByParameter> queryByParameter = new JAXBElement<>(
-                xmlqname, PRPAMT201306UV02QueryByParameter.class, parameter);
+            xmlqname, PRPAMT201306UV02QueryByParameter.class, parameter);
         return queryByParameter;
     }
 
@@ -503,18 +497,18 @@ public class HL7PRPA201301TransformsTest {
         COCTMT090300UV01AssignedDevice assignedDevice = new COCTMT090300UV01AssignedDevice();
         assignedDevice.setAssignedDevice(createPRPAIN201305UV02Device());
         assignedDevice.getId().add(createII());
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "assignedDevice");
+        QName xmlqname = new QName("urn:hl7-org:v3", "assignedDevice");
         JAXBElement<COCTMT090300UV01AssignedDevice> device = new JAXBElement<>(xmlqname,
-                COCTMT090300UV01AssignedDevice.class, assignedDevice);
+            COCTMT090300UV01AssignedDevice.class, assignedDevice);
         return device;
     }
 
     private JAXBElement<COCTMT090300UV01Device> createPRPAIN201305UV02Device() {
         COCTMT090300UV01Device device = new COCTMT090300UV01Device();
         device.setTypeId(createII());
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "device");
+        QName xmlqname = new QName("urn:hl7-org:v3", "device");
         JAXBElement<COCTMT090300UV01Device> dev = new JAXBElement<>(xmlqname,
-                COCTMT090300UV01Device.class, device);
+            COCTMT090300UV01Device.class, device);
         return dev;
     }
 
@@ -522,9 +516,9 @@ public class HL7PRPA201301TransformsTest {
         COCTMT090100UV01AssignedPerson assignedPerson = new COCTMT090100UV01AssignedPerson();
         assignedPerson.setAssignedPerson(createPRPAIN201305UV02Person());
         assignedPerson.setTypeId(createII());
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "assignedPerson");
+        QName xmlqname = new QName("urn:hl7-org:v3", "assignedPerson");
         JAXBElement<COCTMT090100UV01AssignedPerson> person = new JAXBElement<>(xmlqname,
-                COCTMT090100UV01AssignedPerson.class, assignedPerson);
+            COCTMT090100UV01AssignedPerson.class, assignedPerson);
         return person;
     }
 
@@ -539,18 +533,18 @@ public class HL7PRPA201301TransformsTest {
         COCTMT090100UV01Person person = new COCTMT090100UV01Person();
         person.setDeterminerCode("INSTANCE");
         person.setTypeId(createII());
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "person");
+        QName xmlqname = new QName("urn:hl7-org:v3", "person");
         JAXBElement<COCTMT090100UV01Person> assignedPerson = new JAXBElement<>(xmlqname,
-                COCTMT090100UV01Person.class, person);
+            COCTMT090100UV01Person.class, person);
         return assignedPerson;
     }
 
     private PRPAMT201301UV02Patient createPRPAMT201301UV02Patient() {
         org.hl7.v3.PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
+        QName xmlqname = new QName("urn:hl7-org:v3", "patientPerson");
         JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
-                PRPAMT201301UV02Person.class, patientPerson);
+            PRPAMT201301UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patient.getId().add(createII());
         patientPerson.getClassCode().add("ClassCode");
@@ -569,5 +563,4 @@ public class HL7PRPA201301TransformsTest {
         ii.setRoot("1.1");
         return ii;
     }
-
 }

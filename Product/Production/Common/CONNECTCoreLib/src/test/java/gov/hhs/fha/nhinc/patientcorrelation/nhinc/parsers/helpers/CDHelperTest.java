@@ -40,11 +40,8 @@ public class CDHelperTest {
     public void testCDFactory() {
         String codeValue = "CD";
         String codeSystem = "CONNECT";
-        CDHelper cd = new CDHelper();
-        CD code = new CD();
-        code = cd.CDFactory(codeValue, codeSystem);
+        CD code = CDHelper.CDFactory(codeValue, codeSystem);
         assertEquals(code.getCode(),codeValue);
         assertEquals(code.getCodeSystem(), codeSystem);
     }
-
 }

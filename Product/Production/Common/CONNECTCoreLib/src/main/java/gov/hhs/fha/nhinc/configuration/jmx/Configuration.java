@@ -51,11 +51,6 @@ public class Configuration implements ConfigurationMXBean {
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#getProperty(java.lang.String, java.lang.String)
-     */
     @Override
     public String getProperty(String propertyFileName, String key) {
         String value = null;
@@ -67,12 +62,6 @@ public class Configuration implements ConfigurationMXBean {
         return value;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#setProperty(java.lang.String, java.lang.String,
-     * java.lang.String)
-     */
     @Override
     public void setProperty(String propertyFileName, String key, String value) {
         try {
@@ -82,11 +71,6 @@ public class Configuration implements ConfigurationMXBean {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.Configuration#persistConfiguration()
-     */
     @Override
     public void persistConfiguration() {
         throw new RuntimeException("Method not implemented");
@@ -105,33 +89,18 @@ public class Configuration implements ConfigurationMXBean {
         return sb.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#setPassthruMode()
-     */
     @Override
     public void setPassthruMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         registry.setPassthruMode();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#setStandardMode()
-     */
     @Override
     public void setStandardMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         registry.setStandardMode();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#setStandardMode(java.lang.String, java.lang.String)
-     */
     @Override
     public void setPassthruMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
@@ -140,11 +109,6 @@ public class Configuration implements ConfigurationMXBean {
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#setPassthruMode(java.lang.String, java.lang.String)
-     */
     @Override
     public void setStandardMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {

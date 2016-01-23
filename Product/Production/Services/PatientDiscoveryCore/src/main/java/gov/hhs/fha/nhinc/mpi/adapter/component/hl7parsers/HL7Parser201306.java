@@ -100,6 +100,9 @@ public class HL7Parser201306 {
     private static final String PROPERTY_NAME = "assigningAuthorityId";
     private static final String ACTIVE_STATUS = "active";
 
+    private HL7Parser201306() {
+    }
+
     /**
      * Method to build a PRPAIN201306UV02 froma given list of Patients and a PRPAIN201305UV02 object.
      *

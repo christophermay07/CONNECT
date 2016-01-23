@@ -67,4 +67,7 @@ public class DirectConfigConstants {
     public static final String DIRECT_CONFIG_UPDATE_TRUST_BUNDLE_ATTRIBUTES = "updateTrustBundleAttributes";
     public static final String DIRECT_CONFIG_REFRESH_TRUST_BUNDLE = "refreshTrustBundle";
     public static final String DIRECT_CONFIG_REMOVE_ADDRESS = "removeAddress";
+
+    private DirectConfigConstants() {
+    }
 }

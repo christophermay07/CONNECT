@@ -47,8 +47,7 @@ public class HL7AckTransforms {
 
     private static HL7MessageIdGenerator idGenerator = new HL7MessageIdGenerator();
 
-    public HL7AckTransforms() {
-
+    private HL7AckTransforms() {
     }
 
     HL7AckTransforms(HL7MessageIdGenerator idGenerator) {

@@ -26,10 +26,9 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.CE;
 import org.hl7.v3.II;
@@ -49,8 +48,6 @@ import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.STExplicit;
 import org.hl7.v3.TELExplicit;
 
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
 /**
  *
  * @author Jon Hoppesch
@@ -58,6 +55,9 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 public class HL7QueryParamsTransforms {
 
     private static HL7MessageIdGenerator idGenerator = new HL7MessageIdGenerator();
+
+    private HL7QueryParamsTransforms() {
+    }
 
     public static JAXBElement<PRPAMT201306UV02QueryByParameter> createQueryParams(PRPAMT201301UV02Patient patient,
             String localDeviceId) {
@@ -216,5 +216,4 @@ public class HL7QueryParamsTransforms {
 
         return subjectTele;
     }
-
 }

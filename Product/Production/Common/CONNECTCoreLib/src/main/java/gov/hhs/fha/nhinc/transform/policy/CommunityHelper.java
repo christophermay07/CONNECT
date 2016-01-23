@@ -34,6 +34,9 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
  */
 public class CommunityHelper {
 
+    private CommunityHelper() {
+    }
+
     public static String extractCommunityId(HomeCommunityType community) {
         String communityId = null;
         if (community != null) {

@@ -107,4 +107,6 @@ public class AuditDataTransformConstants {
     public static final String EVENT_ID_DISPLAY_NAME_XDRREQUEST = "XDR Request";
     public static final String EVENT_ID_CODE_SYS_NAME_XDRRESPONSE = "XDRRESPONSE";
 
+    private AuditDataTransformConstants() {
+    }
 }

@@ -45,4 +45,7 @@ public class Constants {
     public static final String DataTypeDate = "http://www.w3.org/2001/XMLSchema#date";
     public static final String DataTypeAnyURI = "http://www.w3.org/2001/XMLSchema#anyURI";
     public static final String DataTypeHL7II = "urn:hl7-org:v3#II";
+
+    private Constants() {
+    }
 }

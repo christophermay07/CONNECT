@@ -45,6 +45,9 @@ public class HL7CustodianTransforms {
     private static final String PROPERTY_FILE = "adapter";
     private static final String PROPERTY_NAME = "assigningAuthorityId";
 
+    private HL7CustodianTransforms() {
+    }
+
     /**
      * Create custodian element based on the local device id. The device id is the corresponding assigning authority id.
      *

@@ -97,6 +97,9 @@ public class GatewayService {
     private static class SingletonHolder {
 
         private static final GatewayService INSTANCE = new GatewayService();
+
+        private SingletonHolder() {
+        }
     }
 
     public static GatewayService getInstance() {

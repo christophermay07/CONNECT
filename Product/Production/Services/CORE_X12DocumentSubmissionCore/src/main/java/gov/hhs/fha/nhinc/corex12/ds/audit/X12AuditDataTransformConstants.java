@@ -53,4 +53,7 @@ public class X12AuditDataTransformConstants {
     public static final String CAQH_X12_CONNECTIVITY_CODED_SYS_DISPLAY_NAME = "Payload Identifier";
     public static final short PARTICIPANT_OBJ_TYPE_CODE_ROLE_X12 = 20;
     public static final short PARTICIPANT_OJB_TYPE_CODE_SYSTEM = 2;
+
+    private X12AuditDataTransformConstants() {
+    }
 }

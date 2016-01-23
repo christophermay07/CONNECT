@@ -40,6 +40,9 @@ public class NotifyTransformHelper {
     private static final String ActionInValue = "HIEMNotifyIn";
     private static final String ActionOutValue = "HIEMNotifyOut";
 
+    private NotifyTransformHelper() {
+    }
+
     public static CheckPolicyRequestType transformNotifyToCheckPolicy(NotifyEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
         RequestType request = new RequestType();

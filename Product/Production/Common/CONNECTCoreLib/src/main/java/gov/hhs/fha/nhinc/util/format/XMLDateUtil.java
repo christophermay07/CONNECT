@@ -42,6 +42,9 @@ public class XMLDateUtil {
 
     private static final Logger LOG = LoggerFactory.getLogger(XMLDateUtil.class);
 
+    private XMLDateUtil() {
+    }
+
     /**
      * Transform a date in a long to a XMLGregorianCalendar
      *

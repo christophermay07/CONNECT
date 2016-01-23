@@ -45,6 +45,9 @@ public class PRPAIN201306UV02Parser {
 
     private static final Logger LOG = LoggerFactory.getLogger(PRPAIN201306UV02Parser.class);
 
+    private PRPAIN201306UV02Parser() {
+    }
+
     public static String getQueryId(PRPAIN201306UV02 response) {
         String oid = null;
 

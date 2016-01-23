@@ -39,37 +39,29 @@ public class IIHelperTest {
 
     @Test
     public void IIFactoryCreateNull() {
-        II ii = new II();
-        IIHelper helper = new IIHelper();
         String nullFlavor = "NOT Available";
-        ii = helper.IIFactoryCreateNull(nullFlavor);
+        II ii = IIHelper.IIFactoryCreateNull(nullFlavor);
         assertEquals(ii.getNullFlavor().get(0), "NA");
     }
 
     @Test
     public void testIIFactoryCreateNull() {
-        II ii = new II();
-        IIHelper helper = new IIHelper();
-        ii = helper.IIFactoryCreateNull();
+        II ii = IIHelper.IIFactoryCreateNull();
         assertEquals(ii.getNullFlavor().get(0), "NA");
     }
 
     @Test
     public void testIIFactory() {
-        II ii = new II();
-        IIHelper helper = new IIHelper();
         String root = "1.1";
         String extension = "1.16.17.19";
-        ii= helper.IIFactory(root, extension);
+        II ii = IIHelper.IIFactory(root, extension);
         assertEquals(ii.getExtension(), extension);
         assertEquals(ii.getRoot(), root);
     }
 
     @Test
     public void IIFactory() {
-        II ii = new II();
-        IIHelper helper = new IIHelper();
-        ii = helper.IIFactory(createQualifiedSubjectIdentifierType());
+        II ii = IIHelper.IIFactory(createQualifiedSubjectIdentifierType());
         assertEquals(ii.getExtension(), "D123401");
         assertEquals(ii.getRoot(), "1.1");
     }
@@ -80,5 +72,4 @@ public class IIHelperTest {
         identifier.setSubjectIdentifier("D123401");
         return identifier;
     }
-
 }

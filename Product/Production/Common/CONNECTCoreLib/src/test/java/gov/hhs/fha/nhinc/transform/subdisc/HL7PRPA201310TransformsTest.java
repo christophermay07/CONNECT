@@ -44,51 +44,45 @@ import org.junit.Test;
 public class HL7PRPA201310TransformsTest {
     @Test
     public void createPRPA201310() {
-        PRPAIN201310UV02 result = new PRPAIN201310UV02();
         String patientId = "D123401";
         String assigningAuthorityId = "1.1";
         String localDeviceId = "1.1";
         String senderOID = "1.1";
         String receiverOID = "2.2";
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryParam = createQueryByParameter();
-        HL7PRPA201310Transforms transforms = new HL7PRPA201310Transforms();
-        result = transforms.createPRPA201310(patientId, assigningAuthorityId, localDeviceId, senderOID, receiverOID,
-                queryParam);
+        PRPAIN201310UV02 result = HL7PRPA201310Transforms.createPRPA201310(patientId, assigningAuthorityId,
+            localDeviceId, senderOID, receiverOID, queryParam);
         assertEquals(result.getId().getRoot(), "1.1");
         assertEquals(result.getSender().getDevice().getId().get(0).getRoot(), "1.1");
         assertEquals(result.getReceiver().get(0).getDevice().getId().get(0).getRoot(), "2.2");
         assertEquals(result.getControlActProcess().getQueryByParameter().getValue().getParameterList()
-                .getPatientIdentifier().get(0).getValue().get(0).getExtension(), "D123401");
+            .getPatientIdentifier().get(0).getValue().get(0).getExtension(), "D123401");
         assertEquals(result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
-                .getPatient().getId().get(0).getRoot(), "1.1");
+            .getPatient().getId().get(0).getRoot(), "1.1");
     }
 
     @Test
     public void createPRPA201310WhenPatIdandAAIDNull() {
-        PRPAIN201310UV02 result = new PRPAIN201310UV02();
         String patientId = null;
         String assigningAuthorityId = null;
         String localDeviceId = "1.1";
         String senderOID = "1.1";
         String receiverOID = "2.2";
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryParam = createQueryByParameter();
-        HL7PRPA201310Transforms transforms = new HL7PRPA201310Transforms();
-        result = transforms.createPRPA201310(patientId, assigningAuthorityId, localDeviceId, senderOID, receiverOID,
-                queryParam);
+        PRPAIN201310UV02 result = HL7PRPA201310Transforms.createPRPA201310(patientId, assigningAuthorityId,
+            localDeviceId, senderOID, receiverOID, queryParam);
         assertEquals(result.getId().getRoot(), "1.1");
         assertEquals(result.getSender().getDevice().getId().get(0).getRoot(), "1.1");
         assertEquals(result.getReceiver().get(0).getDevice().getId().get(0).getRoot(), "2.2");
         assertEquals(result.getControlActProcess().getQueryByParameter().getValue().getParameterList()
-                .getPatientIdentifier().get(0).getValue().get(0).getExtension(), "D123401");
+            .getPatientIdentifier().get(0).getValue().get(0).getExtension(), "D123401");
         assertNull(result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
-                .getId().get(0).getRoot());
+            .getId().get(0).getRoot());
     }
 
     @Test
     public void createFaultPRPA201310() {
-        PRPAIN201310UV02 result = new PRPAIN201310UV02();
-        HL7PRPA201310Transforms transforms = new HL7PRPA201310Transforms();
-        result = transforms.createFaultPRPA201310();
+        PRPAIN201310UV02 result = HL7PRPA201310Transforms.createFaultPRPA201310();
         assertNull(result.getSender().getDevice().getId().get(0).getRoot());
         assertNull(result.getReceiver().get(0).getDevice().getId().get(0).getRoot());
         assertTrue(result.getControlActProcess().getQueryByParameter().getValue().getParameterList()
@@ -99,11 +93,9 @@ public class HL7PRPA201310TransformsTest {
 
     @Test
     public void createFaultPRPA201310WithSenderAndReceiver() {
-        PRPAIN201310UV02 result = new PRPAIN201310UV02();
         String senderOID = "1.1";
         String receiverOID = "2.2";
-        HL7PRPA201310Transforms transforms = new HL7PRPA201310Transforms();
-        result = transforms.createFaultPRPA201310(senderOID, receiverOID);
+        PRPAIN201310UV02 result = HL7PRPA201310Transforms.createFaultPRPA201310(senderOID, receiverOID);
         assertEquals(result.getSender().getDevice().getId().get(0).getRoot(), "1.1");
         assertEquals(result.getReceiver().get(0).getDevice().getId().get(0).getRoot(), "2.2");
         assertTrue(result.getControlActProcess().getQueryByParameter().getValue().getParameterList()
@@ -118,7 +110,7 @@ public class HL7PRPA201310TransformsTest {
         parameter.setParameterList(createPRPAMT201307UV02ParameterList());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter = new JAXBElement<>(
-                xmlqname, PRPAMT201307UV02QueryByParameter.class, parameter);
+            xmlqname, PRPAMT201307UV02QueryByParameter.class, parameter);
         return queryByParameter;
     }
 
@@ -145,5 +137,4 @@ public class HL7PRPA201310TransformsTest {
         identifier.getValue().add(createII());
         return identifier;
     }
-
 }

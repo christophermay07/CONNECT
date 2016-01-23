@@ -87,4 +87,6 @@ public class XACMLConstants {
     public static final String NHIN_PATIENT_ID_TAG_ROOT = "root";
     public static final String NHIN_PATIENT_ID_TAG_EXTENSION = "extension";
 
+    private XACMLConstants() {
+    }
 }

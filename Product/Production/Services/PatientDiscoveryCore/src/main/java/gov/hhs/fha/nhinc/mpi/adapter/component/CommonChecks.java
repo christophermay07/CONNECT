@@ -34,6 +34,9 @@ import gov.hhs.fha.nhinc.mpilib.Patients;
  */
 public class CommonChecks {
 
+    private CommonChecks() {
+    }
+
     /**
      * Method to determine if the Patient object has only one patient within.
      * @param patients the Patients object to check
@@ -60,5 +63,4 @@ public class CommonChecks {
     public static boolean isZeroSearchResult(Patients patients) {
         return ((patients == null) || (patients.isEmpty()));
     }
-
 }

@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.II;
 import org.hl7.v3.MFMIMT700711UV01QueryAck;
 import org.hl7.v3.PNExplicit;
@@ -47,6 +46,9 @@ import org.hl7.v3.XActMoodIntentEvent;
  * @author vvickers
  */
 public class HL7PRPA201310Transforms {
+
+    private HL7PRPA201310Transforms() {
+    }
 
     private static final String PATIENT_CLASS_CODE = "PAT";
     private static final String STATUS_CODE_VALUE = "active";
@@ -222,5 +224,4 @@ public class HL7PRPA201310Transforms {
         queryAck.setQueryResponseCode(HL7DataTransformHelper.CSFactory(CONTROL_QUERY_RESPONSE_CODE));
         return queryAck;
     }
-
 }

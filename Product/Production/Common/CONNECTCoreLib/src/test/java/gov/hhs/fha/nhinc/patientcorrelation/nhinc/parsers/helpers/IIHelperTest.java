@@ -36,35 +36,25 @@ import org.junit.Test;
  */
 public class IIHelperTest {
 
-    @SuppressWarnings("static-access")
     @Test
     public void  testIIFactoryCreateNull() {
         String nullFlavor = "NA";
-        IIHelper II = new IIHelper();
-        II ii = new II();
-        ii = II.IIFactoryCreateNull(nullFlavor);
+        II ii = IIHelper.IIFactoryCreateNull(nullFlavor);
         assertEquals(ii.getNullFlavor().get(0),"NA");
     }
 
     @Test
     public void testIIFactoryCreateNullwithoutArg() {
-        String nullFlavor = "NA";
-        IIHelper II = new IIHelper();
-        II ii = new II();
-        ii = II.IIFactoryCreateNull();
+        II ii = IIHelper.IIFactoryCreateNull();
         assertEquals(ii.getNullFlavor().get(0), "NA");
-
     }
 
     @Test
     public void testIIFactory() {
         String root = "1.1";
         String extension ="D123401";
-        IIHelper II = new IIHelper();
-        II ii = new II();
-        ii = II.IIFactory(root, extension);
+        II ii = IIHelper.IIFactory(root, extension);
         assertEquals(ii.getExtension(), "D123401");
         assertEquals(ii.getRoot(), "1.1");
     }
-
 }

@@ -37,6 +37,9 @@ public class XmlUtfHelper {
     private static final String XMLHEADER_UTF8 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
     private static final String XMLHEADER_UTF16 = "<?xml version=\"1.0\" encoding=\"UTF-16\"?>";
 
+    private XmlUtfHelper() {
+    }
+
     public static boolean isUtf8(String xml) {
         return isUtfVersion(xml, XMLHEADER_UTF8);
     }

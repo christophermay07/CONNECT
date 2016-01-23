@@ -55,6 +55,8 @@ public class PRPAIN201309UVParser {
     private static String PATIENTPERSON_CLASSCODE = "PSN";
     private static String QUERY_RESPONSE = "OK";
 
+    private PRPAIN201309UVParser() {
+    }
 
     public static PRPAMT201307UV02ParameterList parseHL7ParameterListFrom201309Message(PRPAIN201309UV02 message) {
         if (message == null) {

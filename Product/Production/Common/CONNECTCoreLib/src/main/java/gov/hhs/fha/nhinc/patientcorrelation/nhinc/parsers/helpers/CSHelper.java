@@ -33,10 +33,13 @@ import org.hl7.v3.CS;
  * @author rayj
  */
 public class CSHelper {
+
+    private CSHelper() {
+    }
+
     public static CS buildCS(String code) {
         CS csCode = new CS();
         csCode.setCode(code);
         return csCode;
     }
-
 }

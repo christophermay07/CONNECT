@@ -39,6 +39,9 @@ import org.hl7.v3.MCCIMT000100UV01Sender;
  */
 public class SenderReceiverHelper {
 
+    private SenderReceiverHelper() {
+    }
+
     public static MCCIMT000100UV01Sender CreateSender(String senderDeviceId) {
         MCCIMT000100UV01Sender sender = new MCCIMT000100UV01Sender();
         sender.setTypeCode(CommunicationFunctionType.SND);

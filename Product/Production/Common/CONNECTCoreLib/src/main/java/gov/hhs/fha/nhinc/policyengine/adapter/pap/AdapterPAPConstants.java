@@ -34,4 +34,6 @@ public class AdapterPAPConstants {
 
     public static final String DOCUMENT_CLASS_CODE = "57017-6";
 
+    private AdapterPAPConstants() {
+    }
 }

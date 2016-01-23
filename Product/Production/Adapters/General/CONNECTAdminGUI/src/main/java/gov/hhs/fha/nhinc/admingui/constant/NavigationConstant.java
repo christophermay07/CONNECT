@@ -55,4 +55,6 @@ public class NavigationConstant {
     public static final int GATEWAY_DASHBOARD_TAB = 0;
     public static final int GATEWAY_REMOTELIST_TAB = 1;
 
+    private NavigationConstant() {
+    }
 }

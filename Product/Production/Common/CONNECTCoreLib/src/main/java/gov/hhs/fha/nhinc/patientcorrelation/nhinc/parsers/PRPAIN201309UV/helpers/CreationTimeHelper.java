@@ -38,6 +38,9 @@ public class CreationTimeHelper {
 
     public static final String DateFormat = "yyyyMMDDhhmmss";
 
+    private CreationTimeHelper() {
+    }
+
     public static TSExplicit getCreationTime() {
         TSExplicit time = new TSExplicit();
         String formattedTime;

@@ -35,6 +35,9 @@ import org.hl7.v3.*;
  * @author mflynn02
  */
 public class MpiDataAccess {
+    private MpiDataAccess() {
+    }
+
     public static Patients LookupPatients(PRPAMT201301UV02Patient patient) {
         return LookupPatients(patient, true);
     }
@@ -67,5 +70,4 @@ public class MpiDataAccess {
         MiniMpi mpi = MiniMpi.getInstance();
         mpi.delete(patient, homeCommunityId);
     }
-
 }

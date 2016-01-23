@@ -34,6 +34,9 @@ import org.hl7.v3.CD;
  */
 public class CDHelper {
 
+    private CDHelper() {
+    }
+
     public static CD CDFactory(String codeValue, String codeSystem) {
         CD code = new CD();
         code.setCode(codeValue);

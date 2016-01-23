@@ -52,4 +52,6 @@ public class DocumentConstants {
     public static final String XDR_POLICY_ERROR = "CONNECTPolicyCheckFailed";
     public static final String XDR_POLICY_ERROR_CONTEXT = "Policy Check Failed";
 
+    private DocumentConstants() {
+    }
 }

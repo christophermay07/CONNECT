@@ -70,6 +70,9 @@ public class EndpointManagerCache implements EndpointManager {
     private static class EndpointManagerCacheHolder {
 
         private static final EndpointManagerCache INSTANCE = new EndpointManagerCache();
+
+        private EndpointManagerCacheHolder() {
+        }
     }
 
     public class EndpointCacheInfo {

@@ -37,6 +37,7 @@ import org.slf4j.LoggerFactory;
  * @author Les Westberg
  */
 public class UDDITimer extends Thread {
+
     private static final Logger LOG = LoggerFactory.getLogger(UDDITimer.class);
     private boolean m_bRunnable = false;
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
@@ -124,5 +125,8 @@ public class UDDITimer extends Thread {
      */
     public static class InstanceHolder {
         private static final UDDITimer instance = new UDDITimer();
+
+        private InstanceHolder() {
+        }
     }
 }

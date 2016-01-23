@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
 import org.hl7.v3.CD;
 import org.hl7.v3.CE;
 import org.hl7.v3.COCTMT090003UV01AssignedEntity;
@@ -81,280 +82,252 @@ public class HL7ExtractorsTest {
 
     @Test
     public void ExtractSubjectFromMessage() {
-        HL7Extractors extractor = new HL7Extractors();
-        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = extractor
-                .ExtractSubjectFromMessage(createPRPAIN201301UV02());
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = HL7Extractors
+            .ExtractSubjectFromMessage(createPRPAIN201301UV02());
         assertEquals(subject1.getTypeId().getExtension(), "D123401");
     }
 
     @Test
     public void ExtractSubjectFromPRPAIN201302UV02Message() {
-        HL7Extractors extractor = new HL7Extractors();
-        PRPAIN201302UV02MFMIMT700701UV01Subject1 subject1 = extractor
-                .ExtractSubjectFromMessage(createPRPAIN201302UV02());
+        PRPAIN201302UV02MFMIMT700701UV01Subject1 subject1 = HL7Extractors
+            .ExtractSubjectFromMessage(createPRPAIN201302UV02());
         assertEquals(subject1.getTypeId().getExtension(), "D123401");
     }
 
     @Test
     public void ExtractSubjectFromPRPAIN201310UV02Message() {
-        HL7Extractors extractor = new HL7Extractors();
-        PRPAIN201310UV02MFMIMT700711UV01Subject1 subject1 = extractor
-                .ExtractSubjectFromMessage(createPRPAIN201310UV02());
+        PRPAIN201310UV02MFMIMT700711UV01Subject1 subject1 = HL7Extractors
+            .ExtractSubjectFromMessage(createPRPAIN201310UV02());
         assertEquals(subject1.getTypeId().getExtension(), "D123401");
     }
 
     @Test
     public void ExtractSubjectFromMessageWhenMessageNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201301UV02 message = null;
-        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = extractor.ExtractSubjectFromMessage(message);
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = HL7Extractors.ExtractSubjectFromMessage(message);
         assertNull(subject1);
     }
 
     @Test
     public void ExtractSubjectFromMessageWhenPRPAIN201302UV02MessageNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201302UV02 message = null;
-        PRPAIN201302UV02MFMIMT700701UV01Subject1 subject1 = extractor.ExtractSubjectFromMessage(message);
+        PRPAIN201302UV02MFMIMT700701UV01Subject1 subject1 = HL7Extractors.ExtractSubjectFromMessage(message);
         assertNull(subject1);
     }
 
     @Test
     public void ExtractSubjectFromMessageWhenPRPAIN201310UV02MessageNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201310UV02 message = null;
-        PRPAIN201310UV02MFMIMT700711UV01Subject1 subject1 = extractor.ExtractSubjectFromMessage(message);
+        PRPAIN201310UV02MFMIMT700711UV01Subject1 subject1 = HL7Extractors.ExtractSubjectFromMessage(message);
         assertNull(subject1);
     }
 
     @Test
     public void ExtractSubjectFromMessageWhenControlActProcessNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
-        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = extractor.ExtractSubjectFromMessage(message);
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = HL7Extractors.ExtractSubjectFromMessage(message);
         assertNull(subject1);
     }
 
     @Test
     public void ExtractSubjectFromMessageWhenPRPAIN201302UV02ControlActProcessNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201302UV02 message = new PRPAIN201302UV02();
-        PRPAIN201302UV02MFMIMT700701UV01Subject1 subject1 = extractor.ExtractSubjectFromMessage(message);
+        PRPAIN201302UV02MFMIMT700701UV01Subject1 subject1 = HL7Extractors.ExtractSubjectFromMessage(message);
         assertNull(subject1);
     }
 
     @Test
     public void ExtractSubjectFromMessageWhenPRPAIN201310UV02ControlActProcessNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201310UV02 message = new PRPAIN201310UV02();
-        PRPAIN201310UV02MFMIMT700711UV01Subject1 subject1 = extractor.ExtractSubjectFromMessage(message);
+        PRPAIN201310UV02MFMIMT700711UV01Subject1 subject1 = HL7Extractors.ExtractSubjectFromMessage(message);
         assertNull(subject1);
     }
 
     @Test
     public void ExtractSubjectFromMessageWhenSubjectNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess
+            = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         message.setControlActProcess(controlActProcess);
-        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = extractor.ExtractSubjectFromMessage(message);
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = HL7Extractors.ExtractSubjectFromMessage(message);
         assertNull(subject1);
     }
 
     @Test
     public void ExtractSubjectFromMessageWhenPRPAIN201302SubjectNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201302UV02 message = new PRPAIN201302UV02();
-        PRPAIN201302UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201302UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201302UV02MFMIMT700701UV01ControlActProcess controlActProcess
+            = new PRPAIN201302UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         message.setControlActProcess(controlActProcess);
-        PRPAIN201302UV02MFMIMT700701UV01Subject1 subject1 = extractor.ExtractSubjectFromMessage(message);
+        PRPAIN201302UV02MFMIMT700701UV01Subject1 subject1 = HL7Extractors.ExtractSubjectFromMessage(message);
         assertNull(subject1);
     }
 
     @Test
     public void ExtractSubjectFromMessageWhenPRPAIN201310SubjectNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201310UV02 message = new PRPAIN201310UV02();
-        PRPAIN201310UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201310UV02MFMIMT700711UV01ControlActProcess();
+        PRPAIN201310UV02MFMIMT700711UV01ControlActProcess controlActProcess
+            = new PRPAIN201310UV02MFMIMT700711UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         message.setControlActProcess(controlActProcess);
-        PRPAIN201310UV02MFMIMT700711UV01Subject1 subject1 = extractor.ExtractSubjectFromMessage(message);
+        PRPAIN201310UV02MFMIMT700711UV01Subject1 subject1 = HL7Extractors.ExtractSubjectFromMessage(message);
         assertNull(subject1);
     }
 
     @Test
     public void ExtractSubjectFromMessageWhenSubjectListSizeEmpty() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess
+            = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
         List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.getSubject().addAll(subjects);
         message.setControlActProcess(controlActProcess);
-        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = extractor.ExtractSubjectFromMessage(message);
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = HL7Extractors.ExtractSubjectFromMessage(message);
         assertNull(subject1);
     }
 
     @Test
     public void ExtractSubjectFromMessageWhenPRPAIN201302UV02SubjectListSizeEmpty() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201302UV02 message = new PRPAIN201302UV02();
-        PRPAIN201302UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201302UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201302UV02MFMIMT700701UV01ControlActProcess controlActProcess
+            = new PRPAIN201302UV02MFMIMT700701UV01ControlActProcess();
         List<PRPAIN201302UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.getSubject().addAll(subjects);
         message.setControlActProcess(controlActProcess);
-        PRPAIN201302UV02MFMIMT700701UV01Subject1 subject1 = extractor.ExtractSubjectFromMessage(message);
+        PRPAIN201302UV02MFMIMT700701UV01Subject1 subject1 = HL7Extractors.ExtractSubjectFromMessage(message);
         assertNull(subject1);
     }
 
     @Test
     public void ExtractHL7PatientFromMessage() {
-        HL7Extractors extractor = new HL7Extractors();
-        PRPAMT201301UV02Patient patient = extractor.ExtractHL7PatientFromMessage(createPRPAIN201301UV02());
+        PRPAMT201301UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(createPRPAIN201301UV02());
         assertEquals(patient.getPatientPerson().getValue().getDeterminerCode(), "INSTANCE");
     }
 
     @Test
     public void ExtractHL7PatientFromPRPAIN201302UV02Message() {
-        HL7Extractors extractor = new HL7Extractors();
-        PRPAMT201302UV02Patient patient = extractor.ExtractHL7PatientFromMessage(createPRPAIN201302UV02());
+        PRPAMT201302UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(createPRPAIN201302UV02());
         assertEquals(patient.getPatientPerson().getValue().getDeterminerCode(), "INSTANCE");
     }
 
     @Test
     public void ExtractHL7PatientFromPRPAIN201310UV02Message() {
-        HL7Extractors extractor = new HL7Extractors();
-        PRPAMT201304UV02Patient patient = extractor.ExtractHL7PatientFromMessage(createPRPAIN201310UV02());
+        PRPAMT201304UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(createPRPAIN201310UV02());
         assertEquals(patient.getPatientPerson().getValue().getDeterminerCode(), "INSTANCE");
     }
 
     @Test
     public void ExtractHL7PatientFromMessageWhenSubjectNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
-        PRPAMT201301UV02Patient patient = extractor.ExtractHL7PatientFromMessage(message);
+        PRPAMT201301UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(message);
         assertNull(patient);
     }
 
     @Test
     public void ExtractHL7PatientFromPRPAIN201302UV02MessageWhenSubjectNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201302UV02 message = new PRPAIN201302UV02();
-        PRPAMT201302UV02Patient patient = extractor.ExtractHL7PatientFromMessage(message);
+        PRPAMT201302UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(message);
         assertNull(patient);
     }
 
     @Test
     public void ExtractHL7PatientFromPRPAIN201310UV02MessageWhenSubjectNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201310UV02 message = new PRPAIN201310UV02();
-        PRPAMT201304UV02Patient patient = extractor.ExtractHL7PatientFromMessage(message);
+        PRPAMT201304UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(message);
         assertNull(patient);
     }
 
     @Test
     public void ExtractHL7PatientFromMessageWhenRegistrationEventNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201301UV02 message = createMessageWhereregistrationEventNull();
-        PRPAMT201301UV02Patient patient = extractor.ExtractHL7PatientFromMessage(message);
+        PRPAMT201301UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(message);
         assertNull(patient);
     }
 
     @Test
     public void ExtractHL7PatientFromPRPAIN201302MessageWhenRegistrationEventNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201302UV02 message = createPRPAIN201302UV02MessageWhereregistrationEventNull();
-        PRPAMT201302UV02Patient patient = extractor.ExtractHL7PatientFromMessage(message);
+        PRPAMT201302UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(message);
         assertNull(patient);
     }
 
     @Test
     public void ExtractHL7PatientFromPRPAIN201310MessageWhenRegistrationEventNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201310UV02 message = createPRPAIN201310UV02MessageWhereregistrationEventNull();
-        PRPAMT201304UV02Patient patient = extractor.ExtractHL7PatientFromMessage(message);
+        PRPAMT201304UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(message);
         assertNull(patient);
     }
 
     @Test
     public void ExtractHL7PatientFromPRPAIN201301MessageWhenSubject1Null() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201301UV02 message = createMessageWhereSubject1Null();
-        PRPAMT201301UV02Patient patient = extractor.ExtractHL7PatientFromMessage(message);
+        PRPAMT201301UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(message);
         assertNull(patient);
     }
 
     @Test
     public void ExtractHL7PatientFromPRPAIN201302MessageWhenSubject1Null() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201302UV02 message = createPRPAIN201302UV02MessageWhereSubject1Null();
-        PRPAMT201302UV02Patient patient = extractor.ExtractHL7PatientFromMessage(message);
+        PRPAMT201302UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(message);
         assertNull(patient);
     }
 
     @Test
     public void ExtractHL7PatientFromPRPAIN201310MessageWhenSubject1Null() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201310UV02 message = createPRPAIN201310UV02MessageWhereSubject1Null();
-        PRPAMT201304UV02Patient patient = extractor.ExtractHL7PatientFromMessage(message);
+        PRPAMT201304UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(message);
         assertNull(patient);
     }
 
     @Test
     public void ExtractHL7PatientFromPRPAIN201301MessageWhenPatientNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201301UV02 message = createMessageWherePatientNull();
-        PRPAMT201301UV02Patient patient = extractor.ExtractHL7PatientFromMessage(message);
+        PRPAMT201301UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(message);
         assertNull(patient);
     }
 
     @Test
     public void ExtractHL7PatientFromPRPAIN201302MessageWhenPatientNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201302UV02 message = createPRPAIN201302UV02MessageWherePatientNull();
-        PRPAMT201302UV02Patient patient = extractor.ExtractHL7PatientFromMessage(message);
+        PRPAMT201302UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(message);
         assertNull(patient);
     }
 
     @Test
     public void ExtractHL7PatientFromPRPAIN201310MessageWhenPatientNull() {
-        HL7Extractors extractor = new HL7Extractors();
         PRPAIN201310UV02 message = createPRPAIN201310UV02MessageWherePatientNull();
-        PRPAMT201304UV02Patient patient = extractor.ExtractHL7PatientFromMessage(message);
+        PRPAMT201304UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(message);
         assertNull(patient);
     }
 
     @Test
     public void ExtractHL7PatientPersonFromHL7Patient() {
-        HL7Extractors extractor = new HL7Extractors();
-        PRPAMT201301UV02Person patientPerson = extractor
-                .ExtractHL7PatientPersonFromHL7Patient(createPRPAMT201301UV02Patient());
+        PRPAMT201301UV02Person patientPerson = HL7Extractors
+            .ExtractHL7PatientPersonFromHL7Patient(createPRPAMT201301UV02Patient());
         assertEquals(patientPerson.getDeterminerCode(), "INSTANCE");
     }
 
     @Test
     public void ExtractHL7PatientPersonFromPRPAMT201302UV02HL7Patient() {
-        HL7Extractors extractor = new HL7Extractors();
-        PRPAMT201302UV02Person patientPerson = extractor
-                .ExtractHL7PatientPersonFromHL7Patient(createPRPAMT201302UV02Patient());
+        PRPAMT201302UV02Person patientPerson = HL7Extractors
+            .ExtractHL7PatientPersonFromHL7Patient(createPRPAMT201302UV02Patient());
         assertEquals(patientPerson.getDeterminerCode(), "INSTANCE");
     }
 
     @Test
     public void ExtractHL7PatientPersonFrom201301Message() {
-        HL7Extractors extractor = new HL7Extractors();
-        PRPAMT201301UV02Person patientPerson = extractor
-                .ExtractHL7PatientPersonFrom201301Message(createPRPAIN201301UV02());
+        PRPAMT201301UV02Person patientPerson = HL7Extractors
+            .ExtractHL7PatientPersonFrom201301Message(createPRPAIN201301UV02());
         assertEquals(patientPerson.getDeterminerCode(), "INSTANCE");
     }
 
     @Test
     public void ExtractHL7PatientPersonFrom201302Message() {
-        HL7Extractors extractor = new HL7Extractors();
-        PRPAMT201302UV02Person patientPerson = extractor
+        PRPAMT201302UV02Person patientPerson = HL7Extractors
                 .ExtractHL7PatientPersonFrom201302Message(createPRPAIN201302UV02());
         assertEquals(patientPerson.getDeterminerCode(), "INSTANCE");
     }
@@ -362,48 +335,42 @@ public class HL7ExtractorsTest {
     @Test
     public void ExtractHL7ReceiverOID() {
         String SenderOID = "1.1";
-        HL7Extractors extractor = new HL7Extractors();
-        String ReceiverOID = extractor.ExtractHL7ReceiverOID(createPRPAIN201305UV02(SenderOID));
+        String ReceiverOID = HL7Extractors.ExtractHL7ReceiverOID(createPRPAIN201305UV02(SenderOID));
         assertEquals(ReceiverOID, "2.2");
     }
 
     @Test
     public void ExtractHL7SenderOID() {
         String ID = "1.1";
-        HL7Extractors extractor = new HL7Extractors();
-        String SenderOID = extractor.ExtractHL7SenderOID(createPRPAIN201305UV02(ID));
+        String SenderOID = HL7Extractors.ExtractHL7SenderOID(createPRPAIN201305UV02(ID));
         assertEquals(SenderOID, ID);
     }
 
     @Test
     public void translatePNListtoPersonNameTypeWhenNameTypeAndNameListNull() {
-        HL7Extractors extractor = new HL7Extractors();
-        PersonNameType person = extractor
-                .translatePNListtoPersonNameType(createPNExplicitNamesListWhenNameTypeandNameListNull());
+        PersonNameType person = HL7Extractors
+            .translatePNListtoPersonNameType(createPNExplicitNamesListWhenNameTypeandNameListNull());
         assertNull(person.getFamilyName());
     }
 
     @Test
     public void translatePNListtoPersonNameType() {
-        HL7Extractors extractor = new HL7Extractors();
-        PersonNameType person = extractor.translatePNListtoPersonNameType(createPNExplicitNamesList());
+        PersonNameType person = HL7Extractors.translatePNListtoPersonNameType(createPNExplicitNamesList());
         assertEquals(person.getFamilyName(), "Younger");
         assertEquals(person.getGivenName(), "Gallow");
     }
 
     @Test
     public void translateENListtoPersonNameType() {
-        HL7Extractors extractor = new HL7Extractors();
-        PersonNameType person = extractor.translateENListtoPersonNameType(createENExplicitList());
+        PersonNameType person = HL7Extractors.translateENListtoPersonNameType(createENExplicitList());
         assertEquals(person.getFamilyName(), "Younger");
         assertEquals(person.getGivenName(), "Gallow");
     }
 
     @Test
     public void translateENListtoPersonNameTypeWhenUserTypeAndUserNameListNull() {
-        HL7Extractors extractor = new HL7Extractors();
-        PersonNameType person = extractor
-                .translateENListtoPersonNameType(createENExplicitNamesListWhenNameTypeandNameListNull());
+        PersonNameType person = HL7Extractors
+            .translateENListtoPersonNameType(createENExplicitNamesListWhenNameTypeandNameListNull());
         assertNull(person.getFamilyName());
     }
 
@@ -527,18 +494,22 @@ public class HL7ExtractorsTest {
 
     private PRPAIN201310UV02 createPRPAIN201310UV02MessageWherePatientNull() {
         PRPAIN201310UV02 message = new PRPAIN201310UV02();
-        PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent registrationevent = new PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent();
+        PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent registrationevent
+            = new PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent();
         registrationevent.setTypeId(createTypeId());
-        PRPAIN201310UV02MFMIMT700711UV01Subject2 subject1 = new PRPAIN201310UV02MFMIMT700711UV01Subject2();
+        PRPAIN201310UV02MFMIMT700711UV01Subject2 subject1
+            = new PRPAIN201310UV02MFMIMT700711UV01Subject2();
         subject1.setTypeId(createTypeId());
         registrationevent.setSubject1(subject1);
         List<PRPAIN201310UV02MFMIMT700711UV01Subject1> subjects = new ArrayList<>();
 
-        PRPAIN201310UV02MFMIMT700711UV01Subject1 subject = new PRPAIN201310UV02MFMIMT700711UV01Subject1();
+        PRPAIN201310UV02MFMIMT700711UV01Subject1 subject
+            = new PRPAIN201310UV02MFMIMT700711UV01Subject1();
         subject.setTypeId(createTypeId());
         subject.setRegistrationEvent(registrationevent);
         subjects.add(subject);
-        PRPAIN201310UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201310UV02MFMIMT700711UV01ControlActProcess();
+        PRPAIN201310UV02MFMIMT700711UV01ControlActProcess controlActProcess
+            = new PRPAIN201310UV02MFMIMT700711UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.setCode(createCD());
         controlActProcess.getSubject().addAll(subjects);
@@ -548,7 +519,8 @@ public class HL7ExtractorsTest {
 
     private PRPAIN201302UV02 createPRPAIN201302UV02MessageWherePatientNull() {
         PRPAIN201302UV02 message = new PRPAIN201302UV02();
-        PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent registrationevent = new PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent();
+        PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent registrationevent
+            = new PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent();
         registrationevent.setTypeId(createTypeId());
         PRPAIN201302UV02MFMIMT700701UV01Subject2 subject1 = new PRPAIN201302UV02MFMIMT700701UV01Subject2();
         subject1.setTypeId(createTypeId());
@@ -559,7 +531,8 @@ public class HL7ExtractorsTest {
         subject.setTypeId(createTypeId());
         subject.setRegistrationEvent(registrationevent);
         subjects.add(subject);
-        PRPAIN201302UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201302UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201302UV02MFMIMT700701UV01ControlActProcess controlActProcess
+            = new PRPAIN201302UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.setCode(createCD());
         controlActProcess.getSubject().addAll(subjects);
@@ -569,7 +542,8 @@ public class HL7ExtractorsTest {
 
     private PRPAIN201301UV02 createMessageWherePatientNull() {
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
-        PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent registrationevent = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
+        PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent registrationevent
+            = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
         registrationevent.setTypeId(createTypeId());
         PRPAIN201301UV02MFMIMT700701UV01Subject2 subject1 = new PRPAIN201301UV02MFMIMT700701UV01Subject2();
         subject1.setTypeId(createTypeId());
@@ -580,7 +554,8 @@ public class HL7ExtractorsTest {
         subject.setTypeId(createTypeId());
         subject.setRegistrationEvent(registrationevent);
         subjects.add(subject);
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess
+            = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.setCode(createCD());
         controlActProcess.getSubject().addAll(subjects);
@@ -590,14 +565,16 @@ public class HL7ExtractorsTest {
 
     private PRPAIN201310UV02 createPRPAIN201310UV02MessageWhereSubject1Null() {
         PRPAIN201310UV02 message = new PRPAIN201310UV02();
-        PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent registrationevent = new PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent();
+        PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent registrationevent
+            = new PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent();
         List<PRPAIN201310UV02MFMIMT700711UV01Subject1> subjects = new ArrayList<>();
         registrationevent.setTypeId(createTypeId());
         PRPAIN201310UV02MFMIMT700711UV01Subject1 subject = new PRPAIN201310UV02MFMIMT700711UV01Subject1();
         subject.setTypeId(createTypeId());
         subject.setRegistrationEvent(registrationevent);
         subjects.add(subject);
-        PRPAIN201310UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201310UV02MFMIMT700711UV01ControlActProcess();
+        PRPAIN201310UV02MFMIMT700711UV01ControlActProcess controlActProcess
+            = new PRPAIN201310UV02MFMIMT700711UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.setCode(createCD());
         controlActProcess.getSubject().addAll(subjects);
@@ -607,14 +584,16 @@ public class HL7ExtractorsTest {
 
     private PRPAIN201302UV02 createPRPAIN201302UV02MessageWhereSubject1Null() {
         PRPAIN201302UV02 message = new PRPAIN201302UV02();
-        PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent registrationevent = new PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent();
+        PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent registrationevent
+            = new PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent();
         List<PRPAIN201302UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         registrationevent.setTypeId(createTypeId());
         PRPAIN201302UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201302UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
         subject.setRegistrationEvent(registrationevent);
         subjects.add(subject);
-        PRPAIN201302UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201302UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201302UV02MFMIMT700701UV01ControlActProcess controlActProcess
+            = new PRPAIN201302UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.setCode(createCD());
         controlActProcess.getSubject().addAll(subjects);
@@ -624,14 +603,16 @@ public class HL7ExtractorsTest {
 
     private PRPAIN201301UV02 createMessageWhereSubject1Null() {
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
-        PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent registrationevent = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
+        PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent registrationevent
+            = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
         List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         registrationevent.setTypeId(createTypeId());
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
         subject.setRegistrationEvent(registrationevent);
         subjects.add(subject);
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess
+            = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.setCode(createCD());
         controlActProcess.getSubject().addAll(subjects);
@@ -645,7 +626,8 @@ public class HL7ExtractorsTest {
         PRPAIN201302UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201302UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
         subjects.add(subject);
-        PRPAIN201302UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201302UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201302UV02MFMIMT700701UV01ControlActProcess controlActProcess
+            = new PRPAIN201302UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.setCode(createCD());
         controlActProcess.getSubject().addAll(subjects);
@@ -659,7 +641,8 @@ public class HL7ExtractorsTest {
         PRPAIN201310UV02MFMIMT700711UV01Subject1 subject = new PRPAIN201310UV02MFMIMT700711UV01Subject1();
         subject.setTypeId(createTypeId());
         subjects.add(subject);
-        PRPAIN201310UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201310UV02MFMIMT700711UV01ControlActProcess();
+        PRPAIN201310UV02MFMIMT700711UV01ControlActProcess controlActProcess
+            = new PRPAIN201310UV02MFMIMT700711UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.setCode(createCD());
         controlActProcess.getSubject().addAll(subjects);
@@ -673,7 +656,8 @@ public class HL7ExtractorsTest {
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
         subjects.add(subject);
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess
+            = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.setCode(createCD());
         controlActProcess.getSubject().addAll(subjects);
@@ -719,7 +703,8 @@ public class HL7ExtractorsTest {
     }
 
     private PRPAIN201301UV02MFMIMT700701UV01ControlActProcess createPRPAIN201301UV02MFMIMT700701UV01ControlActProcess() {
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess
+            = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.setCode(createCD());
         controlActProcess.getSubject().addAll(createPRPAIN201301UV02MFMIMT700701UV01Subject1());
@@ -727,7 +712,8 @@ public class HL7ExtractorsTest {
     }
 
     private PRPAIN201310UV02MFMIMT700711UV01ControlActProcess createPRPAIN201310UV02MFMIMT700711UV01ControlActProcess() {
-        PRPAIN201310UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201310UV02MFMIMT700711UV01ControlActProcess();
+        PRPAIN201310UV02MFMIMT700711UV01ControlActProcess controlActProcess
+            = new PRPAIN201310UV02MFMIMT700711UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.setCode(createCD());
         controlActProcess.getSubject().addAll(createPRPAIN201310UV02MFMIMT700711UV01Subject1());
@@ -735,7 +721,8 @@ public class HL7ExtractorsTest {
     }
 
     private PRPAIN201302UV02MFMIMT700701UV01ControlActProcess createPRPAIN201302UV02MFMIMT700701UV01ControlActProcess() {
-        PRPAIN201302UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201302UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201302UV02MFMIMT700701UV01ControlActProcess controlActProcess
+            = new PRPAIN201302UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.setCode(createCD());
         controlActProcess.getSubject().addAll(createPRPAIN201302UV02MFMIMT700701UV01Subject1());
@@ -793,9 +780,9 @@ public class HL7ExtractorsTest {
     private PRPAMT201301UV02Patient createPRPAMT201301UV02Patient() {
         org.hl7.v3.PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
+        QName xmlqname = new QName("urn:hl7-org:v3", "patientPerson");
         JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
-                PRPAMT201301UV02Person.class, patientPerson);
+            PRPAMT201301UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patient.getId().add(createTypeId());
         patientPerson.getClassCode().add("ClassCode");
@@ -810,9 +797,9 @@ public class HL7ExtractorsTest {
     private PRPAMT201302UV02Patient createPRPAMT201302UV02Patient() {
         org.hl7.v3.PRPAMT201302UV02Patient patient = new PRPAMT201302UV02Patient();
         PRPAMT201302UV02PatientPatientPerson patientPerson = new PRPAMT201302UV02PatientPatientPerson();
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
+        QName xmlqname = new QName("urn:hl7-org:v3", "patientPerson");
         JAXBElement<PRPAMT201302UV02PatientPatientPerson> patientPersonElement = new JAXBElement<>(
-                xmlqname, PRPAMT201302UV02PatientPatientPerson.class, patientPerson);
+            xmlqname, PRPAMT201302UV02PatientPatientPerson.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patientPerson.getClassCode().add("ClassCode");
         patientPerson.setDeterminerCode("INSTANCE");
@@ -825,7 +812,7 @@ public class HL7ExtractorsTest {
     private PRPAMT201304UV02Patient createPRPAMT201304UV02Patient() {
         org.hl7.v3.PRPAMT201304UV02Patient patient = new PRPAMT201304UV02Patient();
         PRPAMT201304UV02Person patientPerson = new PRPAMT201304UV02Person();
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
+        QName xmlqname = new QName("urn:hl7-org:v3", "patientPerson");
         JAXBElement<PRPAMT201304UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
                 PRPAMT201304UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
@@ -838,7 +825,8 @@ public class HL7ExtractorsTest {
     }
 
     private PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent createPRPAIN201301UV02MFMIMT700701UV01RegistrationEvent() {
-        PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent regEvent = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
+        PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent regEvent
+            = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
         regEvent.setStatusCode(createCS());
         regEvent.setTypeId(createTypeId());
         regEvent.setCustodian(createMFMIMT700701UV01Custodian());
@@ -847,7 +835,8 @@ public class HL7ExtractorsTest {
     }
 
     private PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent createPRPAIN201302UV02MFMIMT700701UV01RegistrationEvent() {
-        PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent regEvent = new PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent();
+        PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent regEvent
+            = new PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent();
         regEvent.setStatusCode(createCS());
         regEvent.setTypeId(createTypeId());
         regEvent.setCustodian(createMFMIMT700701UV01Custodian());
@@ -856,7 +845,8 @@ public class HL7ExtractorsTest {
     }
 
     private PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent createPRPAIN201310UV02MFMIMT700711UV01RegistrationEvent() {
-        PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent regEvent = new PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent();
+        PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent regEvent
+            = new PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent();
         regEvent.setStatusCode(createCS());
         regEvent.setTypeId(createTypeId());
         regEvent.setSubject1(createPRPAIN201310UV02Subject2());
@@ -885,9 +875,9 @@ public class HL7ExtractorsTest {
         COCTMT090003UV01Device device = new COCTMT090003UV01Device();
         device.setDeterminerCode("INSTANCE");
         device.setTypeId(createTypeId());
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "device");
+        QName xmlqname = new QName("urn:hl7-org:v3", "device");
         JAXBElement<COCTMT090003UV01Device> assignedDevice = new JAXBElement<>(xmlqname,
-                COCTMT090003UV01Device.class, device);
+            COCTMT090003UV01Device.class, device);
         return assignedDevice;
     }
 
@@ -918,5 +908,4 @@ public class HL7ExtractorsTest {
         typeId.setRoot("1.1");
         return typeId;
     }
-
 }

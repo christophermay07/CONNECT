@@ -39,9 +39,13 @@ import org.slf4j.LoggerFactory;
  *
  * @author tjafri
  */
+
 public class PRPAIN201305UV02Parser {
 
     private static final Logger LOG = LoggerFactory.getLogger(PRPAIN201305UV02Parser.class);
+
+    private PRPAIN201305UV02Parser() {
+    }
 
     public static II getPatientId(PRPAIN201305UV02 request) {
         II livingSubjectId = null;

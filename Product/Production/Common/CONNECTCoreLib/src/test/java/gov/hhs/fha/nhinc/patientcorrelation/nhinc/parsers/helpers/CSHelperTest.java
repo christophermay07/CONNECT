@@ -38,10 +38,8 @@ public class CSHelperTest {
 
     @Test
     public void testBuildCS() {
-        CSHelper cs = new CSHelper();
-        CS csCode = new CS();
         String code = "CONNECT";
-        csCode = cs.buildCS(code);
+        CS csCode = CSHelper.buildCS(code);
         assertEquals(csCode.getCode(),code);
     }
 }

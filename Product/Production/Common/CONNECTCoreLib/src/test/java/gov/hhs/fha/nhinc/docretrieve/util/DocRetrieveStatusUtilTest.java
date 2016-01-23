@@ -42,43 +42,38 @@ public class DocRetrieveStatusUtilTest {
 
    @Test
    public void setResponseStatusSuccessCase() {
-       DocRetrieveStatusUtil util = new DocRetrieveStatusUtil();
        String status = "Success";
-       String returnedStatus;
-       returnedStatus = util.setResponseStatus(createFromRequestSuccessCase(), createToRequestSucessCase());
+       String returnedStatus = DocRetrieveStatusUtil.setResponseStatus(createFromRequestSuccessCase(),
+           createToRequestSucessCase());
        assertEquals(returnedStatus, status);
    }
 
    @Test
    public void setResponseStatusFailureCase() {
-       DocRetrieveStatusUtil util = new DocRetrieveStatusUtil();
        String status = "Failure";
-       String returnedStatus;
-       returnedStatus = util.setResponseStatus(createFromRequestFailureCase(), createToRequestFailureCase());
+       String returnedStatus = DocRetrieveStatusUtil.setResponseStatus(createFromRequestFailureCase(),
+           createToRequestFailureCase());
        assertEquals(returnedStatus, status);
    }
 
    @Test
    public void setResponseStatusPartialSuccessCase() {
-       DocRetrieveStatusUtil util = new DocRetrieveStatusUtil();
        String status = DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_PARTIALSUCCESS;
-       String returnedStatus;
-       returnedStatus = util.setResponseStatus(createFromRequestSuccessCase(), createToRequestFailureCase());
+       String returnedStatus = DocRetrieveStatusUtil.setResponseStatus(createFromRequestSuccessCase(),
+           createToRequestFailureCase());
        assertEquals(returnedStatus, status);
    }
 
    @Test
    public void testIsStatusSuccess() {
        String status = DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS;
-       DocRetrieveStatusUtil util = new DocRetrieveStatusUtil();
-       assertTrue(util.isStatusSuccess(status));
+       assertTrue(DocRetrieveStatusUtil.isStatusSuccess(status));
    }
 
    @Test
    public void testIsStatusFailureOrPartialFailure() {
        String status = DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE;
-       DocRetrieveStatusUtil util = new DocRetrieveStatusUtil();
-       assertFalse(util.isStatusSuccess(status));
+       assertFalse(DocRetrieveStatusUtil.isStatusSuccess(status));
    }
 
     private RetrieveDocumentSetResponseType createFromRequestSuccessCase() {
@@ -112,7 +107,4 @@ public class DocRetrieveStatusUtilTest {
         response.setRegistryResponse(res);
         return response;
     }
-
-
-
 }

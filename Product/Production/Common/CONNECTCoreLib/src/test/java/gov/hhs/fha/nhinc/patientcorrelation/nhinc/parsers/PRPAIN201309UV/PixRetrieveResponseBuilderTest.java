@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.PRPAIN201309UV02QUQIMT021001UV01ControlActProcess;
@@ -46,11 +47,10 @@ public class PixRetrieveResponseBuilderTest {
     public void createPixRetrieveResponse() {
         PRPAIN201309UV02 patCorrReq = new PRPAIN201309UV02();
         patCorrReq.setControlActProcess(createControlActProcess());
-        PixRetrieveResponseBuilder response = new PixRetrieveResponseBuilder();
         PRPAIN201310UV02 message = new PRPAIN201310UV02();
-        message = response.createPixRetrieveResponse(patCorrReq, createIIList());
-        assertEquals(message.getControlActProcess().getQueryByParameter().getValue().getQueryId().getAssigningAuthorityName()
-                , "CONNECT");
+        message = PixRetrieveResponseBuilder.createPixRetrieveResponse(patCorrReq, createIIList());
+        assertEquals(message.getControlActProcess().getQueryByParameter().getValue().getQueryId()
+            .getAssigningAuthorityName(), "CONNECT");
         assertEquals(message.getControlActProcess().getQueryAck().getQueryId().getExtension(), "1.16.17.19");
         assertEquals(message.getInteractionId().getExtension(), "PRPA_IN201310");
         assertEquals(message.getProcessingCode().getCode(), "P");
@@ -71,18 +71,16 @@ public class PixRetrieveResponseBuilderTest {
 
     private PRPAIN201309UV02QUQIMT021001UV01ControlActProcess createControlActProcess() {
         PRPAIN201309UV02QUQIMT021001UV01ControlActProcess controlActProcess =
-                new  PRPAIN201309UV02QUQIMT021001UV01ControlActProcess();
+            new PRPAIN201309UV02QUQIMT021001UV01ControlActProcess();
         controlActProcess.setQueryByParameter(createQueryByParameter());
         return controlActProcess;
-
     }
 
     private JAXBElement<PRPAMT201307UV02QueryByParameter> createQueryByParameter() {
         PRPAMT201307UV02QueryByParameter parameter = new  PRPAMT201307UV02QueryByParameter();
         parameter.setQueryId(createII());
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
-        return new JAXBElement<>(xmlqname,
-                PRPAMT201307UV02QueryByParameter.class, parameter);
+        QName xmlqname = new QName("urn:hl7-org:v3", "parameter");
+        return new JAXBElement<>(xmlqname, PRPAMT201307UV02QueryByParameter.class, parameter);
     }
 
     private II createII() {
@@ -92,6 +90,4 @@ public class PixRetrieveResponseBuilderTest {
         ii.setRoot("1.1");
         return ii;
     }
-
-
 }

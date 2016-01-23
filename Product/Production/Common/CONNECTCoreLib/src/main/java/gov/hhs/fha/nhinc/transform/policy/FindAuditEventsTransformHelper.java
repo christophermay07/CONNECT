@@ -48,6 +48,9 @@ public class FindAuditEventsTransformHelper {
     private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
     private static final String AssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
 
+    private FindAuditEventsTransformHelper() {
+    }
+
     public static CheckPolicyRequestType transformFindAuditEventsToCheckPolicy(FindAuditEventsEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
         RequestType request = new RequestType();

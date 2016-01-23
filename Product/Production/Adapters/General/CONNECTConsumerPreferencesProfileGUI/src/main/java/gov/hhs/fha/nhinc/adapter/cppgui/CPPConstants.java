@@ -41,4 +41,6 @@ public class CPPConstants {
     public static final String PURPOSE_OF_USE_PROPERTIES = "PurposeOfUseOptions";
     public static final String CONFIDENTIALITY_CODE_PROPERTIES = "ConfidentialityCodeOptions";
 
+    private CPPConstants() {
+    }
 }

@@ -41,9 +41,7 @@ public class SenderReceiverHelperTestMCCIMT000300UV01 {
 
     @Test
     public void testCreateSender() {
-        SenderReceiverHelperMCCIMT000300UV01 sender = new SenderReceiverHelperMCCIMT000300UV01();
-        MCCIMT000300UV01Sender senderDevice = new MCCIMT000300UV01Sender();
-        senderDevice = sender.CreateSender(createSenderDeviceId());
+        MCCIMT000300UV01Sender senderDevice = SenderReceiverHelperMCCIMT000300UV01.CreateSender(createSenderDeviceId());
         assertEquals(senderDevice.getDevice().getId().get(0).getAssigningAuthorityName(), "CONNECTSender");
         assertEquals(senderDevice.getDevice().getId().get(0).getExtension(),"D123401");
         assertEquals(senderDevice.getDevice().getId().get(0).getRoot(), "1.1");
@@ -51,17 +49,14 @@ public class SenderReceiverHelperTestMCCIMT000300UV01 {
 
     @Test
     public void testCreateSenderWhenDeviceIdNull() {
-        SenderReceiverHelperMCCIMT000300UV01 sender = new SenderReceiverHelperMCCIMT000300UV01();
-        MCCIMT000300UV01Sender senderDevice = new MCCIMT000300UV01Sender();
-        senderDevice = sender.CreateSender();
+        MCCIMT000300UV01Sender senderDevice = SenderReceiverHelperMCCIMT000300UV01.CreateSender();
         assertNull(senderDevice.getDevice().getId().get(0));
     }
 
     @Test
     public void testCreateReceiver() {
-        SenderReceiverHelperMCCIMT000300UV01 receiver = new SenderReceiverHelperMCCIMT000300UV01();
-        MCCIMT000300UV01Receiver receiverDevice = new MCCIMT000300UV01Receiver();
-        receiverDevice = receiver.CreateReceiver(createReceiverDevice());
+        MCCIMT000300UV01Receiver receiverDevice
+            = SenderReceiverHelperMCCIMT000300UV01.CreateReceiver(createReceiverDevice());
         assertEquals(receiverDevice.getDevice().getId().get(0).getAssigningAuthorityName(), "CONNECTReceiver");
         assertEquals(receiverDevice.getDevice().getId().get(0).getExtension(),"D123401");
         assertEquals(receiverDevice.getDevice().getId().get(0).getRoot(),"2.2");
@@ -69,9 +64,7 @@ public class SenderReceiverHelperTestMCCIMT000300UV01 {
 
     @Test
     public void testCreateReceiverWhenDeviceIdNull() {
-        SenderReceiverHelperMCCIMT000300UV01 receiver = new SenderReceiverHelperMCCIMT000300UV01();
-        MCCIMT000300UV01Receiver receiverDevice = new MCCIMT000300UV01Receiver();
-        receiverDevice = receiver.CreateReceiver();
+        MCCIMT000300UV01Receiver receiverDevice = SenderReceiverHelperMCCIMT000300UV01.CreateReceiver();
         assertNull(receiverDevice.getDevice().getId().get(0));
     }
 
@@ -90,5 +83,4 @@ public class SenderReceiverHelperTestMCCIMT000300UV01 {
         receiverDevice.setRoot("2.2");
         return receiverDevice;
     }
-
 }

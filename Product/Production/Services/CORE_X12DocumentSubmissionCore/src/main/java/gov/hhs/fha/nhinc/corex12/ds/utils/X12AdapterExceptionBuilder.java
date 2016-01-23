@@ -49,6 +49,9 @@ public class X12AdapterExceptionBuilder extends AbstractX12ExceptionBuilder {
     private static class SingletonHolder {
 
         public static final X12AdapterExceptionBuilder INSTANCE = new X12AdapterExceptionBuilder();
+
+        private SingletonHolder() {
+        }
     }
 
     @Override

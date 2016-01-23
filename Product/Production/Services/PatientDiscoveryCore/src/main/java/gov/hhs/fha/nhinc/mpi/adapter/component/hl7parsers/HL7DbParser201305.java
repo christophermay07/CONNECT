@@ -70,6 +70,9 @@ import org.slf4j.LoggerFactory;
  */
 public class HL7DbParser201305 {
 
+    private HL7DbParser201305() {
+    }
+
     private static final Logger LOG = LoggerFactory.getLogger(HL7DbParser201305.class);
     /**
      * Social Security Number Root Identifier.

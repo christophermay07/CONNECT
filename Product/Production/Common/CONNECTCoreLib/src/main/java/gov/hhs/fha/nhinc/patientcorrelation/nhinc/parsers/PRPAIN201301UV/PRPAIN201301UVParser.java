@@ -43,6 +43,9 @@ public class PRPAIN201301UVParser {
 
     private static final Logger LOG = LoggerFactory.getLogger(PRPAIN201301UVParser.class);
 
+    private PRPAIN201301UVParser() {
+    }
+
     /**
      * This method gets the patientPerson from HL7V3 message of type PRPAIN201301UV
      *

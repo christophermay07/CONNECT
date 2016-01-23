@@ -24,8 +24,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201301UV;
+package gov.hhs.fha.nhinc.patientcorrelation.nhinc.PRPAIN201301UVParsers.PRPAIN201301UV;
 
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201301UV.PRPAIN201301UVParser;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
@@ -56,88 +57,79 @@ public class TestPRPAIN201301UVParser {
 
     @Test
     public void testParseSubjectFromMessage() {
-        PRPAIN201301UVParser parser = new PRPAIN201301UVParser();
         PRPAIN201301UV02MFMIMT700701UV01Subject1 returnedSubject
-            = parser.parseSubjectFromMessage(createPRPAIN201301UV02());
+            = PRPAIN201301UVParser.parseSubjectFromMessage(createPRPAIN201301UV02());
         assertEquals(returnedSubject.getRegistrationEvent().getCustodian().getAssignedEntity().getAssignedDevice()
             .getValue().getDeterminerCode(), "INSTANCE");
     }
 
     @Test
     public void ParseSubjectFromMessageWhenMessageNull() {
-        PRPAIN201301UVParser parser = new PRPAIN201301UVParser();
         PRPAIN201301UV02 message = null;
-        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = parser.parseSubjectFromMessage(message);
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = PRPAIN201301UVParser.parseSubjectFromMessage(message);
         assertNull(subject1);
     }
 
     @Test
     public void ParseSubjectFromMessageWhenControlActProcessNull() {
-        PRPAIN201301UVParser parser = new PRPAIN201301UVParser();
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
-        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = parser.parseSubjectFromMessage(message);
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = PRPAIN201301UVParser.parseSubjectFromMessage(message);
         assertNull(subject1);
     }
 
     @Test
     public void ParseSubjectFromMessageWhenSubjectNull() {
-        PRPAIN201301UVParser parser = new PRPAIN201301UVParser();
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess
+            = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         message.setControlActProcess(controlActProcess);
-        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = parser.parseSubjectFromMessage(message);
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = PRPAIN201301UVParser.parseSubjectFromMessage(message);
         assertNull(subject1);
     }
 
     @Test
     public void testParseHL7PatientFromMessage() {
-        PRPAIN201301UVParser parser = new PRPAIN201301UVParser();
-        PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
-        patient = parser.parseHL7PatientFromMessage(createPRPAIN201301UV02());
+        PRPAMT201301UV02Patient patient = PRPAIN201301UVParser.parseHL7PatientFromMessage(createPRPAIN201301UV02());
         assertEquals(patient.getPatientPerson().getValue().getDeterminerCode(), "INSTANCE");
     }
 
     @Test
     public void testParseHL7PatientFromMessageWhenSubjectNull() {
-        PRPAIN201301UVParser parser = new PRPAIN201301UVParser();
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
-        assertNull(parser.parseHL7PatientFromMessage(message));
+        assertNull(PRPAIN201301UVParser.parseHL7PatientFromMessage(message));
 
     }
 
     @Test
     public void testParseHL7PatientFromMessageWhenregistrationEventNull() {
-        PRPAIN201301UVParser parser = new PRPAIN201301UVParser();
         PRPAIN201301UV02 message = createHL7MessageWhereregistrationEventNull();
-        assertNull(parser.parseHL7PatientFromMessage(message));
+        assertNull(PRPAIN201301UVParser.parseHL7PatientFromMessage(message));
     }
 
     @Test
     public void testParseHL7PatientFromMessageWhenSubject1Null() {
-        PRPAIN201301UVParser parser = new PRPAIN201301UVParser();
         PRPAIN201301UV02 message = createMessageWhereSubject1Null();
-        assertNull(parser.parseHL7PatientFromMessage(message));
+        assertNull(PRPAIN201301UVParser.parseHL7PatientFromMessage(message));
     }
 
     @Test
     public void testParseHL7PatientFromMessageWhenPatientNull() {
-        PRPAIN201301UVParser parser = new PRPAIN201301UVParser();
         PRPAIN201301UV02 message = createMessageWherePatientNull();
-        assertNull(parser.parseHL7PatientFromMessage(message));
+        assertNull(PRPAIN201301UVParser.parseHL7PatientFromMessage(message));
     }
 
     @Test
     public void testParseHL7PatientPersonFrom201301Message() {
-        PRPAIN201301UVParser parser = new PRPAIN201301UVParser();
         PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
-        patient = parser.parseHL7PatientPersonFrom201301Message(createPRPAIN201301UV02());
+        patient = PRPAIN201301UVParser.parseHL7PatientPersonFrom201301Message(createPRPAIN201301UV02());
     }
 
     private PRPAIN201301UV02 createMessageWherePatientNull() {
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
-        PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent registrationevent = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
+        PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent registrationevent
+            = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
         registrationevent.setTypeId(createTypeId());
         PRPAIN201301UV02MFMIMT700701UV01Subject2 subject1 = new PRPAIN201301UV02MFMIMT700701UV01Subject2();
         subject1.setTypeId(createTypeId());
@@ -148,7 +140,8 @@ public class TestPRPAIN201301UVParser {
         subject.setTypeId(createTypeId());
         subject.setRegistrationEvent(registrationevent);
         subjects.add(subject);
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess
+            = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.setCode(createCD());
         controlActProcess.getSubject().addAll(subjects);
@@ -158,14 +151,16 @@ public class TestPRPAIN201301UVParser {
 
     private PRPAIN201301UV02 createMessageWhereSubject1Null() {
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
-        PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent registrationevent = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
+        PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent registrationevent
+            = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
         List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         registrationevent.setTypeId(createTypeId());
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
         subject.setRegistrationEvent(registrationevent);
         subjects.add(subject);
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess
+            = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.setCode(createCD());
         controlActProcess.getSubject().addAll(subjects);
@@ -179,7 +174,8 @@ public class TestPRPAIN201301UVParser {
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
         subjects.add(subject);
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess
+            = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.setCode(createCD());
         controlActProcess.getSubject().addAll(subjects);
@@ -207,7 +203,8 @@ public class TestPRPAIN201301UVParser {
     }
 
     private PRPAIN201301UV02MFMIMT700701UV01ControlActProcess createPRPAIN201301UV02MFMIMT700701UV01ControlActProcess() {
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess
+            = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.setCode(createCD());
         controlActProcess.getSubject().addAll(createPRPAIN201301UV02MFMIMT700701UV01Subject1());
@@ -247,7 +244,8 @@ public class TestPRPAIN201301UVParser {
     }
 
     private PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent createPRPAIN201301UV02MFMIMT700701UV01RegistrationEvent() {
-        PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent regEvent = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
+        PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent regEvent
+            = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
         regEvent.setStatusCode(createCS());
         regEvent.setTypeId(createTypeId());
         regEvent.setCustodian(createMFMIMT700701UV01Custodian());
@@ -308,5 +306,4 @@ public class TestPRPAIN201301UVParser {
         typeId.setRoot("1.1");
         return typeId;
     }
-
 }

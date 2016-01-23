@@ -34,6 +34,9 @@ import org.hl7.v3.ST;
  */
 public class SemanticsTextHelper {
 
+    private SemanticsTextHelper() {
+    }
+
     public static ST createSemanticsText(String text) {
         return new ST();
     }

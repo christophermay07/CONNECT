@@ -47,6 +47,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author achidambaram
@@ -54,12 +56,12 @@ import org.junit.Test;
  */
 public class HL7DataTransformHelperTest {
 
+    private static final Logger LOG = LoggerFactory.getLogger(HL7DataTransformHelperTest.class);
+
     @Test
     public void testIIFactoryWithRoot() {
         String root = "1.1";
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        II ii = new II();
-        ii = helper.IIFactory(root);
+        II ii = HL7DataTransformHelper.IIFactory(root);
         assertEquals(ii.getRoot(), "1.1");
         assertNull(ii.getAssigningAuthorityName());
         assertNull(ii.getExtension());
@@ -69,9 +71,7 @@ public class HL7DataTransformHelperTest {
     public void testIIFactoryWithRootAndExtension() {
         String root = "1.1";
         String extension = "1.16.17.19";
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        II ii = new II();
-        ii = helper.IIFactory(root, extension);
+        II ii = HL7DataTransformHelper.IIFactory(root, extension);
         assertEquals(ii.getRoot(), "1.1");
         assertNull(ii.getAssigningAuthorityName());
         assertEquals(ii.getExtension(), "1.16.17.19");
@@ -81,9 +81,7 @@ public class HL7DataTransformHelperTest {
     public void IIFactory() {
         String root = "1.1";
         String extension = "1.16.17.19";
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        II ii = new II();
-        ii = helper.IIFactory(root, extension);
+        II ii = HL7DataTransformHelper.IIFactory(root, extension);
         assertEquals(ii.getRoot(), "1.1");
         assertEquals(ii.getExtension(), "1.16.17.19");
         assertNull(ii.getAssigningAuthorityName());
@@ -94,9 +92,7 @@ public class HL7DataTransformHelperTest {
         String root = "1.1";
         String extension = "1.16.17.19";
         String assigningAuthorityName = "CONNECT";
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        II ii = new II();
-        ii = helper.IIFactory(root, extension, assigningAuthorityName);
+        II ii = HL7DataTransformHelper.IIFactory(root, extension, assigningAuthorityName);
         assertEquals(ii.getAssigningAuthorityName(), assigningAuthorityName);
         assertEquals(ii.getExtension(), extension);
         assertEquals(ii.getRoot(), "1.1");
@@ -107,9 +103,7 @@ public class HL7DataTransformHelperTest {
         String root = null;
         String extension = "1.16.17.19";
         String assigningAuthorityName = "CONNECT";
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        II ii = new II();
-        ii = helper.IIFactory(root, extension, assigningAuthorityName);
+        II ii = HL7DataTransformHelper.IIFactory(root, extension, assigningAuthorityName);
         assertEquals(ii.getAssigningAuthorityName(), assigningAuthorityName);
         assertEquals(ii.getExtension(), extension);
         assertNull(ii.getRoot());
@@ -120,9 +114,7 @@ public class HL7DataTransformHelperTest {
         String root = "1.1";
         String extension = "1.16.17.19";
         String assigningAuthorityName = null;
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        II ii = new II();
-        ii = helper.IIFactory(root, extension, assigningAuthorityName);
+        II ii = HL7DataTransformHelper.IIFactory(root, extension, assigningAuthorityName);
         assertNull(ii.getAssigningAuthorityName());
         assertEquals(ii.getExtension(), extension);
         assertEquals(ii.getRoot(), "1.1");
@@ -133,9 +125,7 @@ public class HL7DataTransformHelperTest {
         String root = "1.1";
         String extension = null;
         String assigningAuthorityName = "CONNECT";
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        II ii = new II();
-        ii = helper.IIFactory(root, extension, assigningAuthorityName);
+        II ii = HL7DataTransformHelper.IIFactory(root, extension, assigningAuthorityName);
         assertEquals(ii.getAssigningAuthorityName(), "CONNECT");
         assertNull(ii.getExtension());
         assertEquals(ii.getRoot(), "1.1");
@@ -143,45 +133,35 @@ public class HL7DataTransformHelperTest {
 
     @Test
     public void IIFactoryCreateNull() {
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        II ii = new II();
-        ii = helper.IIFactoryCreateNull();
+        II ii = HL7DataTransformHelper.IIFactoryCreateNull();
         assertEquals(ii.getNullFlavor().get(0), "NA");
     }
 
     @Test
     public void CSFactory() {
         String code = "CONNECT";
-        CS cs = new CS();
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        cs = helper.CSFactory(code);
+        CS cs = HL7DataTransformHelper.CSFactory(code);
         assertEquals(cs.getCode(), "CONNECT");
     }
 
     @Test
     public void CSFactoryWhenCodeNull() {
         String code = null;
-        CS cs = new CS();
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        cs = helper.CSFactory(code);
+        CS cs = HL7DataTransformHelper.CSFactory(code);
         assertNull(cs.getCode());
     }
 
     @Test
     public void CEFactory() {
         String code = "CONNECT";
-        CE ce = new CE();
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        ce = helper.CEFactory(code);
+        CE ce = HL7DataTransformHelper.CEFactory(code);
         assertEquals(ce.getCode(), code);
     }
 
     @Test
     public void CEFactoryWhenCodeNull() {
         String code = null;
-        CE ce = new CE();
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        ce = helper.CEFactory(code);
+        CE ce = HL7DataTransformHelper.CEFactory(code);
         assertNull(ce.getCode());
     }
 
@@ -190,9 +170,7 @@ public class HL7DataTransformHelperTest {
         String code = "CONNECT";
         String codeSystem = "CONNECTDomain";
         String displayName = "CONNECT CD";
-        CD cd = new CD();
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        cd = helper.CDFactory(code, codeSystem, displayName);
+        CD cd = HL7DataTransformHelper.CDFactory(code, codeSystem, displayName);
         assertEquals(cd.getCode(), "CONNECT");
         assertEquals(cd.getCodeSystem(), "CONNECTDomain");
         assertEquals(cd.getDisplayName(), "CONNECT CD");
@@ -203,9 +181,7 @@ public class HL7DataTransformHelperTest {
         String code = null;
         String codeSystem = "CONNECTDomain";
         String displayName = "CONNECT CD";
-        CD cd = new CD();
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        cd = helper.CDFactory(code, codeSystem, displayName);
+        CD cd = HL7DataTransformHelper.CDFactory(code, codeSystem, displayName);
         assertNull(cd.getCode());
         assertEquals(cd.getCodeSystem(), "CONNECTDomain");
         assertEquals(cd.getDisplayName(), "CONNECT CD");
@@ -214,9 +190,7 @@ public class HL7DataTransformHelperTest {
     @Test
     public void CDFactoryWithCode() {
         String code = "CONNECT";
-        CD cd = new CD();
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        cd = helper.CDFactory(code);
+        CD cd = HL7DataTransformHelper.CDFactory(code);
         assertEquals(cd.getCode(), "CONNECT");
         assertNull(cd.getCodeSystem());
         assertNull(cd.getDisplayName());
@@ -226,9 +200,7 @@ public class HL7DataTransformHelperTest {
     public void CDFactoryWIthCodeAndCodeSystem() {
         String code = "CONNECT";
         String codeSystem = "CONNECTDomain";
-        CD cd = new CD();
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        cd = helper.CDFactory(code, codeSystem);
+        CD cd = HL7DataTransformHelper.CDFactory(code, codeSystem);
         assertEquals(cd.getCode(), "CONNECT");
         assertEquals(cd.getCodeSystem(), "CONNECTDomain");
         assertNull(cd.getDisplayName());
@@ -237,21 +209,16 @@ public class HL7DataTransformHelperTest {
     @Test
     public void TSExplicitFactory() {
         String value = "CONNECT";
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        TSExplicit ts = new TSExplicit();
-        ts = helper.TSExplicitFactory(value);
+        TSExplicit ts = HL7DataTransformHelper.TSExplicitFactory(value);
         assertEquals(ts.getValue(), "CONNECT");
     }
 
     @Test
     public void creationTimeFactory() {
-        TSExplicit ts = new TSExplicit();
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        ts = helper.creationTimeFactory();
+        TSExplicit ts = HL7DataTransformHelper.creationTimeFactory();
         assertNotNull(ts.getValue());
     }
 
-    @SuppressWarnings("rawtypes")
     @Test
     public void createEnExplicit() {
         String firstName = "Gallow";
@@ -263,8 +230,7 @@ public class HL7DataTransformHelperTest {
         EnExplicitGiven givenName;
         EnExplicitPrefix prefix = null;
         EnExplicitSuffix suf = null;
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        ENExplicit enName = helper.createEnExplicit(firstName, middleName, lastName, title, suffix);
+        ENExplicit enName = HL7DataTransformHelper.createEnExplicit(firstName, middleName, lastName, title, suffix);
         List<Serializable> enList = enName.getContent();
         Iterator<Serializable> iter = enList.iterator();
 
@@ -277,11 +243,11 @@ public class HL7DataTransformHelperTest {
                 }
                 if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
                     givenName = (EnExplicitGiven) oJAXBElement.getValue();
-                    System.out.println(givenName.getPartType());
+                    LOG.debug(givenName.getPartType());
                 }
                 if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
                     givenName = (EnExplicitGiven) oJAXBElement.getValue();
-                    System.out.println(givenName.getPartType());
+                    LOG.debug(givenName.getPartType());
                 }
                 if (oJAXBElement.getValue() instanceof EnExplicitPrefix) {
                     prefix = (EnExplicitPrefix) oJAXBElement.getValue();
@@ -307,8 +273,7 @@ public class HL7DataTransformHelperTest {
         EnExplicitGiven givenName = null;
         EnExplicitPrefix prefix = null;
         EnExplicitSuffix suf = null;
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        ENExplicit enName = helper.createEnExplicit(firstName, middleName, lastName, title, suffix);
+        ENExplicit enName = HL7DataTransformHelper.createEnExplicit(firstName, middleName, lastName, title, suffix);
         List<Serializable> choice = enName.getContent();
         Iterator<Serializable> iterSerialObjects = choice.iterator();
 
@@ -350,8 +315,7 @@ public class HL7DataTransformHelperTest {
         EnExplicitGiven givenName = null;
         EnExplicitPrefix prefix = null;
         EnExplicitSuffix suf = null;
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        ENExplicit enName = helper.createEnExplicit(firstName, middleName, lastName, title, suffix);
+        ENExplicit enName = HL7DataTransformHelper.createEnExplicit(firstName, middleName, lastName, title, suffix);
         List<Serializable> choice = enName.getContent();
         Iterator<Serializable> iterSerialObjects = choice.iterator();
 
@@ -393,8 +357,7 @@ public class HL7DataTransformHelperTest {
         EnExplicitGiven givenName = null;
         EnExplicitPrefix prefix = null;
         EnExplicitSuffix suf = null;
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        ENExplicit enName = helper.createEnExplicit(firstName, middleName, lastName, title, suffix);
+        ENExplicit enName = HL7DataTransformHelper.createEnExplicit(firstName, middleName, lastName, title, suffix);
         List<Serializable> choice = enName.getContent();
         Iterator<Serializable> iterSerialObjects = choice.iterator();
 
@@ -431,8 +394,7 @@ public class HL7DataTransformHelperTest {
         String city = "Fairfax";
         String state = "VA";
         String zip = "22102";
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        ADExplicit result = helper.createADExplicit(street, city, state, zip);
+        ADExplicit result = HL7DataTransformHelper.createADExplicit(street, city, state, zip);
         assertNotNull(result.getUse());
         assertEquals(result.getUse().size(), 4);
     }
@@ -444,8 +406,7 @@ public class HL7DataTransformHelperTest {
         String city = "Fairfax";
         String state = "VA";
         String zip = "22102";
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        ADExplicit result = helper.createADExplicit(street, street1, city, state, zip);
+        ADExplicit result = HL7DataTransformHelper.createADExplicit(street, street1, city, state, zip);
         assertNotNull(result.getUse());
         assertEquals(result.getUse().size(), 5);
     }
@@ -453,15 +414,12 @@ public class HL7DataTransformHelperTest {
     @Test
     public void createTELExplicit() {
         String value = "210-340-6780";
-        TELExplicit te = new TELExplicit();
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        te = helper.createTELExplicit(value);
+        TELExplicit te = HL7DataTransformHelper.createTELExplicit(value);
         assertEquals(te.getValue(), value);
     }
 
     @Test
     public void convertPNToEN() {
-        HL7DataTransformHelper helper = new HL7DataTransformHelper();
         String firstName = "Gallow";
         String lastName = "Younger";
         String middleName = "Matt";
@@ -471,8 +429,8 @@ public class HL7DataTransformHelperTest {
         EnExplicitGiven givenName = null;
         EnExplicitPrefix prefixEx = null;
         EnExplicitSuffix sufEx = null;
-        PNExplicit pnName = helper.createPNExplicit(firstName, middleName, lastName, prefix, suffix);
-        ENExplicit enName = helper.convertPNToEN(pnName);
+        PNExplicit pnName = HL7DataTransformHelper.createPNExplicit(firstName, middleName, lastName, prefix, suffix);
+        ENExplicit enName = HL7DataTransformHelper.convertPNToEN(pnName);
         List<Serializable> enList = enName.getContent();
         Iterator<Serializable> iter = enList.iterator();
 
@@ -494,7 +452,6 @@ public class HL7DataTransformHelperTest {
                 }
                 if (oJAXBElement.getValue() instanceof EnExplicitSuffix) {
                     sufEx = (EnExplicitSuffix) oJAXBElement.getValue();
-
                 }
             }
         }
@@ -502,5 +459,4 @@ public class HL7DataTransformHelperTest {
         assertEquals(prefixEx.getContent(), prefix);
         assertEquals(sufEx.getContent(), suffix);
     }
-
 }

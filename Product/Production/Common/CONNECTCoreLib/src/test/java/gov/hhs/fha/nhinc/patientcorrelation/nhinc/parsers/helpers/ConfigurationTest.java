@@ -34,10 +34,9 @@ import org.junit.Test;
  *
  */
 public class ConfigurationTest {
+
     @Test
     public void testgetMyCommunityId() {
-        Configuration config = new Configuration();
-        assertEquals(config.getMyCommunityId(),"1.1");
+        assertEquals(Configuration.getMyCommunityId(),"1.1");
     }
-
 }

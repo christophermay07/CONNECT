@@ -34,9 +34,12 @@ import java.util.UUID;
  * that defines WS-Addressing.
  */
 public class AddressingHeaderCreator {
-    private static String UUID_TAG = "urn:uuid:";
+    private static final String UUID_TAG = "urn:uuid:";
 
     public static String generateMessageId() {
         return UUID_TAG + UUID.randomUUID().toString();
+    }
+
+    private AddressingHeaderCreator() {
     }
 }

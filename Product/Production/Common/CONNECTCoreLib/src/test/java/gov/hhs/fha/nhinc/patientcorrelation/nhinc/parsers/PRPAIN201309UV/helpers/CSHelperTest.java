@@ -39,11 +39,7 @@ public class CSHelperTest {
     @Test
     public void testBuildCS() {
         String code = "CS";
-        CS cs = new CS();
-        CSHelper helper = new CSHelper();
-        cs = helper.buildCS(code);
-        assertEquals(cs.getCode(),"CS");
-
+        CS cs = CSHelper.buildCS(code);
+        assertEquals(cs.getCode(), "CS");
     }
-
 }

@@ -38,10 +38,8 @@ public class InteractionIdHelperTest {
 
     @Test
     public void testCreateInteractionId() {
-        InteractionIdHelper helper = new InteractionIdHelper();
         String extension ="D123401";
-        II ii = new II();
-        ii = helper.createInteractionId(extension);
+        II ii = InteractionIdHelper.createInteractionId(extension);
         assertEquals(ii.getRoot(), "2.16.840.1.113883.1.6");
         assertEquals(ii.getExtension(), "D123401");
     }

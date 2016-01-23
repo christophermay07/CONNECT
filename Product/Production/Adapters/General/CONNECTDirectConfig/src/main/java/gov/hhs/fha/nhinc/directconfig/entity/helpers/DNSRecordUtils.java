@@ -68,8 +68,11 @@ import org.xbill.DNS.Section;
  * @author Greg Meyer
  * @since 1.1
  */
-public class DNSRecordUtils
-{
+public class DNSRecordUtils {
+
+    private DNSRecordUtils() {
+    }
+
     /**
      * Creates a DNS A type record.
      * @param name The record name.  Generally a fully qualified domain name such as host.example.com.
@@ -78,19 +81,16 @@ public class DNSRecordUtils
      * @return A DNSRecord representing an A type record.
      * @throws ConfigurationStoreException
      */
-    public static DNSRecord createARecord(String name, long ttl, String ip) throws ConfigurationStoreException
-    {
-        if (!name.endsWith("."))
+    public static DNSRecord createARecord(String name, long ttl, String ip) throws ConfigurationStoreException {
+        if (!name.endsWith(".")) {
             name = name + ".";
+        }
 
-        try
-        {
+        try {
             ARecord rec = new ARecord(Name.fromString(name), DClass.IN, ttl, InetAddress.getByName(ip));
 
             return DNSRecord.fromWire(rec.toWireCanonical());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new ConfigurationStoreException("Failed to create DNS A record: " + e.getMessage(), e);
         }
     }
@@ -106,22 +106,23 @@ public class DNSRecordUtils
      * @return A DNSRecord representing an SRV type record.
      * @throws ConfigurationStoreException
      */
-    public static DNSRecord createSRVRecord(String name, String target, long ttl, int port, int priority, int weight) throws ConfigurationStoreException
-    {
-        if (!name.endsWith("."))
+    public static DNSRecord createSRVRecord(String name, String target, long ttl, int port, int priority, int weight)
+        throws ConfigurationStoreException {
+
+        if (!name.endsWith(".")) {
             name = name + ".";
+        }
 
-        if (!target.endsWith("."))
+        if (!target.endsWith(".")) {
             target = target + ".";
+        }
 
-        try
-        {
-            SRVRecord rec = new SRVRecord(Name.fromString(name), DClass.IN, ttl, priority, weight, port, Name.fromString(target));
+        try {
+            SRVRecord rec = new SRVRecord(Name.fromString(name), DClass.IN, ttl, priority, weight, port,
+                Name.fromString(target));
 
             return DNSRecord.fromWire(rec.toWireCanonical());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new ConfigurationStoreException("Failed to create DNS SRV record: " + e.getMessage(), e);
         }
     }
@@ -134,16 +135,16 @@ public class DNSRecordUtils
      * @return A DNSRecord representing a CERT type record.
      * @throws ConfigurationStoreException
      */
-    public static DNSRecord createX509CERTRecord(String address, long ttl, X509Certificate cert) throws ConfigurationStoreException
-    {
-        if (!address.endsWith("."))
-            address = address + ".";
+    public static DNSRecord createX509CERTRecord(String address, long ttl, X509Certificate cert)
+        throws ConfigurationStoreException {
 
-        try
-        {
+        if (!address.endsWith(".")) {
+            address = address + ".";
+        }
+
+        try {
             int keyTag = 0;
-            if (cert.getPublicKey() instanceof RSAKey)
-            {
+            if (cert.getPublicKey() instanceof RSAKey) {
                 RSAKey key = (RSAKey)cert.getPublicKey();
                 byte[] modulus = key.getModulus().toByteArray();
 
@@ -156,9 +157,7 @@ public class DNSRecordUtils
                     5 /*public key alg, RFC 4034*/, cert.getEncoded());
 
             return DNSRecord.fromWire(rec.toWireCanonical());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new ConfigurationStoreException("Failed to create DNS CERT record: " + e.getMessage(), e);
         }
     }
@@ -172,22 +171,22 @@ public class DNSRecordUtils
      * @return A DNSRecord representing an MX type record.
      * @throws ConfigurationStoreException
      */
-    public static DNSRecord createMXRecord(String name, String target, long ttl, int priority) throws ConfigurationStoreException
-    {
-        if (!name.endsWith("."))
+    public static DNSRecord createMXRecord(String name, String target, long ttl, int priority)
+        throws ConfigurationStoreException {
+
+        if (!name.endsWith(".")) {
             name = name + ".";
+        }
 
-        if (!target.endsWith("."))
+        if (!target.endsWith(".")) {
             target = target + ".";
+        }
 
-        try
-        {
+        try {
             MXRecord rec = new MXRecord(Name.fromString(name), DClass.IN, ttl, priority, Name.fromString(target));
 
             return DNSRecord.fromWire(rec.toWireCanonical());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new ConfigurationStoreException("Failed to create DNS MX record: " + e.getMessage(), e);
         }
     }
@@ -206,26 +205,26 @@ public class DNSRecordUtils
      * @return A DNSRecord representing an SOA record.
      */
     public static DNSRecord createSOARecord(String name, long ttl, String nameServer, String hostMaster,
-            int serial, long refresh, long retry, long expire, long minumum)
-    {
-        if (!name.endsWith("."))
+        int serial, long refresh, long retry, long expire, long minumum) {
+
+        if (!name.endsWith(".")) {
             name = name + ".";
+        }
 
-        if (!nameServer.endsWith("."))
+        if (!nameServer.endsWith(".")) {
             nameServer = nameServer + ".";
+        }
 
-        if (!hostMaster.endsWith("."))
+        if (!hostMaster.endsWith(".")) {
             hostMaster = hostMaster + ".";
+        }
 
-        try
-        {
+        try {
             SOARecord rec = new SOARecord(Name.fromString(name), DClass.IN, ttl, Name.fromString(nameServer),
-                    Name.fromString(hostMaster), serial, refresh, retry, expire, minumum);
+                Name.fromString(hostMaster), serial, refresh, retry, expire, minumum);
 
             return DNSRecord.fromWire(rec.toWireCanonical());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new ConfigurationStoreException("Failed to create DNS MX record: " + e.getMessage(), e);
         }
     }
@@ -236,10 +235,9 @@ public class DNSRecordUtils
      * @return A byte array representation of the DNSRecord in raw wire transfer format.
      * @throws IOException
      */
-    public static byte[] toWire(DNSRecord rec) throws IOException
-    {
+    public static byte[] toWire(DNSRecord rec) throws IOException {
         Record retVal = Record.newRecord(Name.fromString(rec.getName()), rec.getType(), rec.getDclass(),
-                rec.getTtl(), rec.getData());
+            rec.getTtl(), rec.getData());
 
         return retVal.toWireCanonical();
     }
@@ -250,8 +248,7 @@ public class DNSRecordUtils
      * @return A DNSRecord converted from the wire format.
      * @throws IOException
      */
-    public static DNSRecord fromWire(byte[] data) throws IOException
-    {
+    public static DNSRecord fromWire(byte[] data) throws IOException {
         Record rec = Record.fromWire(data, Section.ANSWER);
 
         DNSRecord retVal = new DNSRecord();

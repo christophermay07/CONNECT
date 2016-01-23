@@ -41,6 +41,9 @@ public class AckBuilder {
     private static final String ProcessingCodeValue = "P";
     private static final String ProcessingModeCode = "R";
 
+    private AckBuilder() {
+    }
+
     public static MCCIIN000002UV01 buildAck(PRPAIN201301UV02 originalMessage) {
         II receiverId = null;
         II senderId;

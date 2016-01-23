@@ -44,4 +44,6 @@ public class AuditTransformsConstants {
     public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_NAME = 1;
     public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_IP = 2;
 
+    private AuditTransformsConstants() {
+    }
 }

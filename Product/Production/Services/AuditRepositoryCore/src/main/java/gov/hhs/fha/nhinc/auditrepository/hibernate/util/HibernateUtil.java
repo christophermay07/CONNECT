@@ -57,6 +57,9 @@ public class HibernateUtil {
         }
     }
 
+    private HibernateUtil() {
+    }
+
     private static File getConfigFile() {
         File result = null;
 

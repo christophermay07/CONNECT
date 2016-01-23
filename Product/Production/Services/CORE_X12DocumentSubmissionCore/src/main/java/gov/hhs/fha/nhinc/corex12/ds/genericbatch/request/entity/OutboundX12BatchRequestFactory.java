@@ -48,6 +48,9 @@ public class OutboundX12BatchRequestFactory {
     private static class SingletonHolder {
 
         public static final OutboundX12BatchRequestFactory INSTANCE = new OutboundX12BatchRequestFactory();
+
+        private SingletonHolder() {
+        }
     }
 
     /**

@@ -61,28 +61,27 @@ public class HL7PRPA201306TransformsTest {
         String receiverOID = "2.2";
         String localDeviceId = "1.1";
         PRPAMT201301UV02Patient patient = createPRPAMT201301UV02Patient();
-        HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
-        PRPAIN201306UV02 result = transforms.createPRPA201306(patient, senderOID, receiverAAID, receiverOID,
-                localDeviceId, createPRPAIN201305UV02());
+        PRPAIN201306UV02 result = HL7PRPA201306Transforms.createPRPA201306(patient, senderOID, receiverAAID,
+            receiverOID, localDeviceId, createPRPAIN201305UV02());
         assertEquals(result.getAcknowledgement().get(0).getTypeId().getExtension(), "1.16.17.19");
         assertEquals(result.getReceiver().get(0).getDevice().getId().get(0).getRoot(), "2.2");
         assertEquals(result.getSender().getDevice().getId().get(0).getRoot(), "1.1");
         assertEquals(result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
-                .getPatient().getProviderOrganization().getValue().getId().get(0).getRoot(), "1.1");
+            .getPatient().getProviderOrganization().getValue().getId().get(0).getRoot(), "1.1");
     }
 
     @Test
     public void createPRPA201306ForPatientNotFoundRequestNull() {
         PRPAIN201305UV02 query = null;
-        HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
-        assertNull(transforms.createPRPA201306ForPatientNotFound(query));
+        HL7PRPA201306Transforms HL7PRPA201306Transforms = new HL7PRPA201306Transforms();
+        assertNull(HL7PRPA201306Transforms.createPRPA201306ForPatientNotFound(query));
     }
 
     @Test
     public void createPRPA201306ForPatientNotFound() {
         PRPAIN201306UV02 result;
-        HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
-        result = transforms.createPRPA201306ForPatientNotFound(createPRPAIN201305UV02());
+        HL7PRPA201306Transforms HL7PRPA201306Transforms = new HL7PRPA201306Transforms();
+        result = HL7PRPA201306Transforms.createPRPA201306ForPatientNotFound(createPRPAIN201305UV02());
         assertEquals(result.getAcknowledgement().get(0).getTypeId().getExtension(), "1.16.17.19");
         assertEquals(result.getReceiver().get(0).getDevice().getId().get(0).getRoot(), "1.1");
         assertEquals(result.getSender().getDevice().getId().get(0).getRoot(), "2.2");
@@ -92,24 +91,24 @@ public class HL7PRPA201306TransformsTest {
     @Test
     public void createPRPA201306ForPatientNotFoundReceiverNull() {
         PRPAIN201306UV02 result;
-        HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
-        result = transforms.createPRPA201306ForPatientNotFound(createPRPAIN201305UV02WhenReceiverNull());
+        HL7PRPA201306Transforms HL7PRPA201306Transforms = new HL7PRPA201306Transforms();
+        result = HL7PRPA201306Transforms.createPRPA201306ForPatientNotFound(createPRPAIN201305UV02WhenReceiverNull());
         assertNull(result);
     }
 
     @Test
     public void createPRPA201306ForPatientNotFoundSenderNull() {
         PRPAIN201306UV02 result;
-        HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
-        result = transforms.createPRPA201306ForPatientNotFound(createPRPAIN201305UV02WhenSenderNull());
+        HL7PRPA201306Transforms HL7PRPA201306Transforms = new HL7PRPA201306Transforms();
+        result = HL7PRPA201306Transforms.createPRPA201306ForPatientNotFound(createPRPAIN201305UV02WhenSenderNull());
         assertNull(result);
     }
 
     @Test
     public void createPRPA201306ForPatientNotFoundInteractionIdNull() {
         PRPAIN201306UV02 result;
-        HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
-        result = transforms.createPRPA201306ForPatientNotFound(createPRPAIN201305UV02WhenIntercationIdNull());
+        HL7PRPA201306Transforms HL7PRPA201306Transforms = new HL7PRPA201306Transforms();
+        result = HL7PRPA201306Transforms.createPRPA201306ForPatientNotFound(createPRPAIN201305UV02WhenIntercationIdNull());
         assertNull(result);
     }
 
@@ -117,45 +116,45 @@ public class HL7PRPA201306TransformsTest {
     public void createPRPA201306ForErrorsRequestNull() {
         PRPAIN201305UV02 query = null;
         String sErrorCode = "Patient Not available";
-        HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
-        assertNull(transforms.createPRPA201306ForErrors(query, sErrorCode));
+        HL7PRPA201306Transforms HL7PRPA201306Transforms = new HL7PRPA201306Transforms();
+        assertNull(HL7PRPA201306Transforms.createPRPA201306ForErrors(query, sErrorCode));
     }
 
     @Test
     public void createPRPA201306ForErrorsSenderNull() {
         String sErrorCode = "Patient Not available";
-        HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
-        assertNull(transforms.createPRPA201306ForErrors(createPRPAIN201305UV02WhenSenderNull(), sErrorCode));
+        HL7PRPA201306Transforms HL7PRPA201306Transforms = new HL7PRPA201306Transforms();
+        assertNull(HL7PRPA201306Transforms.createPRPA201306ForErrors(createPRPAIN201305UV02WhenSenderNull(), sErrorCode));
     }
 
     @Test
     public void createPRPA201306ForErrorsReceiverNull() {
         String sErrorCode = "Patient Not available";
-        HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
-        assertNull(transforms.createPRPA201306ForErrors(createPRPAIN201305UV02WhenReceiverNull(), sErrorCode));
+        HL7PRPA201306Transforms HL7PRPA201306Transforms = new HL7PRPA201306Transforms();
+        assertNull(HL7PRPA201306Transforms.createPRPA201306ForErrors(createPRPAIN201305UV02WhenReceiverNull(), sErrorCode));
     }
 
     @Test
     public void createPRPA201306ForErrorsIntercationIdNull() {
         String sErrorCode = "Patient Not available";
-        HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
-        assertNull(transforms.createPRPA201306ForErrors(createPRPAIN201305UV02WhenIntercationIdNull(), sErrorCode));
+        HL7PRPA201306Transforms HL7PRPA201306Transforms = new HL7PRPA201306Transforms();
+        assertNull(HL7PRPA201306Transforms.createPRPA201306ForErrors(createPRPAIN201305UV02WhenIntercationIdNull(), sErrorCode));
     }
 
     @Test
     public void createPRPA201306ForErrorsStringErrorNull() {
         String sErrorCode = null;
-        HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
-        assertNull(transforms.createPRPA201306ForErrors(createPRPAIN201305UV02(), sErrorCode));
+        HL7PRPA201306Transforms HL7PRPA201306Transforms = new HL7PRPA201306Transforms();
+        assertNull(HL7PRPA201306Transforms.createPRPA201306ForErrors(createPRPAIN201305UV02(), sErrorCode));
     }
 
     @Test
     public void createPRPA201306ForErrorsWhenErrorTextPresent() {
-        HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
+        HL7PRPA201306Transforms HL7PRPA201306Transforms = new HL7PRPA201306Transforms();
         PRPAIN201306UV02 result;
         String sErrorCode = "patient not avialable";
         String sErrorText = "Internal error";
-        result = transforms.createPRPA201306ForErrors(createPRPAIN201305UV02(), sErrorCode, sErrorText);
+        result = HL7PRPA201306Transforms.createPRPA201306ForErrors(createPRPAIN201305UV02(), sErrorCode, sErrorText);
         assertEquals(result.getControlActProcess().getReasonOf().get(0).getDetectedIssueEvent().getText().getContent()
                 .get(0).toString(), "Internal error");
     }
@@ -168,8 +167,8 @@ public class HL7PRPA201306TransformsTest {
         String aaId = "1.1";
         String orgId = "2.2";
         PRPAIN201305UV02 query = new PRPAIN201305UV02();
-        HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
-        result = transforms.createQUQIMT021001UV01ControlActProcess(patient, localDeviceId, query, aaId, orgId);
+        HL7PRPA201306Transforms HL7PRPA201306Transforms = new HL7PRPA201306Transforms();
+        result = HL7PRPA201306Transforms.createQUQIMT021001UV01ControlActProcess(patient, localDeviceId, query, aaId, orgId);
         assertNull(result.getQueryByParameter());
         assertTrue(result.getSubject().isEmpty());
     }
@@ -178,8 +177,8 @@ public class HL7PRPA201306TransformsTest {
     public void areControlActProcessFieldsNullWhenCAPNull() {
         boolean result;
         PRPAIN201305UV02 oRequest = new PRPAIN201305UV02();
-        HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
-        result = transforms.areControlActProcessFieldsNull(oRequest);
+        HL7PRPA201306Transforms HL7PRPA201306Transforms = new HL7PRPA201306Transforms();
+        result = HL7PRPA201306Transforms.areControlActProcessFieldsNull(oRequest);
         assertTrue(result);
     }
 
@@ -189,8 +188,8 @@ public class HL7PRPA201306TransformsTest {
         PRPAIN201305UV02 oRequest = new PRPAIN201305UV02();
         PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
         oRequest.setControlActProcess(controlActProcess);
-        HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
-        result = transforms.areControlActProcessFieldsNull(oRequest);
+        HL7PRPA201306Transforms HL7PRPA201306Transforms = new HL7PRPA201306Transforms();
+        result = HL7PRPA201306Transforms.areControlActProcessFieldsNull(oRequest);
         assertTrue(result);
     }
 
@@ -202,8 +201,8 @@ public class HL7PRPA201306TransformsTest {
         PRPAMT201306UV02QueryByParameter parameter = new PRPAMT201306UV02QueryByParameter();
         parameter.setQueryId(createII());
         oRequest.setControlActProcess(controlActProcess);
-        HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
-        result = transforms.areControlActProcessFieldsNull(oRequest);
+        HL7PRPA201306Transforms HL7PRPA201306Transforms = new HL7PRPA201306Transforms();
+        result = HL7PRPA201306Transforms.areControlActProcessFieldsNull(oRequest);
         assertTrue(result);
     }
 
@@ -219,8 +218,8 @@ public class HL7PRPA201306TransformsTest {
                 xmlqname, PRPAMT201306UV02QueryByParameter.class, parameter);
         controlActProcess.setQueryByParameter(queryByParameter);
         oRequest.setControlActProcess(controlActProcess);
-        HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
-        result = transforms.areControlActProcessFieldsNull(oRequest);
+        HL7PRPA201306Transforms HL7PRPA201306Transforms = new HL7PRPA201306Transforms();
+        result = HL7PRPA201306Transforms.areControlActProcessFieldsNull(oRequest);
         assertTrue(result);
     }
 
@@ -385,5 +384,4 @@ public class HL7PRPA201306TransformsTest {
         ii.setRoot("2.2");
         return ii;
     }
-
 }

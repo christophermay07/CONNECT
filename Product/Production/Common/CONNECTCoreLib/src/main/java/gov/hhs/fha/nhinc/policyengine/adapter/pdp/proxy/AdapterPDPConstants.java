@@ -62,4 +62,6 @@ public class AdapterPDPConstants {
     public static final String REQUEST_ACTION_DOCUMENT_RETRIEVE_OUT = "DocumentRetrieveOut";
     public static final String REQUEST_ACTION_DOCUMENT_RETRIEVE_IN = "DocumentRetrieveIn";
 
+    private AdapterPDPConstants() {
+    }
 }

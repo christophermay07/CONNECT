@@ -37,6 +37,9 @@ public class MessageIdGenerator {
 
     private static final Logger LOG = LoggerFactory.getLogger(MessageIdGenerator.class);
 
+    private MessageIdGenerator() {
+    }
+
     /**
      * Method to generate a MessageID.
      * @return a messageID

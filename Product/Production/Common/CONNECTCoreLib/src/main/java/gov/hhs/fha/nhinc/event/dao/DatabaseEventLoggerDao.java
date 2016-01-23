@@ -53,6 +53,9 @@ public class DatabaseEventLoggerDao {
 
     private static class SingletonHolder {
         public static final DatabaseEventLoggerDao INSTANCE = new DatabaseEventLoggerDao();
+
+        private SingletonHolder() {
+        }
     }
 
     /**

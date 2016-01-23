@@ -52,6 +52,7 @@ public class DeferredQueueTimer extends Thread {
 
     /**
      * Get an instance
+     * @return
      */
     public static DeferredQueueTimer getInstance() {
         return InstanceHolder.instance;
@@ -132,5 +133,8 @@ public class DeferredQueueTimer extends Thread {
      */
     private static class InstanceHolder {
         private static final DeferredQueueTimer instance = new DeferredQueueTimer();
+
+        private InstanceHolder() {
+        }
     }
 }

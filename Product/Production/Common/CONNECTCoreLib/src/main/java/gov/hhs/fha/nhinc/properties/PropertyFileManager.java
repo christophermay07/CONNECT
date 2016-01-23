@@ -42,6 +42,9 @@ public class PropertyFileManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(PropertyFileManager.class);
 
+    private PropertyFileManager() {
+    }
+
     /**
      * This saves out the properties to the specified property file. If the file already exists, it is replaced by the
      * specified one. If it does not exist, it is created.

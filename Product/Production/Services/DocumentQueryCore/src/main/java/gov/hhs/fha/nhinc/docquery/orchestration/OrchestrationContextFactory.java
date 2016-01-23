@@ -39,9 +39,7 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
  */
 public final class OrchestrationContextFactory extends AbstractOrchestrationContextFactory {
 
-    //CHECKSTYLE:OFF
-    private static OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
-    //CHECKSTYLE:ON
+    private static final OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
 
     private OrchestrationContextFactory() {
     }
@@ -68,5 +66,4 @@ public final class OrchestrationContextFactory extends AbstractOrchestrationCont
                 serviceName);
         return OutboundDocQueryFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
     }
-
 }

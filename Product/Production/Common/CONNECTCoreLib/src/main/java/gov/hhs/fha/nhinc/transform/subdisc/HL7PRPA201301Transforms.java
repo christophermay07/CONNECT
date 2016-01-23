@@ -66,6 +66,9 @@ public class HL7PRPA201301Transforms {
 
     private static HL7MessageIdGenerator idGenerator = new HL7MessageIdGenerator();
 
+    private HL7PRPA201301Transforms() {
+    }
+
     public static PRPAIN201301UV02 createPRPA201301(PRPAMT201301UV02Patient patient, String localDeviceId,
             String senderOID, String receiverOID) {
         PRPAIN201301UV02 result = createPRPA201301Headers(localDeviceId);
@@ -546,5 +549,4 @@ public class HL7PRPA201301Transforms {
         return result;
 
     }
-
 }

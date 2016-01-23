@@ -46,6 +46,9 @@ public class HL7DataTransformHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(HL7DataTransformHelper.class);
 
+    private HL7DataTransformHelper() {
+    }
+
     public static II IIFactory(String root) {
         return IIFactory(root, null, null);
     }

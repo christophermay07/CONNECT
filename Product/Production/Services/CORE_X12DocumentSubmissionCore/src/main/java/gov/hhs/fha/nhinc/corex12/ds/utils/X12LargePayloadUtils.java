@@ -35,8 +35,6 @@ import java.net.URISyntaxException;
 import javax.activation.DataHandler;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -44,7 +42,6 @@ import org.slf4j.LoggerFactory;
  */
 public class X12LargePayloadUtils {
 
-    private static final Logger LOG = LoggerFactory.getLogger(X12LargePayloadUtils.class);
     private static final LargeFileUtils FILE_UTILS = LargeFileUtils.getInstance();
 
     /**
@@ -135,5 +132,8 @@ public class X12LargePayloadUtils {
                 throw new LargePayloadException("Failed to attach payload to message.", e);
             }
         }
+    }
+
+    private X12LargePayloadUtils() {
     }
 }

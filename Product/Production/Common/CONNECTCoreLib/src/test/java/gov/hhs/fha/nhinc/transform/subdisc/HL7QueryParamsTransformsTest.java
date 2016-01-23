@@ -53,43 +53,34 @@ public class HL7QueryParamsTransformsTest {
 
     @Test
     public void createTelecom() {
-        PRPAMT201306UV02PatientTelecom telecom;
-        HL7QueryParamsTransforms queryTransforms = new HL7QueryParamsTransforms();
-        telecom = queryTransforms.createTelecom(createTELList());
+        PRPAMT201306UV02PatientTelecom telecom = HL7QueryParamsTransforms.createTelecom(createTELList());
         assertEquals(telecom.getValue().get(0).getValue(), "CONNECT TEL");
     }
 
     @Test
     public void createTelecomTELExplicitListNull() {
-        PRPAMT201306UV02PatientTelecom telecom;
-        HL7QueryParamsTransforms queryTransforms = new HL7QueryParamsTransforms();
         List<TELExplicit> telList = null;
-        telecom = queryTransforms.createTelecom(telList);
+        PRPAMT201306UV02PatientTelecom telecom = HL7QueryParamsTransforms.createTelecom(telList);
         assertNull(telecom);
     }
 
     @Test
     public void createAddressNull() {
-        PRPAMT201306UV02PatientAddress patientAddress = new PRPAMT201306UV02PatientAddress();
-        HL7QueryParamsTransforms queryTransforms = new HL7QueryParamsTransforms();
         List<ADExplicit> patientAddressList = null;
-        patientAddress = queryTransforms.createAddress(patientAddressList);
+        PRPAMT201306UV02PatientAddress patientAddress = HL7QueryParamsTransforms.createAddress(patientAddressList);
         assertNull(patientAddress);
     }
 
     @Test
     public void createAddress() {
-        PRPAMT201306UV02PatientAddress patientAddress = new PRPAMT201306UV02PatientAddress();
-        HL7QueryParamsTransforms queryTransforms = new HL7QueryParamsTransforms();
-        patientAddress = queryTransforms.createAddress(patientAddressList());
+        PRPAMT201306UV02PatientAddress patientAddress = HL7QueryParamsTransforms.createAddress(patientAddressList());
         assertEquals(patientAddress.getValue().get(0).getUse().get(0), "12601, FairLakes");
     }
 
     @Test
     public void createParamList() {
         PRPAMT201306UV02ParameterList parameterList;
-        HL7QueryParamsTransforms queryTransforms = new HL7QueryParamsTransforms();
-        parameterList = queryTransforms.createParamList(createPRPAMT201301UV02Patient());
+        parameterList = HL7QueryParamsTransforms.createParamList(createPRPAMT201301UV02Patient());
         assertEquals(parameterList.getLivingSubjectAdministrativeGender().get(0).getValue().get(0).getCode(), "CONNECT");
         assertEquals(parameterList.getLivingSubjectBirthTime().get(0).getValue().get(0).getValue(), "12-10-1955");
     }
@@ -97,8 +88,7 @@ public class HL7QueryParamsTransformsTest {
     public void createName() {
         PRPAMT201306UV02LivingSubjectName subjectName;
         List<PNExplicit> patientNames = null;
-        HL7QueryParamsTransforms queryTransforms = new HL7QueryParamsTransforms();
-        subjectName = queryTransforms.createName(patientNames);
+        subjectName = HL7QueryParamsTransforms.createName(patientNames);
         assertNull(subjectName);
     }
 
@@ -107,7 +97,7 @@ public class HL7QueryParamsTransformsTest {
         PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
         JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
-                PRPAMT201301UV02Person.class, patientPerson);
+            PRPAMT201301UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patient.getId().add(createII());
         patientPerson.getClassCode().add("ClassCode");
@@ -179,5 +169,4 @@ public class HL7QueryParamsTransformsTest {
         tel.setValue("CONNECT TEL");
         return tel;
     }
-
 }

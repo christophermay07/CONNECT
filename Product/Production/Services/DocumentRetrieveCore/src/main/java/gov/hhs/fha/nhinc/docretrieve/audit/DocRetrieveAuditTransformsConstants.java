@@ -66,4 +66,6 @@ public class DocRetrieveAuditTransformsConstants {
     public static final String EVENTID_CODE_DISPLAY_RESPONDER = "Export";
     public static final String EVENTTYPE_CODE_RESPONDER = "ITI-43";
 
+    private DocRetrieveAuditTransformsConstants() {
+    }
 }

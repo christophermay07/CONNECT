@@ -57,8 +57,8 @@ public class CryptoRandomGenerator {
     /**
      *
      * @return
-     * If SecureRandom object is null and it's handled to navigate to Login Page but when the user is in login page 
-     * and if they have provided username and password those values are still available in browser. we need to handle it 
+     * If SecureRandom object is null and it's handled to navigate to Login Page but when the user is in login page
+     * and if they have provided username and password those values are still available in browser. we need to handle it
      * to set username and password to Null values.
      */
     public synchronized String createToken() {
@@ -76,6 +76,9 @@ public class CryptoRandomGenerator {
     private static class CryptoRandomGeneratorHolder {
 
         private static final CryptoRandomGenerator INSTANCE = new CryptoRandomGenerator();
+
+        private CryptoRandomGeneratorHolder() {
+        }
     }
 
     public static CryptoRandomGenerator getInstance() {

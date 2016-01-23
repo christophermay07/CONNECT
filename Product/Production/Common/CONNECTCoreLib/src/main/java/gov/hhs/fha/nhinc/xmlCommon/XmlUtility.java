@@ -60,6 +60,9 @@ public class XmlUtility {
 
     private static final Logger LOG = LoggerFactory.getLogger(XmlUtility.class);
 
+    private XmlUtility() {
+    }
+
     public static String getNodeValue(Node node) {
         String value = null;
         if (node != null) {

@@ -40,6 +40,9 @@ public class HL7Parser {
     private static final Logger LOG = LoggerFactory.getLogger(HL7Parser.class);
     public static final String SSN_OID = "2.16.840.1.113883.4.1";
 
+    private HL7Parser() {
+    }
+
     public static void PrintMessageIdFromMessage(Object message) {
         LOG.debug("Begin HL7Parser.PrintMessageIdFromMessage(Object)");
         if (message != null) {
@@ -68,5 +71,4 @@ public class HL7Parser {
             PrintId(id, idname);
         }
     }
-
 }

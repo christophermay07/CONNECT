@@ -35,6 +35,9 @@ import org.hl7.v3.II;
  */
 public class UniqueIdHelper {
 
+    private UniqueIdHelper() {
+    }
+
     public static II createUniqueId(String root) {
         II uniqueId = new II();
         String value;

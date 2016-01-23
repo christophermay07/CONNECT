@@ -38,6 +38,9 @@ public class StringUtil {
 
     public static final String UTF8_CHARSET = "UTF-8";
 
+    private StringUtil() {
+    }
+
     /**
      * Extracts required string by removing the tokens given as input.
      *
@@ -49,7 +52,7 @@ public class StringUtil {
         String resultString = "";
         if (tokens != null && !tokens.isEmpty()) {
             StringTokenizer tk = new StringTokenizer(tokenString, tokens);
-            StringBuffer outString = new StringBuffer();
+            StringBuilder outString = new StringBuilder();
             while (tk.hasMoreTokens()) {
                 outString.append(tk.nextToken());
             }

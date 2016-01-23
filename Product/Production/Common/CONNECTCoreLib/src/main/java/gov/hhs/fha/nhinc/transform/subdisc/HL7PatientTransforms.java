@@ -69,6 +69,9 @@ public class HL7PatientTransforms {
 
     private static final Logger LOG = LoggerFactory.getLogger(HL7PatientTransforms.class);
 
+    private HL7PatientTransforms() {
+    }
+
     public static org.hl7.v3.PRPAMT201301UV02Patient create201301Patient(PRPAMT201306UV02ParameterList paramList,
         String aaId) {
         PRPAMT201301UV02Patient result = new PRPAMT201301UV02Patient();

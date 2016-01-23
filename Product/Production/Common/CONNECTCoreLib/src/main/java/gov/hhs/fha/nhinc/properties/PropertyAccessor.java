@@ -57,6 +57,9 @@ public class PropertyAccessor implements IPropertyAcessor {
     private static class SingletonHolder {
 
         public static final PropertyAccessor INSTANCE = new PropertyAccessor();
+
+        private SingletonHolder() {
+        }
     }
 
     // singleton

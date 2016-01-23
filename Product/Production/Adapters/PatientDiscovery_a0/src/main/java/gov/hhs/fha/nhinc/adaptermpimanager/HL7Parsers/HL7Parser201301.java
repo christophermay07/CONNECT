@@ -63,6 +63,9 @@ public class HL7Parser201301 {
 
     private static final Logger LOG = LoggerFactory.getLogger(HL7Parser201301.class);
 
+    private HL7Parser201301() {
+    }
+
     public static void PrintMessageIdFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
         if (message != null) {
             HL7Parser.PrintId(message.getId(), "message");

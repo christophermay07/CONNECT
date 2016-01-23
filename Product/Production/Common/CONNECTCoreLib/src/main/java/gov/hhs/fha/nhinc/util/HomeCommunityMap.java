@@ -58,6 +58,9 @@ public class HomeCommunityMap {
     private static ConnectionManagerCache connection = ConnectionManagerCache.getInstance();
     private static PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
 
+    private HomeCommunityMap() {
+    }
+
     /**
      * This method retrieves the name of the home community baased on the home community Id.
      *

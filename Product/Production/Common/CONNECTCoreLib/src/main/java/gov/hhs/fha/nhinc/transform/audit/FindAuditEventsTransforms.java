@@ -52,8 +52,10 @@ public class FindAuditEventsTransforms {
 
     private static final Logger LOG = LoggerFactory.getLogger(FindAuditEventsTransforms.class);
 
-    public static LogEventRequestType transformFindAuditEventsReq2AuditMsg(LogFindAuditEventsRequestType message) {
+    private FindAuditEventsTransforms() {
+    }
 
+    public static LogEventRequestType transformFindAuditEventsReq2AuditMsg(LogFindAuditEventsRequestType message) {
         AuditMessageType auditMsg = new AuditMessageType();
         LogEventRequestType response = new LogEventRequestType();
         if (message != null) {

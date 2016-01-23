@@ -52,4 +52,7 @@ public class PatientDiscoveryAuditTransformsConstants {
     public static final String EVENT_TYPE_CODE_DISPLAY_NAME = "Cross Gateway Patient Discovery";
     public static final String EVENT_ACTION_CODE_REQUESTOR = "E";
     public static final String EVENT_ACTION_CODE_RESPONDER = "E";
+
+    private PatientDiscoveryAuditTransformsConstants() {
+    }
 }

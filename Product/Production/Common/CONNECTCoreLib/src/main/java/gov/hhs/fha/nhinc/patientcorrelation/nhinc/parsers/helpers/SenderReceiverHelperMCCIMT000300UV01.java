@@ -39,6 +39,9 @@ import org.hl7.v3.MCCIMT000300UV01Sender;
  */
 public class SenderReceiverHelperMCCIMT000300UV01 {
 
+    private SenderReceiverHelperMCCIMT000300UV01() {
+    }
+
     /**
      * Generate sender element
      *

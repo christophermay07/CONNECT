@@ -49,6 +49,9 @@ public class StreamUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(StreamUtils.class);
 
+    private StreamUtils() {
+    }
+
     public static OutputStreamWriter openOutputStream(String sPropFile) throws Exception {
         OutputStreamWriter propWriter = null;
         FileOutputStream propFOS = null;

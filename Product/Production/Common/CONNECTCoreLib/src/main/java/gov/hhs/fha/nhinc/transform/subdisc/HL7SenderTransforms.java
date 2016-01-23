@@ -53,6 +53,9 @@ public class HL7SenderTransforms {
 
     private static final Logger LOG = LoggerFactory.getLogger(HL7SenderTransforms.class);
 
+    private HL7SenderTransforms() {
+    }
+
     /**
      * Create sender element. The passed OID will be used as the HL7 device application id and the organization home
      * community id.

@@ -41,9 +41,7 @@ public class SenderReceiverHelperTestMCCIMT000100UV01 {
 
     @Test
     public void testCreateSender() {
-        SenderReceiverHelperMCCIMT000100UV01 sender = new SenderReceiverHelperMCCIMT000100UV01();
-        MCCIMT000100UV01Sender senderDevice = new MCCIMT000100UV01Sender();
-        senderDevice = sender.CreateSender(createSenderDeviceId());
+        MCCIMT000100UV01Sender senderDevice = SenderReceiverHelperMCCIMT000100UV01.CreateSender(createSenderDeviceId());
         assertEquals(senderDevice.getDevice().getId().get(0).getAssigningAuthorityName(), "CONNECTSender");
         assertEquals(senderDevice.getDevice().getId().get(0).getExtension(),"D123401");
         assertEquals(senderDevice.getDevice().getId().get(0).getRoot(), "1.1");
@@ -51,27 +49,21 @@ public class SenderReceiverHelperTestMCCIMT000100UV01 {
 
     @Test
     public void testCreateSenderWhenDeviceIdNull() {
-        MCCIMT000100UV01Sender senderDevice = new MCCIMT000100UV01Sender();
-        SenderReceiverHelperMCCIMT000100UV01 sender = new SenderReceiverHelperMCCIMT000100UV01();
-        senderDevice = sender.CreateSender();
+        MCCIMT000100UV01Sender senderDevice = SenderReceiverHelperMCCIMT000100UV01.CreateSender();
         assertNull(senderDevice.getDevice().getId().get(0));
-
     }
 
     @Test
     public void testCreateReceiver() {
-        MCCIMT000100UV01Receiver receiverDevice = new MCCIMT000100UV01Receiver();
-        SenderReceiverHelperMCCIMT000100UV01 receiver = new SenderReceiverHelperMCCIMT000100UV01();
-        receiverDevice = receiver.CreateReceiver(createReceiverDeviceId());
+        MCCIMT000100UV01Receiver receiverDevice
+            = SenderReceiverHelperMCCIMT000100UV01.CreateReceiver(createReceiverDeviceId());
         assertEquals(receiverDevice.getDevice().getId().get(0).getAssigningAuthorityName(), "CONNECTReceiver");
         assertEquals(receiverDevice.getDevice().getId().get(0).getExtension(), "D123401");
     }
 
     @Test
     public void CreateReceiver() {
-        MCCIMT000100UV01Receiver receiverDevice = new MCCIMT000100UV01Receiver();
-        SenderReceiverHelperMCCIMT000100UV01 receiver = new SenderReceiverHelperMCCIMT000100UV01();
-        receiverDevice = receiver.CreateReceiver();
+        MCCIMT000100UV01Receiver receiverDevice = SenderReceiverHelperMCCIMT000100UV01.CreateReceiver();
         assertNull(receiverDevice.getDevice().getId().get(0));
     }
 
@@ -90,5 +82,4 @@ public class SenderReceiverHelperTestMCCIMT000100UV01 {
         receiverDeviceId.setRoot("1.1");
         return receiverDeviceId;
     }
-
 }

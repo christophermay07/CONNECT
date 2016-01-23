@@ -171,4 +171,7 @@ public class CDAConstants {
     public static final String PROVIDE_REGISTER_FACILITY_TYPE_UUID = "urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1";
     public static final String PROVIDE_REGISTER_PRACTICE_SETTING_CD_UUID = "urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead";
     public static final String PROVIDE_REGISTER_SUBMISSION_SET_CLASSIFICATION_UUID = "urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd";
+
+    private CDAConstants() {
+    }
 }

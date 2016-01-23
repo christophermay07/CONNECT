@@ -37,6 +37,9 @@ import java.security.NoSuchAlgorithmException;
  */
 public class SHA1HashCode {
 
+    private SHA1HashCode() {
+    }
+
     /**
      * This method takes a byte array and converts it to a String HEX representation of the byte array.
      *

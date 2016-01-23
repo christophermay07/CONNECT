@@ -40,6 +40,9 @@ public class DocumentClassCodeParser {
 
     private static final Logger LOG = LoggerFactory.getLogger(DocumentClassCodeParser.class);
 
+    private DocumentClassCodeParser() {
+    }
+
     public static List<String> parseFormattedParameter(List<String> rawList) {
         List<String> normalizedList = new ArrayList<>();
         for (String item : rawList) {

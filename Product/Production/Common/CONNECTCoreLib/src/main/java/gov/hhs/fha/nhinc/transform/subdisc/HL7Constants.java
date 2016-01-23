@@ -67,4 +67,7 @@ public class HL7Constants {
     public static final String DETECTED_ISSUE_EVENT_CODE_AUTHENTICATION_DESC = "The user cannot be authenticated.";
     public static final String DETECTED_ISSUE_EVENT_CODE_AUTHORIZATION = "AUTHORIZATION";
     public static final String DETECTED_ISSUE_EVENT_CODE_AUTHORIZATION_DESC = "The user is not authorized.";
+
+    private HL7Constants() {
+    }
 }

@@ -24,8 +24,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.transform.subdisc;
+package gov.hhs.fha.nhinc.HL7ArrayTransformsform.subdisc;
 
+import gov.hhs.fha.nhinc.transform.subdisc.HL7ArrayTransforms;
 import javax.xml.bind.JAXBElement;
 import org.hl7.v3.CS;
 import org.hl7.v3.EDExplicit;
@@ -73,76 +74,69 @@ public class HL7ArrayTransformsTest {
 
     @Test
     public void testCopyNullFlavors() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyNullFlavors(createPRPAIN201305UV02(), createPRPAIN201301UV02());
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms.copyNullFlavors(createPRPAIN201305UV02(),
+            createPRPAIN201301UV02());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NA");
         assertEquals(returnedToRequest.getNullFlavor().get(1), "NATest");
     }
 
     @Test
     public void testCopyNullFlavorsWhenFromRequestNullFlavorNull() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyNullFlavors(createPRPAIN201305UV02Null(),
-                createPRPAIN201301UV02());
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms.copyNullFlavors(createPRPAIN201305UV02Null(),
+            createPRPAIN201301UV02());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NA201301");
     }
 
     @Test
     public void testCopyNullFlavorsPRPAIN201306UV02() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyNullFlavors(createPRPAIN201306UV02(), createPRPAIN201301UV02());
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms.copyNullFlavors(createPRPAIN201306UV02(),
+            createPRPAIN201301UV02());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NA");
         assertEquals(returnedToRequest.getNullFlavor().get(1), "NATest");
     }
 
     @Test
     public void testCopyNullFlavorsWhenPRPAIN201306UV02Empty() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyNullFlavors(createPRPAIN201306UV02Empty(),
-                createPRPAIN201301UV02());
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms.copyNullFlavors(createPRPAIN201306UV02Empty(),
+            createPRPAIN201301UV02());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NA201301");
     }
 
     @Test
     public void testCopyNullFlavorsMFMIMT700701UV01InformationRecipient() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MFMIMT700701UV01InformationRecipient returnedToRequest = trans.copyNullFlavors(
-                createMFMIMT700711UV01InformationRecipientFromRequest(),
-                createMFMIMT700701UV01InformationRecipientToRequest());
+        MFMIMT700701UV01InformationRecipient returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
+            createMFMIMT700711UV01InformationRecipientFromRequest(),
+            createMFMIMT700701UV01InformationRecipientToRequest());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NA");
         assertEquals(returnedToRequest.getNullFlavor().get(1), "NATest");
     }
 
     @Test
     public void testCopyNullFlavorsMFMIMT700701UV01InformationRecipientEmpty() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MFMIMT700701UV01InformationRecipient returnedToRequest = trans.copyNullFlavors(
-                createMFMIMT700701UV01InformationRecipientFromRequestEmpty(),
-                createMFMIMT700701UV01InformationRecipientToRequest());
+        MFMIMT700701UV01InformationRecipient returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
+            createMFMIMT700701UV01InformationRecipientFromRequestEmpty(),
+            createMFMIMT700701UV01InformationRecipientToRequest());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NAInformationRecipient");
     }
 
     @Test
     public void testCopyNullFlavorsPNExplicit() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        ENExplicit returnedToRequest = trans
-                .copyNullFlavors(createPNExplicitFromRequest(), createENExplicitToRequest());
+        ENExplicit returnedToRequest = HL7ArrayTransforms
+            .copyNullFlavors(createPNExplicitFromRequest(), createENExplicitToRequest());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NA");
         assertEquals(returnedToRequest.getNullFlavor().get(1), "NATest");
     }
 
     @Test
     public void testCopyNullFlavorsPNExplicitEmpty() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        ENExplicit returnedToRequest = trans.copyNullFlavors(createPNExplicitFromRequestEmpty(),
-                createENExplicitToRequest());
+        ENExplicit returnedToRequest = HL7ArrayTransforms.copyNullFlavors(createPNExplicitFromRequestEmpty(),
+            createENExplicitToRequest());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NAPNExplicit");
     }
 
     @Test
     public void testCopyNullFlavorsENExplicit() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PNExplicit returnedToRequest = trans
+        PNExplicit returnedToRequest = HL7ArrayTransforms
                 .copyNullFlavors(createENExplicitFromRequest(), createPNExplicitToRequest());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NA");
         assertEquals(returnedToRequest.getNullFlavor().get(1), "NATest");
@@ -150,246 +144,216 @@ public class HL7ArrayTransformsTest {
 
     @Test
     public void testCopyNullFlavorsENExplicitEmpty() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PNExplicit returnedToRequest = trans.copyNullFlavors(createENExplicitFromRequestEmpty(),
-                createPNExplicitToRequest());
+        PNExplicit returnedToRequest = HL7ArrayTransforms.copyNullFlavors(createENExplicitFromRequestEmpty(),
+            createPNExplicitToRequest());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NAPNExplicit");
     }
 
     @Test
     public void testCopyNullFlavorsAttentionLine() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MCCIMT000100UV01AttentionLine returnedToRequest = trans.copyNullFlavors(
-                createMCCIMT000300UV01AttentionLineFromRequest(), createMCCIMT000100UV01AttentionLineToRequest());
+        MCCIMT000100UV01AttentionLine returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
+            createMCCIMT000300UV01AttentionLineFromRequest(), createMCCIMT000100UV01AttentionLineToRequest());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NA");
         assertEquals(returnedToRequest.getNullFlavor().get(1), "NATest");
     }
 
     @Test
     public void testCopyNullFlavorsAttentionLineEmpty() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MCCIMT000100UV01AttentionLine returnedToRequest = trans.copyNullFlavors(
-                createMCCIMT000300UV01AttentionLineFromRequestEmpty(), createMCCIMT000100UV01AttentionLineToRequest());
+        MCCIMT000100UV01AttentionLine returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
+            createMCCIMT000300UV01AttentionLineFromRequestEmpty(), createMCCIMT000100UV01AttentionLineToRequest());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NAAttentionLine");
     }
 
     @Test
     public void testCopyNullFlavorPatientPerson() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAMT201301UV02Person returnedToRequest = trans.copyNullFlavors(createPRPAMT201306UV02ParameterList(),
-                createPRPAMT201301UV02Person());
+        PRPAMT201301UV02Person returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
+            createPRPAMT201306UV02ParameterList(), createPRPAMT201301UV02Person());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NA");
         assertEquals(returnedToRequest.getNullFlavor().get(1), "NATest");
     }
 
     @Test
     public void testCopyNullFlavorPatientPersonEmpty() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAMT201301UV02Person returnedToRequest = trans.copyNullFlavors(createPRPAMT201306UV02ParameterListEmpty(),
-                createPRPAMT201301UV02Person());
+        PRPAMT201301UV02Person returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
+            createPRPAMT201306UV02ParameterListEmpty(), createPRPAMT201301UV02Person());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NAPatientPerson");
     }
 
     @Test
     public void testCopyNullFlavorsDataEnterer() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MFMIMT700701UV01DataEnterer returnedToRequest = trans.copyNullFlavors(
+        MFMIMT700701UV01DataEnterer returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
                 createMFMIMT700711UV01DataEntererFromRequest(), createMFMIMT700701UV01DataEntererToRequest());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NA");
         assertEquals(returnedToRequest.getNullFlavor().get(1), "NATest");
-
     }
 
     @Test
     public void testCopyNullFlavorsDataEntererEmpty() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MFMIMT700701UV01DataEnterer returnedToRequest = trans.copyNullFlavors(
-                createMFMIMT700711UV01DataEntererFromRequestEmpty(), createMFMIMT700701UV01DataEntererToRequest());
+        MFMIMT700701UV01DataEnterer returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
+            createMFMIMT700711UV01DataEntererFromRequestEmpty(), createMFMIMT700701UV01DataEntererToRequest());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NADataEnterer");
     }
 
     @Test
     public void testCopyNullFlavorsQUQIMT021001UV01DataEnterer() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MFMIMT700701UV01DataEnterer returnedToRequest = trans.copyNullFlavors(
-                createQUQIMT021001UV01DataEntererFromRequest(), createMFMIMT700701UV01DataEntererToRequest());
+        MFMIMT700701UV01DataEnterer returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
+            createQUQIMT021001UV01DataEntererFromRequest(), createMFMIMT700701UV01DataEntererToRequest());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NA");
         assertEquals(returnedToRequest.getNullFlavor().get(1), "NATest");
     }
 
     @Test
     public void testCopyNullFlavorsQUQIMT021001UV01DataEntererEmpty() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MFMIMT700701UV01DataEnterer returnedToRequest = trans.copyNullFlavors(
-                createQUQIMT021001UV01DataEntererFromRequestEmpty(), createMFMIMT700701UV01DataEntererToRequest());
+        MFMIMT700701UV01DataEnterer returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
+            createQUQIMT021001UV01DataEntererFromRequestEmpty(), createMFMIMT700701UV01DataEntererToRequest());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NADataEnterer");
     }
 
     @Test
     public void testCopyNullFlavorsControlActProcess() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess returnedToRequest = trans.copyNullFlavors(
-                createPRPAIN201306UV02MFMIMT700711UV01ControlActProcess(),
-                createPRPAIN201301UV02MFMIMT700701UV01ControlActProcess());
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
+            createPRPAIN201306UV02MFMIMT700711UV01ControlActProcess(),
+            createPRPAIN201301UV02MFMIMT700701UV01ControlActProcess());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NA");
         assertEquals(returnedToRequest.getNullFlavor().get(1), "NATest");
     }
 
     @Test
     public void testCopyNullFlavorsControlActProcessEmpty() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess returnedToRequest = trans.copyNullFlavors(
-                createPRPAIN201306UV02MFMIMT700711UV01ControlActProcessEmpty(),
-                createPRPAIN201301UV02MFMIMT700701UV01ControlActProcess());
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
+            createPRPAIN201306UV02MFMIMT700711UV01ControlActProcessEmpty(),
+            createPRPAIN201301UV02MFMIMT700701UV01ControlActProcess());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NAControlActProcess");
-
     }
 
     @Test
     public void testCopyNullFlavorsQUQIMT021001UV01ControlActProcess() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess returnedToRequest = trans.copyNullFlavors(
-                createPRPAIN201305UV02QUQIMT021001UV01ControlActProcess(),
-                createPRPAIN201301UV02MFMIMT700701UV01ControlActProcess());
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
+            createPRPAIN201305UV02QUQIMT021001UV01ControlActProcess(),
+            createPRPAIN201301UV02MFMIMT700701UV01ControlActProcess());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NA");
         assertEquals(returnedToRequest.getNullFlavor().get(1), "NATest");
     }
 
     @Test
     public void testCopyNullFlavorsQUQIMT021001UV01ControlActProcessEmpty() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess returnedToRequest = trans.copyNullFlavors(
-                createPRPAIN201305UV02QUQIMT021001UV01ControlActProcessEmpty(),
-                createPRPAIN201301UV02MFMIMT700701UV01ControlActProcess());
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
+            createPRPAIN201305UV02QUQIMT021001UV01ControlActProcessEmpty(),
+            createPRPAIN201301UV02MFMIMT700701UV01ControlActProcess());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NAControlActProcess");
     }
 
     @Test
     public void testCopyNullFlavorsMFMIMT700711UV01AuthorOrPerformer() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MFMIMT700701UV01AuthorOrPerformer returnedToRequest = trans.copyNullFlavors(
-                createMFMIMT700711UV01AuthorOrPerformer(), createMFMIMT700701UV01AuthorOrPerformer());
+        MFMIMT700701UV01AuthorOrPerformer returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
+            createMFMIMT700711UV01AuthorOrPerformer(), createMFMIMT700701UV01AuthorOrPerformer());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NA");
         assertEquals(returnedToRequest.getNullFlavor().get(1), "NATest");
     }
 
     @Test
     public void testCopyNullFlavorsMFMIMT700711UV01AuthorOrPerformerEmpty() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MFMIMT700701UV01AuthorOrPerformer returnedToRequest = trans.copyNullFlavors(
-                createMFMIMT700711UV01AuthorOrPerformerEmpty(), createMFMIMT700701UV01AuthorOrPerformer());
+        MFMIMT700701UV01AuthorOrPerformer returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
+            createMFMIMT700711UV01AuthorOrPerformerEmpty(), createMFMIMT700701UV01AuthorOrPerformer());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NAAuthorOrPerformer");
     }
 
     @Test
     public void testCopyNullFlavorsAuthorOrPerformer() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MFMIMT700701UV01AuthorOrPerformer returnedToRequest = trans.copyNullFlavors(
-                createQUQIMT021001UV01AuthorOrPerformer(), createMFMIMT700701UV01AuthorOrPerformer());
+        MFMIMT700701UV01AuthorOrPerformer returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
+            createQUQIMT021001UV01AuthorOrPerformer(), createMFMIMT700701UV01AuthorOrPerformer());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NA");
         assertEquals(returnedToRequest.getNullFlavor().get(1), "NATest");
     }
 
     @Test
     public void testCopyNullFlavorsAuthorOrPerformerEmpty() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MFMIMT700701UV01AuthorOrPerformer returnedToRequest = trans.copyNullFlavors(
-                createQUQIMT021001UV01AuthorOrPerformerEmpty(), createMFMIMT700701UV01AuthorOrPerformer());
+        MFMIMT700701UV01AuthorOrPerformer returnedToRequest = HL7ArrayTransforms.copyNullFlavors(
+            createQUQIMT021001UV01AuthorOrPerformerEmpty(), createMFMIMT700701UV01AuthorOrPerformer());
         assertEquals(returnedToRequest.getNullFlavor().get(0), "NAAuthorOrPerformer");
     }
 
     @Test
     public void copyMCCIMT000100UV01AttentionLine() {
         PRPAIN201301UV02 toRequest = null;
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyMCCIMT000100UV01AttentionLine(
-                createPRPAIN201306UV02WithAttentionLine(), toRequest);
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms.copyMCCIMT000100UV01AttentionLine(
+            createPRPAIN201306UV02WithAttentionLine(), toRequest);
         assertEquals(returnedToRequest.getAttentionLine().get(0).getNullFlavor().get(0), "NA");
         assertEquals(returnedToRequest.getAttentionLine().get(0).getNullFlavor().get(1), "NATest");
     }
 
     @Test
     public void copyMCCIMT000100UV01AttentionLineWhenToRequestNotNull() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyMCCIMT000100UV01AttentionLine(
-                createPRPAIN201306UV02WithAttentionLine(), createPRPAIN201301UV02());
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms.copyMCCIMT000100UV01AttentionLine(
+            createPRPAIN201306UV02WithAttentionLine(), createPRPAIN201301UV02());
         assertEquals(returnedToRequest.getAttentionLine().get(0).getNullFlavor().get(0), "NA");
         assertEquals(returnedToRequest.getAttentionLine().get(0).getNullFlavor().get(1), "NATest");
     }
 
     @Test
     public void copyMCCIMT000100UV01AttentionLineWhenAttentionLineEmpty() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyMCCIMT000100UV01AttentionLine(createPRPAIN201306UV02Empty(),
-                createPRPAIN201301UV02WithAttentionLine());
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms.copyMCCIMT000100UV01AttentionLine(
+            createPRPAIN201306UV02Empty(), createPRPAIN201301UV02WithAttentionLine());
         assertEquals(returnedToRequest.getAttentionLine().get(0).getNullFlavor().get(0), "NAAttentionLine");
     }
 
     @Test
     public void copyMCCIMT000100UV01AttentionLinePRPAIN201305UV02() {
         PRPAIN201301UV02 toRequest = null;
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyMCCIMT000100UV01AttentionLine(
-                createPRPAIN201305UV02WithAttentionLine(), toRequest);
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms.copyMCCIMT000100UV01AttentionLine(
+            createPRPAIN201305UV02WithAttentionLine(), toRequest);
         assertEquals(returnedToRequest.getAttentionLine().get(0).getNullFlavor().get(0), "NA");
         assertEquals(returnedToRequest.getAttentionLine().get(0).getNullFlavor().get(1), "NATest");
     }
 
     @Test
     public void copyMCCIMT000100UV01AttentionLinePRPAIN201301UV02WhenToRequestNotNull() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyMCCIMT000100UV01AttentionLine(
-                createPRPAIN201305UV02WithAttentionLine(), createPRPAIN201301UV02());
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms.copyMCCIMT000100UV01AttentionLine(
+            createPRPAIN201305UV02WithAttentionLine(), createPRPAIN201301UV02());
         assertEquals(returnedToRequest.getAttentionLine().get(0).getNullFlavor().get(0), "NA");
         assertEquals(returnedToRequest.getAttentionLine().get(0).getNullFlavor().get(1), "NATest");
     }
 
     @Test
     public void copyMCCIMT000100UV01AttentionLinePRPAIN201301UV02WhenAttentionLineEmpty() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyMCCIMT000100UV01AttentionLine(createPRPAIN201305UV02Null(),
-                createPRPAIN201301UV02WithAttentionLine());
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms
+            .copyMCCIMT000100UV01AttentionLine(createPRPAIN201305UV02Null(), createPRPAIN201301UV02WithAttentionLine());
         assertEquals(returnedToRequest.getAttentionLine().get(0).getNullFlavor().get(0), "NAAttentionLine");
     }
 
     @Test
     public void copyMCCIMT000100UV01Receiver() {
         PRPAIN201301UV02 toRequest = null;
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyMCCIMT000100UV01Receiver(createPRPAIN201306UV02Receiver(),
-                toRequest);
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms
+            .copyMCCIMT000100UV01Receiver(createPRPAIN201306UV02Receiver(), toRequest);
         assertEquals(returnedToRequest.getReceiver().get(0).getDevice().getId().get(0).getExtension(), "D123401");
     }
 
     @Test
     public void copyMCCIMT000100UV01ReceiverWhenFromRequestReceiverNull() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyMCCIMT000100UV01Receiver(createPRPAIN201306UV02(),
-                createPRPAIN201301UV02Receiver());
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms.copyMCCIMT000100UV01Receiver(createPRPAIN201306UV02(),
+            createPRPAIN201301UV02Receiver());
         assertEquals(returnedToRequest.getReceiver().get(0).getDevice().getId().get(0).getExtension(), "1.16.17.19");
     }
 
     @Test
     public void copyMCCIMT000100UV01PRPAIN201305UV02Receiver() {
         PRPAIN201301UV02 toRequest = null;
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyMCCIMT000100UV01Receiver(
-                createPRPAIN201305UV02ReceiverFromRequest(), toRequest);
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms.copyMCCIMT000100UV01Receiver(
+            createPRPAIN201305UV02ReceiverFromRequest(), toRequest);
         assertEquals(returnedToRequest.getReceiver().get(0).getDevice().getId().get(0).getExtension(), "1.16.17.19");
     }
 
     @Test
     public void copyReceiverWhenPRPAIN201305UV02FromRequestReceiverNull() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyMCCIMT000100UV01Receiver(createPRPAIN201305UV02Null(),
-                createPRPAIN201301UV02Receiver());
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms.copyMCCIMT000100UV01Receiver(createPRPAIN201305UV02Null(),
+            createPRPAIN201301UV02Receiver());
         assertEquals(returnedToRequest.getReceiver().get(0).getDevice().getId().get(0).getExtension(), "1.16.17.19");
     }
 
     @Test
     public void copyRealmCodesPRPAIN201305UV02() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyRealmCodes(createPRPAIN201305UV02(), createPRPAIN201301UV02());
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms.copyRealmCodes(createPRPAIN201305UV02(), createPRPAIN201301UV02());
         assertEquals(returnedToRequest.getRealmCode().get(0).getCode(), "CONNECT");
         assertEquals(returnedToRequest.getRealmCode().get(0).getCodeSystem(), "CONNECTDomain");
     }
@@ -397,16 +361,14 @@ public class HL7ArrayTransformsTest {
     @Test
     public void copyRealmCodesPRPAIN201305UV02FromRequestNull() {
         PRPAIN201305UV02 fromRequest = null;
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyRealmCodes(fromRequest, createPRPAIN201301UV02());
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms.copyRealmCodes(fromRequest, createPRPAIN201301UV02());
         assertEquals(returnedToRequest.getRealmCode().get(0).getCode(), "ToRequestCode");
         assertEquals(returnedToRequest.getRealmCode().get(0).getCodeSystem(), "ToRequestCONNECTDomain");
     }
 
     @Test
     public void copyRealmCodesPRPAIN201306UV02() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyRealmCodes(createPRPAIN201306UV02(), createPRPAIN201301UV02());
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms.copyRealmCodes(createPRPAIN201306UV02(), createPRPAIN201301UV02());
         assertEquals(returnedToRequest.getRealmCode().get(0).getCode(), "CONNECT");
         assertEquals(returnedToRequest.getRealmCode().get(0).getCodeSystem(), "CONNECTDomain");
     }
@@ -414,17 +376,15 @@ public class HL7ArrayTransformsTest {
     @Test
     public void copyRealmCodesPRPAIN201306UV02FromRequestNull() {
         PRPAIN201306UV02 fromRequest = null;
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02 returnedToRequest = trans.copyRealmCodes(fromRequest, createPRPAIN201301UV02());
+        PRPAIN201301UV02 returnedToRequest = HL7ArrayTransforms.copyRealmCodes(fromRequest, createPRPAIN201301UV02());
         assertEquals(returnedToRequest.getRealmCode().get(0).getCode(), "ToRequestCode");
         assertEquals(returnedToRequest.getRealmCode().get(0).getCodeSystem(), "ToRequestCONNECTDomain");
     }
 
     @Test
     public void copyRealmCodesAttentionLine() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MCCIMT000100UV01AttentionLine returnedToRequest = trans.copyRealmCodes(
-                createMCCIMT000300UV01AttentionLineFromRequest(), createMCCIMT000100UV01AttentionLineToRequest());
+        MCCIMT000100UV01AttentionLine returnedToRequest = HL7ArrayTransforms.copyRealmCodes(
+            createMCCIMT000300UV01AttentionLineFromRequest(), createMCCIMT000100UV01AttentionLineToRequest());
         assertEquals(returnedToRequest.getRealmCode().get(0).getCode(), "CONNECT");
         assertEquals(returnedToRequest.getRealmCode().get(0).getCodeSystem(), "CONNECTDomain");
     }
@@ -432,19 +392,17 @@ public class HL7ArrayTransformsTest {
     @Test
     public void copyRealmCodesAttentionLineFromRequestNull() {
         MCCIMT000300UV01AttentionLine fromRequest = null;
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MCCIMT000100UV01AttentionLine returnedToRequest = trans.copyRealmCodes(fromRequest,
-                createMCCIMT000100UV01AttentionLineToRequest());
+        MCCIMT000100UV01AttentionLine returnedToRequest = HL7ArrayTransforms.copyRealmCodes(fromRequest,
+            createMCCIMT000100UV01AttentionLineToRequest());
         assertEquals(returnedToRequest.getRealmCode().get(0).getCode(), "ToRequestCode");
         assertEquals(returnedToRequest.getRealmCode().get(0).getCodeSystem(), "ToRequestCONNECTDomain");
     }
 
     @Test
     public void copyRealmCodesInformationRecipient() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MFMIMT700701UV01InformationRecipient returnedToRequest = trans.copyRealmCodes(
-                createMFMIMT700711UV01InformationRecipientFromRequest(),
-                createMFMIMT700701UV01InformationRecipientToRequest());
+        MFMIMT700701UV01InformationRecipient returnedToRequest = HL7ArrayTransforms.copyRealmCodes(
+            createMFMIMT700711UV01InformationRecipientFromRequest(),
+            createMFMIMT700701UV01InformationRecipientToRequest());
         assertEquals(returnedToRequest.getRealmCode().get(0).getCode(), "CONNECT");
         assertEquals(returnedToRequest.getRealmCode().get(0).getCodeSystem(), "CONNECTDomain");
     }
@@ -452,18 +410,16 @@ public class HL7ArrayTransformsTest {
     @Test
     public void copyRealmCodesInformationRecipientFromRequestNull() {
         MFMIMT700711UV01InformationRecipient fromRequest = null;
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MFMIMT700701UV01InformationRecipient returnedToRequest = trans.copyRealmCodes(fromRequest,
-                createMFMIMT700701UV01InformationRecipientToRequest());
+        MFMIMT700701UV01InformationRecipient returnedToRequest = HL7ArrayTransforms.copyRealmCodes(fromRequest,
+            createMFMIMT700701UV01InformationRecipientToRequest());
         assertEquals(returnedToRequest.getRealmCode().get(0).getCode(), "ToRequestCode");
         assertEquals(returnedToRequest.getRealmCode().get(0).getCodeSystem(), "ToRequestCONNECTDomain");
     }
 
     @Test
     public void copyRealmCodesAuthorOrPerformer() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MFMIMT700701UV01AuthorOrPerformer returnedToRequest = trans.copyRealmCodes(
-                createQUQIMT021001UV01AuthorOrPerformer(), createMFMIMT700701UV01AuthorOrPerformer());
+        MFMIMT700701UV01AuthorOrPerformer returnedToRequest = HL7ArrayTransforms.copyRealmCodes(
+            createQUQIMT021001UV01AuthorOrPerformer(), createMFMIMT700701UV01AuthorOrPerformer());
         assertEquals(returnedToRequest.getRealmCode().get(0).getCode(), "CONNECT");
         assertEquals(returnedToRequest.getRealmCode().get(0).getCodeSystem(), "CONNECTDomain");
     }
@@ -471,19 +427,17 @@ public class HL7ArrayTransformsTest {
     @Test
     public void copyRealmCodesAuthorOrPerformerFromRequestNull() {
         QUQIMT021001UV01AuthorOrPerformer fromRequest = null;
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MFMIMT700701UV01AuthorOrPerformer returnedToRequest = trans.copyRealmCodes(fromRequest,
-                createMFMIMT700701UV01AuthorOrPerformer());
+        MFMIMT700701UV01AuthorOrPerformer returnedToRequest = HL7ArrayTransforms.copyRealmCodes(fromRequest,
+            createMFMIMT700701UV01AuthorOrPerformer());
         assertEquals(returnedToRequest.getRealmCode().get(0).getCode(), "ToRequestCode");
         assertEquals(returnedToRequest.getRealmCode().get(0).getCodeSystem(), "ToRequestCONNECTDomain");
     }
 
     @Test
     public void copyRealmCodesControlActProcess() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess returnedToRequest = trans.copyRealmCodes(
-                createPRPAIN201306UV02MFMIMT700711UV01ControlActProcess(),
-                createPRPAIN201301UV02MFMIMT700701UV01ControlActProcess());
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess returnedToRequest = HL7ArrayTransforms.copyRealmCodes(
+            createPRPAIN201306UV02MFMIMT700711UV01ControlActProcess(),
+            createPRPAIN201301UV02MFMIMT700701UV01ControlActProcess());
         assertEquals(returnedToRequest.getRealmCode().get(0).getCode(), "CONNECT");
         assertEquals(returnedToRequest.getRealmCode().get(0).getCodeSystem(), "CONNECTDomain");
     }
@@ -491,59 +445,51 @@ public class HL7ArrayTransformsTest {
     @Test
     public void copyRealmCodesControlActProcessFromRequestNull() {
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess fromRequest = null;
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess returnedToRequest = trans.copyRealmCodes(fromRequest,
-                createPRPAIN201301UV02MFMIMT700701UV01ControlActProcess());
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess returnedToRequest = HL7ArrayTransforms
+            .copyRealmCodes(fromRequest,createPRPAIN201301UV02MFMIMT700701UV01ControlActProcess());
         assertEquals(returnedToRequest.getRealmCode().get(0).getCode(), "ToRequestCode");
         assertEquals(returnedToRequest.getRealmCode().get(0).getCodeSystem(), "ToRequestCONNECTDomain");
     }
 
     @Test
     public void copyTemplateIdsInformationRecipient() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MFMIMT700701UV01InformationRecipient returnedToRequest = trans.copyTemplateIds(
-                createMFMIMT700711UV01InformationRecipientFromRequest(),
-                createMFMIMT700701UV01InformationRecipientToRequest());
+        MFMIMT700701UV01InformationRecipient returnedToRequest = HL7ArrayTransforms.copyTemplateIds(
+            createMFMIMT700711UV01InformationRecipientFromRequest(),
+            createMFMIMT700701UV01InformationRecipientToRequest());
         assertEquals(returnedToRequest.getTemplateId().get(0).getExtension(), "D123401");
         assertEquals(returnedToRequest.getTemplateId().get(0).getRoot(), "1.1");
     }
 
     @Test
     public void copyTemplateIdsInformationRecipientFromRequestNull() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
         MFMIMT700711UV01InformationRecipient fromRequest = null;
-        MFMIMT700701UV01InformationRecipient returnedToRequest = trans.copyTemplateIds(fromRequest,
-                createMFMIMT700701UV01InformationRecipientToRequest());
+        MFMIMT700701UV01InformationRecipient returnedToRequest = HL7ArrayTransforms.copyTemplateIds(fromRequest,
+            createMFMIMT700701UV01InformationRecipientToRequest());
         assertEquals(returnedToRequest.getTemplateId().get(0).getExtension(), "1.16.17.19");
         assertEquals(returnedToRequest.getTemplateId().get(0).getRoot(), "1.1");
     }
 
     @Test
     public void copyTemplateIdsAttentionLine() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        MCCIMT000100UV01AttentionLine returnedToRequest = trans.copyTemplateIds(
-                createMCCIMT000300UV01AttentionLineFromRequest(), createMCCIMT000100UV01AttentionLineToRequest());
+        MCCIMT000100UV01AttentionLine returnedToRequest = HL7ArrayTransforms.copyTemplateIds(
+            createMCCIMT000300UV01AttentionLineFromRequest(), createMCCIMT000100UV01AttentionLineToRequest());
         assertEquals(returnedToRequest.getTemplateId().get(0).getExtension(), "D123401");
         assertEquals(returnedToRequest.getTemplateId().get(0).getRoot(), "1.1");
-
     }
 
     @Test
     public void copyTemplateIdsAttentionLineFromRequestNull() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
         MCCIMT000300UV01AttentionLine fromRequest = null;
-        MCCIMT000100UV01AttentionLine returnedToRequest = trans.copyTemplateIds(fromRequest,
-                createMCCIMT000100UV01AttentionLineToRequest());
+        MCCIMT000100UV01AttentionLine returnedToRequest = HL7ArrayTransforms.copyTemplateIds(fromRequest,
+            createMCCIMT000100UV01AttentionLineToRequest());
         assertEquals(returnedToRequest.getTemplateId().get(0).getExtension(), "1.16.17.19");
         assertEquals(returnedToRequest.getTemplateId().get(0).getRoot(), "1.1");
-
     }
 
     @Test
     public void copyIIs() {
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAMT201301UV02Patient returnedToRequest = trans.copyIIs(createPRPAMT201310UV02Patient(),
-                createPRPAMT201301UV02PatientToRequest());
+        PRPAMT201301UV02Patient returnedToRequest = HL7ArrayTransforms.copyIIs(createPRPAMT201310UV02Patient(),
+            createPRPAMT201301UV02PatientToRequest());
         assertEquals(returnedToRequest.getId().get(0).getExtension(), "D123401");
         assertEquals(returnedToRequest.getId().get(0).getRoot(), "1.1");
     }
@@ -551,9 +497,8 @@ public class HL7ArrayTransformsTest {
     @Test
     public void copyIIsFromRequestNull() {
         PRPAMT201310UV02Patient fromRequest = null;
-        HL7ArrayTransforms trans = new HL7ArrayTransforms();
-        PRPAMT201301UV02Patient returnedToRequest = trans
-                .copyIIs(fromRequest, createPRPAMT201301UV02PatientToRequest());
+        PRPAMT201301UV02Patient returnedToRequest = HL7ArrayTransforms
+            .copyIIs(fromRequest, createPRPAMT201301UV02PatientToRequest());
         assertEquals(returnedToRequest.getId().get(0).getExtension(), "1.16.17.19");
         assertEquals(returnedToRequest.getId().get(0).getRoot(), "1.1");
     }
@@ -604,7 +549,7 @@ public class HL7ArrayTransformsTest {
         org.getId().add(createII());
         org.hl7.v3.ObjectFactory JaxbObjectFactory = new org.hl7.v3.ObjectFactory();
         JAXBElement<MCCIMT000100UV01Organization> repOrgReceiver = JaxbObjectFactory
-                .createMCCIMT000100UV01AgentRepresentedOrganization(org);
+            .createMCCIMT000100UV01AgentRepresentedOrganization(org);
         repOrgReceiver.setValue(org);
         agent.setRepresentedOrganization(repOrgReceiver);
         JAXBElement<MCCIMT000100UV01Agent> agentReceiver = JaxbObjectFactory.createMCCIMT000100UV01DeviceAsAgent(agent);
@@ -647,7 +592,7 @@ public class HL7ArrayTransformsTest {
         org.getId().add(createTypeId());
         org.hl7.v3.ObjectFactory JaxbObjectFactory = new org.hl7.v3.ObjectFactory();
         JAXBElement<MCCIMT000300UV01Organization> repOrgReceiver = JaxbObjectFactory
-                .createMCCIMT000300UV01AgentRepresentedOrganization(org);
+            .createMCCIMT000300UV01AgentRepresentedOrganization(org);
         repOrgReceiver.setValue(org);
         agent.setRepresentedOrganization(repOrgReceiver);
         JAXBElement<MCCIMT000300UV01Agent> agentReceiver = JaxbObjectFactory.createMCCIMT000300UV01DeviceAsAgent(agent);
@@ -713,13 +658,11 @@ public class HL7ArrayTransformsTest {
     }
 
     private MFMIMT700711UV01AuthorOrPerformer createMFMIMT700711UV01AuthorOrPerformerEmpty() {
-        MFMIMT700711UV01AuthorOrPerformer fromRequest = new MFMIMT700711UV01AuthorOrPerformer();
-        return fromRequest;
+        return new MFMIMT700711UV01AuthorOrPerformer();
     }
 
     private QUQIMT021001UV01AuthorOrPerformer createQUQIMT021001UV01AuthorOrPerformerEmpty() {
-        QUQIMT021001UV01AuthorOrPerformer fromRequest = new QUQIMT021001UV01AuthorOrPerformer();
-        return fromRequest;
+        return new QUQIMT021001UV01AuthorOrPerformer();
     }
 
     private MFMIMT700701UV01AuthorOrPerformer createMFMIMT700701UV01AuthorOrPerformer() {
@@ -738,32 +681,35 @@ public class HL7ArrayTransformsTest {
     }
 
     private PRPAIN201305UV02QUQIMT021001UV01ControlActProcess createPRPAIN201305UV02QUQIMT021001UV01ControlActProcessEmpty() {
-        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess toRequest = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
+        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess toRequest
+            = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
         toRequest.getNullFlavor().add("NAControlActProcess");
         return toRequest;
     }
 
     private PRPAIN201305UV02QUQIMT021001UV01ControlActProcess createPRPAIN201305UV02QUQIMT021001UV01ControlActProcess() {
-        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess fromRequest = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
+        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess fromRequest
+            = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
         fromRequest.getNullFlavor().add("NA");
         fromRequest.getNullFlavor().add("NATest");
         return fromRequest;
     }
 
     private PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createPRPAIN201306UV02MFMIMT700711UV01ControlActProcessEmpty() {
-        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess fromRequest = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
-        return fromRequest;
+        return new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
     }
 
     private PRPAIN201301UV02MFMIMT700701UV01ControlActProcess createPRPAIN201301UV02MFMIMT700701UV01ControlActProcess() {
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess toRequest = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess toRequest
+            = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
         toRequest.getNullFlavor().add("NAControlActProcess");
         toRequest.getRealmCode().add(createRealmCodeToRequest());
         return toRequest;
     }
 
     private PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createPRPAIN201306UV02MFMIMT700711UV01ControlActProcess() {
-        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess fromRequest = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
+        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess fromRequest
+            = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
         fromRequest.getNullFlavor().add("NA");
         fromRequest.getNullFlavor().add("NATest");
         fromRequest.getRealmCode().add(createRealmCodeFromRequest());
@@ -771,8 +717,7 @@ public class HL7ArrayTransformsTest {
     }
 
     private QUQIMT021001UV01DataEnterer createQUQIMT021001UV01DataEntererFromRequestEmpty() {
-        QUQIMT021001UV01DataEnterer fromRequest = new QUQIMT021001UV01DataEnterer();
-        return fromRequest;
+        return new QUQIMT021001UV01DataEnterer();
     }
 
     private QUQIMT021001UV01DataEnterer createQUQIMT021001UV01DataEntererFromRequest() {
@@ -783,8 +728,7 @@ public class HL7ArrayTransformsTest {
     }
 
     private MFMIMT700711UV01DataEnterer createMFMIMT700711UV01DataEntererFromRequestEmpty() {
-        MFMIMT700711UV01DataEnterer fromRequest = new MFMIMT700711UV01DataEnterer();
-        return fromRequest;
+        return new MFMIMT700711UV01DataEnterer();
     }
 
     private MFMIMT700701UV01DataEnterer createMFMIMT700701UV01DataEntererToRequest() {
@@ -801,8 +745,7 @@ public class HL7ArrayTransformsTest {
     }
 
     private PRPAMT201306UV02ParameterList createPRPAMT201306UV02ParameterListEmpty() {
-        PRPAMT201306UV02ParameterList fromRequest = new PRPAMT201306UV02ParameterList();
-        return fromRequest;
+        return new PRPAMT201306UV02ParameterList();
     }
 
     private PRPAMT201301UV02Person createPRPAMT201301UV02Person() {
@@ -819,8 +762,7 @@ public class HL7ArrayTransformsTest {
     }
 
     private MCCIMT000300UV01AttentionLine createMCCIMT000300UV01AttentionLineFromRequestEmpty() {
-        MCCIMT000300UV01AttentionLine fromRequest = new MCCIMT000300UV01AttentionLine();
-        return fromRequest;
+        return new MCCIMT000300UV01AttentionLine();
     }
 
     private MCCIMT000300UV01AttentionLine createMCCIMT000300UV01AttentionLineFromRequest() {
@@ -841,8 +783,7 @@ public class HL7ArrayTransformsTest {
     }
 
     private ENExplicit createENExplicitFromRequestEmpty() {
-        ENExplicit fromRequest = new ENExplicit();
-        return fromRequest;
+        return new ENExplicit();
     }
 
     private PNExplicit createPNExplicitToRequest() {
@@ -877,8 +818,7 @@ public class HL7ArrayTransformsTest {
     }
 
     private MFMIMT700711UV01InformationRecipient createMFMIMT700701UV01InformationRecipientFromRequestEmpty() {
-        MFMIMT700711UV01InformationRecipient fromRequest = new MFMIMT700711UV01InformationRecipient();
-        return fromRequest;
+        return new MFMIMT700711UV01InformationRecipient();
     }
 
     private MFMIMT700711UV01InformationRecipient createMFMIMT700711UV01InformationRecipientFromRequest() {
@@ -899,8 +839,7 @@ public class HL7ArrayTransformsTest {
     }
 
     private PRPAIN201306UV02 createPRPAIN201306UV02Empty() {
-        PRPAIN201306UV02 fromRequest = new PRPAIN201306UV02();
-        return fromRequest;
+        return new PRPAIN201306UV02();
     }
 
     private PRPAIN201306UV02 createPRPAIN201306UV02() {
@@ -927,8 +866,7 @@ public class HL7ArrayTransformsTest {
     }
 
     private PRPAIN201305UV02 createPRPAIN201305UV02Null() {
-        PRPAIN201305UV02 fromRequest = new PRPAIN201305UV02();
-        return fromRequest;
+        return new PRPAIN201305UV02();
     }
 
     private PRPAIN201301UV02 createPRPAIN201301UV02() {
@@ -944,5 +882,4 @@ public class HL7ArrayTransformsTest {
         cs.setCodeSystem("ToRequestCONNECTDomain");
         return cs;
     }
-
 }

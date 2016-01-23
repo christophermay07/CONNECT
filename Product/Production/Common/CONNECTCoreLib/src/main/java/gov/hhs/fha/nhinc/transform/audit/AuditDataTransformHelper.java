@@ -53,6 +53,9 @@ public class AuditDataTransformHelper {
     private static final Logger LOG = LoggerFactory.getLogger(AuditDataTransformHelper.class);
     private static String ipAddr = null;
 
+    private AuditDataTransformHelper() {
+    }
+
     /**
      * Create the <code>EventIdentificationType</code> for an audit log record.
      *

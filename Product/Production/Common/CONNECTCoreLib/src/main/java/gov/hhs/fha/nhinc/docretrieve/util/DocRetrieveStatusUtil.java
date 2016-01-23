@@ -35,6 +35,9 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  */
 public class DocRetrieveStatusUtil {
 
+    private DocRetrieveStatusUtil() {
+    }
+
     /**
      * Sets the response status (Success, Partial, Failure) of the to ResponseType based on the from ResponseType.
      *
@@ -76,5 +79,4 @@ public class DocRetrieveStatusUtil {
     public static boolean isStatusFailureOrPartialFailure(String status) {
         return !isStatusSuccess(status);
     }
-
 }

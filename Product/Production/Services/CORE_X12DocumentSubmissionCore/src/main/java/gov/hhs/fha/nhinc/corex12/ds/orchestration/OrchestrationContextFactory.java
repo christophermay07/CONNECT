@@ -54,6 +54,9 @@ public class OrchestrationContextFactory extends AbstractOrchestrationContextFac
     private static class OrchestrationContextFactoryHolder {
 
         public static final OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
+
+        private OrchestrationContextFactoryHolder() {
+        }
     }
 
     @Override

@@ -39,6 +39,9 @@ public class EventManager extends Observable implements EventRecorder, EventLogg
 
     private static class EventManagerHolder {
         public static final EventManager INSTANCE = new EventManager();
+
+        private EventManagerHolder() {
+        }
     }
 
     public static EventManager getInstance() {

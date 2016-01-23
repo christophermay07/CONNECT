@@ -53,6 +53,9 @@ public class AdhocQueryTransformHelper {
     private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
     private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
 
+    private AdhocQueryTransformHelper() {
+    }
+
     public static CheckPolicyRequestType transformAdhocQueryToCheckPolicy(AdhocQueryRequestEventType event) {
         LOG.debug("begin transformAdhocQueryToCheckPolicy");
 

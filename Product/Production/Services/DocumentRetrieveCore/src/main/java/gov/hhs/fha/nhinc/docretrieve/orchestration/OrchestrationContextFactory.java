@@ -39,7 +39,7 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
  */
 public class OrchestrationContextFactory extends AbstractOrchestrationContextFactory {
 
-    private static OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
+    private static final OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
 
     private OrchestrationContextFactory() {
     }

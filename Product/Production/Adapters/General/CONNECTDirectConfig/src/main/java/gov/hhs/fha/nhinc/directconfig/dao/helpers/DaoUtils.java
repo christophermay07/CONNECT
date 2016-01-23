@@ -37,6 +37,9 @@ public class DaoUtils {
 
     private static final Log log = LogFactory.getLog(DaoUtils.class);
 
+    private DaoUtils() {
+    }
+
     /**
      * Opens and returns a Session, using the Hibernate SessionFactory.
      *

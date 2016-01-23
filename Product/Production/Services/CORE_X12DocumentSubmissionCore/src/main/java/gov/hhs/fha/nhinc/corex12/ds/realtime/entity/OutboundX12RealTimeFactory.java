@@ -50,5 +50,8 @@ public class OutboundX12RealTimeFactory {
     private static class OutboundCORE_X12DSRealTimeFactoryHolder {
 
         public static final OutboundX12RealTimeFactory INSTANCE = new OutboundX12RealTimeFactory();
+
+        private OutboundCORE_X12DSRealTimeFactoryHolder() {
+        }
     }
 }

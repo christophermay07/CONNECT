@@ -35,16 +35,13 @@ import org.junit.Test;
  *
  */
 public class CDHelperTest {
+
     @Test
     public void CDFactory() {
-        CD cd = new CD();
-        CDHelper helper = new CDHelper();
         String codeValue = "CD";
         String codeSystem = "Connect";
-        cd = helper.CDFactory(codeValue, codeSystem);
+        CD cd = CDHelper.CDFactory(codeValue, codeSystem);
         assertEquals(cd.getCode(), codeValue);
         assertEquals(cd.getCodeSystem(), "Connect");
-
     }
-
 }

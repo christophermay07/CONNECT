@@ -35,6 +35,9 @@ import org.hl7.v3.II;
  */
 public class IIHelper {
 
+    private IIHelper() {
+    }
+
     public static II IIFactoryCreateNull(String nullFlavor) {
         II ii = new II();
         ii.getNullFlavor().add(Constants.NullFlavor_NotAvailable);

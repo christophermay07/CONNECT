@@ -57,4 +57,6 @@ public class DocQueryAuditTransformsConstants {
     public static final String UTF_8 = "UTF-8";
     public static final String HOME_COMMUNITY_ID = "urn:ihe:iti:xca:2010:homeCommunityId";
 
+    private DocQueryAuditTransformsConstants() {
+    }
 }

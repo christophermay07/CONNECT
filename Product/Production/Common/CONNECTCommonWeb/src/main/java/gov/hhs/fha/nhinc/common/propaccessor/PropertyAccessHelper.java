@@ -58,6 +58,10 @@ import java.util.Set;
  * @author Les Westberg
  */
 public class PropertyAccessHelper {
+
+    private PropertyAccessHelper() {
+    }
+
     /**
      * This method returns the value of the given property that is located within the given property file. If the
      * properties have been cached and the cache is still fresh, then it will return the value from the cache. If the
@@ -67,6 +71,7 @@ public class PropertyAccessHelper {
      *
      * @param input The input parameters - Property File and Property Name.
      * @return The value for the property.
+     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
      */
     public static GetPropertyResponseType getProperty(GetPropertyRequestType input) throws PropertyAccessException {
         GetPropertyResponseType oOutput = new GetPropertyResponseType();
@@ -91,6 +96,7 @@ public class PropertyAccessHelper {
      *
      * @param input The property file and property name.
      * @return TRUE if the property is true and false if it is not.
+     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
      */
     public static GetPropertyBooleanResponseType getPropertyBoolean(GetPropertyBooleanRequestType input)
             throws PropertyAccessException {
@@ -113,6 +119,7 @@ public class PropertyAccessHelper {
      *
      * @param input The name of the property file.
      * @return The list of property names in the property file.
+     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
      */
     public static GetPropertyNamesResponseType getPropertyNames(GetPropertyNamesRequestType input)
             throws PropertyAccessException {
@@ -147,6 +154,7 @@ public class PropertyAccessHelper {
      *
      * @param input Name of the property file.
      * @return Returns all of the properties and values in the property file.
+     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
      */
     public static GetPropertiesResponseType getProperties(GetPropertiesRequestType input)
             throws PropertyAccessException {
@@ -189,6 +197,7 @@ public class PropertyAccessHelper {
      *
      * @param input Nothing important - just need this unique for document literal binding.
      * @return The path and location of the property files.
+     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
      */
     public static GetPropertyFileLocationResponseType getPropertyFileLocation(GetPropertyFileLocationRequestType input)
             throws PropertyAccessException {

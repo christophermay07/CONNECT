@@ -34,6 +34,9 @@ import org.hl7.v3.II;
  */
 public class InteractionIdHelper {
 
+    private InteractionIdHelper() {
+    }
+
     public static II createInteractionId(String extension) {
         return IIHelper.IIFactory(Constants.HL7_OID, extension);
     }

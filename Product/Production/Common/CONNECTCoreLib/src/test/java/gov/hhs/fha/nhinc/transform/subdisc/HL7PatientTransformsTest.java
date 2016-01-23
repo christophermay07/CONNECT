@@ -29,12 +29,12 @@ package gov.hhs.fha.nhinc.transform.subdisc;
 import java.util.List;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.CE;
-import org.hl7.v3.CS;
 import org.hl7.v3.ENExplicit;
 import org.hl7.v3.EnExplicitFamily;
 import org.hl7.v3.EnExplicitGiven;
 import org.hl7.v3.II;
 import org.hl7.v3.IVLTSExplicit;
+import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectAdministrativeGender;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthTime;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
@@ -54,20 +54,13 @@ public class HL7PatientTransformsTest {
     @Test
     public void create201301Patient() {
         String aaId = "1.1";
-        org.hl7.v3.PRPAMT201301UV02Patient patient;
-        HL7PatientTransforms transforms = new HL7PatientTransforms();
-        patient = transforms.create201301Patient(createPRPAMT201306UV02ParameterList(), aaId);
+        PRPAMT201301UV02Patient patient
+            = HL7PatientTransforms.create201301Patient(createPRPAMT201306UV02ParameterList(), aaId);
         assertEquals(patient.getPatientPerson().getValue().getAdministrativeGenderCode().getCode(), "CONNECT");
         assertEquals(patient.getPatientPerson().getValue().getBirthTime().getValue(), "12-10-1765");
         assertEquals(patient.getId().get(0).getRoot(), "1.1");
         assertEquals(patient.getPatientPerson().getValue().getTelecom().get(0).getUse().get(0), "001-002-2345");
         assertEquals(patient.getPatientPerson().getValue().getAddr().get(0).getUse().get(0), "12601, FairLakes Circle");
-    }
-
-    private CS createCS() {
-        CS cs = new CS();
-        cs.setCode("CONNECT");
-        return cs;
     }
 
     private PRPAMT201306UV02ParameterList createPRPAMT201306UV02ParameterList() {
@@ -79,7 +72,6 @@ public class HL7PatientTransformsTest {
         paramList.getPatientAddress().add(createPatientAddress());
         paramList.getPatientTelecom().add(createPatientTelecom());
         return paramList;
-
     }
 
     private PRPAMT201306UV02PatientTelecom createPatientTelecom() {
@@ -176,5 +168,4 @@ public class HL7PatientTransformsTest {
         ce.setCode("CONNECT");
         return ce;
     }
-
 }

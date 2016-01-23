@@ -38,6 +38,9 @@ public class PatientIdFormatUtil {
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientIdFormatUtil.class);
 
+    private PatientIdFormatUtil() {
+    }
+
     /**
      * Parse an optionally HL7 encoded patient identifier. If the patient identifier is not HL7 encoded, the original id
      * will be returned. The format of an HL7 encoded patient id is "<id>^^^&<home coummunity id>&ISO"

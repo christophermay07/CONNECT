@@ -34,6 +34,9 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
  */
 public class InboundOutboundChecker {
 
+    private InboundOutboundChecker() {
+    }
+
     public static boolean isInbound(String value) {
         boolean result = false;
         if (NullChecker.isNotNullish(value)) {

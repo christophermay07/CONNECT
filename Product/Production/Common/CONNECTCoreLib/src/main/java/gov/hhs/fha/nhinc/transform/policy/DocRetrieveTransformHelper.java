@@ -48,6 +48,9 @@ public class DocRetrieveTransformHelper {
     private static final String ActionInValue = "DocumentRetrieveIn";
     private static final String ActionOutValue = "DocumentRetrieveOut";
 
+    private DocRetrieveTransformHelper() {
+    }
+
     public static CheckPolicyRequestType transformDocRetrieveToCheckPolicy(DocRetrieveEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
         // TODO: Need to handle DocumentSet

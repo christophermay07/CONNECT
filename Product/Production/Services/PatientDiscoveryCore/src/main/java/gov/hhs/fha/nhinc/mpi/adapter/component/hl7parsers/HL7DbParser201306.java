@@ -98,6 +98,9 @@ public class HL7DbParser201306 {
     private static final String PROPERTY_FILE = "adapter";
     private static final String PROPERTY_NAME = "assigningAuthorityId";
 
+    private HL7DbParser201306() {
+    }
+
     /**
      * Method to build a PRPAIN201306UV02 from a given list of Patients and a PRPAIN201305UV02 object.
      *

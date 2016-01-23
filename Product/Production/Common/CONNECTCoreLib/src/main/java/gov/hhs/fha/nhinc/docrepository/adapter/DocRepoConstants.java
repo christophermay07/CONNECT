@@ -79,4 +79,6 @@ public class DocRepoConstants {
     public static final String XDS_REPOSITORY_ERROR = "An error occurred while storing a document to the repository.";
     public static final String XDS_ASSOCIATION_TYPE_REPLACE = "urn:oasis:names:tc:ebxml-regrep:AssociationType:RPLC";
 
+    private DocRepoConstants() {
+    }
 }

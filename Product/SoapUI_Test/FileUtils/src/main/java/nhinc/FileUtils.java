@@ -62,6 +62,9 @@ public class FileUtils {
 
     static final String TEMP_DIR = "prop_temp";
 
+    private FileUtils() {
+    }
+
     /**
      * Reads in a file with a given file name and converts to a String.
      *

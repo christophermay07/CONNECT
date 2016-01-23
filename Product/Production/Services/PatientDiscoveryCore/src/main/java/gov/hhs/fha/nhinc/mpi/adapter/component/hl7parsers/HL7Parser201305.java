@@ -68,6 +68,9 @@ public class HL7Parser201305 {
 
     private static final Logger LOG = LoggerFactory.getLogger(HL7Parser201305.class);
 
+    private HL7Parser201305() {
+    }
+
     /**
      * Method to extract Gender Code from a PRPAMT201306UV02ParameterList.
      *

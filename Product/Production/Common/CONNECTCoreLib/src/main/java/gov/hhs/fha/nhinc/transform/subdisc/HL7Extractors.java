@@ -45,6 +45,9 @@ public class HL7Extractors {
 
     private static final Logger LOG = LoggerFactory.getLogger(HL7Extractors.class);
 
+    private HL7Extractors() {
+    }
+
     public static PRPAIN201301UV02MFMIMT700701UV01Subject1 ExtractSubjectFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
         // assume one subject for now
 
