@@ -103,17 +103,15 @@ public class DatabaseEventLoggerDao {
      * Hibernate Query for event counts for a given Event type grouping by HCID and
      * service type.
      * @param eventType Location of event call in processing.
+     * @param hcidType
      * @return List of Object[] with [0] the count, [1] the initiating hcid, and [2]
      * the service type.
      */
     public List getCounts(String eventType, String hcidType){
-        Session session = null;
-        List results = null;
-
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
 
-        results = session.createCriteria(DatabaseEvent.class)
+        List results = session.createCriteria(DatabaseEvent.class)
             .add(Restrictions.eq(EVENT_TYPE_NAME, eventType))
             .setProjection(Projections.projectionList()
                 .add(Projections.rowCount())
@@ -127,13 +125,10 @@ public class DatabaseEventLoggerDao {
     }
 
     public DatabaseEvent getLatestEvent(String eventType){
-        Session session = null;
-        DatabaseEvent event = null;
-
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
 
-        event = (DatabaseEvent) session.createCriteria(DatabaseEvent.class)
+        DatabaseEvent event = (DatabaseEvent) session.createCriteria(DatabaseEvent.class)
             .add(Restrictions.eq(EVENT_TYPE_NAME, eventType))
             .addOrder(Order.desc(DATE_NAME))
             .setMaxResults(1)
@@ -158,5 +153,4 @@ public class DatabaseEventLoggerDao {
             tx.rollback();
         }
     }
-
 }

@@ -40,6 +40,7 @@ import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import java.math.BigInteger;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.AdxpExplicitCity;
@@ -339,7 +340,7 @@ public class HL7DbParser201306 {
 
         org.getContactParty().add(null);
 
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "providerOrganization");
+        QName xmlqname = new QName("urn:hl7-org:v3", "providerOrganization");
 
         return new JAXBElement<>(xmlqname, COCTMT150003UV03Organization.class, org);
     }
@@ -415,7 +416,7 @@ public class HL7DbParser201306 {
             person.getAsOtherIDs().add(createOtherIds(patient));
         }
 
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
+        QName xmlqname = new QName("urn:hl7-org:v3", "patientPerson");
 
         return new JAXBElement<>(xmlqname, PRPAMT201310UV02Person.class, person);
     }
@@ -463,18 +464,13 @@ public class HL7DbParser201306 {
     }
 
     private static PNExplicit createSubjectName(Personname personname) {
-        org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        PNExplicit name = (factory.createPNExplicit());
-
         String lastName = personname.getLastName();
         String firstName = personname.getFirstName();
         String middleName = personname.getMiddleName();
         String prefix = personname.getPrefix();
         String suffix = personname.getSuffix();
 
-        name = HL7DataTransformHelper.createPNExplicit(firstName, middleName, lastName, prefix, suffix);
-
-        return name;
+        return HL7DataTransformHelper.createPNExplicit(firstName, middleName, lastName, prefix, suffix);
     }
 
     private static CE createGender(Patient patient) {
@@ -523,8 +519,8 @@ public class HL7DbParser201306 {
             0) != null
             && NullChecker.isNotNullish(querySender.getDevice().getAsAgent().getValue()
             .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-            oid =
-                querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
+
+            oid = querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
                 .get(0).getRoot();
         }
 
@@ -541,14 +537,13 @@ public class HL7DbParser201306 {
         II id = HL7DataTransformHelper.IIFactory(oid);
         org.getId().add(id);
 
-        javax.xml.namespace.QName xmlqnameorg =
-            new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
+        QName xmlqnameorg = new QName("urn:hl7-org:v3", "representedOrganization");
         JAXBElement<MCCIMT000300UV01Organization> orgElem =
             new JAXBElement<>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
-        javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
+        QName xmlqnameagent = new QName("urn:hl7-org:v3", "asAgent");
         JAXBElement<MCCIMT000300UV01Agent> agentElem =
             new JAXBElement<>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
 
@@ -583,8 +578,8 @@ public class HL7DbParser201306 {
             .get(0) != null
             && NullChecker.isNotNullish(queryReceiver.getDevice().getAsAgent().getValue()
             .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-            oid =
-                queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
+
+            oid = queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
                 .get(0).getRoot();
         }
 
@@ -601,14 +596,13 @@ public class HL7DbParser201306 {
         II id = HL7DataTransformHelper.IIFactory(oid);
         org.getId().add(id);
 
-        javax.xml.namespace.QName xmlqnameorg =
-            new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
+        QName xmlqnameorg = new QName("urn:hl7-org:v3", "representedOrganization");
         JAXBElement<MCCIMT000300UV01Organization> orgElem =
             new JAXBElement<>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
-        javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
+        QName xmlqnameagent = new QName("urn:hl7-org:v3", "asAgent");
         JAXBElement<MCCIMT000300UV01Agent> agentElem =
             new JAXBElement<>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
 

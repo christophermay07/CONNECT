@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.util;
 
 import java.io.UnsupportedEncodingException;
 import java.util.StringTokenizer;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * String utilities...
@@ -49,8 +50,8 @@ public class StringUtil {
      * @return String
      */
     public static String extractStringFromTokens(String tokenString, String tokens) {
-        String resultString = "";
-        if (tokens != null && !tokens.isEmpty()) {
+        String resultString;
+        if (StringUtils.isNotEmpty(tokens)) {
             StringTokenizer tk = new StringTokenizer(tokenString, tokens);
             StringBuilder outString = new StringBuilder();
             while (tk.hasMoreTokens()) {
@@ -97,7 +98,7 @@ public class StringUtil {
      *
      * @param byteArray byte array
      * @return UTF-8 format string
-     *
+     * @throws java.io.UnsupportedEncodingException
      */
     public static String convertToStringUTF8(byte[] byteArray) throws UnsupportedEncodingException {
         return new String(byteArray, UTF8_CHARSET);

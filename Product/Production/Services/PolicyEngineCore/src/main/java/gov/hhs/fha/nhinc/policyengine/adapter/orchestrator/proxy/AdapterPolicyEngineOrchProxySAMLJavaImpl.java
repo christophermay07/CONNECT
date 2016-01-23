@@ -37,15 +37,8 @@ import gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.util.policyEngineUtil
  */
 public class AdapterPolicyEngineOrchProxySAMLJavaImpl implements AdapterPolicyEngineOrchProxy{
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxy#checkPolicy(gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
-     */
     @Override
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
-        CheckPolicyResponseType oResponse = new CheckPolicyResponseType();
-        policyEngineUtil util = new policyEngineUtil();
-        oResponse = util.checkAssertionAttributeStatement(assertion);
-        return oResponse;
+        return new policyEngineUtil().checkAssertionAttributeStatement(assertion);
     }
-
 }

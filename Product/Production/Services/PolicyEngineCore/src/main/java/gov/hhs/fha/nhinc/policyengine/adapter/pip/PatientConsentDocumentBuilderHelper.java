@@ -864,17 +864,16 @@ public class PatientConsentDocumentBuilderHelper {
     private void setEventCode(ExtrinsicObjectType oExtObj,
             oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
             CeType eventCode) {
+
         if (eventCode != null) {
             String sCode = eventCode.getCode();
-            String sCodeScheme = eventCode.getCodeSystem();
-            String sCodeDisplayName = eventCode.getDisplayName();
             if (NullChecker.isNotNullish(sCode)) {
 
                 ClassificationType oClassification = createClassification(oRimObjectFactory,
-                        CDAConstants.XDS_EVENT_CODE_LIST_CLASSIFICATION, sDocUniqueId, "", sCode,
-                        CDAConstants.CLASSIFICATION_REGISTRY_OBJECT, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME,
-                        CDAConstants.METADATA_EVENT_CODE_SYSTEM, CDAConstants.CHARACTER_SET,
-                        CDAConstants.LANGUAGE_CODE_ENGLISH, ""); // Display name is not stored
+                    CDAConstants.XDS_EVENT_CODE_LIST_CLASSIFICATION, sDocUniqueId, "", sCode,
+                    CDAConstants.CLASSIFICATION_REGISTRY_OBJECT, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME,
+                    CDAConstants.METADATA_EVENT_CODE_SYSTEM, CDAConstants.CHARACTER_SET,
+                    CDAConstants.LANGUAGE_CODE_ENGLISH, ""); // Display name is not stored
                 oExtObj.getClassification().add(oClassification);
             }
         }
@@ -1015,7 +1014,7 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private String extractAuthorPerson(PersonNameType oPersonName) {
-        StringBuffer authorName = new StringBuffer();
+        StringBuilder authorName = new StringBuilder();
         if (oPersonName != null) {
             authorName.append(oPersonName.getPrefix());
             authorName.append("");

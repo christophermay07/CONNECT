@@ -51,7 +51,6 @@ public class AdapterComponentRedactionEngineImpl {
             FilterDocQueryResultsRequestType filterDocQueryResultsRequest, WebServiceContext context) {
         LOG.debug("Begin filterDocQueryResults");
         FilterDocQueryResultsResponseType response = null;
-        AssertionType assertion = getAssertion(context);
 
         if (filterDocQueryResultsRequest == null) {
             LOG.warn("FilterDocQueryResultsRequestType was null");
@@ -67,7 +66,6 @@ public class AdapterComponentRedactionEngineImpl {
     public FilterDocRetrieveResultsResponseType filterDocRetrieveResults(
             FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest, WebServiceContext context) {
         FilterDocRetrieveResultsResponseType response = null;
-        AssertionType assertion = getAssertion(context);
 
         if (filterDocRetrieveResultsRequest == null) {
             LOG.warn("FilterDocRetrieveResultsRequestType was null");

@@ -60,8 +60,6 @@ public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationSt
 
         if (message instanceof OutboundDocRetrieveOrchestratable) {
             OutboundDocRetrieveOrchestratable nhinDRMessage = message;
-            //Append urn:oid to the home community id if its not present
-            String requestCommunityID = HomeCommunityMap.getCommunityIdForRDRequest(nhinDRMessage.getRequest());
 
             //Assign the modified request community id value to the requests
             if (nhinDRMessage.getRequest() != null && NullChecker.isNotNullish(

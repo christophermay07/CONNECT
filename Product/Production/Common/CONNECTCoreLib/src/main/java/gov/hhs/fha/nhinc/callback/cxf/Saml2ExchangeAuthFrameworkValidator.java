@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.callback.cxf;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import javax.naming.Name;
 import javax.naming.ldap.LdapName;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -133,7 +132,7 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
             }
         } else if (NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509.equals(format)) {
             try {
-                Name name = new LdapName(value);
+                new LdapName(value);
             } catch (Exception e) {
                 LOG.info("Validation of X509 Subject Name failed:", e);
                 throw new ValidationException("Not a valid X509 Subject Name.");

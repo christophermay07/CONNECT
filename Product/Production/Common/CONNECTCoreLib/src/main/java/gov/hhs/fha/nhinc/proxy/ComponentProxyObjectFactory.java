@@ -39,7 +39,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
  * Base class for all component proxy object factories. Performs context loading and refresh management. The application
- * context will be refreshed if the configuraiton file is modified.
+ * context will be refreshed if the configuration file is modified.
  *
  * @author Neil Webb, Les Westberg
  */
@@ -57,8 +57,7 @@ public abstract class ComponentProxyObjectFactory {
     // the context is specific to each of the derived classes, we need to keep a map for all of them.
     // We have synchronized the method that sets and retrieves this to make it thread safe.
     // ------------------------------------------------------------------------------------------------
-    private static final HashMap<String, LocalApplicationContextInfo> contextMap
-        = new HashMap<>();
+    private static final HashMap<String, LocalApplicationContextInfo> contextMap = new HashMap<>();
 
     /**
      * Get the URL to properties files.
@@ -110,12 +109,10 @@ public abstract class ComponentProxyObjectFactory {
      * @return ApplicationContext
      */
     protected ApplicationContext getContext() {
-        ApplicationContext appContext = null;
+        ApplicationContext appContext;
 
         String configFilePath = getPropertyFileURL() + getConfigFileName();
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Trying to get lock for ApplicationContext " + configFilePath);
-        }
+        LOG.debug("Trying to get lock for ApplicationContext " + configFilePath);
         synchronized (CACHE_LOCK) {
             LocalApplicationContextInfo appContextInfo = getAppContextInfo(getConfigFileName());
             if (appContextInfo == null) {
@@ -137,9 +134,7 @@ public abstract class ComponentProxyObjectFactory {
                 appContext = appContextInfo.getApplicationContext();
             }
         }
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Releasing lock for ApplicationContext" + configFilePath);
-        }
+        LOG.debug("Releasing lock for ApplicationContext {}", configFilePath);
 
         return appContext;
     }

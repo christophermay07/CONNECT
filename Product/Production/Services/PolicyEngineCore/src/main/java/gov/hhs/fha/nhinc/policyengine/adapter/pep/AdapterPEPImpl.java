@@ -133,7 +133,7 @@ public class AdapterPEPImpl {
      * @return The xacml response which contains the access decision
      */
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
-        CheckPolicyResponseType checkPolicyResp = new CheckPolicyResponseType();
+        CheckPolicyResponseType checkPolicyResp;
 
         if (checkPolicyRequest != null) {
             Request pdpRequest = null;

@@ -47,18 +47,21 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessImpl {
      * processPatientDiscoveryDeferredReqQueue Implementation for processing request queues on reponding gateway
      *
      * @param request
+     * @param context
      * @return response
      */
     public PatientDiscoveryDeferredReqQueueProcessResponseType processPatientDiscoveryDeferredReqQueue(
             PatientDiscoveryDeferredReqQueueProcessRequestType request, WebServiceContext context) {
 
-        PatientDiscoveryDeferredReqQueueProcessResponseType response = new PatientDiscoveryDeferredReqQueueProcessResponseType();
+        PatientDiscoveryDeferredReqQueueProcessResponseType response
+            = new PatientDiscoveryDeferredReqQueueProcessResponseType();
         SuccessOrFailType sof = new SuccessOrFailType();
         sof.setSuccess(Boolean.FALSE);
         response.setSuccessOrFail(sof);
 
-        MCCIIN000002UV01 mCCIIN000002UV01 = new MCCIIN000002UV01();
-        AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl entityPatientDiscoveryDeferredReqQueueProcessOrchImpl = getAdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl();
+        MCCIIN000002UV01 mCCIIN000002UV01;
+        AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl entityPatientDiscoveryDeferredReqQueueProcessOrchImpl
+            = getAdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl();
         mCCIIN000002UV01 = entityPatientDiscoveryDeferredReqQueueProcessOrchImpl
                 .processPatientDiscoveryDeferredReqQueue(request.getMessageId());
 
@@ -75,5 +78,4 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessImpl {
 
         return response;
     }
-
 }

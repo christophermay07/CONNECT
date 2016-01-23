@@ -173,7 +173,8 @@ public class TrustMode implements ResponseMode {
 
     protected void sendToPatientCorrelationComponent(II localPatId, II remotePatId, AssertionType assertion,
             PRPAIN201306UV02 response) {
-        PRPAIN201301UV02 request = new PRPAIN201301UV02();
+
+        PRPAIN201301UV02 request;
 
         if (localPatId != null && NullChecker.isNotNullish(localPatId.getRoot())
                 && NullChecker.isNotNullish(localPatId.getExtension()) && remotePatId != null
@@ -203,11 +204,7 @@ public class TrustMode implements ResponseMode {
     }
 
     protected boolean requestHasLivingSubjectId(PRPAIN201305UV02 request) {
-        boolean result;
-
-        result = (getPatientId(request) != null);
-
-        return result;
+        return getPatientId(request) != null;
     }
 
     protected II getPatientId(PRPAIN201305UV02 request) {
@@ -224,20 +221,20 @@ public class TrustMode implements ResponseMode {
         II patId = null;
 
         if (request != null
-                && request.getControlActProcess() != null
-                && NullChecker.isNotNullish(request.getControlActProcess().getSubject())
-                && request.getControlActProcess().getSubject().get(0) != null
-                && request.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null
-                && request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null
-                && request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null
-                && NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent()
-                        .getSubject1().getPatient().getId())
-                && request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
-                        .getId().get(0) != null
-                && NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent()
-                        .getSubject1().getPatient().getId().get(0).getExtension())
-                && NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent()
-                        .getSubject1().getPatient().getId().get(0).getRoot())) {
+            && request.getControlActProcess() != null
+            && NullChecker.isNotNullish(request.getControlActProcess().getSubject())
+            && request.getControlActProcess().getSubject().get(0) != null
+            && request.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null
+            && request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null
+            && request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null
+            && NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                .getSubject1().getPatient().getId())
+            && request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
+                .getId().get(0) != null
+            && NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                .getSubject1().getPatient().getId().get(0).getExtension())
+            && NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                .getSubject1().getPatient().getId().get(0).getRoot())) {
 
             patId = new II();
             patId.setRoot(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
@@ -250,11 +247,7 @@ public class TrustMode implements ResponseMode {
     }
 
     protected PRPAIN201301UV02 createPRPA201301(PRPAIN201306UV02 input) {
-        PRPAIN201301UV02 result;
-
-        result = HL7PRPA201301Transforms.createPRPA201301(input, getLocalHomeCommunityId());
-
-        return result;
+        return HL7PRPA201301Transforms.createPRPA201301(input, getLocalHomeCommunityId());
     }
 
     protected String getLocalHomeCommunityId() {
@@ -268,5 +261,4 @@ public class TrustMode implements ResponseMode {
         }
         return result;
     }
-
 }

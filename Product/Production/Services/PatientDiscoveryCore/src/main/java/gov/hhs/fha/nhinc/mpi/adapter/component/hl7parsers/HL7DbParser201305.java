@@ -82,7 +82,7 @@ public class HL7DbParser201305 {
     /**
      * Method to extract Gender Code from a PRPAMT201306UV02ParameterList.
      *
-     * @param params the Paramater list from which to extract a Gender Code
+     * @param params the Parameter list from which to extract a Gender Code
      * @return The Gender Code is returned
      */
     public static String extractGender(PRPAMT201306UV02ParameterList params) {
@@ -212,27 +212,21 @@ public class HL7DbParser201305 {
                             JAXBElement oJAXBElement = (JAXBElement) contentItem;
 
                             if (oJAXBElement.getValue() instanceof EnExplicitFamily) {
-                                lastname = new EnExplicitFamily();
                                 lastname = (EnExplicitFamily) oJAXBElement.getValue();
                                 LOG.info("found lastname element; content=" + lastname.getContent());
                             } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
+                                // ignore all other given values except firstname and middlename
                                 if (firstname == null) {
-                                    firstname = new EnExplicitGiven();
                                     firstname = (EnExplicitGiven) oJAXBElement.getValue();
                                     LOG.info("found firstname element; content=" + firstname.getContent());
                                 } else if (middlename == null) {
-                                    middlename = new EnExplicitGiven();
                                     middlename = (EnExplicitGiven) oJAXBElement.getValue();
                                     LOG.info("found middlename element; content=" + middlename.getContent());
-                                } else {
-                                    // ignore all other given values
                                 }
                             } else if (oJAXBElement.getValue() instanceof EnExplicitPrefix) {
-                                prefix = new EnExplicitPrefix();
                                 prefix = (EnExplicitPrefix) oJAXBElement.getValue();
                                 LOG.info("found prefix element; content=" + prefix.getContent());
                             } else if (oJAXBElement.getValue() instanceof EnExplicitSuffix) {
-                                suffix = new EnExplicitSuffix();
                                 suffix = (EnExplicitSuffix) oJAXBElement.getValue();
                                 LOG.info("found suffix element; content=" + suffix.getContent());
                             } else {
@@ -433,7 +427,6 @@ public class HL7DbParser201305 {
                             if (oJAXBElement.getValue() instanceof AdxpExplicitStreetAddressLine) {
                                 addressLineCounter++;
                                 if (addressLineCounter == 1) {
-                                    addressLine1 = new AdxpExplicitStreetAddressLine();
                                     addressLine1 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
                                     LOG.info("found addressLine1 element; content=" + addressLine1.getContent());
                                     if (address == null) {
@@ -442,7 +435,6 @@ public class HL7DbParser201305 {
                                     address.setStreet1(addressLine1.getContent());
                                 }
                                 if (addressLineCounter == 2) {
-                                    addressLine2 = new AdxpExplicitStreetAddressLine();
                                     addressLine2 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
                                     LOG.info("found addressLine2 element; content=" + addressLine2.getContent());
                                     if (address == null) {
@@ -451,7 +443,6 @@ public class HL7DbParser201305 {
                                     address.setStreet2(addressLine2.getContent());
                                 }
                             } else if (oJAXBElement.getValue() instanceof AdxpExplicitCity) {
-                                city = new AdxpExplicitCity();
                                 city = (AdxpExplicitCity) oJAXBElement.getValue();
                                 LOG.info("found city element; content=" + city.getContent());
                                 if (address == null) {
@@ -459,7 +450,6 @@ public class HL7DbParser201305 {
                                 }
                                 address.setCity(city.getContent());
                             } else if (oJAXBElement.getValue() instanceof AdxpExplicitState) {
-                                state = new AdxpExplicitState();
                                 state = (AdxpExplicitState) oJAXBElement.getValue();
                                 LOG.info("found state element; content=" + state.getContent());
                                 if (address == null) {
@@ -467,7 +457,6 @@ public class HL7DbParser201305 {
                                 }
                                 address.setState(state.getContent());
                             } else if (oJAXBElement.getValue() instanceof AdxpExplicitPostalCode) {
-                                postalCode = new AdxpExplicitPostalCode();
                                 postalCode = (AdxpExplicitPostalCode) oJAXBElement.getValue();
                                 LOG.info("found postalCode element; content=" + postalCode.getContent());
                                 if (address == null) {

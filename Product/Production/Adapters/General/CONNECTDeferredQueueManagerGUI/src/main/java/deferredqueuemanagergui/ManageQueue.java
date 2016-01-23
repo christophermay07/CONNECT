@@ -39,6 +39,7 @@ import gov.hhs.fha.nhinc.adapter.deferred.queue.gui.UserSession;
 import gov.hhs.fha.nhinc.adapter.deferred.queue.gui.servicefacade.DeferredQueueManagerFacade;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessResponseType;
+import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.SuccessOrFailType;
 import gov.hhs.fha.nhinc.util.Format;
 import java.util.Calendar;
 import java.util.Date;
@@ -63,8 +64,6 @@ public class ManageQueue extends AbstractPageBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(ManageQueue.class);
     private static final String PATIENT_DISCOVERY = "PatientDiscovery";
-    private static final String QUERY_FOR_DOCUMENT = "QueryForDocument";
-    private static final String RETRIEVE_DOCUMENT = "RetrieveDocument";
     private TabSet processTabSet = new TabSet();
     private Tab processQueueTab = new Tab();
     private Tab unProcessQueueTab = new Tab();
@@ -285,7 +284,8 @@ public class ManageQueue extends AbstractPageBean {
         }
 
         UserSession userSession = (UserSession) getBean("UserSession");
-        userSession.setProcessQueueResults(null); // reset to null to force lazy load
+        // reset to null to force lazy load
+        userSession.setProcessQueueResults(null);
         userSession.getProcessQueueResults().addAll(processQueueResults);
 
         return null;
@@ -303,8 +303,8 @@ public class ManageQueue extends AbstractPageBean {
             return null;
         }
 
-        Date startDate = new Date();
-        Date stopDate = new Date();
+        Date startDate;
+        Date stopDate;
         String startCreationTime;
         String stopCreationTime;
         String statusValue;
@@ -312,7 +312,6 @@ public class ManageQueue extends AbstractPageBean {
             startCreationTime = (String) startCreationDate.getText();
             stopCreationTime = (String) stopCreationDate.getText();
             statusValue = (String) status.getValue();
-            String statusValue1 = (String) status.getLabel();
 
             if (startCreationTime == null) {
                 startCreationTime = "";
@@ -329,20 +328,16 @@ public class ManageQueue extends AbstractPageBean {
 
             if (cal1 == null || cal2 == null) {
                 this.errorMessages
-                        .setText("Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
+                    .setText("Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
                 return null;
             }
 
-            if (cal1 != null) {
-                startDate = cal1.getTime();
-            }
-            if (cal2 != null) {
-                stopDate = cal2.getTime();
-            }
+            startDate = cal1.getTime();
+            stopDate = cal2.getTime();
         } catch (Exception ex) {
-            LOG.error("Error Message: " + ex);
+            LOG.error("Error Message: {}", ex.getLocalizedMessage(), ex);
             this.errorMessages
-                    .setText("Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
+                .setText("Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
             return null;
         }
         DeferredQueueManagerFacade deferredQueueManagerFacade = new DeferredQueueManagerFacade();
@@ -359,14 +354,15 @@ public class ManageQueue extends AbstractPageBean {
         }
 
         UserSession userSession = (UserSession) getBean("UserSession");
-        userSession.setUnProcessQueueResults(null); // reset to null to force lazy load
+        // reset to null to force lazy load
+        userSession.setUnProcessQueueResults(null);
         userSession.getUnProcessQueueResults().addAll(unProcessQueueResults);
 
         return null;
     }
 
     private boolean isDateSearchCriteriaValid() {
-        StringBuffer message = new StringBuffer();
+        StringBuilder message = new StringBuilder();
         boolean isValid = true;
 
         if (this.startCreationDate == null || this.stopCreationDate == null) {
@@ -384,19 +380,18 @@ public class ManageQueue extends AbstractPageBean {
 
     public String process_action(javax.faces.event.ActionEvent event) throws Exception {
         String asyncMsgId = (String) this.messageId.getText();
-        String serviceName = (String) this.serviceName.getText();
+        String serviceNameText = (String) this.serviceName.getText();
         PatientDiscoveryDeferredReqQueueProcessResponseType pdResponse;
 
-        if (serviceName.trim().equals(PATIENT_DISCOVERY)) {
+        if (serviceNameText.trim().equals(PATIENT_DISCOVERY)) {
             PatientDiscoveryDeferredReqQueueClient pdClient = new PatientDiscoveryDeferredReqQueueClient();
             pdResponse = pdClient.processPatientDiscoveryDeferredReqQueue(asyncMsgId);
-            gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.SuccessOrFailType sfpd = pdResponse
-                    .getSuccessOrFail();
+            SuccessOrFailType sfpd = pdResponse.getSuccessOrFail();
             if (sfpd.isSuccess()) {
                 this.userInfo.setText("Succesfully Patient Discovery Deferred Response Msg got Processed.");
             } else {
                 this.errorMessages
-                        .setText("Unable to process the Patient Discovery Deferred Response, Please contact system administrator for further details.");
+                    .setText("Unable to process the Patient Discovery Deferred Response, Please contact system administrator for further details.");
             }
         }
 

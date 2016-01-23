@@ -336,7 +336,7 @@ public class XACMLCreator {
      * This method creates the Rule associated with a single instance of a fine grained criterion.
      *
      * @param iRuleId The ID number for this rule.
-     * @param oCriterion The patient Preferneces
+     * @param oCriterion The patient Preferences
      * @return The rule representing a single fine grained policy settings.
      */
     private RuleType createFineGrainedRule(int iRuleId, FineGrainedPolicyCriterionType oCriterion)
@@ -347,7 +347,6 @@ public class XACMLCreator {
 
         // Permission setting
         // --------------------
-        String sPermitOrDeny = "";
         if (oCriterion.isPermit()) {
             oRule.setEffect(EffectType.PERMIT);
         } else {
@@ -549,7 +548,6 @@ public class XACMLCreator {
 
         // Permission setting
         // --------------------
-        String sPermitOrDeny = "";
         if (oPtPref.isOptIn()) {
             oRule.setEffect(EffectType.PERMIT);
         } else {

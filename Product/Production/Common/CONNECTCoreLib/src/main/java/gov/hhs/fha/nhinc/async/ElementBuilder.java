@@ -81,8 +81,7 @@ public final class ElementBuilder {
      */
     public Element buildElement(final String ns, final String name, final String content, Boolean mustUnderstand) {
 
-        Element theElement = null;
-        theElement = document.createElementNS(ns, name);
+        Element theElement = document.createElementNS(ns, name);
 
         if (content != null) {
             theElement.setTextContent(content);
@@ -100,5 +99,4 @@ public final class ElementBuilder {
     public static ElementBuilder newInstance() {
         return new ElementBuilder();
     }
-
 }

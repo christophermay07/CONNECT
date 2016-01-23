@@ -233,16 +233,17 @@ public class AsyncMessageProcessHelper {
     }
 
     /**
-     * Process an acknowledgement error for the Patient Discovery asyncmsgs record
+     * Process an acknowledgment error for the Patient Discovery asyncmsgs record
      *
      * @param messageId
      * @param newStatus
      * @param errorStatus
-     * @param ack
+     * @param response
      * @return true - success; false - error
      */
     public boolean processPatientDiscoveryResponse(String messageId, String newStatus, String errorStatus,
-            RespondingGatewayPRPAIN201306UV02RequestType response) {
+        RespondingGatewayPRPAIN201306UV02RequestType response) {
+
         LOG.debug("Begin AsyncMessageProcessHelper.processPatientDiscoveryResponse()...");
 
         boolean result = false;
@@ -259,8 +260,7 @@ public class AsyncMessageProcessHelper {
                 records.get(0).setResponseTime(new Date());
 
                 // Calculate the duration in milliseconds
-                Long duration = null;
-                duration = records.get(0).getResponseTime().getTime() - records.get(0).getCreationTime().getTime();
+                Long duration = records.get(0).getResponseTime().getTime() - records.get(0).getCreationTime().getTime();
                 records.get(0).setDuration(duration);
 
                 records.get(0).setStatus(newStatus);
@@ -306,13 +306,11 @@ public class AsyncMessageProcessHelper {
             Unmarshaller unmarshaller = jc.createUnmarshaller();
             baInStrm = new ByteArrayInputStream(buffer);
             JAXBElement<AssertionType> oJaxbElementCopy =
-                    (JAXBElement<AssertionType>) unmarshaller.unmarshal(util.getSafeStreamReaderFromInputStream(baInStrm));
+                (JAXBElement<AssertionType>) unmarshaller.unmarshal(util.getSafeStreamReaderFromInputStream(baInStrm));
             copy = oJaxbElementCopy.getValue();
 
-        } catch (JAXBException e) {
-            LOG.error("Exception during copyAssertionTypeObject conversion :" + e, e);
-        } catch (XMLStreamException e) {
-            LOG.error("Exception during copyAssertionTypeObject conversion :" + e, e);
+        } catch (JAXBException | XMLStreamException e) {
+            LOG.error("Exception during copyAssertionTypeObject conversion: {}", e.getLocalizedMessage(), e);
         } finally {
             StreamUtils.closeReaderSilently(baOutStrm);
             StreamUtils.closeStreamSilently(baInStrm);
@@ -324,7 +322,7 @@ public class AsyncMessageProcessHelper {
     /**
      * Marshal AssertionType using JAXB
      *
-     * @param orig
+     * @param assertion
      * @return copy of AssertionType
      */
     public String marshalAssertionTypeObject(AssertionType assertion) {
@@ -336,16 +334,15 @@ public class AsyncMessageProcessHelper {
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
+            gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory
+                = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
             JAXBElement<AssertionType> oJaxbElement = factory.createAssertion(assertion);
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
             returnValue = StringUtil.convertToStringUTF8(buffer);
-        } catch (JAXBException je) {
-            LOG.error("Exception during marshalAssertionTypeObject conversion :" + je, je);
-        } catch (IOException e) {
-            LOG.error("Exception during marshalAssertionTypeObject conversion :" + e, e);
+        } catch (JAXBException | IOException e) {
+            LOG.error("Exception during marshalAssertionTypeObject conversion: {}", e.getLocalizedMessage(), e);
         }
 
         return returnValue;
@@ -380,7 +377,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
+            LOG.error("Exception during Blob conversion: {}", e.getLocalizedMessage(), e);
         }
 
         return asyncMessage;
@@ -403,7 +400,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
+            LOG.error("Exception during Blob conversion: {}", e.getLocalizedMessage(), e);
         }
 
         return asyncMessage;
@@ -426,7 +423,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
+            LOG.error("Exception during Blob conversion: {}", e.getLocalizedMessage(), e);
         }
 
         return asyncMessage;
@@ -436,9 +433,10 @@ public class AsyncMessageProcessHelper {
         boolean result = false;
 
         if (ack != null && ack.getAcknowledgement() != null && ack.getAcknowledgement().size() > 0
-                && ack.getAcknowledgement().get(0).getTypeCode() != null
-                && ack.getAcknowledgement().get(0).getTypeCode().getCode() != null
-                && ack.getAcknowledgement().get(0).getTypeCode().getCode().equals(HL7AckTransforms.ACK_TYPE_CODE_ERROR)) {
+            && ack.getAcknowledgement().get(0).getTypeCode() != null
+            && ack.getAcknowledgement().get(0).getTypeCode().getCode() != null
+            && ack.getAcknowledgement().get(0).getTypeCode().getCode().equals(HL7AckTransforms.ACK_TYPE_CODE_ERROR)) {
+
             result = true;
         }
 
@@ -453,7 +451,8 @@ public class AsyncMessageProcessHelper {
      * @return String
      */
     private String getPatientDiscoveryMessageCommunityId(RespondingGatewayPRPAIN201305UV02RequestType requestMessage,
-            String direction) {
+        String direction) {
+
         String communityId = "";
         boolean useReceiver = false;
 
@@ -464,69 +463,72 @@ public class AsyncMessageProcessHelper {
 
             if (useReceiver) {
                 if (requestMessage.getPRPAIN201305UV02() != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver() != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().size() > 0
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0) != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent() != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                                .getValue() != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                                .getValue().getRepresentedOrganization() != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                                .getValue().getRepresentedOrganization().getValue() != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                                .getValue().getRepresentedOrganization().getValue().getId() != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                                .getValue().getRepresentedOrganization().getValue().getId().size() > 0
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                                .getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
+                    && requestMessage.getPRPAIN201305UV02().getReceiver() != null
+                    && requestMessage.getPRPAIN201305UV02().getReceiver().size() > 0
+                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0) != null
+                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
+                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent() != null
+                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
+                        .getValue() != null
+                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
+                        .getValue().getRepresentedOrganization() != null
+                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
+                        .getValue().getRepresentedOrganization().getValue() != null
+                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
+                        .getValue().getRepresentedOrganization().getValue().getId() != null
+                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
+                        .getValue().getRepresentedOrganization().getValue().getId().size() > 0
+                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
+                        .getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
+
                     communityId = requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                            .getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+                        .getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
                 }
                 // If represented organization is empty or null, check the device id
                 if (communityId == null || communityId.isEmpty()) {
                     if (requestMessage.getPRPAIN201305UV02().getReceiver() != null
-                            && requestMessage.getPRPAIN201305UV02().getReceiver().size() > 0
-                            && requestMessage.getPRPAIN201305UV02().getReceiver().get(0) != null
-                            && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
-                            && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId() != null
-                            && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().size() > 0
-                            && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null
-                            && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0)
-                                    .getRoot() != null) {
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().size() > 0
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0) != null
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId() != null
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().size() > 0
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0)
+                            .getRoot() != null) {
+
                         communityId = requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId()
-                                .get(0).getRoot();
+                            .get(0).getRoot();
                     }
                 }
             } else {
                 if (requestMessage.getPRPAIN201305UV02().getSender() != null
-                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null
-                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent() != null
-                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue() != null
-                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization() != null
-                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue() != null
-                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue().getId() != null
-                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue().getId().size() > 0
-                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
+                    && requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null
+                    && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent() != null
+                    && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue() != null
+                    && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization() != null
+                    && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue() != null
+                    && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId() != null
+                    && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId().size() > 0
+                    && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
                     communityId = requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId().get(0).getRoot();
+                        .getRepresentedOrganization().getValue().getId().get(0).getRoot();
                 }
                 // If represented organization is empty or null, check the device id
                 if (communityId == null || communityId.isEmpty()) {
                     if (requestMessage.getPRPAIN201305UV02().getSender() != null
-                            && requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null
-                            && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId() != null
-                            && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().size() > 0
-                            && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0) != null
-                            && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0).getRoot() != null) {
+                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null
+                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId() != null
+                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().size() > 0
+                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0) != null
+                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0).getRoot() != null) {
+
                         communityId = requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0)
-                                .getRoot();
+                            .getRoot();
                     }
                 }
             }
@@ -534,5 +536,4 @@ public class AsyncMessageProcessHelper {
 
         return communityId;
     }
-
 }

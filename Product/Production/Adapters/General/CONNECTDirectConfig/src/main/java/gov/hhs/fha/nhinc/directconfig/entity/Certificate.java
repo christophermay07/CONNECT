@@ -193,8 +193,7 @@ public class Certificate {
     /**
      * Indicates if the certificate has a private key
      *
-     * @param data
-     *
+     * @param b
      * @throws CertificateException
      */
     public void setPrivateKey(boolean b) throws CertificateException {

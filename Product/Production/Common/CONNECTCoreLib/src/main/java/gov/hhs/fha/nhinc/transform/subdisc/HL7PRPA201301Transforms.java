@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.CS;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000100UV01Agent;
@@ -55,8 +55,6 @@ import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.QUQIMT021001UV01AuthorOrPerformer;
 import org.hl7.v3.QUQIMT021001UV01DataEnterer;
 import org.hl7.v3.XActMoodIntentEvent;
-
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
  *
@@ -233,10 +231,7 @@ public class HL7PRPA201301Transforms {
             }
         }
 
-        PRPAMT201301UV02Patient patient;
-        PRPAMT201306UV02QueryByParameter params;
-
-        params = original.getQueryByParameter().getValue();
+        PRPAMT201301UV02Patient patient = null;
 
         if (NullChecker.isNotNullish(original.getSubject()) && original.getSubject().get(0) != null
                 && original.getSubject().get(0).getRegistrationEvent() != null
@@ -244,8 +239,6 @@ public class HL7PRPA201301Transforms {
                 && original.getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null) {
             patient = HL7PatientTransforms.createPRPAMT201301UVPatient(
                     original.getSubject().get(0).getRegistrationEvent().getSubject1().getPatient());
-        } else {
-            patient = null;
         }
 
         result.getSubject().add(createPRPAIN201301UVMFMIMT700701UV01Subject1(patient, localDeviceId));

@@ -147,13 +147,11 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
         String statusCodeValue = null;
 
         Request xacmlRequest = ((XACMLAuthzDecisionQuery) samlpRequest).getRequest();
-        boolean returnContext = ((XACMLAuthzDecisionQuery) samlpRequest).getReturnContext();
 
         boolean permitAccess = false;
 
         // obligation on emergency, uba, ma
         String obligationId = null;
-        String fullfillOn = null;
 
         // subject attributes
         String userId;
@@ -206,11 +204,11 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
             // BEGIN CUSTOM BUS LOGIC
             if (optIn) {
                 effect = PERMIT;
-                detailText = detailText + "PERMIT based upon OPT-IN";
+                detailText += "PERMIT based upon OPT-IN";
                 LOG.info("xspa.handleQuery():" + "Permit based upon OPT-IN");
             } else {
                 effect = DENY;
-                detailText = detailText + "DENY: based upon OPT-OUT";
+                detailText += "DENY: based upon OPT-OUT";
                 LOG.warn("xspa.handleQuery():" + "DENY: based upon OPT-OUT");
             }
 
