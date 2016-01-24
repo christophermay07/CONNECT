@@ -59,6 +59,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
@@ -289,7 +290,7 @@ public class DomainDaoImpl implements DomainDao {
             session = DaoUtils.getSession();
 
             if (session != null) {
-                if (names != null && names.size() > 0) {
+                if (CollectionUtils.isNotEmpty(names)) {
                     query = session.getNamedQuery("getDomains");
 
                     query.setParameterList("nameList", names);

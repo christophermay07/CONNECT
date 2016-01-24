@@ -26,10 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docquery.xdsb.helper;
 
-/**
- *
- * @author tjafri
- */
 import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.ClassificationScheme;
 import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.IdentificationScheme;
 import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.ResponseSlotName;
@@ -84,11 +80,11 @@ public class XDSbAdhocQueryResponseHelperImpl implements XDSbAdhocQueryResponseH
         String title = null;
         if (extrinsicObject != null && extrinsicObject.getName() != null
             && extrinsicObject.getName().getLocalizedString() != null) {
+
             List<LocalizedStringType> names = extrinsicObject.getName().getLocalizedString();
-            if (names.size() >= 1 && extrinsicObject.getName().getLocalizedString().get(0) != null) {
+            if (!names.isEmpty() && extrinsicObject.getName().getLocalizedString().get(0) != null) {
                 title = extrinsicObject.getName().getLocalizedString().get(0).getValue();
             }
-
         }
         return title;
     }

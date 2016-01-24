@@ -42,6 +42,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
+import org.apache.commons.collections.CollectionUtils;
 import org.hl7.v3.II;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -416,7 +417,7 @@ public class AssertionHelper {
     private II extractUniquePatientId(AssertionType assertion) {
         II iiValue = null;
         String patId = null;
-        if ((assertion.getUniquePatientId() != null && assertion.getUniquePatientId().size() > 0)) {
+        if (CollectionUtils.isNotEmpty(assertion.getUniquePatientId())) {
             LOG.debug("Extracting UniquePatientId");
             // Take first identifier found
             for (String id : assertion.getUniquePatientId()) {

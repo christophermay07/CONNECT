@@ -51,8 +51,9 @@ public class AckBuilder {
         II originalMessageId = null;
 
         if (originalMessage != null) {
-            if ((originalMessage.getSender() != null) && (originalMessage.getSender().getDevice() != null)
-                && (originalMessage.getSender().getDevice().getId().size() > 0)) {
+            if (originalMessage.getSender() != null && originalMessage.getSender().getDevice() != null
+                && !originalMessage.getSender().getDevice().getId().isEmpty()) {
+
                 receiverId = originalMessage.getSender().getDevice().getId().get(0);
             }
 

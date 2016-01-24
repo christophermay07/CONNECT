@@ -50,6 +50,8 @@ import gov.hhs.fha.nhinc.properties.PropertyFileManager;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * This class is used by the PropertyAccessService to do the actual work of this web service. It keeps the web service
@@ -76,8 +78,9 @@ public class PropertyAccessHelper {
     public static GetPropertyResponseType getProperty(GetPropertyRequestType input) throws PropertyAccessException {
         GetPropertyResponseType oOutput = new GetPropertyResponseType();
 
-        if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)
-                && (input.getPropertyName() != null) && (input.getPropertyName().length() > 0)) {
+        if (input != null && StringUtils.isNotEmpty(input.getPropertyFile())
+            && StringUtils.isNotEmpty(input.getPropertyName())) {
+
             String sPropertyFile = input.getPropertyFile();
             String sPropertyName = input.getPropertyName();
 
@@ -99,11 +102,13 @@ public class PropertyAccessHelper {
      * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
      */
     public static GetPropertyBooleanResponseType getPropertyBoolean(GetPropertyBooleanRequestType input)
-            throws PropertyAccessException {
+        throws PropertyAccessException {
+
         GetPropertyBooleanResponseType oOutput = new GetPropertyBooleanResponseType();
 
-        if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)
-                && (input.getPropertyName() != null) && (input.getPropertyName().length() > 0)) {
+        if (input != null && StringUtils.isNotEmpty(input.getPropertyFile())
+            && StringUtils.isNotEmpty(input.getPropertyName())) {
+
             String sPropertyFile = input.getPropertyFile();
             String sPropertyName = input.getPropertyName();
 
@@ -125,10 +130,8 @@ public class PropertyAccessHelper {
             throws PropertyAccessException {
         GetPropertyNamesResponseType oOutput = new GetPropertyNamesResponseType();
 
-        if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)) {
-            String sPropertyFile = input.getPropertyFile();
-
-            Set<String> setKeys = PropertyAccessor.getInstance().getPropertyNames(sPropertyFile);
+        if (input != null && StringUtils.isNotEmpty(input.getPropertyFile())) {
+            Set<String> setKeys = PropertyAccessor.getInstance().getPropertyNames(input.getPropertyFile());
             if (setKeys != null) {
                 Iterator<String> iterKeys = setKeys.iterator();
                 while (iterKeys.hasNext()) {
@@ -157,15 +160,14 @@ public class PropertyAccessHelper {
      * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
      */
     public static GetPropertiesResponseType getProperties(GetPropertiesRequestType input)
-            throws PropertyAccessException {
+        throws PropertyAccessException {
+
         GetPropertiesResponseType oOutput = new GetPropertiesResponseType();
         PropertiesType oProperties = new PropertiesType();
         boolean bHasProps = false;
 
-        if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)) {
-            String sPropertyFile = input.getPropertyFile();
-
-            Properties oProps = PropertyAccessor.getInstance().getProperties(sPropertyFile);
+        if (input != null && StringUtils.isNotEmpty(input.getPropertyFile())) {
+            Properties oProps = PropertyAccessor.getInstance().getProperties(input.getPropertyFile());
             if (oProps != null) {
                 Set<String> setKeys = oProps.stringPropertyNames();
                 if (setKeys != null) {
@@ -200,11 +202,10 @@ public class PropertyAccessHelper {
      * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
      */
     public static GetPropertyFileLocationResponseType getPropertyFileLocation(GetPropertyFileLocationRequestType input)
-            throws PropertyAccessException {
-        GetPropertyFileLocationResponseType oOutput = new GetPropertyFileLocationResponseType();
+        throws PropertyAccessException {
 
-        String sLocation = PropertyAccessor.getInstance().getPropertyFileLocation();
-        oOutput.setLocation(sLocation);
+        GetPropertyFileLocationResponseType oOutput = new GetPropertyFileLocationResponseType();
+        oOutput.setLocation(PropertyAccessor.getInstance().getPropertyFileLocation());
 
         return oOutput;
     }
@@ -217,16 +218,14 @@ public class PropertyAccessHelper {
      * @throws PropertyAccessException
      */
     public static DumpPropsToLogResponseType dumpPropsToLog(DumpPropsToLogRequestType input)
-            throws PropertyAccessException {
+        throws PropertyAccessException {
+
         DumpPropsToLogResponseType oOutput = new DumpPropsToLogResponseType();
 
-        if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)) {
-            String sPropertyFile = input.getPropertyFile();
-
-            PropertyAccessor.getInstance().dumpPropsToLog(sPropertyFile);
+        if (input != null && (StringUtils.isNotEmpty(input.getPropertyFile()))) {
+            PropertyAccessor.getInstance().dumpPropsToLog(input.getPropertyFile());
 
             // If we got here without an exception, then we refreshed.
-            // ----------------------------------------------------------
             oOutput.setCompleted(true);
         }
 
@@ -245,25 +244,24 @@ public class PropertyAccessHelper {
      * @throws PropertyAccessException
      */
     public static WritePropertyFileResponseType writePropertyFile(WritePropertyFileRequestType part1)
-            throws PropertyAccessException {
+        throws PropertyAccessException {
+
         WritePropertyFileResponseType oOutput = new WritePropertyFileResponseType();
 
-        if ((part1 != null) && (part1.getPropertyFile() != null) && (part1.getPropertyFile().length() > 0)
-                && (part1.getProperties() != null) && (part1.getProperties().getProperty() != null)
-                && (part1.getProperties().getProperty().size() > 0)) {
-            String sPropertyFile = part1.getPropertyFile();
+        if (part1 != null && StringUtils.isNotEmpty(part1.getPropertyFile())
+            && part1.getProperties() != null && CollectionUtils.isNotEmpty(part1.getProperties().getProperty())) {
 
-            java.util.Properties oPropsToStore = new java.util.Properties();
+            Properties oPropsToStore = new Properties();
 
             for (PropertyType oInputProp : part1.getProperties().getProperty()) {
-                if ((oInputProp.getPropertyName() == null) || (oInputProp.getPropertyName().length() <= 0)) {
+                if (StringUtils.isEmpty(oInputProp.getPropertyName())) {
                     throw new PropertyAccessException(
-                            "Found a property without a name.  All properties must have a name.");
+                        "Found a property without a name.  All properties must have a name.");
                 }
 
                 if (oInputProp.getPropertyValue() == null) {
                     throw new PropertyAccessException("The property value cannot be null.  Property: "
-                            + oInputProp.getPropertyName());
+                        + oInputProp.getPropertyName());
                 }
 
                 String sPropName = oInputProp.getPropertyName();
@@ -272,11 +270,11 @@ public class PropertyAccessHelper {
                 oPropsToStore.setProperty(sPropName, sPropValue);
             }
 
-            PropertyFileManager.writePropertyFile(sPropertyFile, oPropsToStore);
+            PropertyFileManager.writePropertyFile(part1.getPropertyFile(), oPropsToStore);
         } else {
             String sErrorMessage = "Failed to write property file.  There must be both a valid "
-                    + "file name without the '.properties' extension and at least "
-                    + "one property to write.";
+                + "file name without the '.properties' extension and at least "
+                + "one property to write.";
             throw new PropertyAccessException(sErrorMessage);
         }
 
@@ -294,12 +292,12 @@ public class PropertyAccessHelper {
      * @throws PropertyAccessException
      */
     public static DeletePropertyFileResponseType deletePropertyFile(DeletePropertyFileRequestType part1)
-            throws PropertyAccessException {
+        throws PropertyAccessException {
+
         DeletePropertyFileResponseType oOutput = new DeletePropertyFileResponseType();
 
-        if ((part1 != null) && (part1.getPropertyFile() != null) && (part1.getPropertyFile().length() > 0)) {
-            String sPropertyFile = part1.getPropertyFile();
-            PropertyFileManager.deletePropertyFile(sPropertyFile);
+        if (part1 != null && StringUtils.isNotEmpty(part1.getPropertyFile())) {
+            PropertyFileManager.deletePropertyFile(part1.getPropertyFile());
         }
 
         oOutput.setSuccess(true); // If we got here we were successful

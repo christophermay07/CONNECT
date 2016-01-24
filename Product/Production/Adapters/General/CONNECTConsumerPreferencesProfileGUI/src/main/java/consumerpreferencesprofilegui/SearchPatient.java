@@ -58,6 +58,7 @@ import javax.faces.component.UIParameter;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -581,8 +582,7 @@ public class SearchPatient extends AbstractPageBean {
             this.preferencesTable.setVisible(false);
             this.fineGrainedPolicyPrefPanel.setVisible(false);
             this.savePreferences.setVisible(true);
-        } else if (patientPreferences.getFineGrainedPolicyCriteria() != null
-                && patientPreferences.getFineGrainedPolicyCriteria().size() > 0) {
+        } else if (CollectionUtils.isNotEmpty(patientPreferences.getFineGrainedPolicyCriteria())) {
             this.optIn.setValue("None");
             this.preferencesTable.setVisible(true);
             this.fineGrainedPolicyPrefPanel.setVisible(true);
@@ -767,8 +767,7 @@ public class SearchPatient extends AbstractPageBean {
         PatientVO patientVO = userSession.getPatient();
 
         if (patientVO.getPatientPreferences() == null
-                || patientVO.getPatientPreferences().getFineGrainedPolicyCriteria() == null
-                || patientVO.getPatientPreferences().getFineGrainedPolicyCriteria().size() < 1) {
+                || CollectionUtils.isEmpty(patientVO.getPatientPreferences().getFineGrainedPolicyCriteria())) {
             this.errorMessages.setText("Unable to delete this record as it does not exist");
             return null;
         } else {
@@ -838,8 +837,7 @@ public class SearchPatient extends AbstractPageBean {
         PatientVO patientVO = userSession.getPatient();
 
         if (patientVO.getPatientPreferences() == null
-                || patientVO.getPatientPreferences().getFineGrainedPolicyCriteria() == null
-                || patientVO.getPatientPreferences().getFineGrainedPolicyCriteria().size() < 1) {
+                || CollectionUtils.isEmpty(patientVO.getPatientPreferences().getFineGrainedPolicyCriteria())) {
             this.errorMessages.setText("Unable to update this record as it does not exist");
             return null;
         } else {

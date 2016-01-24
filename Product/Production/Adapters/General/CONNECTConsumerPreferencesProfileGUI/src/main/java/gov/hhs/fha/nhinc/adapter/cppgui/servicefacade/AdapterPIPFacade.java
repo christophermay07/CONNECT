@@ -42,6 +42,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyObjectFactory;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -117,8 +118,7 @@ public class AdapterPIPFacade {
                 FineGrainedPolicyCriteriaType fineGrainedCriteriaRespObj = preferencesRespObj
                         .getFineGrainedPolicyCriteria();
 
-                if (fineGrainedCriteriaRespObj.getFineGrainedPolicyCriterion() != null
-                        && fineGrainedCriteriaRespObj.getFineGrainedPolicyCriterion().size() > 0) {
+                if (CollectionUtils.isNotEmpty(fineGrainedCriteriaRespObj.getFineGrainedPolicyCriterion())) {
                     for (FineGrainedPolicyCriterionType fineGrainedCriterionRespObj : fineGrainedCriteriaRespObj
                             .getFineGrainedPolicyCriterion()) {
                         FineGrainedPolicyCriterionVO fineGrainedPolicyCriterion = new FineGrainedPolicyCriterionVO();
@@ -195,8 +195,7 @@ public class AdapterPIPFacade {
 
             patientPreference.setOptIn(patientPreferencesVO.getOptIn());
 
-            if (patientPreferencesVO.getFineGrainedPolicyCriteria() != null
-                    && patientPreferencesVO.getFineGrainedPolicyCriteria().size() > 0) {
+            if (CollectionUtils.isNotEmpty(patientPreferencesVO.getFineGrainedPolicyCriteria())) {
                 FineGrainedPolicyCriteriaType fineGrainedPolicyCriteria = new FineGrainedPolicyCriteriaType();
 
                 for (FineGrainedPolicyCriterionVO fineGrainedPolicyCriterionVO : patientPreferencesVO

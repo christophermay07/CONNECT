@@ -69,6 +69,9 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import javax.xml.namespace.QName;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 
 /**
  *
@@ -455,15 +458,14 @@ public class HL7PRPA201306Transforms {
         org.setClassCode(HL7Constants.ORG_CLASS_CODE);
         II id = new II();
 
-        if (patient.getId() != null && patient.getId().size() > 0 && patient.getId().get(0).getRoot() != null
-                && patient.getId().get(0).getRoot().length() > 0) {
+        if (CollectionUtils.isNotEmpty(patient.getId()) && StringUtils.isNotEmpty(patient.getId().get(0).getRoot())) {
             id.setRoot(patient.getId().get(0).getRoot());
         }
         org.getId().add(id);
 
         org.getContactParty().add(null);
 
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "providerOrganization");
+        QName xmlqname = new QName("urn:hl7-org:v3", "providerOrganization");
 
         return new JAXBElement<>(xmlqname, COCTMT150003UV03Organization.class, org);
 

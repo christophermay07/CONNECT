@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.xml.namespace.QName;
+import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
 import org.opensaml.DefaultBootstrap;
@@ -607,12 +608,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     List<AttributeStatement> createAttributeStatement(List<Attribute> attributes) {
         List<AttributeStatement> attributeStatements = new ArrayList<>();
-        if (attributes != null && attributes.size() > 0) {
-
+        if (CollectionUtils.isNotEmpty(attributes)) {
             AttributeStatement attributeStatement = attributeStatementBuilder.buildObject();
             for (Attribute attribute : attributes) {
                 attributeStatement.getAttributes().add(attribute);
-
             }
             // Add the completed attribute statementBean to the collection
             attributeStatements.add(attributeStatement);

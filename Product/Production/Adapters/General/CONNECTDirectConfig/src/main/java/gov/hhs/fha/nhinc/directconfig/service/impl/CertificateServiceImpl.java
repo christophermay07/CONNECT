@@ -71,6 +71,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
 import javax.security.auth.x500.X500Principal;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,7 +113,7 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
     public void addCertificates(Collection<Certificate> certs) throws ConfigurationServiceException {
         if (certs != null && certs.size() > 0) {
             for (Certificate cert : certs) {
-                if ((cert.getOwner() == null || cert.getOwner().isEmpty()) && cert.getData() != null) {
+                if (StringUtils.isEmpty(cert.getOwner()) && cert.getData() != null) {
                     // get the owner from the certificate information
                     // first transform into a certificate
                     CertContainer cont = toCertContainer(cert.getData());
@@ -124,7 +125,6 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
                             cert.setOwner(theOwner);
                         }
                     }
-
                 }
 
                 dao.save(cert);

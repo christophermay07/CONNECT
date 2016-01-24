@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientdb.dao;
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -190,7 +191,7 @@ public class PersonnameDAO {
 
             queryList = aCriteria.list();
 
-            if (queryList != null && queryList.size() > 0) {
+            if (CollectionUtils.isNotEmpty(queryList)) {
 
                 foundRecord = queryList.get(0);
 
@@ -198,7 +199,7 @@ public class PersonnameDAO {
 
         } catch (Exception e) {
 
-            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to :{}", e.getLocalizedMessage(), e);
 
         } finally {
 

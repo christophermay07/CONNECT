@@ -31,6 +31,8 @@ import gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyObjectFactor
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.ArrayList;
 import java.util.HashSet;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
@@ -65,10 +67,11 @@ public class UDDIAccessor {
         if (!m_bPropsLoaded) {
             try {
                 String sValue = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPFILE_NAME,
-                        UDDI_BUSINESSES_TO_IGNORE);
-                if ((sValue != null) && (sValue.length() > 0)) {
+                    UDDI_BUSINESSES_TO_IGNORE);
+
+                if (StringUtils.isNotEmpty(sValue)) {
                     String saBusiness[] = sValue.split(";");
-                    if ((saBusiness != null) && (saBusiness.length > 0)) {
+                    if (saBusiness != null && saBusiness.length > 0) {
                         for (int i = 0; i < saBusiness.length; i++) {
                             m_hBusinessToIgnore.add(saBusiness[i]);
                         }
@@ -76,10 +79,9 @@ public class UDDIAccessor {
                 }
 
                 m_bPropsLoaded = true;
-
             } catch (Exception e) {
                 String sErrorMessage = "Failed to retrieve properties from " + GATEWAY_PROPFILE_NAME
-                        + ".properties file.  Error: " + e.getMessage();
+                    + ".properties file.  Error: " + e.getMessage();
                 LOG.error(sErrorMessage, e);
                 throw new UDDIAccessorException(sErrorMessage, e);
             }
@@ -95,7 +97,7 @@ public class UDDIAccessor {
     private String extractBusinessKey(BusinessInfo oBusInfo) {
         String sKey = "";
 
-        if ((oBusInfo != null) && (oBusInfo.getBusinessKey() != null) && (oBusInfo.getBusinessKey().length() > 0)) {
+        if (oBusInfo != null && StringUtils.isNotEmpty(oBusInfo.getBusinessKey())) {
             sKey = oBusInfo.getBusinessKey();
         }
 
@@ -105,13 +107,11 @@ public class UDDIAccessor {
 
     private void removeIgnoredBusinesses(BusinessList businessList) {
         ArrayList<BusinessInfo> ignoredKeyList = new ArrayList<>();
-        if ((businessList != null) && (businessList.getBusinessInfos() != null)
-                && (businessList.getBusinessInfos().getBusinessInfo() != null)
-                && (businessList.getBusinessInfos().getBusinessInfo().size() > 0)) {
-            for (BusinessInfo oBusInfo : businessList.getBusinessInfos().getBusinessInfo()) {
-                String sKey = extractBusinessKey(oBusInfo);
+        if (businessList != null && businessList.getBusinessInfos() != null
+            && CollectionUtils.isNotEmpty(businessList.getBusinessInfos().getBusinessInfo())) {
 
-                if (m_hBusinessToIgnore.contains(sKey)) {
+            for (BusinessInfo oBusInfo : businessList.getBusinessInfos().getBusinessInfo()) {
+                if (m_hBusinessToIgnore.contains(extractBusinessKey(oBusInfo))) {
                     ignoredKeyList.add(oBusInfo);
                 }
             }
@@ -124,7 +124,7 @@ public class UDDIAccessor {
      * CMBusinessEntities.
      *
      * @return The Business Entities that were retrieved from the UDDI server.
-     *
+     * @throws gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessorException
      */
     public BusinessDetail retrieveFromUDDIServer() throws UDDIAccessorException {
         loadProperties();
@@ -143,10 +143,7 @@ public class UDDIAccessor {
      * @throws UDDIAccessorException
      */
     private BusinessList retrieveBusinessesListFromUDDI() throws UDDIAccessorException {
-
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Retrieving business entities from UDDI using find_business web service call.");
-        }
+        LOG.debug("Retrieving business entities from UDDI using find_business web service call.");
 
         BusinessList businessList;
         try {
@@ -166,7 +163,6 @@ public class UDDIAccessor {
     }
 
     private BusinessDetail retrieveBusinessDetail(BusinessList businessList) throws UDDIAccessorException {
-
         if (businessList == null) {
             return null;
         }
@@ -181,7 +177,7 @@ public class UDDIAccessor {
             businessDetail = uddiProxy.getBusinessDetail(searchParams);
         } catch (Exception e) {
             String sErrorMessage = "Failed to call UDDI web service get_businessDetail method.  Error: "
-                    + e.getMessage();
+                + e.getMessage();
             LOG.error(sErrorMessage, e);
             throw new UDDIAccessorException(sErrorMessage, e);
         }
@@ -192,12 +188,11 @@ public class UDDIAccessor {
     private GetBusinessDetail createSearchParamsFromBusinessKeys(BusinessInfos businessInfos) {
         GetBusinessDetail searchParams = new GetBusinessDetail();
         for (BusinessInfo businessInfo : businessInfos.getBusinessInfo()) {
-            if ((businessInfo.getBusinessKey() != null) && (businessInfo.getBusinessKey().length() > 0)) {
+            if (StringUtils.isNotEmpty(businessInfo.getBusinessKey())) {
                 searchParams.getBusinessKey().add(businessInfo.getBusinessKey());
             }
         }
 
         return searchParams;
     }
-
 }

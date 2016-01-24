@@ -77,6 +77,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,7 +110,7 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
      */
     @Override
     public AddAnchorsResponse addAnchors(AddAnchors addAnchors) throws ConfigurationServiceException {
-        if (addAnchors.getAnchor() != null && addAnchors.getAnchor().size() > 0) {
+        if (CollectionUtils.isNotEmpty(addAnchors.getAnchor())) {
             for (Anchor anchor : addAnchors.getAnchor()) {
                 dao.add(anchor);
             }
@@ -158,7 +159,7 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
         GetAnchorsResponse getAnchorsResponse = new GetAnchorsResponse();
         List<Anchor> retList;
 
-        if (getAnchors.getAnchorId() != null && getAnchors.getAnchorId().size() > 0) {
+        if (CollectionUtils.isNotEmpty(getAnchors.getAnchorId())) {
             retList = dao.listByIds(new ArrayList<>(getAnchors.getAnchorId()));
         } else {
             log.debug("No anchor ids were provided.");
@@ -191,7 +192,7 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
      */
     @Override
     public GetIncomingAnchorsResponse getIncomingAnchors(GetIncomingAnchors getIncomingAnchors)
-            throws ConfigurationServiceException {
+        throws ConfigurationServiceException {
 
         GetIncomingAnchorsResponse getIncomingAnchorsResponse = new GetIncomingAnchorsResponse();
 
@@ -202,7 +203,7 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
         Collection<Anchor> anchors = getAnchorsForOwner(getAnchorsForOwner).getReturn();
         Collection<Anchor> retList = new ArrayList<>();
 
-        if (anchors != null && anchors.size() > 0) {
+        if (CollectionUtils.isNotEmpty(anchors)) {
             for (Anchor anchor : anchors) {
                 if (anchor.isIncoming()) {
                     retList.add(anchor);
@@ -285,7 +286,7 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
     public RemoveAnchorsResponse removeAnchors(RemoveAnchors removeAnchors) throws ConfigurationServiceException {
         Collection<Long> ids = removeAnchors.getAnchorId();
 
-        if (ids != null && ids.size() > 0) {
+        if (CollectionUtils.isNotEmpty(ids)) {
             dao.delete(new ArrayList<>(ids));
         } else {
             log.debug("No Anchor IDs specified for deletion.");

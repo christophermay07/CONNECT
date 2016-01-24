@@ -38,6 +38,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -186,20 +187,18 @@ public class AdhocQueryTransformHelper {
 
         if (event != null && InboundOutboundChecker.isOutbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ACTIONVALUEOUT));
-            if ((assertion != null) && (assertion.getUniquePatientId() != null)
-                    && (assertion.getUniquePatientId().size() > 0)) {
+            if (assertion != null && CollectionUtils.isNotEmpty(assertion.getUniquePatientId())) {
                 aaId = PatientIdFormatUtil.parseCommunityId(assertion.getUniquePatientId().get(0));
                 sStrippedPatientId = PatientIdFormatUtil.parsePatientId(assertion.getUniquePatientId().get(0));
-
             } else {
                 LOG.info("Unique patientid is null in the assertion.");
             }
         }
         if (event != null) {
-            LOG.debug("transformAdhocQueryToCheckPolicyBase: event direction: " + event.getDirection());
+            LOG.debug("transformAdhocQueryToCheckPolicyBase: event direction: {}", event.getDirection());
         }
-        LOG.debug("transformAdhocQueryToCheckPolicyBase: aaId: " + aaId);
-        LOG.debug("transformAdhocQueryToCheckPolicyBase: PatientId: " + sStrippedPatientId);
+        LOG.debug("transformAdhocQueryToCheckPolicyBase: aaId: {}", aaId);
+        LOG.debug("transformAdhocQueryToCheckPolicyBase: PatientId: {}", sStrippedPatientId);
 
         ResourceType resource = new ResourceType();
         AttributeHelper attrHelper = new AttributeHelper();

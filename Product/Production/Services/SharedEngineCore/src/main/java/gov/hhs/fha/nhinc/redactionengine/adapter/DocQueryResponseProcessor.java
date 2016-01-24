@@ -45,6 +45,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -89,7 +91,8 @@ public class DocQueryResponseProcessor {
     }
 
     public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
-            AdhocQueryResponse adhocQueryResponse) {
+        AdhocQueryResponse adhocQueryResponse) {
+
         LOG.debug("Begin filterAdhocQueryResults");
         AdhocQueryResponse response = null;
         if (adhocQueryRequest == null) {
@@ -99,13 +102,13 @@ public class DocQueryResponseProcessor {
 
         } else {
             extractIdentifiers(adhocQueryRequest);
-            if ((patientId != null) && (!patientId.isEmpty())) {
+            if (StringUtils.isNotEmpty(patientId)) {
                 PatientConsentHelper patientConsentHelper = getPatientConsentHelper();
                 if (patientConsentHelper == null) {
                     LOG.warn("PatientConsentHelper was null.");
                 } else {
                     PatientPreferencesType patientPreferences = patientConsentHelper.retrievePatientConsentbyPatientId(
-                            patientId, assigningAuthorityId);
+                        patientId, assigningAuthorityId);
                     if (patientPreferences == null) {
                         LOG.warn("PatientPreferences was null.");
                     } else {
@@ -130,15 +133,12 @@ public class DocQueryResponseProcessor {
             if (adhocQuery != null) {
                 homeCommunityId = HomeCommunityMap.getCommunityId(adhocQuery);
 
-                List<SlotType1> slots;
-                if (adhocQuery != null) {
-                    slots = adhocQuery.getSlot();
-                    List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_PATIENT_ID);
-                    if ((slotValues != null) && (!slotValues.isEmpty())) {
-                        String formattedPatientId = slotValues.get(0);
-                        patientId = PatientIdFormatUtil.parsePatientId(formattedPatientId);
-                        assigningAuthorityId = PatientIdFormatUtil.parseCommunityId(formattedPatientId);
-                    }
+                List<SlotType1> slots = adhocQuery.getSlot();
+                List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_PATIENT_ID);
+                if (CollectionUtils.isNotEmpty(slotValues)) {
+                    String formattedPatientId = slotValues.get(0);
+                    patientId = PatientIdFormatUtil.parsePatientId(formattedPatientId);
+                    assigningAuthorityId = PatientIdFormatUtil.parseCommunityId(formattedPatientId);
                 }
             }
         }
@@ -151,8 +151,8 @@ public class DocQueryResponseProcessor {
         List<String> returnValues = null;
         if (slots != null) {
             for (SlotType1 slot : slots) {
-                if ((slot.getName() != null) && (slot.getName().length() > 0) && (slot.getValueList() != null)
-                        && (slot.getValueList().getValue() != null) && (slot.getValueList().getValue().size() > 0)) {
+                if (StringUtils.isNotEmpty(slot.getName()) && slot.getValueList() != null
+                    && CollectionUtils.isNotEmpty(slot.getValueList().getValue())) {
 
                     if (slot.getName().equals(slotName)) {
                         ValueListType valueListType = slot.getValueList();
@@ -301,5 +301,4 @@ public class DocQueryResponseProcessor {
         LOG.debug("End documentAllowed - response: " + allowed);
         return allowed;
     }
-
 }

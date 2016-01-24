@@ -44,6 +44,8 @@ import oasis.names.tc.xacml._2_0.policy.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.RuleType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectMatchType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectType;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Element;
 
 /**
@@ -81,8 +83,7 @@ public class XACMLExtractor {
     private String extractXACMLPolicyOID(PolicyType oConsentXACML) {
         String sPolicyOid = "";
 
-        if ((oConsentXACML != null) && (oConsentXACML.getPolicyId() != null)
-                && (oConsentXACML.getPolicyId().length() > 0)) {
+        if (oConsentXACML != null && StringUtils.isNotEmpty(oConsentXACML.getPolicyId())) {
             sPolicyOid = oConsentXACML.getPolicyId();
         }
 
@@ -100,19 +101,20 @@ public class XACMLExtractor {
     private boolean containsSimpleOptInSetting(PolicyType oConsentXACML) {
         boolean bReturnVal = false;
 
-        if ((oConsentXACML != null)
-                && (oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition() != null)
-                && (oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().size() == 1)
-                && (oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().get(0) instanceof RuleType)) {
+        if (oConsentXACML != null
+            && oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition() != null
+            && oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().size() == 1
+            && oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().get(0) instanceof RuleType) {
+
             RuleType oRule = (RuleType) oConsentXACML
-                    .getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().get(0);
+                .getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().get(0);
 
             // Make sure that the target is null or if there is a target, that it has no children.
             // -------------------------------------------------------------------------------------
-            if ((oRule.getTarget() == null)
-                    || ((oRule.getTarget() != null) && (oRule.getTarget().getActions() == null)
-                            && (oRule.getTarget().getEnvironments() == null)
-                            && (oRule.getTarget().getResources() == null) && (oRule.getTarget().getSubjects() == null))) {
+            if (oRule.getTarget() == null || (oRule.getTarget().getActions() == null
+                && oRule.getTarget().getEnvironments() == null && oRule.getTarget().getResources() == null
+                && oRule.getTarget().getSubjects() == null)) {
+
                 bReturnVal = true;
             }
         }
@@ -131,19 +133,20 @@ public class XACMLExtractor {
     private boolean extractSimpleOptInSetting(PolicyType oConsentXACML) {
         boolean bOptIn = false;
 
-        if ((oConsentXACML != null)
-                && (oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition() != null)
-                && (oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().size() == 1)
-                && (oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().get(0) instanceof RuleType)) {
+        if (oConsentXACML != null
+            && oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition() != null
+            && oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().size() == 1
+            && oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().get(0) instanceof RuleType) {
+
             RuleType oRule = (RuleType) oConsentXACML
-                    .getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().get(0);
+                .getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().get(0);
 
             // Make sure that the target is null or if there is a target, that it has no children.
             // -------------------------------------------------------------------------------------
-            if ((oRule.getTarget() == null)
-                    || ((oRule.getTarget() != null) && (oRule.getTarget().getActions() == null)
-                            && (oRule.getTarget().getEnvironments() == null)
-                            && (oRule.getTarget().getResources() == null) && (oRule.getTarget().getSubjects() == null))) {
+            if (oRule.getTarget() == null || (oRule.getTarget().getActions() == null
+                && oRule.getTarget().getEnvironments() == null && oRule.getTarget().getResources() == null
+                && oRule.getTarget().getSubjects() == null)) {
+
                 if (oRule.getEffect().equals(EffectType.PERMIT)) {
                     bOptIn = true;
                 }
@@ -164,23 +167,22 @@ public class XACMLExtractor {
     private String extractValueFromResource(RuleType oRule, String sAttributeId) {
         // Extract any values from the Resource section...
         // ------------------------------------------------
-        if ((oRule != null) && (oRule.getTarget() != null) && (oRule.getTarget().getResources() != null)
-                && (oRule.getTarget().getResources().getResource() != null)
-                && (oRule.getTarget().getResources().getResource().size() > 0)) {
+        if (oRule != null && oRule.getTarget() != null && oRule.getTarget().getResources() != null
+            && CollectionUtils.isNotEmpty(oRule.getTarget().getResources().getResource())) {
+
             List<ResourceType> olResource = oRule.getTarget().getResources().getResource();
             for (ResourceType oResource : olResource) {
-                if ((oResource != null) && (oResource.getResourceMatch() != null)
-                        && (oResource.getResourceMatch().size() > 0)) {
+                if (oResource != null && CollectionUtils.isNotEmpty(oResource.getResourceMatch())) {
                     List<ResourceMatchType> olResMatch = oResource.getResourceMatch();
                     for (ResourceMatchType oResourceMatch : olResMatch) {
-                        if ((oResourceMatch != null)
-                                && (oResourceMatch.getResourceAttributeDesignator() != null)
-                                && (oResourceMatch.getResourceAttributeDesignator().getAttributeId() != null)
-                                && (oResourceMatch.getResourceAttributeDesignator().getAttributeId()
-                                        .equals(sAttributeId)) && (oResourceMatch.getAttributeValue() != null)
-                                && (oResourceMatch.getAttributeValue().getContent() != null)
-                                && (oResourceMatch.getAttributeValue().getContent().size() > 0)
-                                && (oResourceMatch.getAttributeValue().getContent().get(0) instanceof String)) {
+                        if (oResourceMatch != null
+                            && oResourceMatch.getResourceAttributeDesignator() != null
+                            && oResourceMatch.getResourceAttributeDesignator().getAttributeId() != null
+                            && oResourceMatch.getResourceAttributeDesignator().getAttributeId().equals(sAttributeId)
+                            && oResourceMatch.getAttributeValue() != null
+                            && CollectionUtils.isNotEmpty(oResourceMatch.getAttributeValue().getContent())
+                            && oResourceMatch.getAttributeValue().getContent().get(0) instanceof String) {
+
                             String sValue = (String) oResourceMatch.getAttributeValue().getContent().get(0);
                             if ((sValue != null) && (sValue.length() > 0)) {
                                 return sValue;
@@ -203,26 +205,24 @@ public class XACMLExtractor {
     private UserIdFormatType extractUserIdFormatFromSubject(RuleType oRule) {
         // Extract any values from the Resource section...
         // ------------------------------------------------
-        if ((oRule != null) && (oRule.getTarget() != null) && (oRule.getTarget().getSubjects() != null)
-                && (oRule.getTarget().getSubjects().getSubject() != null)
-                && (oRule.getTarget().getSubjects().getSubject().size() > 0)) {
+        if (oRule != null && oRule.getTarget() != null && oRule.getTarget().getSubjects() != null
+            && CollectionUtils.isNotEmpty(oRule.getTarget().getSubjects().getSubject())) {
+
             List<SubjectType> olSubject = oRule.getTarget().getSubjects().getSubject();
             for (SubjectType oSubject : olSubject) {
-                if ((oSubject != null) && (oSubject.getSubjectMatch() != null)
-                        && (oSubject.getSubjectMatch().size() > 0)) {
+                if (oSubject != null && CollectionUtils.isNotEmpty(oSubject.getSubjectMatch())) {
                     List<SubjectMatchType> olSubjMatch = oSubject.getSubjectMatch();
                     for (SubjectMatchType oSubjMatch : olSubjMatch) {
-                        if ((oSubjMatch != null)
-                                && (oSubjMatch.getSubjectAttributeDesignator() != null)
-                                && (oSubjMatch.getSubjectAttributeDesignator().getAttributeId() != null)
-                                && (oSubjMatch.getSubjectAttributeDesignator().getAttributeId()
-                                        .equals(XACMLConstants.SUBJECT_USER_ID))
-                                && (oSubjMatch.getAttributeValue() != null)
-                                && (oSubjMatch.getAttributeValue().getContent() != null)
-                                && (oSubjMatch.getAttributeValue().getContent().size() > 0)
-                                && (oSubjMatch.getAttributeValue().getContent().get(0) instanceof String)
-                                && (oSubjMatch.getAttributeValue().getDataType() != null)
-                                && (oSubjMatch.getAttributeValue().getDataType().length() > 0)) {
+                        if (oSubjMatch != null
+                            && oSubjMatch.getSubjectAttributeDesignator() != null
+                            && oSubjMatch.getSubjectAttributeDesignator().getAttributeId() != null
+                            && oSubjMatch.getSubjectAttributeDesignator().getAttributeId()
+                                .equals(XACMLConstants.SUBJECT_USER_ID)
+                            && oSubjMatch.getAttributeValue() != null
+                            && CollectionUtils.isNotEmpty(oSubjMatch.getAttributeValue().getContent())
+                            && (oSubjMatch.getAttributeValue().getContent().get(0) instanceof String)
+                            && StringUtils.isNotEmpty(oSubjMatch.getAttributeValue().getDataType())) {
+
                             if (oSubjMatch.getAttributeValue().getDataType()
                                     .equals(XACMLConstants.ATTRIBUTE_VALUE_TYPE_EMAIL)) {
                                 return UserIdFormatType.EMAIL;
@@ -250,24 +250,23 @@ public class XACMLExtractor {
     private String extractValueFromSubject(RuleType oRule, String sAttributeId) {
         // Extract any values from the Resource section...
         // ------------------------------------------------
-        if ((oRule != null) && (oRule.getTarget() != null) && (oRule.getTarget().getSubjects() != null)
-                && (oRule.getTarget().getSubjects().getSubject() != null)
-                && (oRule.getTarget().getSubjects().getSubject().size() > 0)) {
+        if (oRule != null && oRule.getTarget() != null && oRule.getTarget().getSubjects() != null
+            && CollectionUtils.isNotEmpty(oRule.getTarget().getSubjects().getSubject())) {
+
             List<SubjectType> olSubject = oRule.getTarget().getSubjects().getSubject();
             for (SubjectType oSubject : olSubject) {
-                if ((oSubject != null) && (oSubject.getSubjectMatch() != null)
-                        && (oSubject.getSubjectMatch().size() > 0)) {
+                if (oSubject != null && CollectionUtils.isNotEmpty(oSubject.getSubjectMatch())) {
                     List<SubjectMatchType> olSubjMatch = oSubject.getSubjectMatch();
                     for (SubjectMatchType oSubjMatch : olSubjMatch) {
-                        if ((oSubjMatch != null) && (oSubjMatch.getSubjectAttributeDesignator() != null)
-                                && (oSubjMatch.getSubjectAttributeDesignator().getAttributeId() != null)
-                                && (oSubjMatch.getSubjectAttributeDesignator().getAttributeId().equals(sAttributeId))
-                                && (oSubjMatch.getAttributeValue() != null)
-                                && (oSubjMatch.getAttributeValue().getContent() != null)
-                                && (oSubjMatch.getAttributeValue().getContent().size() > 0)
-                                && (oSubjMatch.getAttributeValue().getContent().get(0) instanceof String)) {
+                        if (oSubjMatch != null && oSubjMatch.getSubjectAttributeDesignator() != null
+                            && oSubjMatch.getSubjectAttributeDesignator().getAttributeId() != null
+                            && oSubjMatch.getSubjectAttributeDesignator().getAttributeId().equals(sAttributeId)
+                            && oSubjMatch.getAttributeValue() != null
+                            && CollectionUtils.isNotEmpty(oSubjMatch.getAttributeValue().getContent())
+                            && oSubjMatch.getAttributeValue().getContent().get(0) instanceof String) {
+
                             String sValue = (String) oSubjMatch.getAttributeValue().getContent().get(0);
-                            if ((sValue != null) && (sValue.length() > 0)) {
+                            if (StringUtils.isNotEmpty(sValue)) {
                                 return sValue;
                             }
                         }
@@ -290,24 +289,24 @@ public class XACMLExtractor {
     private String extractValueFromEnvironment(RuleType oRule, String sAttributeId) {
         // Extract any values from the Resource section...
         // ------------------------------------------------
-        if ((oRule != null) && (oRule.getTarget() != null) && (oRule.getTarget().getEnvironments() != null)
-                && (oRule.getTarget().getEnvironments().getEnvironment() != null)
-                && (oRule.getTarget().getEnvironments().getEnvironment().size() > 0)) {
+        if (oRule != null && oRule.getTarget() != null && oRule.getTarget().getEnvironments() != null
+            && CollectionUtils.isNotEmpty(oRule.getTarget().getEnvironments().getEnvironment())) {
+
             List<EnvironmentType> olEnv = oRule.getTarget().getEnvironments().getEnvironment();
             for (EnvironmentType oEnv : olEnv) {
-                if ((oEnv != null) && (oEnv.getEnvironmentMatch() != null) && (oEnv.getEnvironmentMatch().size() > 0)) {
+                if (oEnv != null && CollectionUtils.isNotEmpty(oEnv.getEnvironmentMatch())) {
                     List<EnvironmentMatchType> olEnvMatch = oEnv.getEnvironmentMatch();
                     for (EnvironmentMatchType oEnvMatch : olEnvMatch) {
-                        if ((oEnvMatch != null)
-                                && (oEnvMatch.getEnvironmentAttributeDesignator() != null)
-                                && (oEnvMatch.getEnvironmentAttributeDesignator().getAttributeId() != null)
-                                && (oEnvMatch.getEnvironmentAttributeDesignator().getAttributeId().equals(sAttributeId))
-                                && (oEnvMatch.getAttributeValue() != null)
-                                && (oEnvMatch.getAttributeValue().getContent() != null)
-                                && (oEnvMatch.getAttributeValue().getContent().size() > 0)
-                                && (oEnvMatch.getAttributeValue().getContent().get(0) instanceof String)) {
+                        if (oEnvMatch != null
+                            && oEnvMatch.getEnvironmentAttributeDesignator() != null
+                            && oEnvMatch.getEnvironmentAttributeDesignator().getAttributeId() != null
+                            && oEnvMatch.getEnvironmentAttributeDesignator().getAttributeId().equals(sAttributeId)
+                            && oEnvMatch.getAttributeValue() != null
+                            && CollectionUtils.isNotEmpty(oEnvMatch.getAttributeValue().getContent())
+                            && oEnvMatch.getAttributeValue().getContent().get(0) instanceof String) {
+
                             String sValue = (String) oEnvMatch.getAttributeValue().getContent().get(0);
-                            if ((sValue != null) && (sValue.length() > 0)) {
+                            if (StringUtils.isNotEmpty(sValue)) {
                                 return sValue;
                             }
                         }
@@ -330,7 +329,7 @@ public class XACMLExtractor {
 
         // Do we have a "date only"?
         // --------------------------
-        if ((sXMLDateTime != null) && (sXMLDateTime.length() == 10)) {
+        if (sXMLDateTime != null && sXMLDateTime.length() == 10) {
             try {
                 Date oXMLDate = oXMLDateOnlyFormatter.parse(sXMLDateTime);
                 sHL7Date = oHL7DateOnlyFormatter.format(oXMLDate);
@@ -338,7 +337,7 @@ public class XACMLExtractor {
                 String sErrorMessage = "Date had invalid XML format: " + sXMLDateTime + ".  Error = " + e.getMessage();
                 throw new AdapterPIPException(sErrorMessage, e);
             }
-        } else if ((sXMLDateTime != null) && (sXMLDateTime.length() > 10)) {
+        } else if (sXMLDateTime != null && sXMLDateTime.length() > 10) {
             // Date + Time
             // ------------
             try {
@@ -358,19 +357,20 @@ public class XACMLExtractor {
     }
 
     /**
-     * This extracts the information for one instnce of a FineGrainedPolicyCriterion from the Rule.
+     * This extracts the information for one instance of a FineGrainedPolicyCriterion from the Rule.
      *
      * @param oRule The rule being checked.
-     * @return An instance of the FineGrainedPolicyCriterion that was creatd from the data in the rule.
+     * @return An instance of the FineGrainedPolicyCriterion that was created from the data in the rule.
      */
     private FineGrainedPolicyCriterionType extractSingleFineGrainedPolicyXACML(RuleType oRule)
-            throws AdapterPIPException {
+        throws AdapterPIPException {
+
         FineGrainedPolicyCriterionType oCriterion = new FineGrainedPolicyCriterionType();
         boolean bHasData = false; // True if we find something to put in the oCriterion object
 
         // Permit or deny
         // ----------------
-        if ((oRule != null) && (oRule.getEffect() != null)) {
+        if (oRule != null && oRule.getEffect() != null) {
             bHasData = true;
             if (oRule.getEffect() == EffectType.PERMIT) {
                 oCriterion.setPermit(true);
@@ -381,7 +381,7 @@ public class XACMLExtractor {
 
         // Rule ID
         // --------
-        if ((oRule != null) && (oRule.getRuleId() != null) && (oRule.getRuleId().length() > 0)) {
+        if (oRule != null && StringUtils.isNotEmpty(oRule.getRuleId())) {
             bHasData = true;
             oCriterion.setSequentialId(oRule.getRuleId());
         }
@@ -469,7 +469,7 @@ public class XACMLExtractor {
         // Rule Start Date
         // -----------------
         String sRuleStartDate = extractValueFromEnvironment(oRule, XACMLConstants.ENVIRONMENT_RULE_START_DATE);
-        if ((sRuleStartDate != null) && (sRuleStartDate.length() > 0)) {
+        if (StringUtils.isNotEmpty(sRuleStartDate)) {
             oCriterion.setRuleStartDate(createHL7Date(sRuleStartDate));
             bHasData = true;
         }
@@ -477,7 +477,7 @@ public class XACMLExtractor {
         // Rule End Date
         // -----------------
         String sRuleEndDate = extractValueFromEnvironment(oRule, XACMLConstants.ENVIRONMENT_RULE_END_DATE);
-        if ((sRuleEndDate != null) && (sRuleEndDate.length() > 0)) {
+        if (StringUtils.isNotEmpty(sRuleEndDate)) {
             oCriterion.setRuleEndDate(createHL7Date(sRuleEndDate));
             bHasData = true;
         }
@@ -497,7 +497,8 @@ public class XACMLExtractor {
      * @return The FineGrainedPolicyCriteria object containing the fine grained consent information.
      */
     private FineGrainedPolicyCriteriaType extractFineGrainedCriteriaFromXACML(PolicyType oConsentXACML)
-            throws AdapterPIPException {
+        throws AdapterPIPException {
+
         FineGrainedPolicyCriteriaType oFineGrainCriteria = new FineGrainedPolicyCriteriaType();
 
         // Just a double check to be sure that this has fine grained criteria...
@@ -510,9 +511,9 @@ public class XACMLExtractor {
         // We know that it is not simple opt-in/opt-out - Now lets see if there
         // are fine grained rules here...
         // ------------------------------------------------------------------------
-        if ((oConsentXACML != null)
-                && (oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition() != null)
-                && (oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().size() > 0)) {
+        if (oConsentXACML != null && CollectionUtils
+            .isNotEmpty(oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition())) {
+
             // Loop through each rule and extract what we need...
             // ----------------------------------------------------
             for (Object oObject : oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition()) {
@@ -529,8 +530,7 @@ public class XACMLExtractor {
             }
         }
 
-        if ((oFineGrainCriteria.getFineGrainedPolicyCriterion() != null)
-                && (oFineGrainCriteria.getFineGrainedPolicyCriterion().size() > 0)) {
+        if (CollectionUtils.isNotEmpty(oFineGrainCriteria.getFineGrainedPolicyCriterion())) {
             return oFineGrainCriteria;
         } else {
             // No fine grained criteria was found - return null.
@@ -546,22 +546,22 @@ public class XACMLExtractor {
      * @param oPtPref The patient preferences object.
      */
     private void extractAndSetPatientIdInfo(PolicyType oConsentXACML, PatientPreferencesType oPtPref) {
-        if ((oConsentXACML != null) && (oConsentXACML.getTarget() != null)
-                && (oConsentXACML.getTarget().getResources() != null)
-                && (oConsentXACML.getTarget().getResources().getResource() != null)
-                && (oConsentXACML.getTarget().getResources().getResource().size() > 0)) {
+        if (oConsentXACML != null && oConsentXACML.getTarget() != null
+            && oConsentXACML.getTarget().getResources() != null
+            && CollectionUtils.isNotEmpty(oConsentXACML.getTarget().getResources().getResource())) {
+
             List<ResourceType> olResources = oConsentXACML.getTarget().getResources().getResource();
             for (ResourceType oResource : olResources) {
-                if ((oResource.getResourceMatch() != null) && (oResource.getResourceMatch().size() > 0)) {
+                if (CollectionUtils.isNotEmpty(oResource.getResourceMatch())) {
                     List<ResourceMatchType> olResourceMatch = oResource.getResourceMatch();
                     for (ResourceMatchType oResMatch : olResourceMatch) {
-                        if ((oResMatch.getResourceAttributeDesignator() != null)
-                                && (oResMatch.getResourceAttributeDesignator().getAttributeId() != null)
-                                && (oResMatch.getResourceAttributeDesignator().getAttributeId()
-                                        .equals(XACMLConstants.PATIENT_SUBJECT_ID))
-                                && (oResMatch.getAttributeValue() != null)
-                                && (oResMatch.getAttributeValue().getContent() != null)
-                                && (oResMatch.getAttributeValue().getContent().size() > 0)) {
+                        if (oResMatch.getResourceAttributeDesignator() != null
+                            && oResMatch.getResourceAttributeDesignator().getAttributeId() != null
+                            && oResMatch.getResourceAttributeDesignator().getAttributeId()
+                                .equals(XACMLConstants.PATIENT_SUBJECT_ID)
+                            && oResMatch.getAttributeValue() != null
+                            && CollectionUtils.isNotEmpty(oResMatch.getAttributeValue().getContent())) {
+
                             // With the way we are formatting this record - what we are looking for will be in the first
                             // node of the content. The content object will be of type "Element" and the values will be
                             // in the attributes.
@@ -598,6 +598,7 @@ public class XACMLExtractor {
      *
      * @param oConsentXACML The XACML consent information
      * @return The patient preferences.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException
      */
     public PatientPreferencesType extractPatientPreferences(PolicyType oConsentXACML) throws AdapterPIPException {
         PatientPreferencesType oPtPref = new PatientPreferencesType();

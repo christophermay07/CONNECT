@@ -41,6 +41,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyScannerAuthorInfoType;
 import java.io.Serializable;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.AdxpExplicitCity;
 import org.hl7.v3.AdxpExplicitCountry;
@@ -132,7 +134,7 @@ public class CdaPdfExtractor {
     /**
      * Create a CeType from an HL7 CS data type.
      *
-     * @param oHl7Ce The HL7 CS data type.
+     * @param oHl7Cs The HL7 CS data type.
      * @return The Ce that is returned.
      */
     private CeType createCe(CS oHl7Cs) {
@@ -167,7 +169,7 @@ public class CdaPdfExtractor {
         // we should only see individual tags. We will ignore anything that
         // is not a tag part of the address.
         // ---------------------------------------------------------------------------
-        if ((oHL7Addr.getContent() != null) && (oHL7Addr.getContent().size() > 0)) {
+        if (CollectionUtils.isNotEmpty(oHL7Addr.getContent())) {
             for (Serializable oSerialElement : oHL7Addr.getContent()) {
                 if (oSerialElement instanceof JAXBElement) {
                     JAXBElement oJAXBElement = (JAXBElement) oSerialElement;
@@ -175,33 +177,32 @@ public class CdaPdfExtractor {
                     if (oJAXBElement.getValue() != null) {
                         if (oJAXBElement.getValue() instanceof AdxpExplicitStreetAddressLine) {
                             AdxpExplicitStreetAddressLine oStreetAddressLine
-                                = (AdxpExplicitStreetAddressLine) oJAXBElement
-                                .getValue();
-                            if ((oStreetAddressLine != null) && (oStreetAddressLine.getContent() != null)) {
+                                = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
+                            if (oStreetAddressLine != null && oStreetAddressLine.getContent() != null) {
                                 oAddr.setStreetAddress(oStreetAddressLine.getContent());
                                 bHaveData = true;
                             }
                         } else if (oJAXBElement.getValue() instanceof AdxpExplicitCity) {
                             AdxpExplicitCity oCity = (AdxpExplicitCity) oJAXBElement.getValue();
-                            if ((oCity != null) && (oCity.getContent() != null)) {
+                            if (oCity != null && oCity.getContent() != null) {
                                 oAddr.setCity(oCity.getContent());
                                 bHaveData = true;
                             }
                         } else if (oJAXBElement.getValue() instanceof AdxpExplicitState) {
                             AdxpExplicitState oState = (AdxpExplicitState) oJAXBElement.getValue();
-                            if ((oState != null) && (oState.getContent() != null)) {
+                            if (oState != null && oState.getContent() != null) {
                                 oAddr.setState(oState.getContent());
                                 bHaveData = true;
                             }
                         } else if (oJAXBElement.getValue() instanceof AdxpExplicitPostalCode) {
                             AdxpExplicitPostalCode oPostalCode = (AdxpExplicitPostalCode) oJAXBElement.getValue();
-                            if ((oPostalCode != null) && (oPostalCode.getContent() != null)) {
+                            if (oPostalCode != null && oPostalCode.getContent() != null) {
                                 oAddr.setZipCode(oPostalCode.getContent());
                                 bHaveData = true;
                             }
                         } else if (oJAXBElement.getValue() instanceof AdxpExplicitCountry) {
                             AdxpExplicitCountry oCountry = (AdxpExplicitCountry) oJAXBElement.getValue();
-                            if ((oCountry != null) && (oCountry.getContent() != null)) {
+                            if (oCountry != null && oCountry.getContent() != null) {
                                 oAddr.setCountry(oCountry.getContent());
                                 bHaveData = true;
                             }
@@ -221,7 +222,7 @@ public class CdaPdfExtractor {
     /**
      * Create a Person Name from the given HL7 name.
      *
-     * @param oHL7Addr The person name in an HL7 format.
+     * @param oHL7Pn The person name in an HL7 format.
      * @return The person name that is returned.
      */
     private PersonNameType createPersonName(PNExplicit oHL7Pn) {
@@ -229,7 +230,8 @@ public class CdaPdfExtractor {
         boolean bHaveData = false;
 
         if (oHL7Pn == null) {
-            return null; // Get out of here there is nothing to do.
+            // Get out of here, there is nothing to do.
+            return null;
         }
 
         // Addresses are set up in HL7 in a somewhat strange way. They can
@@ -238,7 +240,7 @@ public class CdaPdfExtractor {
         // we should only see individual tags. We will ignore anything that
         // is not a tag part of the address.
         // ---------------------------------------------------------------------------
-        if ((oHL7Pn.getContent() != null) && (oHL7Pn.getContent().size() > 0)) {
+        if (CollectionUtils.isNotEmpty(oHL7Pn.getContent())) {
             for (Serializable oSerialElement : oHL7Pn.getContent()) {
                 if (oSerialElement instanceof JAXBElement) {
                     JAXBElement oJAXBElement = (JAXBElement) oSerialElement;
@@ -246,25 +248,25 @@ public class CdaPdfExtractor {
                     if (oJAXBElement.getValue() != null) {
                         if (oJAXBElement.getValue() instanceof EnExplicitPrefix) {
                             EnExplicitPrefix oPrefix = (EnExplicitPrefix) oJAXBElement.getValue();
-                            if ((oPrefix != null) && (oPrefix.getContent() != null)) {
+                            if (oPrefix != null && oPrefix.getContent() != null) {
                                 oPersonName.setPrefix(oPrefix.getContent());
                                 bHaveData = true;
                             }
                         } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
                             EnExplicitGiven oGiven = (EnExplicitGiven) oJAXBElement.getValue();
-                            if ((oGiven != null) && (oGiven.getContent() != null)) {
+                            if (oGiven != null && oGiven.getContent() != null) {
                                 oPersonName.setGivenName(oGiven.getContent());
                                 bHaveData = true;
                             }
                         } else if (oJAXBElement.getValue() instanceof EnExplicitFamily) {
                             EnExplicitFamily oFamily = (EnExplicitFamily) oJAXBElement.getValue();
-                            if ((oFamily != null) && (oFamily.getContent() != null)) {
+                            if (oFamily != null && oFamily.getContent() != null) {
                                 oPersonName.setFamilyName(oFamily.getContent());
                                 bHaveData = true;
                             }
                         } else if (oJAXBElement.getValue() instanceof EnExplicitSuffix) {
                             EnExplicitSuffix oSuffix = (EnExplicitSuffix) oJAXBElement.getValue();
-                            if ((oSuffix != null) && (oSuffix.getContent() != null)) {
+                            if (oSuffix != null && oSuffix.getContent() != null) {
                                 oPersonName.setSuffix(oSuffix.getContent());
                                 bHaveData = true;
                             }
@@ -290,7 +292,7 @@ public class CdaPdfExtractor {
     private AddressesType createAddrs(List<ADExplicit> oHL7Addrs) {
         AddressesType oAddrs = new AddressesType();
 
-        if ((oHL7Addrs != null) && (oHL7Addrs.size() > 0)) {
+        if (CollectionUtils.isNotEmpty(oHL7Addrs)) {
             for (ADExplicit oHL7Addr : oHL7Addrs) {
                 if (oHL7Addr != null) {
                     AddressType oAddr = createAddr(oHL7Addr);
@@ -301,7 +303,7 @@ public class CdaPdfExtractor {
             }
         }
 
-        if (oAddrs.getAddress().size() > 0) {
+        if (!oAddrs.getAddress().isEmpty()) {
             return oAddrs;
         } else {
             return null;
@@ -317,6 +319,7 @@ public class CdaPdfExtractor {
      */
     private PolicyPatientInfoType createPatientInfo(POCDMT000040PatientRole oHL7PatientRole)
         throws AdapterPIPException {
+
         PolicyPatientInfoType oPatientInfo = new PolicyPatientInfoType();
         boolean bHaveData = false;
 
@@ -332,8 +335,9 @@ public class CdaPdfExtractor {
 
         // Patient Name
         // --------------
-        if ((oHL7PatientRole.getPatient() != null) && (oHL7PatientRole.getPatient().getName() != null)
-            && (oHL7PatientRole.getPatient().getName().size() > 0)) {
+        if (oHL7PatientRole.getPatient() != null
+            && CollectionUtils.isNotEmpty(oHL7PatientRole.getPatient().getName())) {
+
             // If there is more than one name, this will only collect the first instance of the name.
             // ----------------------------------------------------------------------------------------
             PersonNameType oPersonName = createPersonName(oHL7PatientRole.getPatient().getName().get(0));
@@ -345,8 +349,9 @@ public class CdaPdfExtractor {
 
         // Patient Gender
         // ---------------
-        if ((oHL7PatientRole.getPatient() != null)
-            && (oHL7PatientRole.getPatient().getAdministrativeGenderCode() != null)) {
+        if (oHL7PatientRole.getPatient() != null
+            && oHL7PatientRole.getPatient().getAdministrativeGenderCode() != null) {
+
             CeType oGender = createCe(oHL7PatientRole.getPatient().getAdministrativeGenderCode());
             if (oGender != null) {
                 oPatientInfo.setGender(oGender);
@@ -356,8 +361,9 @@ public class CdaPdfExtractor {
 
         // Patient Birth Time
         // --------------------
-        if ((oHL7PatientRole.getPatient() != null) && (oHL7PatientRole.getPatient().getBirthTime() != null)
-            && (oHL7PatientRole.getPatient().getBirthTime().getValue() != null)) {
+        if (oHL7PatientRole.getPatient() != null && oHL7PatientRole.getPatient().getBirthTime() != null
+            && oHL7PatientRole.getPatient().getBirthTime().getValue() != null) {
+
             oPatientInfo.setBirthTime(oHL7PatientRole.getPatient().getBirthTime().getValue());
             bHaveData = true;
         }
@@ -377,14 +383,14 @@ public class CdaPdfExtractor {
      * @return The Author with that tempate ID.
      */
     private POCDMT000040Author findAuthor(List<POCDMT000040Author> oHL7Authors, String sTemplateId) {
-        if ((oHL7Authors == null) || (oHL7Authors.size() <= 0)) {
+        if (CollectionUtils.isEmpty(oHL7Authors)) {
             return null;
         }
 
         for (POCDMT000040Author oHL7Author : oHL7Authors) {
-            if ((oHL7Author.getTemplateId() != null) && (oHL7Author.getTemplateId().size() > 0)) {
+            if (CollectionUtils.isNotEmpty(oHL7Author.getTemplateId())) {
                 for (II oTemplateId : oHL7Author.getTemplateId()) {
-                    if ((oTemplateId.getRoot() != null) && (oTemplateId.getRoot().equals(sTemplateId))) {
+                    if (oTemplateId.getRoot() != null && oTemplateId.getRoot().equals(sTemplateId)) {
                         return oHL7Author;
                     }
                 }
@@ -416,21 +422,19 @@ public class CdaPdfExtractor {
         if (oHL7Author != null) {
             // Author time
             // -------------
-            if ((oHL7Author.getTime() != null) && (oHL7Author.getTime().getValue() != null)
-                && (oHL7Author.getTime().getValue().length() > 0)) {
+            if (oHL7Author.getTime() != null && StringUtils.isNotEmpty(oHL7Author.getTime().getValue())) {
                 oOriginalAuthor.setAuthorTime(oHL7Author.getTime().getValue());
                 bHaveData = true;
             }
 
             // There should only be one - if more, then we will use the first.
-            if ((oHL7Author.getAssignedAuthor() != null) && (oHL7Author.getAssignedAuthor().getId() != null)
-                && (oHL7Author.getAssignedAuthor().getId().size() > 0)
-                && (oHL7Author.getAssignedAuthor().getId().get(0) != null)) {
+            if (oHL7Author.getAssignedAuthor() != null
+                && CollectionUtils.isNotEmpty(oHL7Author.getAssignedAuthor().getId())
+                && oHL7Author.getAssignedAuthor().getId().get(0) != null) {
 
                 // Assigned Person Assigning Authority
                 // -------------------------------------
-                if ((oHL7Author.getAssignedAuthor().getId().get(0).getRoot() != null)
-                    && (oHL7Author.getAssignedAuthor().getId().get(0).getRoot().length() > 0)) {
+                if (StringUtils.isNotEmpty(oHL7Author.getAssignedAuthor().getId().get(0).getRoot())) {
                     oOriginalAuthor.setAuthorIdAssigningAuthority(oHL7Author.getAssignedAuthor().getId().get(0)
                         .getRoot());
                     bHaveData = true;
@@ -438,8 +442,7 @@ public class CdaPdfExtractor {
 
                 // Assigned Person Id
                 // -------------------
-                if ((oHL7Author.getAssignedAuthor().getId().get(0).getExtension() != null)
-                    && (oHL7Author.getAssignedAuthor().getId().get(0).getExtension().length() > 0)) {
+                if (StringUtils.isNotEmpty(oHL7Author.getAssignedAuthor().getId().get(0).getExtension())) {
                     oOriginalAuthor.setAuthorId(oHL7Author.getAssignedAuthor().getId().get(0).getExtension());
                     bHaveData = true;
                 }
@@ -447,11 +450,11 @@ public class CdaPdfExtractor {
 
             // Author name
             // ------------
-            if ((oHL7Author.getAssignedAuthor() != null)
-                && (oHL7Author.getAssignedAuthor().getAssignedPerson() != null)
-                && (oHL7Author.getAssignedAuthor().getAssignedPerson().getName() != null)
-                && (oHL7Author.getAssignedAuthor().getAssignedPerson().getName().size() > 0) &&
-                (oHL7Author.getAssignedAuthor().getAssignedPerson().getName().get(0) != null)) {
+            if (oHL7Author.getAssignedAuthor() != null
+                && oHL7Author.getAssignedAuthor().getAssignedPerson() != null
+                && CollectionUtils.isNotEmpty(oHL7Author.getAssignedAuthor().getAssignedPerson().getName())
+                && oHL7Author.getAssignedAuthor().getAssignedPerson().getName().get(0) != null) {
+
                 // Should only be one name - if more, take the first.
                 PersonNameType oPersonName = createPersonName(oHL7Author.getAssignedAuthor().getAssignedPerson()
                     .getName().get(0));
@@ -462,16 +465,17 @@ public class CdaPdfExtractor {
             }
 
             // Should only be one - if more, take the first.
-            if ((oHL7Author.getAssignedAuthor() != null)
-                && (oHL7Author.getAssignedAuthor().getRepresentedOrganization() != null)) {
-                if ((oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId() != null)
-                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().size() > 0) && 
-                    (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0) != null)) {
+            if (oHL7Author.getAssignedAuthor() != null
+                && oHL7Author.getAssignedAuthor().getRepresentedOrganization() != null) {
+
+                if (CollectionUtils.isNotEmpty(oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId())
+                    && oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0) != null) {
+
                     // Represented organization ID assigning authority
                     // -------------------------------------------------
-                    if ((oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0).getRoot() != null)
-                        && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0).getRoot()
-                        .length() > 0)) {
+                    if (StringUtils.isNotEmpty(oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId()
+                        .get(0).getRoot())) {
+
                         oOriginalAuthor.setRepresentedOrganizationIdAssigningAuthority(oHL7Author.getAssignedAuthor()
                             .getRepresentedOrganization().getId().get(0).getRoot());
                         bHaveData = true;
@@ -479,10 +483,9 @@ public class CdaPdfExtractor {
 
                     // Represented organization ID
                     // ----------------------------
-                    if ((oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0).getExtension()
-                        != null)
-                        && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0)
-                        .getExtension().length() > 0)) {
+                    if (StringUtils.isNotEmpty(oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId()
+                        .get(0).getExtension())) {
+
                         oOriginalAuthor.setRepresentedOrganizationId(oHL7Author.getAssignedAuthor()
                             .getRepresentedOrganization().getId().get(0).getExtension());
                         bHaveData = true;
@@ -492,21 +495,21 @@ public class CdaPdfExtractor {
                 // Represented Organization Name
                 // ------------------------------
                 // Should only be one - if more then take the first.
-                if ((oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName() != null)
-                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName().size() > 0)
+                if (CollectionUtils.isNotEmpty(oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName())
                     && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName().get(0) != null)
-                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName().get(0).getContent() != null)
-                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName().get(0).getContent()
-                    .size() > 0)) {
+                    && CollectionUtils.isNotEmpty(oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName()
+                        .get(0).getContent())) {
+
                     // In this case we should only have serializable objects that are "Strings". Gather all of the
                     // strings up and concatenate them together.
                     // -----------------------------------------------------------------------------------------------
                     StringBuilder sbName = new StringBuilder();
                     for (Serializable oSerialElement : oHL7Author.getAssignedAuthor().getRepresentedOrganization()
                         .getName().get(0).getContent()) {
+
                         if (oSerialElement instanceof String) {
                             String sName = (String) oSerialElement;
-                            if (sName.length() > 0) {
+                            if (!sName.isEmpty()) {
                                 sbName.append(sName);
                             }
                         }
@@ -537,12 +540,12 @@ public class CdaPdfExtractor {
     private String extractStringFromSerializableArray(List<Serializable> olHL7Serializable) {
         String sText = null;
 
-        if ((olHL7Serializable != null) && (olHL7Serializable.size() > 0)) {
+        if (CollectionUtils.isNotEmpty(olHL7Serializable)) {
             StringBuilder sbText = new StringBuilder();
             for (Serializable oSerialElement : olHL7Serializable) {
                 if (oSerialElement instanceof String) {
                     String sElement = (String) oSerialElement;
-                    if (sElement.length() > 0) {
+                    if (!sElement.isEmpty()) {
                         sbText.append(sElement);
                     }
                 }
@@ -566,7 +569,7 @@ public class CdaPdfExtractor {
     private String extractStringFromSC(SCExplicit oHL7Sc) {
         String sText = null;
 
-        if ((oHL7Sc != null) && (oHL7Sc.getContent() != null) && (oHL7Sc.getContent().size() > 0)) {
+        if (oHL7Sc != null && CollectionUtils.isNotEmpty(oHL7Sc.getContent())) {
             sText = extractStringFromSerializableArray(oHL7Sc.getContent());
         }
 
@@ -577,13 +580,13 @@ public class CdaPdfExtractor {
      * This is a helper method that extracts strings from an ON data type. This may contain multiple strings. if it
      * does, they will be concatenated together.
      *
-     * @param oHL7Sc The HL7 node to extract the strings from.
+     * @param oHL7On The HL7 node to extract the strings from.
      * @return The string that was obtained from the HL7 node.
      */
     private String extractStringFromON(ONExplicit oHL7On) {
         String sText = null;
 
-        if ((oHL7On != null) && (oHL7On.getContent() != null) && (oHL7On.getContent().size() > 0)) {
+        if (oHL7On != null && CollectionUtils.isNotEmpty(oHL7On.getContent())) {
             sText = extractStringFromSerializableArray(oHL7On.getContent());
         }
 
@@ -600,6 +603,7 @@ public class CdaPdfExtractor {
      */
     private PolicyScannerAuthorInfoType createScannerAuthor(List<POCDMT000040Author> oHL7Authors)
         throws AdapterPIPException {
+
         PolicyScannerAuthorInfoType oScannerAuthor = new PolicyScannerAuthorInfoType();
         boolean bHaveData = false;
 
@@ -610,21 +614,19 @@ public class CdaPdfExtractor {
         if (oHL7Author != null) {
             // Author time
             // -------------
-            if ((oHL7Author.getTime() != null) && (oHL7Author.getTime().getValue() != null)
-                && (oHL7Author.getTime().getValue().length() > 0)) {
+            if (oHL7Author.getTime() != null && StringUtils.isNotEmpty(oHL7Author.getTime().getValue())) {
                 oScannerAuthor.setAuthorTime(oHL7Author.getTime().getValue());
                 bHaveData = true;
             }
 
-            if ((oHL7Author.getAssignedAuthor() != null) && (oHL7Author.getAssignedAuthor().getId() != null)
-                && (oHL7Author.getAssignedAuthor().getId().size() > 0)
-                && (oHL7Author.getAssignedAuthor().getId().get(0) != null)) // There should only be one - if more
-            // then we will use the first.
-            {
+            // There should only be one - if more, then we will use the first.
+            if (oHL7Author.getAssignedAuthor() != null
+                && CollectionUtils.isNotEmpty(oHL7Author.getAssignedAuthor().getId())
+                && oHL7Author.getAssignedAuthor().getId().get(0) != null) {
+
                 // Assigned Person Assigning Authority
                 // -------------------------------------
-                if ((oHL7Author.getAssignedAuthor().getId().get(0).getRoot() != null)
-                    && (oHL7Author.getAssignedAuthor().getId().get(0).getRoot().length() > 0)) {
+                if (StringUtils.isNotEmpty(oHL7Author.getAssignedAuthor().getId().get(0).getRoot())) {
                     oScannerAuthor.setAuthorIdAssigningAuthority(oHL7Author.getAssignedAuthor().getId().get(0)
                         .getRoot());
                     bHaveData = true;
@@ -632,8 +634,7 @@ public class CdaPdfExtractor {
 
                 // Assigned Person Id
                 // -------------------
-                if ((oHL7Author.getAssignedAuthor().getId().get(0).getExtension() != null)
-                    && (oHL7Author.getAssignedAuthor().getId().get(0).getExtension().length() > 0)) {
+                if (StringUtils.isNotEmpty(oHL7Author.getAssignedAuthor().getId().get(0).getExtension())) {
                     oScannerAuthor.setAuthorId(oHL7Author.getAssignedAuthor().getId().get(0).getExtension());
                     bHaveData = true;
                 }
@@ -675,17 +676,16 @@ public class CdaPdfExtractor {
                 }
             }
 
-            if ((oHL7Author.getAssignedAuthor() != null)
-                && (oHL7Author.getAssignedAuthor().getRepresentedOrganization() != null)) {
+            if (oHL7Author.getAssignedAuthor() != null
+                && oHL7Author.getAssignedAuthor().getRepresentedOrganization() != null) {
                 // Represented Organization Assigning Authority
                 // ----------------------------------------------
                 // Should only be one - if more take the first.
-                if ((oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId() != null)
-                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().size() > 0)
-                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0) != null)
-                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0).getRoot() != null)
-                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0).getRoot()
-                    .length() > 0)) {
+                if (CollectionUtils.isNotEmpty(oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId())
+                    && oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0) != null
+                    && StringUtils.isNotEmpty(oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0)
+                        .getRoot())) {
+
                     oScannerAuthor.setRepresentedOrganizationIdAssigningAuthority(oHL7Author.getAssignedAuthor()
                         .getRepresentedOrganization().getId().get(0).getRoot());
                     bHaveData = true;
@@ -693,9 +693,9 @@ public class CdaPdfExtractor {
 
                 // Represented Organization Name
                 // ------------------------------
-                if ((oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName() != null)
-                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName().size() > 0)
-                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName().get(0) != null)) {
+                if (CollectionUtils.isNotEmpty(oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName())
+                    && oHL7Author.getAssignedAuthor().getRepresentedOrganization().getName().get(0) != null) {
+
                     String sName = extractStringFromON(oHL7Author.getAssignedAuthor().getRepresentedOrganization()
                         .getName().get(0));
                     if (sName != null) {
@@ -706,9 +706,8 @@ public class CdaPdfExtractor {
 
                 // Represented Organization address
                 // ---------------------------------
-                if ((oHL7Author.getAssignedAuthor().getRepresentedOrganization().getAddr() != null)
-                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getAddr().size() > 0)
-                    && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getAddr().get(0) != null)) {
+                if (CollectionUtils.isNotEmpty(oHL7Author.getAssignedAuthor().getRepresentedOrganization().getAddr())
+                    && oHL7Author.getAssignedAuthor().getRepresentedOrganization().getAddr().get(0) != null) {
 
                     // Should only be one. If there is more than one, use the first.
                     AddressType oAddr = createAddr(oHL7Author.getAssignedAuthor().getRepresentedOrganization()
@@ -737,27 +736,28 @@ public class CdaPdfExtractor {
      */
     private PolicyDataEntererInfoType createDataEnterer(POCDMT000040DataEnterer oHL7DataEnterer)
         throws AdapterPIPException {
+
         PolicyDataEntererInfoType oDataEnterer = new PolicyDataEntererInfoType();
         boolean bHaveData = false;
 
         if (oHL7DataEnterer != null) {
             // Data enterer time
             // ------------------
-            if ((oHL7DataEnterer.getTime() != null) && (oHL7DataEnterer.getTime().getValue() != null)
-                && (oHL7DataEnterer.getTime().getValue().length() > 0)) {
+            if (oHL7DataEnterer.getTime() != null
+                && StringUtils.isNotEmpty(oHL7DataEnterer.getTime().getValue())) {
+
                 oDataEnterer.setDataEntererTime(oHL7DataEnterer.getTime().getValue());
                 bHaveData = true;
             }
 
-            if ((oHL7DataEnterer.getAssignedEntity() != null) && (oHL7DataEnterer.getAssignedEntity().getId() != null)
-                && (oHL7DataEnterer.getAssignedEntity().getId().size() > 0)
-                && (oHL7DataEnterer.getAssignedEntity().getId().get(0) != null)) {
+            if (oHL7DataEnterer.getAssignedEntity() != null
+                && CollectionUtils.isNotEmpty(oHL7DataEnterer.getAssignedEntity().getId())
+                && oHL7DataEnterer.getAssignedEntity().getId().get(0) != null) {
 
                 // There should only be one - if more, then we will use the first.
                 // Assigned Person Assigning Authority
                 // -------------------------------------
-                if ((oHL7DataEnterer.getAssignedEntity().getId().get(0).getRoot() != null)
-                    && (oHL7DataEnterer.getAssignedEntity().getId().get(0).getRoot().length() > 0)) {
+                if (StringUtils.isNotEmpty(oHL7DataEnterer.getAssignedEntity().getId().get(0).getRoot())) {
                     oDataEnterer.setDataEntererIdAssigningAuthority(oHL7DataEnterer.getAssignedEntity().getId().get(0)
                         .getRoot());
                     bHaveData = true;
@@ -765,8 +765,7 @@ public class CdaPdfExtractor {
 
                 // Assigned Person Id
                 // -------------------
-                if ((oHL7DataEnterer.getAssignedEntity().getId().get(0).getExtension() != null)
-                    && (oHL7DataEnterer.getAssignedEntity().getId().get(0).getExtension().length() > 0)) {
+                if (StringUtils.isNotEmpty(oHL7DataEnterer.getAssignedEntity().getId().get(0).getExtension())) {
                     oDataEnterer.setDataEntererId(oHL7DataEnterer.getAssignedEntity().getId().get(0).getExtension());
                     bHaveData = true;
                 }
@@ -774,11 +773,10 @@ public class CdaPdfExtractor {
 
             // Data Enterer Name
             // -------------------
-            if ((oHL7DataEnterer.getAssignedEntity() != null)
-                && (oHL7DataEnterer.getAssignedEntity().getAssignedPerson() != null)
-                && (oHL7DataEnterer.getAssignedEntity().getAssignedPerson().getName() != null)
-                && (oHL7DataEnterer.getAssignedEntity().getAssignedPerson().getName().size() > 0)
-                && (oHL7DataEnterer.getAssignedEntity().getAssignedPerson().getName().get(0) != null)) {
+            if (oHL7DataEnterer.getAssignedEntity() != null
+                && oHL7DataEnterer.getAssignedEntity().getAssignedPerson() != null
+                && CollectionUtils.isNotEmpty(oHL7DataEnterer.getAssignedEntity().getAssignedPerson().getName())
+                && oHL7DataEnterer.getAssignedEntity().getAssignedPerson().getName().get(0) != null) {
 
                 // Should only be one - if there are more, use the first.
                 PersonNameType oName = createPersonName(oHL7DataEnterer.getAssignedEntity().getAssignedPerson()
@@ -808,18 +806,17 @@ public class CdaPdfExtractor {
         boolean bHaveData = false;
 
         if (oHL7Custodian != null) {
-            if ((oHL7Custodian.getAssignedCustodian() != null)
-                && (oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization() != null)) {
+            if (oHL7Custodian.getAssignedCustodian() != null
+                && oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization() != null) {
                 // Represented Organization Assigning Authority
                 // ----------------------------------------------
                 // Should only be one - if more take the first.
-                if ((oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId() != null)
-                    && (oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId().size() > 0)
-                    && (oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId().get(0) != null)
-                    && (oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId().get(0)
-                    .getRoot() != null)
-                    && (oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId().get(0)
-                    .getRoot().length() > 0)) {
+                if (CollectionUtils
+                    .isNotEmpty(oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId())
+                    && oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId().get(0) != null
+                    && StringUtils.isNotEmpty(oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization()
+                        .getId().get(0).getRoot())) {
+
                     oCustodian.setOrganizationIdAssigningAuthority(oHL7Custodian.getAssignedCustodian()
                         .getRepresentedCustodianOrganization().getId().get(0).getRoot());
                     bHaveData = true;
@@ -865,14 +862,14 @@ public class CdaPdfExtractor {
      */
     private PolicyLegalAuthenticatorType createAuthenticator(POCDMT000040LegalAuthenticator oHL7Authenticator)
         throws AdapterPIPException {
+
         PolicyLegalAuthenticatorType oAuthenticator = new PolicyLegalAuthenticatorType();
         boolean bHaveData = false;
 
         if (oHL7Authenticator != null) {
             // Authentication time
             // --------------------------
-            if ((oHL7Authenticator.getTime() != null) && (oHL7Authenticator.getTime().getValue() != null)
-                && (oHL7Authenticator.getTime().getValue().length() > 0)) {
+            if (oHL7Authenticator.getTime() != null && StringUtils.isNotEmpty(oHL7Authenticator.getTime().getValue())) {
                 oAuthenticator.setAuthenticationTime(oHL7Authenticator.getTime().getValue());
                 bHaveData = true;
             }
@@ -888,15 +885,13 @@ public class CdaPdfExtractor {
             }
 
             if (oHL7Authenticator.getAssignedEntity() != null) {
-                if ((oHL7Authenticator.getAssignedEntity().getId() != null)
-                    && (oHL7Authenticator.getAssignedEntity().getId().size() > 0)
-                    && (oHL7Authenticator.getAssignedEntity().getId().get(0) != null)) {
+                if (CollectionUtils.isNotEmpty(oHL7Authenticator.getAssignedEntity().getId())
+                    && oHL7Authenticator.getAssignedEntity().getId().get(0) != null) {
 
                     // There should only be one - if more, then we will use the first.
                     // Assigned Entity Assigning Authority
                     // -------------------------------------
-                    if ((oHL7Authenticator.getAssignedEntity().getId().get(0).getRoot() != null)
-                        && (oHL7Authenticator.getAssignedEntity().getId().get(0).getRoot().length() > 0)) {
+                    if (StringUtils.isNotEmpty(oHL7Authenticator.getAssignedEntity().getId().get(0).getRoot())) {
                         oAuthenticator.setAuthenticatorIdAssigningAuthority(oHL7Authenticator.getAssignedEntity()
                             .getId().get(0).getRoot());
                         bHaveData = true;
@@ -904,8 +899,7 @@ public class CdaPdfExtractor {
 
                     // Assigned Entity Id
                     // -------------------
-                    if ((oHL7Authenticator.getAssignedEntity().getId().get(0).getExtension() != null)
-                        && (oHL7Authenticator.getAssignedEntity().getId().get(0).getExtension().length() > 0)) {
+                    if (StringUtils.isNotEmpty(oHL7Authenticator.getAssignedEntity().getId().get(0).getExtension())) {
                         oAuthenticator.setAuthenticatorId(oHL7Authenticator.getAssignedEntity().getId().get(0)
                             .getExtension());
                         bHaveData = true;
@@ -914,14 +908,14 @@ public class CdaPdfExtractor {
 
                 // Name
                 // -----
-                if ((oHL7Authenticator.getAssignedEntity().getAssignedPerson() != null)
-                    && (oHL7Authenticator.getAssignedEntity().getAssignedPerson().getName() != null)
-                    && (oHL7Authenticator.getAssignedEntity().getAssignedPerson().getName().size() > 0) &&
-                    (oHL7Authenticator.getAssignedEntity().getAssignedPerson().getName().get(0) != null)) {
+                if (oHL7Authenticator.getAssignedEntity().getAssignedPerson() != null
+                    && CollectionUtils.isNotEmpty(oHL7Authenticator.getAssignedEntity().getAssignedPerson().getName())
+                    && oHL7Authenticator.getAssignedEntity().getAssignedPerson().getName().get(0) != null) {
 
                     // should be only one - if more than one, use the first.
                     PersonNameType oName = createPersonName(oHL7Authenticator.getAssignedEntity().getAssignedPerson()
                         .getName().get(0));
+
                     if (oName != null) {
                         oAuthenticator.setAuthenticatorPersonName(oName);
                         bHaveData = true;
@@ -946,6 +940,7 @@ public class CdaPdfExtractor {
      */
     public BinaryDocumentPolicyCriterionType extractBinaryDocumentPolicyCriterion(POCDMT000040ClinicalDocument oCda)
         throws AdapterPIPException {
+
         BinaryDocumentPolicyCriterionType oCriterion = new BinaryDocumentPolicyCriterionType();
         boolean bHaveData = false;
 
@@ -960,8 +955,7 @@ public class CdaPdfExtractor {
 
         // Document Unique ID
         // --------------------
-        if ((oCda.getId() != null) && (oCda.getId().getExtension() != null)
-            && (oCda.getId().getExtension().length() > 0)) {
+        if (oCda.getId() != null && StringUtils.isNotEmpty(oCda.getId().getExtension())) {
             oCriterion.setDocumentUniqueId(oCda.getId().getExtension());
             bHaveData = true;
         }
@@ -976,9 +970,10 @@ public class CdaPdfExtractor {
 
         // Title
         // -------
-        if ((oCda.getTitle() != null) && (oCda.getTitle().getContent() != null)
-            && (oCda.getTitle().getContent().size() > 0) && (oCda.getTitle().getContent().get(0) != null)
-            && (oCda.getTitle().getContent().get(0) instanceof String)) {
+        if (oCda.getTitle() != null && CollectionUtils.isNotEmpty(oCda.getTitle().getContent())
+            && oCda.getTitle().getContent().get(0) != null
+            && oCda.getTitle().getContent().get(0) instanceof String) {
+
             oCriterion.setDocumentTitle((String) oCda.getTitle().getContent().get(0));
             bHaveData = true;
         }
@@ -1003,8 +998,9 @@ public class CdaPdfExtractor {
 
         // Patient Information
         // --------------------
-        if ((oCda.getRecordTarget() != null) && (oCda.getRecordTarget().size() > 0)
-            && (oCda.getRecordTarget().get(0) != null) && (oCda.getRecordTarget().get(0).getPatientRole() != null)) {
+        if (CollectionUtils.isNotEmpty(oCda.getRecordTarget()) && oCda.getRecordTarget().get(0) != null
+            && oCda.getRecordTarget().get(0).getPatientRole() != null) {
+
             PolicyPatientInfoType oPatientInfo = createPatientInfo(oCda.getRecordTarget().get(0).getPatientRole());
             if (oPatientInfo != null) {
                 oCriterion.setPatientInfo(oPatientInfo);
@@ -1014,7 +1010,7 @@ public class CdaPdfExtractor {
 
         // Original Author Information
         // -----------------------------
-        if ((oCda.getAuthor() != null) && (oCda.getAuthor().size() > 0)) {
+        if (CollectionUtils.isNotEmpty(oCda.getAuthor())) {
             PolicyOriginalAuthorInfoType oOriginalAuthor = createOriginalAuthor(oCda.getAuthor());
             if (oOriginalAuthor != null) {
                 oCriterion.setAuthorOriginal(oOriginalAuthor);
@@ -1024,7 +1020,7 @@ public class CdaPdfExtractor {
 
         // Scanner Author Information
         // -----------------------------
-        if ((oCda.getAuthor() != null) && (oCda.getAuthor().size() > 0)) {
+        if (CollectionUtils.isNotEmpty(oCda.getAuthor())) {
             PolicyScannerAuthorInfoType oScannerAuthor = createScannerAuthor(oCda.getAuthor());
             if (oScannerAuthor != null) {
                 oCriterion.setAuthorScanner(oScannerAuthor);
@@ -1063,31 +1059,31 @@ public class CdaPdfExtractor {
         }
 
         // Should only be one - if there is more than one use the first.
-        if ((oCda.getDocumentationOf() != null)
-            && (oCda.getDocumentationOf().size() > 0)
-            && (oCda.getDocumentationOf().get(0) != null)
-            && (oCda.getDocumentationOf().get(0).getServiceEvent() != null)
-            && (oCda.getDocumentationOf().get(0).getServiceEvent().getEffectiveTime() != null)
-            && (oCda.getDocumentationOf().get(0).getServiceEvent().getEffectiveTime().getContent() != null)
-            && (oCda.getDocumentationOf().get(0).getServiceEvent().getEffectiveTime().getContent().size() > 0)) {
+        if (CollectionUtils.isNotEmpty(oCda.getDocumentationOf())
+            && oCda.getDocumentationOf().get(0) != null
+            && oCda.getDocumentationOf().get(0).getServiceEvent() != null
+            && oCda.getDocumentationOf().get(0).getServiceEvent().getEffectiveTime() != null
+            && CollectionUtils.isNotEmpty(
+                oCda.getDocumentationOf().get(0).getServiceEvent().getEffectiveTime().getContent())) {
+
             for (JAXBElement oJaxbElement : oCda.getDocumentationOf().get(0).getServiceEvent().getEffectiveTime()
                 .getContent()) {
-                // Start Time
-                // ------------
-                if ((oJaxbElement.getName() != null) && (oJaxbElement.getName().getLocalPart() != null)
-                    && (oJaxbElement.getName().getLocalPart().equals("low")) && (oJaxbElement.getValue() != null)
-                    && (oJaxbElement.getValue() instanceof IVXBTSExplicit)) {
+
+                if (oJaxbElement.getName() != null && oJaxbElement.getName().getLocalPart() != null
+                    && oJaxbElement.getName().getLocalPart().equals("low") && oJaxbElement.getValue() != null
+                    && oJaxbElement.getValue() instanceof IVXBTSExplicit) {
+
+                    // Start Time
                     IVXBTSExplicit oHL7LowTime = (IVXBTSExplicit) oJaxbElement.getValue();
                     if ((oHL7LowTime.getValue() != null) && (oHL7LowTime.getValue().length() > 0)) {
                         oCriterion.setStartDate(oHL7LowTime.getValue());
                         bHaveData = true;
                     }
-                }
-                // End Time
-                // ------------
-                else if ((oJaxbElement.getName() != null) && (oJaxbElement.getName().getLocalPart() != null)
-                    && (oJaxbElement.getName().getLocalPart().equals("high")) && (oJaxbElement.getValue() != null)
-                    && (oJaxbElement.getValue() instanceof IVXBTSExplicit)) {
+                } else if (oJaxbElement.getName() != null && oJaxbElement.getName().getLocalPart() != null
+                    && oJaxbElement.getName().getLocalPart().equals("high") && oJaxbElement.getValue() != null
+                    && oJaxbElement.getValue() instanceof IVXBTSExplicit) {
+
+                    // End Time
                     IVXBTSExplicit oHL7HighTime = (IVXBTSExplicit) oJaxbElement.getValue();
                     if ((oHL7HighTime.getValue() != null) && (oHL7HighTime.getValue().length() > 0)) {
                         oCriterion.setEndDate(oHL7HighTime.getValue());
@@ -1099,20 +1095,19 @@ public class CdaPdfExtractor {
 
         // Mime type
         // -----------
-        if ((oCda.getComponent() != null) && (oCda.getComponent().getNonXMLBody() != null)
-            && (oCda.getComponent().getNonXMLBody().getText() != null)) {
+        if (oCda.getComponent() != null && oCda.getComponent().getNonXMLBody() != null
+            && oCda.getComponent().getNonXMLBody().getText() != null) {
+
             // Mime type
             // ----------
-            if ((oCda.getComponent().getNonXMLBody().getText().getMediaType() != null)
-                && (oCda.getComponent().getNonXMLBody().getText().getMediaType().length() > 0)) {
+            if (StringUtils.isNotEmpty(oCda.getComponent().getNonXMLBody().getText().getMediaType())) {
                 oCriterion.setMimeType(oCda.getComponent().getNonXMLBody().getText().getMediaType());
                 bHaveData = true;
             }
 
             // Binary document
             // ----------------
-            if ((oCda.getComponent().getNonXMLBody().getText().getContent() != null)
-                && (oCda.getComponent().getNonXMLBody().getText().getContent().size() > 0)) {
+            if (CollectionUtils.isNotEmpty(oCda.getComponent().getNonXMLBody().getText().getContent())) {
                 // We really should only have one of these elements. If for some reason we have more than one, we will
                 // take only the first.
                 // -----------------------------------------------------------------------------------------------------
@@ -1123,7 +1118,6 @@ public class CdaPdfExtractor {
                     bHaveData = true;
                 }
             }
-
         }
 
         if (bHaveData) {

@@ -193,8 +193,8 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                         auditRequest(message.getRequest(), message.getAssertion(), message.getTarget());
                         callableList.add(new NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>(message));
 
-                        LOG.debug("Added NhinCallableRequest" + " for hcid="
-                            + target.getHomeCommunity().getHomeCommunityId());
+                        LOG.debug("Added NhinCallableRequest for hcid={}",
+                            target.getHomeCommunity().getHomeCommunityId());
                     } else {
                         LOG.debug("Policy Check Failed for homeId=" + urlInfo.getHcid());
                         CommunityPRPAIN201306UV02ResponseType communityResponse
@@ -204,7 +204,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                         policyErrList.add(communityResponse);
                     }
                 }
-                if (callableList.size() > 0) {
+                if (!callableList.isEmpty()) {
                     LOG.debug("Executing tasks to concurrently retrieve responses");
                     NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> pdExecutor = new NhinTaskExecutor<>(
                         ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size())
@@ -217,7 +217,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                 addPolicyErrorsToResponse(response, policyErrList);
             }
         } catch (Exception e) {
-            LOG.error("Exception occurred while getting responses from communities", e);
+            LOG.error("Exception occurred while getting responses from communities: {}", e.getLocalizedMessage(), e);
 
             addErrorMessageToResponse(request, response, e);
         }

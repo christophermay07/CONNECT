@@ -49,6 +49,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLStreamException;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Hibernate;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerMCCIIN000002UV01RequestType;
@@ -67,7 +69,7 @@ public class AsyncMessageProcessHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(AsyncMessageProcessHelper.class);
 
-    private static HashMap<String, String> statusToDirectionMap = new HashMap<>();
+    private static final HashMap<String, String> statusToDirectionMap = new HashMap<>();
 
     static {
         statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENT, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
@@ -182,7 +184,7 @@ public class AsyncMessageProcessHelper {
 
             String direction = getInitialDirectionFromStatus(newStatus);
             List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
-            if (records != null && records.size() > 0) {
+            if (CollectionUtils.isNotEmpty(records)) {
                 records.get(0).setStatus(newStatus);
                 records.get(0).setAckData(getBlobFromMCCIIN000002UV01(ack));
                 instance.save(records.get(0));
@@ -216,7 +218,7 @@ public class AsyncMessageProcessHelper {
             String direction = getInitialDirectionFromStatus(newStatus);
 
             List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
-            if (records != null && records.size() > 0) {
+            if (CollectionUtils.isNotEmpty(records)) {
                 records.get(0).setStatus(newStatus);
                 instance.save(records.get(0));
             }
@@ -256,7 +258,7 @@ public class AsyncMessageProcessHelper {
             String direction = getInitialDirectionFromStatus(newStatus);
 
             List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
-            if (records != null && records.size() > 0) {
+            if (CollectionUtils.isNotEmpty(records)) {
                 records.get(0).setResponseTime(new Date());
 
                 // Calculate the duration in milliseconds
@@ -297,7 +299,8 @@ public class AsyncMessageProcessHelper {
             Marshaller marshaller = jc.createMarshaller();
 
             baOutStrm = new ByteArrayOutputStream();
-            gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
+            gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory
+                = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
             JAXBElement<AssertionType> oJaxbElement = factory.createAssertion(orig);
 
             marshaller.marshal(oJaxbElement, baOutStrm);
@@ -359,7 +362,8 @@ public class AsyncMessageProcessHelper {
     }
 
     private Blob getBlobFromMCCIIN000002UV01(MCCIIN000002UV01 ack) {
-        Blob asyncMessage = null; // Not Implemented
+        // Not Implemented
+        Blob asyncMessage = null;
 
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -432,7 +436,7 @@ public class AsyncMessageProcessHelper {
     private boolean isAckError(MCCIIN000002UV01 ack) {
         boolean result = false;
 
-        if (ack != null && ack.getAcknowledgement() != null && ack.getAcknowledgement().size() > 0
+        if (ack != null && CollectionUtils.isNotEmpty(ack.getAcknowledgement())
             && ack.getAcknowledgement().get(0).getTypeCode() != null
             && ack.getAcknowledgement().get(0).getTypeCode().getCode() != null
             && ack.getAcknowledgement().get(0).getTypeCode().getCode().equals(HL7AckTransforms.ACK_TYPE_CODE_ERROR)) {
@@ -446,89 +450,80 @@ public class AsyncMessageProcessHelper {
     /**
      * Get the home community id of the communicating gateway
      *
-     * @param requestMessage
+     * @param request
      * @param direction
      * @return String
      */
-    private String getPatientDiscoveryMessageCommunityId(RespondingGatewayPRPAIN201305UV02RequestType requestMessage,
+    private String getPatientDiscoveryMessageCommunityId(RespondingGatewayPRPAIN201305UV02RequestType request,
         String direction) {
 
         String communityId = "";
         boolean useReceiver = false;
 
-        if (requestMessage != null && direction != null) {
+        if (request != null && direction != null) {
             if (direction.equals(AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND)) {
                 useReceiver = true;
             }
 
             if (useReceiver) {
-                if (requestMessage.getPRPAIN201305UV02() != null
-                    && requestMessage.getPRPAIN201305UV02().getReceiver() != null
-                    && requestMessage.getPRPAIN201305UV02().getReceiver().size() > 0
-                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0) != null
-                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
-                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent() != null
-                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                        .getValue() != null
-                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                        .getValue().getRepresentedOrganization() != null
-                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                        .getValue().getRepresentedOrganization().getValue() != null
-                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                        .getValue().getRepresentedOrganization().getValue().getId() != null
-                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                        .getValue().getRepresentedOrganization().getValue().getId().size() > 0
-                    && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                        .getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
+                if (request.getPRPAIN201305UV02() != null
+                    && CollectionUtils.isNotEmpty(request.getPRPAIN201305UV02().getReceiver())
+                    && request.getPRPAIN201305UV02().getReceiver().get(0) != null
+                    && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
+                    && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent() != null
+                    && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue() != null
+                    && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization() != null
+                    && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue() != null
+                    && CollectionUtils.isNotEmpty(request.getPRPAIN201305UV02().getReceiver().get(0).getDevice()
+                        .getAsAgent().getValue().getRepresentedOrganization().getValue().getId())
+                    && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
 
-                    communityId = requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
+                    communityId = request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
                         .getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
                 }
                 // If represented organization is empty or null, check the device id
-                if (communityId == null || communityId.isEmpty()) {
-                    if (requestMessage.getPRPAIN201305UV02().getReceiver() != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().size() > 0
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0) != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId() != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().size() > 0
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0)
+                if (StringUtils.isEmpty(communityId)) {
+                    if (CollectionUtils.isNotEmpty(request.getPRPAIN201305UV02().getReceiver())
+                        && request.getPRPAIN201305UV02().getReceiver().get(0) != null
+                        && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
+                        && CollectionUtils.isNotEmpty(request.getPRPAIN201305UV02().getReceiver().get(0).getDevice()
+                            .getId())
+                        && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null
+                        && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0)
                             .getRoot() != null) {
 
-                        communityId = requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId()
-                            .get(0).getRoot();
+                        communityId = request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0)
+                            .getRoot();
                     }
                 }
             } else {
-                if (requestMessage.getPRPAIN201305UV02().getSender() != null
-                    && requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null
-                    && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent() != null
-                    && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue() != null
-                    && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
+                if (request.getPRPAIN201305UV02().getSender() != null
+                    && request.getPRPAIN201305UV02().getSender().getDevice() != null
+                    && request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent() != null
+                    && request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue() != null
+                    && request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
                         .getRepresentedOrganization() != null
-                    && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
+                    && request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
                         .getRepresentedOrganization().getValue() != null
-                    && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
-                        .getRepresentedOrganization().getValue().getId() != null
-                    && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
-                        .getRepresentedOrganization().getValue().getId().size() > 0
-                    && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
+                    && CollectionUtils.isNotEmpty(request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent()
+                        .getValue().getRepresentedOrganization().getValue().getId())
+                    && request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
                         .getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
-                    communityId = requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
+                    communityId = request.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
                         .getRepresentedOrganization().getValue().getId().get(0).getRoot();
                 }
                 // If represented organization is empty or null, check the device id
-                if (communityId == null || communityId.isEmpty()) {
-                    if (requestMessage.getPRPAIN201305UV02().getSender() != null
-                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null
-                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId() != null
-                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().size() > 0
-                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0) != null
-                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0).getRoot() != null) {
+                if (StringUtils.isEmpty(communityId)) {
+                    if (request.getPRPAIN201305UV02().getSender() != null
+                        && request.getPRPAIN201305UV02().getSender().getDevice() != null
+                        && CollectionUtils.isNotEmpty(request.getPRPAIN201305UV02().getSender().getDevice().getId())
+                        && request.getPRPAIN201305UV02().getSender().getDevice().getId().get(0) != null
+                        && request.getPRPAIN201305UV02().getSender().getDevice().getId().get(0).getRoot() != null) {
 
-                        communityId = requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0)
-                            .getRoot();
+                        communityId = request.getPRPAIN201305UV02().getSender().getDevice().getId().get(0).getRoot();
                     }
                 }
             }

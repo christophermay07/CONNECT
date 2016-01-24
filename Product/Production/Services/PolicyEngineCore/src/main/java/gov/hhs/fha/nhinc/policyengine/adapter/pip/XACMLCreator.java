@@ -57,6 +57,7 @@ import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectMatchType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectsType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.TargetType;
+import org.apache.commons.collections.CollectionUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -649,9 +650,9 @@ public class XACMLCreator {
 
         // Put blanket opt-in or opt-out rule if there is no fine-grained criteria.
         // --------------------------------------------------------------------------
-        if ((oPtPref.getFineGrainedPolicyCriteria() == null)
-            || (oPtPref.getFineGrainedPolicyCriteria().getFineGrainedPolicyCriterion() == null)
-            || (oPtPref.getFineGrainedPolicyCriteria().getFineGrainedPolicyCriterion().size() <= 0)) {
+        if (oPtPref.getFineGrainedPolicyCriteria() == null
+            || CollectionUtils.isEmpty(oPtPref.getFineGrainedPolicyCriteria().getFineGrainedPolicyCriterion())) {
+
             // Add in a rule for the Opt-in/Opt-Out setting
             // ----------------------------------------------
             RuleType oRule = createOptInOutRule(iRuleIdx++, oPtPref);

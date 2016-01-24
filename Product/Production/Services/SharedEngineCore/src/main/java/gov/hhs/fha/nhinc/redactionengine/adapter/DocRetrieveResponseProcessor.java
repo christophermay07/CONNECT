@@ -43,6 +43,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.InternationalStringType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.LocalizedStringType;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,10 +70,10 @@ public class DocRetrieveResponseProcessor {
      */
     public RetrieveDocumentSetResponseType filterRetrieveDocumentSetReults(
         RetrieveDocumentSetRequestType retrieveRequest, RetrieveDocumentSetResponseType retrieveResponse) {
+
         LOG.debug("Begin filterRetrieveDocumentSetReults");
         RetrieveDocumentSetResponseType response = null;
-        if (null != retrieveResponse && null != retrieveResponse.getDocumentResponse()
-            && retrieveResponse.getDocumentResponse().size() > 0) {
+        if (retrieveResponse != null && CollectionUtils.isNotEmpty(retrieveResponse.getDocumentResponse())) {
             PatientPreferencesType ptPreferences;
             response = new RetrieveDocumentSetResponseType();
             response.setRegistryResponse(retrieveResponse.getRegistryResponse());
@@ -293,13 +294,13 @@ public class DocRetrieveResponseProcessor {
     protected String extractDocTypeFromMetaData(ExtrinsicObjectType documentMetaData) {
         LOG.debug("Begin extractDocTypeFromMetaData");
         String value = null;
-        if (null != documentMetaData && null != documentMetaData.getClassification()
-            && documentMetaData.getClassification().size() > 0) {
-            LOG.debug("Classification size: " + documentMetaData.getClassification().size());
+        if (documentMetaData != null && CollectionUtils.isNotEmpty(documentMetaData.getClassification())) {
+            LOG.debug("Classification size: {}", documentMetaData.getClassification().size());
             List<ClassificationType> classificationList = documentMetaData.getClassification();
             for (ClassificationType classification : classificationList) {
-                if (null != classification && null != classification.getClassificationScheme()
+                if (classification != null && classification.getClassificationScheme() != null
                     && classification.getClassificationScheme().contentEquals(EBXML_RESPONSE_TYPECODE_CLASS_SCHEME)) {
+
                     LOG.debug("Looking at classification scheme (" + classification.getClassificationScheme()
                         + ") compared to (" + EBXML_RESPONSE_TYPECODE_CLASS_SCHEME + ")");
                     value = classification.getNodeRepresentation();
@@ -319,9 +320,9 @@ public class DocRetrieveResponseProcessor {
      */
     protected String parseInternationalType(InternationalStringType str) {
         String value = null;
-        if (null != str) {
+        if (str != null) {
             List<LocalizedStringType> localStr = str.getLocalizedString();
-            if (null != localStr && localStr.size() > 0 && null != localStr.get(0)) {
+            if (CollectionUtils.isNotEmpty(localStr) && localStr.get(0) != null) {
                 value = localStr.get(0).getValue();
             }
         }
@@ -337,12 +338,12 @@ public class DocRetrieveResponseProcessor {
     protected String getUniqueIdIdentifier(List<ExternalIdentifierType> externalIdentifierList) {
         LOG.debug("Begin getUniqueIdIdentifier");
         String aUniqueIdIdentifier = null;
-        if (null != externalIdentifierList && externalIdentifierList.size() > 0) {
+        if (CollectionUtils.isNotEmpty(externalIdentifierList)) {
             for (ExternalIdentifierType externalIdentifier : externalIdentifierList) {
-                if (null != externalIdentifier
-                    && null != externalIdentifier.getIdentificationScheme()
-                    && externalIdentifier.getIdentificationScheme().contentEquals(
-                        EBXML_RESPONSE_DOCID_IDENTIFICATION_SCHEME)) {
+                if (externalIdentifier != null && externalIdentifier.getIdentificationScheme() != null
+                    && externalIdentifier.getIdentificationScheme()
+                        .contentEquals(EBXML_RESPONSE_DOCID_IDENTIFICATION_SCHEME)) {
+
                     aUniqueIdIdentifier = externalIdentifier.getValue();
                 }
             }

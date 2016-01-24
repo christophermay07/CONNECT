@@ -41,6 +41,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.model.builder.PatientSearchResultsMode
 import java.io.Serializable;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.hl7.v3.AdxpExplicitCity;
 import org.hl7.v3.AdxpExplicitPostalCode;
 import org.hl7.v3.AdxpExplicitState;
@@ -68,9 +70,9 @@ public class PatientSearchResultsModelBuilderImpl extends
     public void build() {
         results = new PatientSearchResults();
         if (message != null) {
-            LOG.debug("Retrieving Patient Results from Response: " + message);
+            LOG.debug("Retrieving Patient Results from Response: {}", message);
             List<PRPAIN201306UV02MFMIMT700711UV01Subject1> subjects = getSubjects(message);
-            LOG.debug("Mpi Search Results Number Subject found: " + subjects.size());
+            LOG.debug("Mpi Search Results Number Subject found: {}", subjects.size());
             for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subject : subjects) {
                 PRPAMT201310UV02Patient patient = getSubject1Patient(subject);
                 if (patient != null) {
@@ -109,8 +111,8 @@ public class PatientSearchResultsModelBuilderImpl extends
     }
 
     private void extractNames(PRPAMT201310UV02Person person, Patient patient) {
-        if (person.getName() != null && person.getName().size() > 0 && person.getName().get(0) != null
-            && person.getName().get(0).getContent() != null && person.getName().get(0).getContent().size() > 0) {
+        if (CollectionUtils.isNotEmpty(person.getName()) && person.getName().get(0) != null
+            && CollectionUtils.isNotEmpty(person.getName().get(0).getContent())) {
 
             boolean firstNameFound = false;
             boolean secondNameFound = false;
@@ -148,8 +150,8 @@ public class PatientSearchResultsModelBuilderImpl extends
     }
 
     private void extractAddress(PRPAMT201310UV02Person person, Patient patient) {
-        if (person.getAddr() != null && person.getAddr().size() > 0 && person.getAddr().get(0) != null
-            && person.getAddr().get(0).getContent() != null && person.getAddr().get(0).getContent().size() > 0) {
+        if (CollectionUtils.isNotEmpty(person.getAddr()) && person.getAddr().get(0) != null
+            && CollectionUtils.isNotEmpty(person.getAddr().get(0).getContent())) {
 
             for (Serializable object : person.getAddr().get(0).getContent()) {
                 if (object instanceof JAXBElement<?>) {
@@ -185,8 +187,8 @@ public class PatientSearchResultsModelBuilderImpl extends
     }
 
     private void extractTelephone(PRPAMT201310UV02Person person, Patient patient) {
-        if (person.getTelecom() != null && person.getTelecom().size() > 0 && person.getTelecom().get(0) != null
-            && person.getTelecom().get(0).getValue() != null && !person.getTelecom().get(0).getValue().isEmpty()) {
+        if (CollectionUtils.isNotEmpty(person.getTelecom()) && person.getTelecom().get(0) != null
+            && StringUtils.isNotEmpty(person.getTelecom().get(0).getValue())) {
 
             patient.setPhone(person.getTelecom().get(0).getValue());
         }

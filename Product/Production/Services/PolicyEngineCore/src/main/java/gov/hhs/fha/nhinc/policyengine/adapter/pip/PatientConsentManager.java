@@ -56,6 +56,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.PolicyType;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.hl7.v3.II;
 import org.hl7.v3.POCDMT000040ClinicalDocument;
 import org.slf4j.Logger;
@@ -306,19 +308,20 @@ public class PatientConsentManager {
         AdhocQueryResponse oResponse = invokeDocRegistryStoredQuery(oRequest);
 
         if (oResponse != null && oResponse.getRegistryObjectList() != null
-            && oResponse.getRegistryObjectList().getIdentifiable() != null
-            && oResponse.getRegistryObjectList().getIdentifiable().size() > 0) {
+            && CollectionUtils.isNotEmpty(oResponse.getRegistryObjectList().getIdentifiable())) {
+
             List<JAXBElement<? extends IdentifiableType>> olRegObjs = oResponse.getRegistryObjectList()
                 .getIdentifiable();
             String sFoundXACMLDoc = "";
             foundLabel:
                 for (JAXBElement<? extends IdentifiableType> oJAXBObj : olRegObjs) {
-                    if ((oJAXBObj != null)
-                        && (oJAXBObj.getDeclaredType() != null)
-                        && (oJAXBObj.getDeclaredType().getCanonicalName() != null)
-                        && (oJAXBObj.getDeclaredType().getCanonicalName()
-                        .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType"))
-                        && (oJAXBObj.getValue() != null)) {
+                    if (oJAXBObj != null
+                        && oJAXBObj.getDeclaredType() != null
+                        && oJAXBObj.getDeclaredType().getCanonicalName() != null
+                        && oJAXBObj.getDeclaredType().getCanonicalName()
+                        .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType")
+                        && oJAXBObj.getValue() != null) {
+
                         ExtrinsicObjectType oExtObj = (ExtrinsicObjectType) oJAXBObj.getValue();
                         String sRepoObjMimeType = oExtObj.getMimeType();
                         LOG.info("Evaluate id: " + oExtObj.getId() + " of type: " + sRepoObjMimeType);
@@ -331,12 +334,13 @@ public class PatientConsentManager {
 
                         // Get found Document Unique ID
                         // -----------------------------
-                        if ((oExtObj.getExternalIdentifier() != null) && (oExtObj.getExternalIdentifier().size() > 0)) {
+                        if (CollectionUtils.isNotEmpty(oExtObj.getExternalIdentifier())) {
                             List<ExternalIdentifierType> olExtId = oExtObj.getExternalIdentifier();
                             for (ExternalIdentifierType oExtId : olExtId) {
                                 if ((oExtId.getIdentificationScheme() != null)
                                     && (oExtId.getIdentificationScheme().equals(CDAConstants.DOCUMENT_ID_IDENT_SCHEME))
-                                    && (oExtId.getValue() != null) && (oExtId.getValue().length() > 0)) {
+                                    && StringUtils.isNotEmpty(oExtId.getValue())) {
+
                                     String sDocumentId = oExtId.getValue().trim();
 
                                     // If this matches the document id that we are
@@ -509,7 +513,7 @@ public class PatientConsentManager {
         LOG.info("--------------- Begin retrievePatientConsentDocumentIdByPatientId ---------------");
         String patientConsentDocumentId = null;
 
-        if ((sPatientId == null) || (sPatientId.trim().length() <= 0)) {
+        if (StringUtils.isBlank(sPatientId)) {
             String sErrorMessage = "Failed to retrieve patient consent.  The patient ID was either null or an empty string.";
             LOG.error(sErrorMessage);
             throw new AdapterPIPException(sErrorMessage);
@@ -517,12 +521,12 @@ public class PatientConsentManager {
 
         List<CPPDocumentInfo> olDocInfo = retrieveCPPFromRepositoryUsingXDSb(sPatientId, sAssigningAuthority);
 
-        if (olDocInfo != null && (olDocInfo.size() > 0)) {
-            LOG.info(olDocInfo.size() + " CPP documents were retrieved from the repository");
+        if (CollectionUtils.isNotEmpty(olDocInfo)) {
+            LOG.info("{} CPP documents were retrieved from the repository", olDocInfo.size());
             patientConsentDocumentId = olDocInfo.get(0).sDocumentUniqueId;
         }
 
-        LOG.info("retrievePatientConsentDocumentIdByPatientId - patientConsentDocumentId: " + patientConsentDocumentId);
+        LOG.info("retrievePatientConsentDocumentIdByPatientId - patientConsentDocumentId: {}", patientConsentDocumentId);
         LOG.info("--------------- End retrievePatientConsentDocumentIdByPatientId ---------------");
         return patientConsentDocumentId;
     }
@@ -637,8 +641,7 @@ public class PatientConsentManager {
         String sPrefDoc = "";
 
         try {
-            if ((oResponse != null) && (oResponse.getDocumentResponse() != null)
-                && (oResponse.getDocumentResponse().size() > 0)) {
+            if (oResponse != null && CollectionUtils.isNotEmpty(oResponse.getDocumentResponse())) {
                 List<DocumentResponse> olDocResponse = oResponse.getDocumentResponse();
                 for (DocumentResponse oDocResponse : olDocResponse) {
                     LOG.info("Doc: " + oDocResponse.getDocumentUniqueId() + " Mime type: " + oDocResponse.getMimeType());
@@ -669,8 +672,7 @@ public class PatientConsentManager {
         LOG.info("--------------- Begin extractBinPrefDoc ---------------");
         List<String> olBinPrefDoc = new ArrayList<>();
 
-        if ((oResponse != null) && (oResponse.getDocumentResponse() != null)
-            && (oResponse.getDocumentResponse().size() > 0)) {
+        if (oResponse != null && CollectionUtils.isNotEmpty(oResponse.getDocumentResponse())) {
             List<DocumentResponse> olDocResponse = oResponse.getDocumentResponse();
             LOG.info(olDocResponse.size() + " documents have been found");
             for (DocumentResponse oDocResponse : olDocResponse) {

@@ -29,6 +29,8 @@ package gov.hhs.fha.nhinc.transform.subdisc;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import org.apache.commons.collections.CollectionUtils;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.CE;
 import org.hl7.v3.ENExplicit;
@@ -72,38 +74,37 @@ public class HL7PatientTransforms {
     private HL7PatientTransforms() {
     }
 
-    public static org.hl7.v3.PRPAMT201301UV02Patient create201301Patient(PRPAMT201306UV02ParameterList paramList,
-        String aaId) {
+    public static PRPAMT201301UV02Patient create201301Patient(PRPAMT201306UV02ParameterList paramList, String aaId) {
         PRPAMT201301UV02Patient result = new PRPAMT201301UV02Patient();
-
         PRPAMT201301UV02Person person = new PRPAMT201301UV02Person();
 
         if (paramList == null) {
             return null;
         }
+
         // Set the Subject Gender Code
-        if (paramList.getLivingSubjectAdministrativeGender() != null
-            && paramList.getLivingSubjectAdministrativeGender().size() > 0) {
+        if (CollectionUtils.isNotEmpty(paramList.getLivingSubjectAdministrativeGender())) {
             CE genderCode = paramList.getLivingSubjectAdministrativeGender().get(0).getValue().get(0);
 
             person.setAdministrativeGenderCode(genderCode);
         }
 
         // Set the Subject Birth Time
-        if (paramList.getLivingSubjectBirthTime() != null && paramList.getLivingSubjectBirthTime().size() > 0) {
-
+        if (CollectionUtils.isNotEmpty(paramList.getLivingSubjectBirthTime())) {
             person.setBirthTime(createBirthTime(paramList.getLivingSubjectBirthTime().get(0)));
         }
+
         // Set the address
-        if (paramList.getPatientAddress() != null && paramList.getPatientAddress().size() > 0) {
+        if (CollectionUtils.isNotEmpty(paramList.getPatientAddress())) {
             for (PRPAMT201306UV02PatientAddress patAdd : paramList.getPatientAddress()) {
                 for (ADExplicit newAdd : patAdd.getValue()) {
                     person.getAddr().add(newAdd);
                 }
             }
         }
+
         // Set the telcom
-        if (paramList.getPatientTelecom() != null && paramList.getPatientTelecom().size() > 0) {
+        if (CollectionUtils.isNotEmpty(paramList.getPatientTelecom())) {
             for (PRPAMT201306UV02PatientTelecom telcom : paramList.getPatientTelecom()) {
                 if (telcom != null) {
                     for (TELExplicit newTelcom : telcom.getValue()) {
@@ -115,20 +116,18 @@ public class HL7PatientTransforms {
         }
 
         // Set the Subject Name
-        if (paramList.getLivingSubjectName() != null && paramList.getLivingSubjectName().size() > 0) {
+        if (CollectionUtils.isNotEmpty(paramList.getLivingSubjectName())) {
             for (PRPAMT201306UV02LivingSubjectName subjName : paramList.getLivingSubjectName()) {
-
                 for (ENExplicit name : subjName.getValue()) {
                     PNExplicit newName = HL7DataTransformHelper.convertENtoPN(name);
                     newName = HL7ArrayTransforms.copyNullFlavors(name, newName);
                     person.getName().add(newName);
                 }
             }
-            // paramList.getLivingSubjectName().get(index)
         }
 
         // Set the subject Id
-        if (paramList.getLivingSubjectId() != null && paramList.getLivingSubjectId().size() > 0) {
+        if (CollectionUtils.isNotEmpty(paramList.getLivingSubjectId())) {
             for (PRPAMT201306UV02LivingSubjectId subjId : paramList.getLivingSubjectId()) {
                 for (II id : subjId.getValue()) {
                     if (id.getRoot().equalsIgnoreCase(aaId)) {
@@ -144,7 +143,7 @@ public class HL7PatientTransforms {
 
         person = HL7ArrayTransforms.copyNullFlavors(paramList, person);
 
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
+        QName xmlqname = new QName("urn:hl7-org:v3", "patientPerson");
         JAXBElement<PRPAMT201301UV02Person> jaxbPerson = new JAXBElement<>(xmlqname,
             PRPAMT201301UV02Person.class, person);
 
@@ -435,10 +434,9 @@ public class HL7PatientTransforms {
             person.getAsOtherIDs().add(otherIds);
         }
 
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
+        QName xmlqname = new QName("urn:hl7-org:v3", "patientPerson");
 
-        return new JAXBElement<>(xmlqname,
-            PRPAMT201301UV02Person.class, person);
+        return new JAXBElement<>(xmlqname, PRPAMT201301UV02Person.class, person);
     }
 
     public static JAXBElement<PRPAMT201310UV02Person> create201310PatientPerson(String patFirstName,
@@ -490,7 +488,7 @@ public class HL7PatientTransforms {
             person.getAsOtherIDs().add(otherIds);
         }
 
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
+        QName xmlqname = new QName("urn:hl7-org:v3", "patientPerson");
 
         return new JAXBElement<>(xmlqname,
             PRPAMT201310UV02Person.class, person);
@@ -526,9 +524,10 @@ public class HL7PatientTransforms {
     public static JAXBElement<PRPAMT201302UV02PatientPatientPerson> create201302PatientPerson(PNExplicit patName,
         CE gender, TSExplicit birthTime, List<PRPAMT201301UV02OtherIDs> otherIds, II remotePatId) {
         PRPAMT201302UV02OtherIDs convertedOtherIds = null;
-        if (otherIds != null && otherIds.size() > 0 && otherIds.get(0) != null && otherIds.get(0).getId() != null
-            && otherIds.get(0).getId().size() > 0 && otherIds.get(0).getId().get(0) != null
+        if (CollectionUtils.isNotEmpty(otherIds) && otherIds.get(0) != null
+            && CollectionUtils.isNotEmpty(otherIds.get(0).getId()) && otherIds.get(0).getId().get(0) != null
             && NullChecker.isNotNullish(otherIds.get(0).getId().get(0).getExtension())) {
+
             convertedOtherIds = createPRPAMT201302UVOtherIDs(otherIds.get(0).getId().get(0).getExtension(), remotePatId);
         } else if (remotePatId != null && NullChecker.isNotNullish(remotePatId.getRoot())
             && NullChecker.isNotNullish(remotePatId.getExtension())) {
@@ -541,9 +540,10 @@ public class HL7PatientTransforms {
     public static JAXBElement<PRPAMT201302UV02PatientPatientPerson> create201302PatientPerson(
         List<PRPAMT201310UV02OtherIDs> otherIds, PNExplicit patName, CE gender, TSExplicit birthTime, II remotePatId) {
         PRPAMT201302UV02OtherIDs convertedOtherIds = null;
-        if (otherIds != null && otherIds.size() > 0 && otherIds.get(0) != null && otherIds.get(0).getId() != null
-            && otherIds.get(0).getId().size() > 0 && otherIds.get(0).getId().get(0) != null
+        if (CollectionUtils.isNotEmpty(otherIds) && otherIds.get(0) != null
+            && CollectionUtils.isNotEmpty(otherIds.get(0).getId()) && otherIds.get(0).getId().get(0) != null
             && NullChecker.isNotNullish(otherIds.get(0).getId().get(0).getExtension())) {
+
             convertedOtherIds = createPRPAMT201302UVOtherIDs(otherIds.get(0).getId().get(0).getExtension(), remotePatId);
         } else if (remotePatId != null && NullChecker.isNotNullish(remotePatId.getRoot())
             && NullChecker.isNotNullish(remotePatId.getExtension())) {
@@ -577,7 +577,7 @@ public class HL7PatientTransforms {
             person.getAsOtherIDs().add(otherIds);
         }
 
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
+        QName xmlqname = new QName("urn:hl7-org:v3", "patientPerson");
 
         return new JAXBElement<>(
             xmlqname, PRPAMT201302UV02PatientPatientPerson.class, person);
@@ -654,7 +654,7 @@ public class HL7PatientTransforms {
                 result.getClassCode().add(code);
             }
         }
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "birthPlace");
+        QName xmlqname = new QName("urn:hl7-org:v3", "birthPlace");
 
         return new JAXBElement<>(xmlqname,
             PRPAMT201301UV02BirthPlace.class, result);
@@ -713,7 +713,7 @@ public class HL7PatientTransforms {
         result.setReligiousAffiliationCode(person.getReligiousAffiliationCode());
         result.setTypeId(person.getTypeId());
 
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
+        QName xmlqname = new QName("urn:hl7-org:v3", "patientPerson");
 
         return new JAXBElement<>(xmlqname,
             PRPAMT201301UV02Person.class, result);
@@ -765,7 +765,7 @@ public class HL7PatientTransforms {
         result.setReligiousAffiliationCode(person.getValue().getReligiousAffiliationCode());
         result.setTypeId(person.getValue().getTypeId());
 
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
+        QName xmlqname = new QName("urn:hl7-org:v3", "patientPerson");
 
         return new JAXBElement<>(xmlqname,
             PRPAMT201301UV02Person.class, result);
@@ -791,7 +791,7 @@ public class HL7PatientTransforms {
                 result.getClassCode().add(code);
             }
         }
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "birthPlace");
+        QName xmlqname = new QName("urn:hl7-org:v3", "birthPlace");
 
         return new JAXBElement<>(xmlqname,
             PRPAMT201301UV02BirthPlace.class, result);

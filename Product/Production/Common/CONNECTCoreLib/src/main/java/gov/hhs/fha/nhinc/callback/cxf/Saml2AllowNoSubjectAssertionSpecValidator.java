@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.validation.ValidationException;
 
@@ -52,18 +53,19 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
      */
     @Override
     protected void validateSubject(Assertion assertion) throws ValidationException {
-        if ((assertion.getStatements() == null || assertion.getStatements().isEmpty())
-                && (assertion.getAuthnStatements() == null || assertion.getAuthnStatements().isEmpty())
-                && (assertion.getAttributeStatements() == null || assertion.getAttributeStatements().isEmpty())
-                && (assertion.getAuthzDecisionStatements() == null || assertion.getAuthzDecisionStatements().isEmpty())
-                && assertion.getSubject() == null) {
+        if (CollectionUtils.isEmpty(assertion.getStatements())
+            && CollectionUtils.isEmpty(assertion.getAuthnStatements())
+            && CollectionUtils.isEmpty(assertion.getAttributeStatements())
+            && CollectionUtils.isEmpty(assertion.getAuthzDecisionStatements())
+            && assertion.getSubject() == null) {
+
             throw new ValidationException("Subject is required when Statements are absent");
         }
 
-        if (assertion.getAuthnStatements().size() > 0 && assertion.getSubject() == null) {
+        if (CollectionUtils.isNotEmpty(assertion.getAuthnStatements()) && assertion.getSubject() == null) {
             throw new ValidationException("Assertions containing AuthnStatements require a Subject");
         }
-        if (assertion.getAuthzDecisionStatements().size() > 0 && assertion.getSubject() == null) {
+        if (CollectionUtils.isNotEmpty(assertion.getAuthzDecisionStatements()) && assertion.getSubject() == null) {
             throw new ValidationException("Assertions containing AuthzDecisionStatements require a Subject");
         }
 

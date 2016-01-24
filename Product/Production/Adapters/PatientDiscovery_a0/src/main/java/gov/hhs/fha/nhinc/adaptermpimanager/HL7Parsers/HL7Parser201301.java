@@ -35,6 +35,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+import org.apache.commons.collections.CollectionUtils;
 import org.hl7.v3.CE;
 import org.hl7.v3.ENXPExplicit;
 import org.hl7.v3.EnExplicitFamily;
@@ -107,7 +108,7 @@ public class HL7Parser201301 {
         PersonName personname = new PersonName();
 
         LOG.info("patientPerson.getName().size() " + person.getName().size());
-        if (person.getName() != null && person.getName().size() > 0 && person.getName().get(0) != null
+        if (CollectionUtils.isNotEmpty(person.getName()) && person.getName().get(0) != null
             && person.getName().get(0).getContent() != null) {
 
             List<Serializable> choice = person.getName().get(0).getContent();
@@ -352,7 +353,7 @@ public class HL7Parser201301 {
         List namelist = name.getContent();
 
         PersonName mpiPatientName = null;
-        if (mpiPatient.getNames().size() > 0) {
+        if (CollectionUtils.isNotEmpty(mpiPatient.getNames())) {
             mpiPatientName = mpiPatient.getNames().get(0);
         }
 

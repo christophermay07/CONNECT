@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -68,7 +69,7 @@ public class AuditRepositoryDAO {
         Session session = null;
         Transaction tx = null;
         boolean result = true;
-        if (auditList != null && auditList.size() > 0) {
+        if (CollectionUtils.isNotEmpty(auditList)) {
             int size = auditList.size();
             AuditRepositoryRecord auditRecord = null;
 

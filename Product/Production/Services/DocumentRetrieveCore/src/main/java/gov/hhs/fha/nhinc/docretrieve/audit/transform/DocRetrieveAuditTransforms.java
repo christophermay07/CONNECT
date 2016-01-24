@@ -46,6 +46,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 import javax.xml.bind.JAXBException;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,8 +66,9 @@ public class DocRetrieveAuditTransforms
 
         /* check to see if unique Patient Id exist or not - if created then only ParticipantObjectIdentification
          object will be created otherwise not*/
-        if (assertion.getUniquePatientId() != null && assertion.getUniquePatientId().size() > 0
-            && assertion.getUniquePatientId().get(0).length() > 0) {
+        if (CollectionUtils.isNotEmpty(assertion.getUniquePatientId())
+            && !assertion.getUniquePatientId().get(0).isEmpty()) {
+            
             auditMsg = createPatientParticipantObjectIdentification(auditMsg, assertion.getUniquePatientId().get(0));
         }
         try {

@@ -42,6 +42,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
 import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassControlAct;
@@ -104,7 +106,7 @@ public class HL7Parser201306 {
     }
 
     /**
-     * Method to build a PRPAIN201306UV02 froma given list of Patients and a PRPAIN201305UV02 object.
+     * Method to build a PRPAIN201306UV02 from a given list of Patients and a PRPAIN201305UV02 object.
      *
      * @param patients A list of patients from which to build the PRPAIN201306UV02 for.
      * @param query the PRPAIN201305UV02 object
@@ -123,8 +125,8 @@ public class HL7Parser201306 {
             id.setRoot(PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, PROPERTY_NAME));
         } catch (PropertyAccessException e) {
             LOG.error(
-                "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties",
-                e);
+                "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties: {}",
+                e.getLocalizedMessage(), e);
         }
         id.setExtension(MessageIdGenerator.generateMessageId());
         msg.setId(id);
@@ -180,6 +182,7 @@ public class HL7Parser201306 {
 
     private static PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createControlActProcess(Patients patients,
         PRPAIN201305UV02 query) {
+
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess
             = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
 
@@ -190,7 +193,7 @@ public class HL7Parser201306 {
         code.setCodeSystem("2.16.840.1.113883.1.6");
         controlActProcess.setCode(code);
 
-        if ((patients != null) && (patients.size() > 0)) {
+        if (CollectionUtils.isNotEmpty(patients)) {
             for (Patient patient : patients) {
                 controlActProcess.getSubject().add(createSubject(patient, query));
             }
@@ -201,6 +204,7 @@ public class HL7Parser201306 {
         // Add in query parameters
         if (query.getControlActProcess() != null && query.getControlActProcess().getQueryByParameter() != null
             && query.getControlActProcess().getQueryByParameter().getValue() != null) {
+
             controlActProcess.setQueryByParameter(query.getControlActProcess().getQueryByParameter());
         }
 
@@ -217,6 +221,7 @@ public class HL7Parser201306 {
         if (query.getControlActProcess() != null && query.getControlActProcess().getQueryByParameter() != null
             && query.getControlActProcess().getQueryByParameter().getValue() != null
             && query.getControlActProcess().getQueryByParameter().getValue().getQueryId() != null) {
+
             result.setQueryId(query.getControlActProcess().getQueryByParameter().getValue().getQueryId());
         }
 
@@ -344,16 +349,16 @@ public class HL7Parser201306 {
         org.setClassCode("ORG");
         II id = new II();
 
-        if (patient.getIdentifiers() != null && patient.getIdentifiers().size() > 0
-            && patient.getIdentifiers().get(0).getOrganizationId() != null
-            && patient.getIdentifiers().get(0).getOrganizationId().length() > 0) {
+        if (CollectionUtils.isNotEmpty(patient.getIdentifiers())
+            && StringUtils.isNotEmpty(patient.getIdentifiers().get(0).getOrganizationId())) {
+
             id.setRoot(HomeCommunityMap.formatHomeCommunityId(patient.getIdentifiers().get(0).getOrganizationId()));
         }
         org.getId().add(id);
 
         org.getContactParty().add(null);
 
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "providerOrganization");
+        QName xmlqname = new QName("urn:hl7-org:v3", "providerOrganization");
 
         return new JAXBElement<>(xmlqname, COCTMT150003UV03Organization.class, org);
     }
@@ -361,18 +366,14 @@ public class HL7Parser201306 {
     private static II createSubjectId(Patient patient) {
         II id = new II();
 
-        if (patient.getIdentifiers() != null && patient.getIdentifiers().size() > 0
-            && patient.getIdentifiers().get(0) != null) {
-
-            if (patient.getIdentifiers().get(0).getOrganizationId() != null
-                && patient.getIdentifiers().get(0).getOrganizationId().length() > 0) {
-                LOG.info("Setting Patient Id root in 201306: " + patient.getIdentifiers().get(0).getOrganizationId());
+        if (CollectionUtils.isNotEmpty(patient.getIdentifiers()) && patient.getIdentifiers().get(0) != null) {
+            if (StringUtils.isNotEmpty(patient.getIdentifiers().get(0).getOrganizationId())) {
+                LOG.info("Setting Patient Id root in 201306: {}", patient.getIdentifiers().get(0).getOrganizationId());
                 id.setRoot(HomeCommunityMap.formatHomeCommunityId(patient.getIdentifiers().get(0).getOrganizationId()));
             }
 
-            if (patient.getIdentifiers().get(0).getId() != null
-                && patient.getIdentifiers().get(0).getId().length() > 0) {
-                LOG.info("Setting Patient Id extension in 201306: " + patient.getIdentifiers().get(0).getId());
+            if (StringUtils.isNotEmpty(patient.getIdentifiers().get(0).getId())) {
+                LOG.info("Setting Patient Id extension in 201306: {}", patient.getIdentifiers().get(0).getId());
                 id.setExtension(patient.getIdentifiers().get(0).getId());
             }
         }
@@ -390,12 +391,12 @@ public class HL7Parser201306 {
         person.setDeterminerCode("INSTANCE");
 
         // Set the Subject Gender
-        if (patient.getGender() != null && patient.getGender().length() > 0) {
+        if (StringUtils.isNotEmpty(patient.getGender())) {
             person.setAdministrativeGenderCode(createGender(patient));
         }
 
         // Set the Subject Name
-        if (patient.getNames().size() > 0) {
+        if (!patient.getNames().isEmpty()) {
             for (PersonName name : patient.getNames()) {
                 person.getName().add(createSubjectName(name));
             }
@@ -404,19 +405,19 @@ public class HL7Parser201306 {
         }
 
         // Set the Birth Time
-        if (patient.getDateOfBirth() != null && patient.getDateOfBirth().length() > 0) {
+        if (StringUtils.isNotEmpty(patient.getDateOfBirth())) {
             person.setBirthTime(createBirthTime(patient));
         }
 
         // Set the Address
-        if (patient.getAddresses().size() > 0) {
+        if (!patient.getAddresses().isEmpty()) {
             for (Address add : patient.getAddresses()) {
                 person.getAddr().add(createAddress(add));
             }
         }
 
         // Set the phone Numbers
-        if (patient.getPhoneNumbers().size() > 0) {
+        if (!patient.getPhoneNumbers().isEmpty()) {
             for (PhoneNumber number : patient.getPhoneNumbers()) {
                 TELExplicit tele = HL7DataTransformHelper.createTELExplicit(number.getPhoneNumber());
 
@@ -425,11 +426,11 @@ public class HL7Parser201306 {
         }
 
         // Set the SSN
-        if (patient.getSSN() != null && patient.getSSN().length() > 0) {
+        if (StringUtils.isNotEmpty(patient.getSSN())) {
             person.getAsOtherIDs().add(createOtherIds(patient));
         }
 
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
+        QName xmlqname = new QName("urn:hl7-org:v3", "patientPerson");
 
         return new JAXBElement<>(xmlqname, PRPAMT201310UV02Person.class, person);
     }
@@ -463,7 +464,7 @@ public class HL7Parser201306 {
         TSExplicit birthTime = new TSExplicit();
 
         if (patient.getDateOfBirth() != null && patient.getDateOfBirth().length() > 0) {
-            LOG.info("Setting Patient Birthday in 201306: " + patient.getDateOfBirth());
+            LOG.info("Setting Patient Birthday in 201306: {}", patient.getDateOfBirth());
             birthTime.setValue(patient.getDateOfBirth());
         }
 
@@ -471,7 +472,7 @@ public class HL7Parser201306 {
     }
 
     private static PNExplicit createSubjectName(Patient patient) {
-        if (patient.getNames().size() > 0) {
+        if (!patient.getNames().isEmpty()) {
             return createSubjectName(patient.getNames().get(0));
         }
 
@@ -491,8 +492,8 @@ public class HL7Parser201306 {
     private static CE createGender(Patient patient) {
         CE gender = new CE();
 
-        if (patient.getGender() != null && patient.getGender().length() > 0) {
-            LOG.info("Setting Patient Gender in 201306: " + patient.getGender());
+        if (StringUtils.isNotEmpty(patient.getGender())) {
+            LOG.info("Setting Patient Gender in 201306: {}", patient.getGender());
             gender.setCode(patient.getGender());
         }
         return gender;
@@ -542,7 +543,7 @@ public class HL7Parser201306 {
         MCCIMT000300UV01Device receiverDevice = new MCCIMT000300UV01Device();
         receiverDevice.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
         receiverDevice.setClassCode(EntityClassDevice.DEV);
-        LOG.debug("Setting receiver device id (applicationId) to query sender's device id " + app);
+        LOG.debug("Setting receiver device id (applicationId) to query sender's device id {}", app);
         receiverDevice.getId().add(HL7DataTransformHelper.IIFactory(app));
 
         MCCIMT000300UV01Agent agent = new MCCIMT000300UV01Agent();
@@ -552,14 +553,13 @@ public class HL7Parser201306 {
         II id = HL7DataTransformHelper.IIFactory(oid);
         org.getId().add(id);
 
-        javax.xml.namespace.QName xmlqnameorg
-            = new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
+        QName xmlqnameorg = new QName("urn:hl7-org:v3", "representedOrganization");
         JAXBElement<MCCIMT000300UV01Organization> orgElem
             = new JAXBElement<>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
-        javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
+        QName xmlqnameagent = new QName("urn:hl7-org:v3", "asAgent");
         JAXBElement<MCCIMT000300UV01Agent> agentElem
             = new JAXBElement<>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
 
@@ -612,14 +612,13 @@ public class HL7Parser201306 {
         II id = HL7DataTransformHelper.IIFactory(oid);
         org.getId().add(id);
 
-        javax.xml.namespace.QName xmlqnameorg
-            = new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
+        QName xmlqnameorg = new QName("urn:hl7-org:v3", "representedOrganization");
         JAXBElement<MCCIMT000300UV01Organization> orgElem
             = new JAXBElement<>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
-        javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
+        QName xmlqnameagent = new QName("urn:hl7-org:v3", "asAgent");
         JAXBElement<MCCIMT000300UV01Agent> agentElem
             = new JAXBElement<>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
 

@@ -165,8 +165,7 @@ public class Patient implements java.io.Serializable {
     public String toString() {
         String result = "";
 
-        if (this.names.size() > 0) {
-
+        if (!names.isEmpty()) {
             for (PersonName personName : this.names) {
                 result += "|" + personName.toString();
             }

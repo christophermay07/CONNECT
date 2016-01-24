@@ -38,6 +38,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -362,7 +363,7 @@ public class AsyncMsgRecordDao {
                     criteria.add(Restrictions.le("ResponseTime", date));
                     criteriaPopulated = true;
                 }
-                if (queryCriteria.getServiceName() != null && queryCriteria.getServiceName().size() > 0) {
+                if (CollectionUtils.isNotEmpty(queryCriteria.getServiceName())) {
                     criteria.add(Restrictions.in("ServiceName", queryCriteria.getServiceName()));
                     criteriaPopulated = true;
                 }
@@ -370,11 +371,11 @@ public class AsyncMsgRecordDao {
                     criteria.add(Restrictions.eq("Direction", queryCriteria.getDirection()));
                     criteriaPopulated = true;
                 }
-                if (queryCriteria.getCommunityId() != null && queryCriteria.getCommunityId().size() > 0) {
+                if (CollectionUtils.isNotEmpty(queryCriteria.getCommunityId())) {
                     criteria.add(Restrictions.in("CommunityId", queryCriteria.getCommunityId()));
                     criteriaPopulated = true;
                 }
-                if (queryCriteria.getStatus() != null && queryCriteria.getStatus().size() > 0) {
+                if (CollectionUtils.isNotEmpty(queryCriteria.getStatus())) {
                     criteria.add(Restrictions.in("Status", queryCriteria.getStatus()));
                     criteriaPopulated = true;
                 }
@@ -393,10 +394,8 @@ public class AsyncMsgRecordDao {
                 LOG.error("Failed to obtain a session from the sessionFactory");
             }
 
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Completed database record retrieve by criteria. Results found: "
-                    + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
-            }
+            LOG.debug("Completed database record retrieve by criteria. Results found: {}",
+                ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
         } finally {
             if (sess != null) {
                 try {

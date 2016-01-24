@@ -62,7 +62,8 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
      * @return the unsecured format of the message
      */
     public RespondingGatewaySendAlertMessageType convertToUnsecured(RespondingGatewaySendAlertMessageSecuredType message,
-            AssertionType assertion, NhinTargetCommunitiesType target) {
+        AssertionType assertion, NhinTargetCommunitiesType target) {
+
         RespondingGatewaySendAlertMessageType request = new RespondingGatewaySendAlertMessageType();
 
         request.setAssertion(assertion);

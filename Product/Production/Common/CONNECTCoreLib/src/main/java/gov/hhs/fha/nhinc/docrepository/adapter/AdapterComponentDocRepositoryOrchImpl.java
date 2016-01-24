@@ -251,7 +251,6 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         olDocResponse.add(oDocResponse);
                     }
                 }
-
             } else {
                 response.getRegistryResponse().setStatus(responseStatus);
                 RegistryErrorList regErrList = new RegistryErrorList();
@@ -262,12 +261,14 @@ public class AdapterComponentDocRepositoryOrchImpl {
             }
 
             if (response.getRegistryResponse().getStatus().equals(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE)
-                    && (response.getDocumentResponse().size() > 0)) {
+                && !response.getDocumentResponse().isEmpty()) {
+
                 response.getRegistryResponse().setStatus(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_PARTIALSUCCESS);
             } else if (response.getRegistryResponse().getStatus()
-                    .equals(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS)
-                    && (response.getRegistryResponse().getRegistryErrorList() != null)
-                    && (response.getRegistryResponse().getRegistryErrorList().getRegistryError() != null)) {
+                .equals(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS)
+                && response.getRegistryResponse().getRegistryErrorList() != null
+                && response.getRegistryResponse().getRegistryErrorList().getRegistryError() != null) {
+
                 response.getRegistryResponse().setStatus(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS);
             }
         } else {

@@ -75,7 +75,7 @@ public class DocumentRetrieveResultsModelBuilderImpl implements DocumentRetrieve
 
     private DocumentResponse getRetrieveDocumentResponse(RetrieveDocumentSetResponseType response) {
         DocumentResponse documentResponse = null;
-        if (response != null && response.getDocumentResponse().size() > 0) {
+        if (response != null && !response.getDocumentResponse().isEmpty()) {
             documentResponse = response.getDocumentResponse().get(0);
         }
         return documentResponse;

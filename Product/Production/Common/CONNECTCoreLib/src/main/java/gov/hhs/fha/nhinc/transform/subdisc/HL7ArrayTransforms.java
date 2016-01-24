@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
 import org.hl7.v3.CS;
 import org.hl7.v3.ENExplicit;
 import org.hl7.v3.II;
@@ -296,28 +297,27 @@ public class HL7ArrayTransforms {
             org.setClassCode(HL7Constants.ORG_CLASS_CODE);
             org.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
             if (orig.getDevice() != null
-                    && orig.getDevice().getAsAgent() != null
-                    && orig.getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                    && orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null
-                    && orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() < 0) {
-                org.getId()
-                        .add(orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
-                                .get(0));
+                && orig.getDevice().getAsAgent() != null
+                && orig.getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                && orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null
+                && orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() < 0) {
+
+                org.getId().add(
+                    orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0));
             }
 
-            javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3",
-                    "representedOrganization");
+            QName xmlqnameorg = new QName("urn:hl7-org:v3", "representedOrganization");
             JAXBElement<MCCIMT000100UV01Organization> orgElem = new JAXBElement<>(
                     xmlqnameorg, MCCIMT000100UV01Organization.class, org);
             agent.setRepresentedOrganization(orgElem);
             agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
-            javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
+            QName xmlqnameagent = new QName("urn:hl7-org:v3", "asAgent");
             JAXBElement<MCCIMT000100UV01Agent> agentElem = new JAXBElement<>(xmlqnameagent,
                     MCCIMT000100UV01Agent.class, agent);
             newDevice.setAsAgent(agentElem);
 
-            if (orig.getDevice() != null && orig.getDevice().getId().size() > 0) {
+            if (orig.getDevice() != null && !orig.getDevice().getId().isEmpty()) {
                 II deviceId = orig.getDevice().getId().get(0);
                 newDevice.getId().add(deviceId);
             }

@@ -30,6 +30,8 @@ import gov.hhs.fha.nhinc.common.connectionmanager.model.AssigningAuthorityToHome
 import gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -100,10 +102,10 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
         } else {
             LOG.error("Please provide a valid homeCommunityId");
         }
-        if (LOG.isTraceEnabled()) {
-            LOG.trace("-- End AssigningAuthorityHomeCommunityMappingDAO.getAssigningAuthoritiesByHomeCommunity() ---");
-            LOG.trace("getAssigningAuthoritiesByHomeCommunity - listOfAAs.size: " + listOfAAs.size());
-        }
+
+        LOG.trace("-- End AssigningAuthorityHomeCommunityMappingDAO.getAssigningAuthoritiesByHomeCommunity() ---");
+        LOG.trace("getAssigningAuthoritiesByHomeCommunity - listOfAAs.size: {}", listOfAAs.size());
+
         return listOfAAs;
     }
 
@@ -116,7 +118,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
     public String getHomeCommunityId(String assigningAuthority) {
         LOG.debug("--Begin AssigningAuthorityHomeCommunityMappingDAO.getAllCommunityIdsForAllAssigningAuthorities() ---");
         String homeCommunity = "";
-        if (assigningAuthority != null && !assigningAuthority.isEmpty()) {
+        if (StringUtils.isNotEmpty(assigningAuthority)) {
             Session sess = null;
             SessionFactory fact = HibernateUtil.getSessionFactory();
             try {
@@ -125,7 +127,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                     Query namedQuery = sess.getNamedQuery("findAAByAAId");
                     namedQuery.setParameter("assigningAuthorityId", assigningAuthority);
                     List<AssigningAuthorityToHomeCommunityMapping> l = namedQuery.list();
-                    if (l != null && l.size() > 0) {
+                    if (CollectionUtils.isNotEmpty(l)) {
                         homeCommunity = l.get(0).getHomeCommunityId();
                     }
                 } else {
@@ -156,14 +158,11 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
      */
     public boolean storeMapping(String homeCommunityId, String assigningAuthority) {
         LOG.debug("--Begin AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
-        System.out
-            .println("--Begin AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
         boolean success = false;
-        AssigningAuthorityToHomeCommunityMapping mappingInfo = null;
+        AssigningAuthorityToHomeCommunityMapping mappingInfo;
         Transaction trans = null;
         Session sess = null;
-        if (homeCommunityId != null && !homeCommunityId.isEmpty() && assigningAuthority != null
-            && !assigningAuthority.isEmpty()) {
+        if (StringUtils.isNotEmpty(homeCommunityId) && StringUtils.isNotEmpty(assigningAuthority)) {
             SessionFactory fact = HibernateUtil.getSessionFactory();
             try {
                 sess = fact.openSession();
@@ -173,7 +172,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                     namedQuery.setParameter("homeCommunityId", homeCommunityId);
                     List<AssigningAuthorityToHomeCommunityMapping> l = namedQuery.list();
 
-                    if (l != null && l.size() > 0) {
+                    if (CollectionUtils.isNotEmpty(l)) {
                         LOG.info("Assigning Authority and Home Community pair already present in the repository");
                     } else {
                         mappingInfo = new AssigningAuthorityToHomeCommunityMapping();
@@ -206,8 +205,6 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
             LOG.error("Invalid data entered, Enter Valid data to store");
         }
         LOG.debug("--End AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
-        System.out
-            .println("--End AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
         return success;
     }
 }

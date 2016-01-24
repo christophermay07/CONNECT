@@ -39,6 +39,8 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessEntity;
@@ -71,10 +73,10 @@ public class HomeCommunityMap {
         String sHomeCommunityName = "";
 
         try {
-
             BusinessEntity oEntity = connection.getBusinessEntity(sHomeCommunityId);
-            if ((oEntity != null) && (oEntity.getName() != null) && (oEntity.getName().size() > 0)
-                && (oEntity.getName().get(0) != null) && (oEntity.getName().get(0).getValue().length() > 0)) {
+            if (oEntity != null && CollectionUtils.isNotEmpty(oEntity.getName())
+                && oEntity.getName().get(0) != null && !oEntity.getName().get(0).getValue().isEmpty()) {
+
                 sHomeCommunityName = oEntity.getName().get(0).getValue();
             }
         } catch (Exception e) {
@@ -94,9 +96,10 @@ public class HomeCommunityMap {
         String responseCommunityId = null;
         if (target != null && NullChecker.isNotNullish(target.getNhinTargetCommunity())
             && target.getNhinTargetCommunity().get(0) != null) {
+
             responseCommunityId = target.getNhinTargetCommunity().get(0).getHomeCommunity().getHomeCommunityId();
         }
-        LOG.debug("=====>>>>> responseCommunityId is " + responseCommunityId);
+        LOG.debug("=====>>>>> responseCommunityId is {}", responseCommunityId);
         return formatHomeCommunityId(responseCommunityId);
     }
 
@@ -110,9 +113,10 @@ public class HomeCommunityMap {
         String responseCommunityId = null;
         if (target != null && target.getHomeCommunity() != null
             && target.getHomeCommunity().getHomeCommunityId() != null) {
+
             responseCommunityId = target.getHomeCommunity().getHomeCommunityId();
         }
-        LOG.debug("=====>>>>> responseCommunityId is " + responseCommunityId);
+        LOG.debug("=====>>>>> responseCommunityId is {}", responseCommunityId);
         return formatHomeCommunityId(responseCommunityId);
     }
 
@@ -130,8 +134,7 @@ public class HomeCommunityMap {
             UserType userInfo = assertion.getUserInfo();
 
             if (userInfo != null && userInfo.getOrg() != null) {
-                if (userInfo.getOrg().getHomeCommunityId() != null
-                    && userInfo.getOrg().getHomeCommunityId().length() > 0) {
+                if (StringUtils.isNotEmpty(userInfo.getOrg().getHomeCommunityId())) {
                     communityId = userInfo.getOrg().getHomeCommunityId();
                 }
             }
@@ -154,6 +157,7 @@ public class HomeCommunityMap {
 
         if (assertion != null && assertion.getHomeCommunity() != null
             && NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId())) {
+
             homeCommunity = assertion.getHomeCommunity().getHomeCommunityId();
         }
 
@@ -183,9 +187,9 @@ public class HomeCommunityMap {
     public static String getCommunityIdForDeferredQDResponse(AdhocQueryResponse body) {
         String responseCommunityID = null;
         if (body != null && body.getRegistryObjectList() != null
-            && body.getRegistryObjectList().getIdentifiable() != null
-            && body.getRegistryObjectList().getIdentifiable().size() > 0
+            && CollectionUtils.isNotEmpty(body.getRegistryObjectList().getIdentifiable())
             && body.getRegistryObjectList().getIdentifiable().get(0) != null) {
+
             responseCommunityID = body.getRegistryObjectList().getIdentifiable().get(0).getValue().getHome();
         }
         return formatHomeCommunityId(responseCommunityID);

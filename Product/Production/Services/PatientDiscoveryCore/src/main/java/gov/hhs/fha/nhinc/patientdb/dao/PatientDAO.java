@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.SQLQuery;
@@ -146,11 +147,11 @@ public class PatientDAO {
 
             queryList = aCriteria.list();
 
-            if (queryList != null && queryList.size() > 0) {
+            if (CollectionUtils.isNotEmpty(queryList)) {
                 foundRecord = queryList.get(0);
             }
         } catch (Exception e) {
-            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to :{}", e.getLocalizedMessage(), e);
         } finally {
             // Flush and close session
             if (session != null) {
@@ -263,16 +264,16 @@ public class PatientDAO {
             String suffix = patient.getPersonnames().get(0).getSuffix();
 
             Address address = new Address();
-            if (patient.getAddresses() != null && patient.getAddresses().size() > 0) {
+            if (CollectionUtils.isNotEmpty(patient.getAddresses())) {
                 address = patient.getAddresses().get(0);
             }
             Phonenumber phonenumber = new Phonenumber();
-            if (patient.getPhonenumbers() != null && patient.getPhonenumbers().size() > 0) {
+            if (CollectionUtils.isNotEmpty(patient.getPhonenumbers())) {
                 phonenumber = patient.getPhonenumbers().get(0);
             }
 
             // Build the select with query criteria
-            StringBuffer sqlSelect = new StringBuffer(
+            StringBuilder sqlSelect = new StringBuilder(
                 "SELECT DISTINCT p.patientId, p.dateOfBirth, p.gender, p.ssn, i.id, i.organizationid");
             sqlSelect.append(" FROM patientdb.patient p");
             sqlSelect.append(" INNER JOIN patientdb.identifier i ON p.patientId = i.patientId");
@@ -468,7 +469,7 @@ public class PatientDAO {
 
             List<Object[]> result = sqlQuery.list();
 
-            if (result != null && result.size() > 0) {
+            if (CollectionUtils.isNotEmpty(result)) {
                 Long[] patientIdArray = new Long[result.size()];
                 Timestamp[] dateOfBirthArray = new Timestamp[result.size()];
                 String[] genderArray = new String[result.size()];

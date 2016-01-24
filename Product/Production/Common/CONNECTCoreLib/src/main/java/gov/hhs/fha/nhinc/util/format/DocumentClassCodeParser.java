@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.util.format;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,7 +61,7 @@ public class DocumentClassCodeParser {
             resultCollection = new ArrayList<>();
         }
 
-        if ((NullChecker.isNotNullish(paramFormattedString)) && (resultCollection != null)) {
+        if (NullChecker.isNotNullish(paramFormattedString)) {
             if (paramFormattedString.startsWith("(")) {
                 String working = paramFormattedString.substring(1);
                 int endIndex = working.indexOf(")");
@@ -93,7 +94,7 @@ public class DocumentClassCodeParser {
             } else {
                 resultCollection.add(paramFormattedString);
                 if (LOG.isDebugEnabled()) {
-                    LOG.debug("No wrapper on status - adding status: " + paramFormattedString + " to query parameters");
+                    LOG.debug("No wrapper on status - adding status: {} to query parameters", paramFormattedString);
                 }
             }
         }
@@ -103,7 +104,7 @@ public class DocumentClassCodeParser {
 
     public static String buildDocumentClassCodeItem(List<String> documentClassCodeList) {
         StringBuffer buffer = new StringBuffer();
-        if ((documentClassCodeList != null) && (documentClassCodeList.size() > 0)) {
+        if (CollectionUtils.isNotEmpty(documentClassCodeList)) {
             buffer.append("(");
             for (String documentClassCode : documentClassCodeList) {
                 documentClassCode = documentClassCode.trim();

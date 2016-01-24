@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -149,7 +150,7 @@ public class SamlTokenCreator {
             } else {
                 LOG.error("Error: samlSendOperation input assertion Home Community is null");
             }
-            if (assertion.getUniquePatientId() != null && assertion.getUniquePatientId().size() > 0) {
+            if (CollectionUtils.isNotEmpty(assertion.getUniquePatientId())) {
                 // take first non-null item in the List as the identifier
                 for (String patId : assertion.getUniquePatientId()) {
                     if (NullChecker.isNotNullish(patId)) {

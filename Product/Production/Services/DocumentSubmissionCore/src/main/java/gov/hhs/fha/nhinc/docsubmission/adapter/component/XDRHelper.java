@@ -149,7 +149,7 @@ public class XDRHelper {
             result.getRegistryError().add(error);
         }
 
-        if (result.getRegistryError().size() > 0) {
+        if (!result.getRegistryError().isEmpty()) {
             return processErrorList(result);
         }
 

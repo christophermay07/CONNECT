@@ -36,10 +36,15 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
 import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,13 +78,13 @@ public class AuditDataTransformHelper {
 
         // Set the Event Action Time
         try {
-            java.util.GregorianCalendar today = new java.util.GregorianCalendar(TimeZone.getTimeZone("GMT"));
-            javax.xml.datatype.DatatypeFactory factory = javax.xml.datatype.DatatypeFactory.newInstance();
-            javax.xml.datatype.XMLGregorianCalendar calendar = factory.newXMLGregorianCalendar(
-                today.get(java.util.GregorianCalendar.YEAR), today.get(java.util.GregorianCalendar.MONTH) + 1,
-                today.get(java.util.GregorianCalendar.DAY_OF_MONTH),
-                today.get(java.util.GregorianCalendar.HOUR_OF_DAY), today.get(java.util.GregorianCalendar.MINUTE),
-                today.get(java.util.GregorianCalendar.SECOND), today.get(java.util.GregorianCalendar.MILLISECOND),
+            GregorianCalendar today = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
+            DatatypeFactory factory = DatatypeFactory.newInstance();
+            XMLGregorianCalendar calendar = factory.newXMLGregorianCalendar(
+                today.get(GregorianCalendar.YEAR), today.get(GregorianCalendar.MONTH) + 1,
+                today.get(GregorianCalendar.DAY_OF_MONTH),
+                today.get(GregorianCalendar.HOUR_OF_DAY), today.get(GregorianCalendar.MINUTE),
+                today.get(GregorianCalendar.SECOND), today.get(GregorianCalendar.MILLISECOND),
                 0);
             eventIdentification.setEventDateTime(calendar);
         } catch (DatatypeConfigurationException | ArrayIndexOutOfBoundsException e) {
@@ -183,7 +188,7 @@ public class AuditDataTransformHelper {
 
         // Set the User Id
         String userId = null;
-        if (userInfo != null && userInfo.getUserName() != null && userInfo.getUserName().length() > 0) {
+        if (userInfo != null && StringUtils.isNotEmpty(userInfo.getUserName())) {
             userId = userInfo.getUserName();
         }
 
@@ -194,12 +199,11 @@ public class AuditDataTransformHelper {
         // If specified, set the User Name
         String userName = null;
         if (userInfo != null && userInfo.getPersonName() != null) {
-            if (userInfo.getPersonName().getGivenName() != null && userInfo.getPersonName().getGivenName().length() > 0) {
+            if (StringUtils.isNotEmpty(userInfo.getPersonName().getGivenName())) {
                 userName = userInfo.getPersonName().getGivenName();
             }
 
-            if (userInfo.getPersonName().getFamilyName() != null
-                && userInfo.getPersonName().getFamilyName().length() > 0) {
+            if (StringUtils.isNotEmpty(userInfo.getPersonName().getFamilyName())) {
                 if (userName != null) {
                     userName += (" " + userInfo.getPersonName().getFamilyName());
                 } else {
@@ -286,18 +290,18 @@ public class AuditDataTransformHelper {
         String communityName = null;
 
         if (userInfo != null && userInfo.getOrg() != null) {
-            if (userInfo.getOrg().getHomeCommunityId() != null && userInfo.getOrg().getHomeCommunityId().length() > 0) {
+            if (StringUtils.isNotEmpty(userInfo.getOrg().getHomeCommunityId())) {
                 communityId = userInfo.getOrg().getHomeCommunityId();
             }
 
-            if (userInfo.getOrg().getName() != null && userInfo.getOrg().getName().length() > 0) {
+            if (StringUtils.isNotEmpty(userInfo.getOrg().getName())) {
                 communityName = userInfo.getOrg().getName();
             }
         }
 
         // Set the Audit Source Id (community id)
         if (communityId != null) {
-            LOG.debug("communityId prior to remove urn:oid" + communityId);
+            LOG.debug("communityId prior to remove urn:oid{}", communityId);
             if (communityId.startsWith("urn:oid:")) {
                 auditSrcId.setAuditSourceID(communityId.substring(8));
             } else {
@@ -404,32 +408,33 @@ public class AuditDataTransformHelper {
      */
     public static void logAuditMessage(AuditMessageType message) {
         LOG.debug("********** Audit Log Message ***********");
-        LOG.debug("EventIdCode: " + message.getEventIdentification().getEventID().getCode());
-        LOG.debug("EventIdCodeSystem: " + message.getEventIdentification().getEventID().getCodeSystem());
+        LOG.debug("EventIdCode: {}", message.getEventIdentification().getEventID().getCode());
+        LOG.debug("EventIdCodeSystem: {}", message.getEventIdentification().getEventID().getCodeSystem());
 
-        if (message.getAuditSourceIdentification() != null && message.getAuditSourceIdentification().size() > 0
+        if (CollectionUtils.isNotEmpty(message.getAuditSourceIdentification())
             && message.getAuditSourceIdentification().get(0).getAuditSourceID() != null) {
-            LOG.debug("Home Community Id: " + message.getAuditSourceIdentification().get(0).getAuditSourceID());
+
+            LOG.debug("Home Community Id: {}", message.getAuditSourceIdentification().get(0).getAuditSourceID());
         } else {
             LOG.debug("Home Community Id: There was no AuditSourceID in the message");
         }
 
-        if (message.getActiveParticipant() != null && message.getActiveParticipant().size() > 0) {
+        if (CollectionUtils.isNotEmpty(message.getActiveParticipant())) {
             if (message.getActiveParticipant().get(0).getUserID() != null) {
-                LOG.debug("UserId: " + message.getActiveParticipant().get(0).getUserID());
+                LOG.debug("UserId: {}", message.getActiveParticipant().get(0).getUserID());
             } else {
                 LOG.debug("UserId: There was no User Id in the message");
             }
 
             if (message.getActiveParticipant().get(0).getUserName() != null) {
-                LOG.debug("UserName: " + message.getActiveParticipant().get(0).getUserName());
+                LOG.debug("UserName: {}", message.getActiveParticipant().get(0).getUserName());
             }
         }
 
-        if (message.getParticipantObjectIdentification() != null
-            && message.getParticipantObjectIdentification().size() > 0
+        if (CollectionUtils.isNotEmpty(message.getParticipantObjectIdentification())
             && message.getParticipantObjectIdentification().get(0).getParticipantObjectID() != null) {
-            LOG.debug("PatientId: " + message.getParticipantObjectIdentification().get(0).getParticipantObjectID());
+
+            LOG.debug("PatientId: {}", message.getParticipantObjectIdentification().get(0).getParticipantObjectID());
         } else {
             LOG.debug("PatientId: There was no Patient Id in the message");
         }
@@ -446,11 +451,12 @@ public class AuditDataTransformHelper {
         String sIdentScheme) {
         ExternalIdentifierType oExtId = null;
 
-        if ((olExtId != null) && (olExtId.size() > 0)) {
+        if (CollectionUtils.isNotEmpty(olExtId)) {
             for (int i = 0; i < olExtId.size(); i++) {
                 if (olExtId.get(i).getIdentificationScheme().equals(sIdentScheme)) {
                     oExtId = olExtId.get(i);
-                    break; // We found what we were looking for - get out of here...
+                    // We found what we were looking for - get out of here...
+                    break;
                 }
             }
         }
@@ -467,9 +473,10 @@ public class AuditDataTransformHelper {
      */
     public static String findSingleExternalIdentifierAndExtractValue(List<ExternalIdentifierType> olExtId,
         String sIdentScheme) {
+
         String sValue = null;
         ExternalIdentifierType oExtId = findSingleExternalIdentifier(olExtId, sIdentScheme);
-        if ((oExtId != null) && (oExtId.getValue() != null)) {
+        if (oExtId != null && oExtId.getValue() != null) {
             sValue = oExtId.getValue();
         }
         return sValue;
@@ -483,9 +490,7 @@ public class AuditDataTransformHelper {
      * @return the properly formatted patientId.
      */
     public static String createCompositePatientId(String assigningAuthId, String patientId) {
-        String sValue;
-        sValue = patientId + "^^^&" + assigningAuthId + "&ISO";
-        return sValue;
+        return patientId + "^^^&" + assigningAuthId + "&ISO";
     }
 
     /**

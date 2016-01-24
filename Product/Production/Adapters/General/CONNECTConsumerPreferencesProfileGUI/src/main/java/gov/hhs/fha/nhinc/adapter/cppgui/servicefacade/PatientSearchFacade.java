@@ -43,6 +43,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.cxf.common.util.CollectionUtils;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -184,7 +185,7 @@ public class PatientSearchFacade {
     private List<PatientVO> convertMPIPatientToPatientVO(Patients mpiPatients) throws Exception {
         List<PatientVO> patientVOs = new ArrayList<>();
 
-        if (mpiPatients == null || mpiPatients.size() < 1) {
+        if (CollectionUtils.isEmpty(mpiPatients)) {
             return patientVOs;
         }
 

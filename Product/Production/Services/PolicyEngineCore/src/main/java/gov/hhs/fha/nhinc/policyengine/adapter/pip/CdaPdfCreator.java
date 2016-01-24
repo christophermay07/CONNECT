@@ -42,6 +42,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+import org.apache.commons.collections.CollectionUtils;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassClinicalDocument;
 import org.hl7.v3.AdxpExplicitCity;
@@ -166,7 +167,6 @@ public class CdaPdfCreator {
     private II createId(String sDocumentUniqueId) throws AdapterPIPException {
         String sHomeCommunityId = getHomeCommunityId();
         return createII(sHomeCommunityId, sDocumentUniqueId);
-
     }
 
     /**
@@ -213,7 +213,6 @@ public class CdaPdfCreator {
                 oHl7Ce.setCodeSystemName(oCe.getCodeSystemName());
                 bHaveData = true;
             }
-
         }
 
         if (bHaveData) {
@@ -297,7 +296,6 @@ public class CdaPdfCreator {
                 oHl7Cs.setCodeSystemName(oCs.getCodeSystemName());
                 bHaveData = true;
             }
-
         }
 
         if (bHaveData) {
@@ -451,7 +449,6 @@ public class CdaPdfCreator {
                 oHL7Pn.getContent().add(oElement);
                 bHaveData = true;
             }
-
         }
 
         if (bHaveData) {
@@ -488,8 +485,7 @@ public class CdaPdfCreator {
         if (oPatientInfo != null) {
             // Patient Address
             // ----------------
-            if ((oPatientInfo.getAddr() != null) && (oPatientInfo.getAddr().getAddress() != null)
-                && (oPatientInfo.getAddr().getAddress().size() > 0)) {
+            if (oPatientInfo.getAddr() != null && CollectionUtils.isNotEmpty(oPatientInfo.getAddr().getAddress())) {
                 for (AddressType oAddress : oPatientInfo.getAddr().getAddress()) {
                     ADExplicit oHL7Address = createAD(oAddress);
                     if (oHL7Address != null) {
@@ -1195,9 +1191,10 @@ public class CdaPdfCreator {
     public List<POCDMT000040ClinicalDocument> createCDA(PatientPreferencesType oPtPref) throws AdapterPIPException {
         ArrayList<POCDMT000040ClinicalDocument> olCda = new ArrayList<>();
 
-        if ((oPtPref != null) && (oPtPref.getBinaryDocumentPolicyCriteria() != null)
-            && (oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null)
-            && (oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().size() > 0)) {
+        if (oPtPref != null && oPtPref.getBinaryDocumentPolicyCriteria() != null
+            && CollectionUtils
+                .isNotEmpty(oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion())) {
+
             for (BinaryDocumentPolicyCriterionType oCriterion : oPtPref.getBinaryDocumentPolicyCriteria()
                 .getBinaryDocumentPolicyCriterion()) {
                 POCDMT000040ClinicalDocument oCda = createCDA(oPtPref, oCriterion);
@@ -1207,7 +1204,7 @@ public class CdaPdfCreator {
             }
         }
 
-        if (olCda.size() > 0) {
+        if (!olCda.isEmpty()) {
             return olCda;
         } else {
             return null;

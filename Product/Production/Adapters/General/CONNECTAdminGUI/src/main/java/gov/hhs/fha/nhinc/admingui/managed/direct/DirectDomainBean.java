@@ -51,6 +51,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import org.apache.commons.collections.CollectionUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
@@ -498,7 +499,7 @@ public class DirectDomainBean {
      *
      */
     public void addTrustBundles() {
-        if (namesOfBundlesToAdd != null && namesOfBundlesToAdd.size() > 0) {
+        if (CollectionUtils.isNotEmpty(namesOfBundlesToAdd)) {
             for (String bundleName : namesOfBundlesToAdd) {
                 TrustBundle tb = directService.getTrustBundleByName(bundleName);
                 directService.associateTrustBundleToDomain(selectedDomain.getId(), tb.getId(), bundleIncoming,

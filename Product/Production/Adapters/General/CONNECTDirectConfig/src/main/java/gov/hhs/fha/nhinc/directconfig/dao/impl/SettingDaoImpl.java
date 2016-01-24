@@ -35,6 +35,8 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
@@ -57,12 +59,12 @@ public class SettingDaoImpl implements SettingDao {
      */
     @Override
     public void add(String name, String value) {
-        if (name != null && !name.isEmpty() && value != null) {
+        if (StringUtils.isNotEmpty(name) && value != null) {
             Session session = null;
             Transaction tx = null;
 
             // make sure this setting doesn't already exist
-            if (getByNames(Arrays.asList(name)).size() > 0) {
+            if (!getByNames(Arrays.asList(name)).isEmpty()) {
                 throw new ConfigurationStoreException("Setting " + name + " already exists.");
             }
 
@@ -98,7 +100,7 @@ public class SettingDaoImpl implements SettingDao {
      */
     @Override
     public void delete(Collection<String> names) {
-        if (names != null && names.size() > 0) {
+        if (CollectionUtils.isNotEmpty(names)) {
             Session session = null;
             Transaction tx = null;
             Query query;

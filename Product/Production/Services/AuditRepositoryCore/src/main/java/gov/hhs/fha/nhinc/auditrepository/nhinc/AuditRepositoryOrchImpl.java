@@ -60,6 +60,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
 import gov.hhs.fha.nhinc.util.StreamUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 
 /**
  *
@@ -160,12 +162,14 @@ public class AuditRepositoryOrchImpl {
                     auditMessageType = unMarshallBlobToAuditMess(blobMessage);
                     response.getFindAuditEventsReturn().add(auditMessageType);
 
-                    if (auditMessageType.getAuditSourceIdentification().size() > 0
-                            && auditMessageType.getAuditSourceIdentification().get(0) != null
-                            && auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID() != null
-                            && auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID().length() > 0) {
+                    if (CollectionUtils.isNotEmpty(auditMessageType.getAuditSourceIdentification())
+                        && auditMessageType.getAuditSourceIdentification().get(0) != null
+                        && StringUtils.isNotEmpty(auditMessageType.getAuditSourceIdentification().get(0)
+                            .getAuditSourceID())) {
+
                         String tempCommunity = auditMessageType.getAuditSourceIdentification().get(0)
-                                .getAuditSourceID();
+                            .getAuditSourceID();
+
                         if (!auditResType.getCommunities().contains(tempCommunity)) {
                             auditResType.getCommunities().add(tempCommunity);
                             LOG.debug("Adding community " + tempCommunity);

@@ -370,13 +370,15 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
             for (Attribute saml2EvidenceAttribute : saml2EvidenceAttributes) {
                 if (saml2EvidenceAttribute.getName().equals(ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
-                    && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
+                    && !saml2EvidenceAttribute.getAttributeValues().isEmpty()) {
+
                     XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
                     String accessConsent = xmlObject.getDOM().getTextContent();
 
                     targetEvidenceAssertion.getAccessConsentPolicy().add(accessConsent);
                 } else if (saml2EvidenceAttribute.getName().equals(INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
-                    && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
+                    && !saml2EvidenceAttribute.getAttributeValues().isEmpty()) {
+
                     XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
                     String instanceAccessConsent = xmlObject.getDOM().getTextContent();
 

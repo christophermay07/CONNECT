@@ -33,6 +33,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -134,10 +135,10 @@ public class ConformanceClient {
         }
 
         if (resource instanceof OperationOutcome) {
-            if (((OperationOutcome) resource).getIssue().size() > 0) {
+            if (CollectionUtils.isNotEmpty(((OperationOutcome) resource).getIssue())) {
                 throw new EFhirClientException((OperationOutcome) resource);
             } else {
-                LOG.debug(((OperationOutcome) resource).getText().getDiv().allText());
+                LOG.debug("{}", resource.getText().getDiv().allText());
             }
         }
 

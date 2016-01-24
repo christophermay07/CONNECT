@@ -36,6 +36,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import javax.xml.namespace.QName;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.handler.RequestData;
@@ -257,7 +258,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
         // Check HOK requirements
         String confirmMethod = null;
         List<String> methods = assertion.getConfirmationMethods();
-        if (methods != null && methods.size() > 0) {
+        if (CollectionUtils.isNotEmpty(methods)) {
             confirmMethod = methods.get(0);
         }
         if (OpenSAMLUtil.isMethodHolderOfKey(confirmMethod)) {

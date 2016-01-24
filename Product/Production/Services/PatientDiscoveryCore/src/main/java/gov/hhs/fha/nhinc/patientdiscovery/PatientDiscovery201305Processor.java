@@ -160,7 +160,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
                 && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
             pRPAINSubjects = response.getControlActProcess().getSubject();
             LOG.debug("checkPolicy - after policy Check-Subjects size: " + pRPAINSubjects.size());
-            if (pRPAINSubjects.size() > 0) {
+            if (!pRPAINSubjects.isEmpty()) {
                 isPermit = true;
             }
         } else {

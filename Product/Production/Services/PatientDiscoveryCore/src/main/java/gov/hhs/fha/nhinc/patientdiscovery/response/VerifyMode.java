@@ -37,6 +37,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -214,7 +215,7 @@ public class VerifyMode implements ResponseMode {
         mpiQuery = convert201306to201305(response);
 
         // Only query the MPI and attempt a correlation if a Patient Id was present in the original message.
-        if (localPatientIds != null && localPatientIds.size() > 0) {
+        if (CollectionUtils.isNotEmpty(localPatientIds)) {
             PRPAIN201306UV02 mpiResult = queryMpi(mpiQuery, assertion);
 
             if (mpiResult != null) {
@@ -232,9 +233,8 @@ public class VerifyMode implements ResponseMode {
                             }
                         }
                     }
-                    if (mpiIds != null) {
-                        LOG.debug("mpiIds size: " + mpiIds.size());
-                    }
+
+                    LOG.debug("mpiIds size: {}", mpiIds.size());
 
                     requestIdsSearch: for (II id : localPatientIds) {
                         for (II mpiId : mpiIds) {

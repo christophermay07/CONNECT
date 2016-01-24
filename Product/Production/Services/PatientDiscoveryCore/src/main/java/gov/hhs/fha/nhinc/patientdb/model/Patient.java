@@ -189,6 +189,7 @@ public class Patient implements Serializable {
     /**
      *
      * Get the list of Addresses
+     * @return
      */
 
     public List<Address> getAddresses() {
@@ -206,6 +207,7 @@ public class Patient implements Serializable {
     /**
      *
      * Set the list of Addresses
+     * @param addresses
      */
 
     public void setAddresses(List<Address> addresses) {
@@ -217,6 +219,7 @@ public class Patient implements Serializable {
     /**
      *
      * Get the list of Identifiers
+     * @return
      */
 
     public List<Identifier> getIdentifiers() {
@@ -234,6 +237,7 @@ public class Patient implements Serializable {
     /**
      *
      * Set the list of Identifiers
+     * @param identifiers
      */
 
     public void setIdentifiers(List<Identifier> identifiers) {
@@ -245,6 +249,7 @@ public class Patient implements Serializable {
     /**
      *
      * Get the list of Personnames
+     * @return
      */
 
     public List<Personname> getPersonnames() {
@@ -262,6 +267,7 @@ public class Patient implements Serializable {
     /**
      *
      * Set the list of Personnames
+     * @param personnames
      */
 
     public void setPersonnames(List<Personname> personnames) {
@@ -273,6 +279,7 @@ public class Patient implements Serializable {
     /**
      *
      * Get the list of Phonenumbers
+     * @return
      */
 
     public List<Phonenumber> getPhonenumbers() {
@@ -290,6 +297,7 @@ public class Patient implements Serializable {
     /**
      *
      * Set the list of Phonenumbers
+     * @param phonenumbers
      */
 
     public void setPhonenumbers(List<Phonenumber> phonenumbers) {
@@ -301,7 +309,7 @@ public class Patient implements Serializable {
     @Override
     public String toString() {
 
-        StringBuffer output = new StringBuffer("");
+        StringBuilder output = new StringBuilder("");
 
         int counter = 0;
 
@@ -312,7 +320,7 @@ public class Patient implements Serializable {
 
         }
 
-        if (this.getPersonnames().size() > 0) {
+        if (!getPersonnames().isEmpty()) {
 
             output.append("Personname = '").append(this.getPersonnames().get(0).getLastName()).append(", ")
                     .append(this.getPersonnames().get(0).getFirstName()).append("'; ");

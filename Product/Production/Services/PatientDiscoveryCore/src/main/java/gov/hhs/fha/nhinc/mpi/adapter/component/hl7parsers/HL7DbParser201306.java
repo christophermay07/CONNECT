@@ -41,6 +41,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.AdxpExplicitCity;
@@ -166,6 +168,7 @@ public class HL7DbParser201306 {
 
     private static PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createControlActProcess(List<Patient> patients,
         PRPAIN201305UV02 query) {
+
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess =
             new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
 
@@ -177,7 +180,7 @@ public class HL7DbParser201306 {
         controlActProcess.setCode(code);
 
         // Add a subject for each value unique patient
-        if ((patients != null) && (patients.size() > 0)) {
+        if (CollectionUtils.isNotEmpty(patients)) {
             for (Patient patient : patients) {
                 controlActProcess.getSubject().add(createSubject(patient));
             }
@@ -331,9 +334,9 @@ public class HL7DbParser201306 {
         org.setClassCode("ORG");
         II id = new II();
 
-        if (patient.getIdentifiers() != null && patient.getIdentifiers().size() > 0
-            && patient.getIdentifiers().get(0).getOrganizationId() != null
-            && patient.getIdentifiers().get(0).getOrganizationId().length() > 0) {
+        if (CollectionUtils.isNotEmpty(patient.getIdentifiers())
+            && StringUtils.isNotEmpty(patient.getIdentifiers().get(0).getOrganizationId())) {
+
             id.setRoot(HomeCommunityMap.formatHomeCommunityId(patient.getIdentifiers().get(0).getOrganizationId()));
         }
         org.getId().add(id);
@@ -348,18 +351,14 @@ public class HL7DbParser201306 {
     private static II createSubjectId(Patient patient) {
         II id = new II();
 
-        if (patient.getIdentifiers() != null && patient.getIdentifiers().size() > 0
-            && patient.getIdentifiers().get(0) != null) {
-
-            if (patient.getIdentifiers().get(0).getOrganizationId() != null
-                && patient.getIdentifiers().get(0).getOrganizationId().length() > 0) {
-                LOG.info("Setting Patient Id root in 201306: " + patient.getIdentifiers().get(0).getOrganizationId());
+        if (CollectionUtils.isNotEmpty(patient.getIdentifiers()) && patient.getIdentifiers().get(0) != null) {
+            if (StringUtils.isNotEmpty(patient.getIdentifiers().get(0).getOrganizationId())) {
+                LOG.info("Setting Patient Id root in 201306: {}", patient.getIdentifiers().get(0).getOrganizationId());
                 id.setRoot(HomeCommunityMap.formatHomeCommunityId(patient.getIdentifiers().get(0).getOrganizationId()));
             }
 
-            if (patient.getIdentifiers().get(0).getId() != null
-                && patient.getIdentifiers().get(0).getId().length() > 0) {
-                LOG.info("Setting Patient Id extension in 201306: " + patient.getIdentifiers().get(0).getId());
+            if (StringUtils.isNotEmpty(patient.getIdentifiers().get(0).getId())) {
+                LOG.info("Setting Patient Id extension in 201306: {}", patient.getIdentifiers().get(0).getId());
                 id.setExtension(patient.getIdentifiers().get(0).getId());
             }
         }
@@ -377,12 +376,12 @@ public class HL7DbParser201306 {
         person.setDeterminerCode("INSTANCE");
 
         // Set the Subject Gender
-        if (patient.getGender() != null && patient.getGender().length() > 0) {
+        if (StringUtils.isNotEmpty(patient.getGender())) {
             person.setAdministrativeGenderCode(createGender(patient));
         }
 
         // Set the Subject Name
-        if (patient.getPersonnames().size() > 0) {
+        if (!patient.getPersonnames().isEmpty()) {
             for (Personname name : patient.getPersonnames()) {
                 person.getName().add(createSubjectName(name));
             }
@@ -396,14 +395,14 @@ public class HL7DbParser201306 {
         }
 
         // Set the Addresses
-        if (patient.getAddresses().size() > 0) {
+        if (!patient.getAddresses().isEmpty()) {
             for (Address add : patient.getAddresses()) {
                 person.getAddr().add(createAddress(add));
             }
         }
 
         // Set the phone Numbers
-        if (patient.getPhonenumbers().size() > 0) {
+        if (!patient.getPhonenumbers().isEmpty()) {
             for (Phonenumber number : patient.getPhonenumbers()) {
                 TELExplicit tele = HL7DataTransformHelper.createTELExplicit(number.getValue());
 

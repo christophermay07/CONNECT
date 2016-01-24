@@ -32,11 +32,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
@@ -164,9 +167,9 @@ public class EventCodeDao {
                     HashMap<String, String> hashMap = new HashMap<>();
                     if (slots != null) {
                         for (SlotType1 slot : slots) {
-                            if ((slot.getName() != null) && (slot.getName().length() > 0)
-                                && (slot.getValueList() != null) && (slot.getValueList().getValue() != null)
-                                && (slot.getValueList().getValue().size() > 0)) {
+                            if (StringUtils.isNotEmpty(slot.getName()) && slot.getValueList() != null
+                                && CollectionUtils.isNotEmpty(slot.getValueList().getValue())) {
+
                                 if (slot.getName().equals(EBXML_EVENT_CODE_LIST)) {
                                     eventCodeSlotSize++;
                                     ValueListType valueListType = slot.getValueList();
@@ -282,7 +285,6 @@ public class EventCodeDao {
      * @return the list
      */
     private List<EventCode> resultEventCodesList(List<Long> documentNotPresent, List<EventCode> eventCodes) {
-
         for (int i = 0; i < documentNotPresent.size(); i++) {
             int eventCodesSize = eventCodes.size();
             for (int j = 0; j < eventCodesSize; j++) {
@@ -330,16 +332,18 @@ public class EventCodeDao {
      */
     protected boolean findDocumentId(HashMap<String, String> hashMap, Long documentId, List<EventCode> eventCodes,
         int slotIndex) {
-        java.util.Iterator<Entry<String, String>> entries = hashMap.entrySet().iterator();
+
+        Iterator<Entry<String, String>> entries = hashMap.entrySet().iterator();
         boolean doucmentPresent = false;
         while (entries.hasNext()) {
             Entry<String, String> entry = entries.next();
             String key = entry.getKey();
             String value = entry.getValue();
             for (int j = 0; j < eventCodes.size(); j++) {
-                if ((slotIndex == Integer.parseInt(value))
+                if (slotIndex == Integer.parseInt(value)
                     && ((eventCodes.get(j).getEventCode() + "^^" + eventCodes.get(j).getEventCodeScheme())
                     .equals(key))) {
+
                     Long extractedDocumentid = eventCodes.get(j).getDocument().getDocumentid();
                     if (extractedDocumentid.equals(documentId)) {
                         doucmentPresent = true;
@@ -367,7 +371,6 @@ public class EventCodeDao {
             }
         }
         return contains;
-
     }
 
     /**
@@ -395,7 +398,7 @@ public class EventCodeDao {
      * @param resultCollection the result collection
      */
     public void parseParamFormattedString(String paramFormattedString, List<String> resultCollection) {
-        if ((paramFormattedString != null) && (resultCollection != null)) {
+        if (paramFormattedString != null && resultCollection != null) {
             if (paramFormattedString.startsWith("(")) {
                 String working = paramFormattedString.substring(1);
                 int endIndex = working.indexOf(")");

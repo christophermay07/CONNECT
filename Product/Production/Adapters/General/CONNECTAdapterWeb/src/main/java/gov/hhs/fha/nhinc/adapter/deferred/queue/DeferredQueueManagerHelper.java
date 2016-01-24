@@ -41,13 +41,13 @@ import gov.hhs.fha.nhinc.common.deferredqueuemanager.RetrieveDeferredQueueRespon
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.SuccessOrFailType;
 import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.ws.WebServiceContext;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -207,12 +207,12 @@ public class DeferredQueueManagerHelper {
         LOG.debug("***** Retrieve queue message records that were previously selected *****");
         List<AsyncMsgRecord> queueRecords = queueDao.queryForDeferredQueueSelected();
 
-        if (queueRecords == null || queueRecords.isEmpty()) {
+        if (CollectionUtils.isEmpty(queueRecords)) {
             LOG.debug("***** Retrieve queue message records that are received and not processed *****");
             queueRecords = queueDao.queryForDeferredQueueProcessing();
         }
 
-        if (NullChecker.isNotNullish(queueRecords) && queueRecords.size() > 0) {
+        if (CollectionUtils.isNotEmpty(queueRecords)) {
             int count = 0;
             int maxCount = (queueRecords.size() > iGlobalThreshold ? iGlobalThreshold : queueRecords.size());
             LOG.debug("***** Found " + queueRecords.size() + " queue message records; will process " + maxCount
@@ -266,7 +266,7 @@ public class DeferredQueueManagerHelper {
         List<AsyncMsgRecord> queueRecords = queueDao.queryByMessageIdAndDirection(messageId,
                 AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
 
-        if (NullChecker.isNotNullish(queueRecords) && queueRecords.size() > 0) {
+        if (CollectionUtils.isNotEmpty(queueRecords)) {
             if (queueRecords.get(0).getStatus().equals(AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDACK)) {
                 result = forceProcessOnRequest(queueRecords.get(0));
             } else {
@@ -368,7 +368,7 @@ public class DeferredQueueManagerHelper {
 
             List<AsyncMsgRecord> asyncResponse = queueDao.queryByCriteria(queryDeferredQueueRequest);
 
-            if (asyncResponse != null && asyncResponse.size() > 0) {
+            if (CollectionUtils.isNotEmpty(asyncResponse)) {
                 for (AsyncMsgRecord asyncRecord : asyncResponse) {
                     DeferredQueueRecordType queueRecord = new DeferredQueueRecordType();
                     queueRecord.setMessageId(asyncRecord.getMessageId());
@@ -413,7 +413,7 @@ public class DeferredQueueManagerHelper {
             List<AsyncMsgRecord> asyncResponse = queueDao.queryByMessageIdAndDirection(
                     retrieveDeferredQueueRequest.getMessageId(), AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
 
-            if (asyncResponse != null && asyncResponse.size() > 0) {
+            if (CollectionUtils.isNotEmpty(asyncResponse)) {
                 response = new DeferredQueueRecordType();
 
                 response.setMessageId(asyncResponse.get(0).getMessageId());

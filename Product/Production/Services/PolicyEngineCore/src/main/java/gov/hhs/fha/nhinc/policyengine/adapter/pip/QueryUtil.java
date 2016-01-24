@@ -40,6 +40,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,31 +66,33 @@ public class QueryUtil {
 
         // Find the Patient ID in the response...
         // ---------------------------------------
-        if ((oResponse != null) && (oResponse.getRegistryObjectList() != null)
-                && (oResponse.getRegistryObjectList().getIdentifiable() != null)
-                && (oResponse.getRegistryObjectList().getIdentifiable().size() > 0)) {
+        if (oResponse != null && oResponse.getRegistryObjectList() != null
+            && CollectionUtils.isNotEmpty(oResponse.getRegistryObjectList().getIdentifiable())) {
+
             List<JAXBElement<? extends IdentifiableType>> olRegObjs = oResponse.getRegistryObjectList()
-                    .getIdentifiable();
+                .getIdentifiable();
 
             for (JAXBElement<? extends IdentifiableType> oJAXBObj : olRegObjs) {
-                if ((oJAXBObj != null)
-                        && (oJAXBObj.getDeclaredType() != null)
-                        && (oJAXBObj.getDeclaredType().getCanonicalName() != null)
-                        && (oJAXBObj.getDeclaredType().getCanonicalName()
-                                .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType"))
-                        && (oJAXBObj.getValue() != null)) {
+                if (oJAXBObj != null
+                    && oJAXBObj.getDeclaredType() != null
+                    && oJAXBObj.getDeclaredType().getCanonicalName() != null
+                    && oJAXBObj.getDeclaredType().getCanonicalName()
+                        .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType")
+                    && oJAXBObj.getValue() != null) {
+
                     ExtrinsicObjectType oExtObj = (ExtrinsicObjectType) oJAXBObj.getValue();
 
                     // Patient ID
                     // -----------
-                    if ((oExtObj.getSlot() != null) && (oExtObj.getSlot().size() > 0)) {
+                    if (CollectionUtils.isNotEmpty(oExtObj.getSlot())) {
                         List<SlotType1> olSlot = oExtObj.getSlot();
                         for (SlotType1 oSlot : olSlot) {
-                            if ((oSlot.getName() != null)
-                                    && (oSlot.getName().equals(CDAConstants.SLOT_NAME_SOURCE_PATIENT_ID))
-                                    && (oSlot.getValueList() != null) && (oSlot.getValueList().getValue() != null)
-                                    && (oSlot.getValueList().getValue().size() > 0)
-                                    && (oSlot.getValueList().getValue().get(0).length() > 0)) {
+                            if (oSlot.getName() != null
+                                && oSlot.getName().equals(CDAConstants.SLOT_NAME_SOURCE_PATIENT_ID)
+                                && oSlot.getValueList() != null
+                                && CollectionUtils.isNotEmpty(oSlot.getValueList().getValue())
+                                && !oSlot.getValueList().getValue().get(0).isEmpty()) {
+
                                 sPatientId = oSlot.getValueList().getValue().get(0).trim();
                                 // Get out of the loop - we found what we want.
                                 break;
@@ -130,7 +134,7 @@ public class QueryUtil {
 
         // Document ID
         // ------------
-        if (sDocumentUniqueId.length() > 0) {
+        if (!sDocumentUniqueId.isEmpty()) {
             SlotType1 oSlot = new SlotType1();
             olSlot.add(oSlot);
             oSlot.setName(CDAConstants.SLOT_NAME_DOC_RETRIEVE_DOCUMENT_ID);
@@ -142,7 +146,7 @@ public class QueryUtil {
 
         // Repository ID
         // --------------
-        if (sRepositoryId.length() > 0) {
+        if (!sRepositoryId.isEmpty()) {
             SlotType1 oSlot = new SlotType1();
             olSlot.add(oSlot);
             oSlot.setName(CDAConstants.SLOT_NAME_DOC_RETRIEVE_REPOSITORY_UNIQUE_ID);
@@ -174,19 +178,20 @@ public class QueryUtil {
     public List<DocumentRequest> createDocumentRequest(AdhocQueryResponse oResponse) throws AdapterPIPException {
         List<DocumentRequest> olDocReq = new ArrayList<>();
 
-        if ((oResponse != null) && (oResponse.getRegistryObjectList() != null)
-                && (oResponse.getRegistryObjectList().getIdentifiable() != null)
-                && (oResponse.getRegistryObjectList().getIdentifiable().size() > 0)) {
+        if (oResponse != null && oResponse.getRegistryObjectList() != null
+            && CollectionUtils.isNotEmpty(oResponse.getRegistryObjectList().getIdentifiable())) {
+
             List<JAXBElement<? extends IdentifiableType>> olRegObjs = oResponse.getRegistryObjectList()
-                    .getIdentifiable();
+                .getIdentifiable();
 
             for (JAXBElement<? extends IdentifiableType> oJAXBObj : olRegObjs) {
-                if ((oJAXBObj != null)
-                        && (oJAXBObj.getDeclaredType() != null)
-                        && (oJAXBObj.getDeclaredType().getCanonicalName() != null)
-                        && (oJAXBObj.getDeclaredType().getCanonicalName()
-                                .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType"))
-                        && (oJAXBObj.getValue() != null)) {
+                if (oJAXBObj != null
+                    && oJAXBObj.getDeclaredType() != null
+                    && oJAXBObj.getDeclaredType().getCanonicalName() != null
+                    && oJAXBObj.getDeclaredType().getCanonicalName()
+                        .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType")
+                    && oJAXBObj.getValue() != null) {
+
                     ExtrinsicObjectType oExtObj = (ExtrinsicObjectType) oJAXBObj.getValue();
 
                     String sHomeCommunityId = "";
@@ -197,17 +202,16 @@ public class QueryUtil {
                     if (oExtObj != null) {
                         // Home Community ID
                         // -------------------
-                        if (oExtObj.getHome() != null && oExtObj.getHome().length() > 0) {
+                        if (StringUtils.isNotEmpty(oExtObj.getHome())) {
                             sHomeCommunityId = oExtObj.getHome().trim();
-                        } else if (oExtObj.getSlot() != null && oExtObj.getSlot().size() > 0) {
+                        } else if (CollectionUtils.isNotEmpty(oExtObj.getSlot())) {
                             List<SlotType1> olSlot = oExtObj.getSlot();
                             for (SlotType1 oSlot : olSlot) {
                                 if (oSlot.getName() != null
                                     && oSlot.getName().equals(CDAConstants.SLOT_NAME_SOURCE_PATIENT_ID)
                                     && oSlot.getValueList() != null
-                                    && oSlot.getValueList().getValue() != null
-                                    && oSlot.getValueList().getValue().size() > 0
-                                    && oSlot.getValueList().getValue().get(0).length() > 0) {
+                                    && CollectionUtils.isNotEmpty(oSlot.getValueList().getValue())
+                                    && !oSlot.getValueList().getValue().get(0).isEmpty()) {
 
                                     sHL7PatientId = oSlot.getValueList().getValue().get(0).trim();
                                     sHomeCommunityId = PatientIdFormatUtil.parseCommunityId(sHL7PatientId);
@@ -217,15 +221,15 @@ public class QueryUtil {
 
                         // Repository ID
                         // ---------------
-                        if (oExtObj.getSlot() != null && oExtObj.getSlot().size() > 0) {
+                        if (CollectionUtils.isNotEmpty(oExtObj.getSlot())) {
                             List<SlotType1> olSlot = oExtObj.getSlot();
                             for (SlotType1 oSlot : olSlot) {
                                 if (oSlot.getName() != null
                                     && oSlot.getName().equals(CDAConstants.SLOT_NAME_REPOSITORY_UNIQUE_ID)
                                     && oSlot.getValueList() != null
-                                    && oSlot.getValueList().getValue() != null
-                                    && oSlot.getValueList().getValue().size() > 0
-                                    && oSlot.getValueList().getValue().get(0).length() > 0) {
+                                    && CollectionUtils.isNotEmpty(oSlot.getValueList().getValue())
+                                    && !oSlot.getValueList().getValue().get(0).isEmpty()) {
+
                                     sRepositoryId = oSlot.getValueList().getValue().get(0).trim();
                                 }
                             }
@@ -233,7 +237,7 @@ public class QueryUtil {
 
                         // Document Unique ID
                         // -------------------
-                        if ((oExtObj.getExternalIdentifier() != null) && (oExtObj.getExternalIdentifier().size() > 0)) {
+                        if (CollectionUtils.isNotEmpty(oExtObj.getExternalIdentifier())) {
                             List<ExternalIdentifierType> olExtId = oExtObj.getExternalIdentifier();
                             for (ExternalIdentifierType oExtId : olExtId) {
                                 if ((oExtId.getIdentificationScheme() != null)

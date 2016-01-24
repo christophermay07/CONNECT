@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.mpilib;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +50,7 @@ public class PatientMatcher {
 
     /**
      * Factory method for singleton instance.
-     * @return an insatnce of this class
+     * @return an instance of this class
      */
     public static PatientMatcher getInstance() {
         if (instance == null) {
@@ -83,25 +84,22 @@ public class PatientMatcher {
         if (match) {
             match = isGenderEquals(possibleMatch.getGender(), searchParams.getGender());
         }
-        if (match && possibleMatch.getAddresses().size() > 0 && searchParams.getAddresses().size() > 0) {
+        if (match && !possibleMatch.getAddresses().isEmpty() && !searchParams.getAddresses().isEmpty()) {
             match = isAddressEquals(possibleMatch.getAddresses().get(0), searchParams.getAddresses().get(0));
         }
-        if (match && possibleMatch.getPhoneNumbers().size() > 0 && searchParams.getPhoneNumbers().size() > 0) {
+        if (match && !possibleMatch.getPhoneNumbers().isEmpty() && !searchParams.getPhoneNumbers().isEmpty()) {
             match = isPhoneNumberEquals(possibleMatch.getPhoneNumbers().get(0).getPhoneNumber(), searchParams
                     .getPhoneNumbers().get(0).getPhoneNumber());
         }
 
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("hasMatchByDemoagraphics result ==>" + match);
-            LOG.debug("[" + serializePatient(searchParams) + "]==[" + serializePatient(possibleMatch) + "]");
-            LOG.debug("[" + searchParams.getDateOfBirth() + "]==[" + possibleMatch.getDateOfBirth() + "]");
-            LOG.debug("[" + searchParams.getGender() + "]==[" + possibleMatch.getGender() + "]");
-            LOG.debug("[" + serializePatientAddress(searchParams) + "]==[" + serializePatientAddress(possibleMatch)
-                    + "]");
-            if (searchParams.getPhoneNumbers() != null && searchParams.getPhoneNumbers().size() > 0) {
-                LOG.debug("[" + searchParams.getPhoneNumbers().get(0).getPhoneNumber() + "]==["
-                        + possibleMatch.getPhoneNumbers().get(0).getPhoneNumber() + "]");
-            }
+        LOG.debug("hasMatchByDemoagraphics result ==>{}", match);
+        LOG.debug("[{}]==[{}]", serializePatient(searchParams), serializePatient(possibleMatch));
+        LOG.debug("[{}]==[{}]", searchParams.getDateOfBirth(), possibleMatch.getDateOfBirth());
+        LOG.debug("[{}]==[{}]", searchParams.getGender(), possibleMatch.getGender());
+        LOG.debug("[{}]==[{}]", serializePatientAddress(searchParams), serializePatientAddress(possibleMatch));
+        if (CollectionUtils.isNotEmpty(searchParams.getPhoneNumbers())) {
+            LOG.debug("[{}]==[{}]", searchParams.getPhoneNumbers().get(0).getPhoneNumber(),
+                possibleMatch.getPhoneNumbers().get(0).getPhoneNumber());
         }
 
         return match;
@@ -109,7 +107,7 @@ public class PatientMatcher {
 
     private PersonName getPatientName(Patient patient) {
         PersonName name = null;
-        if (patient.getNames().size() > 0) {
+        if (!patient.getNames().isEmpty()) {
             name = patient.getNames().get(0);
         }
         return name;
@@ -233,11 +231,10 @@ public class PatientMatcher {
 
     private String serializePatientAddress(Patient patient) {
         String serializedString = "";
-        if (patient.getAddresses() != null && patient.getAddresses().size() > 0
-                && patient.getAddresses().get(0) != null) {
+        if (CollectionUtils.isNotEmpty(patient.getAddresses()) && patient.getAddresses().get(0) != null) {
             serializedString = patient.getAddresses().get(0).getStreet1() + ","
-                    + patient.getAddresses().get(0).getStreet2() + "," + patient.getAddresses().get(0).getCity() + ","
-                    + patient.getAddresses().get(0).getState() + "," + patient.getAddresses().get(0).getZip();
+                + patient.getAddresses().get(0).getStreet2() + "," + patient.getAddresses().get(0).getCity() + ","
+                + patient.getAddresses().get(0).getState() + "," + patient.getAddresses().get(0).getZip();
         }
         return serializedString;
     }

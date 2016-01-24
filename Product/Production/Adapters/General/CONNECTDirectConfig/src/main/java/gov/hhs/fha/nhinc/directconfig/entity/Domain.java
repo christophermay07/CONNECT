@@ -55,6 +55,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * The JPA Domain class
@@ -207,7 +208,7 @@ public class Domain {
     public String getPostMasterEmail() {
         String result = null;
         // return the address that matched the ID
-        if ((getAddresses().size() > 0) && (getPostmasterAddressId() != null) && (getPostmasterAddressId() > 0)) {
+        if (!getAddresses().isEmpty() && getPostmasterAddressId() != null && getPostmasterAddressId() > 0) {
             for (Address address : getAddresses()) {
                 if (address.getId().equals(getPostmasterAddressId())) {
                     result = address.getEmailAddress();
@@ -261,11 +262,10 @@ public class Domain {
 
             setPostmasterAddressId(addressId);
         }
-        return;
     }
 
     /**
-     * Get a colection of addresses.
+     * Get a collection of addresses.
      *
      * @return a collection of addresses.
      */
@@ -317,10 +317,8 @@ public class Domain {
      */
     public boolean isValid() {
         boolean result = false;
-        if ((getDomainName() != null)
-                && (getDomainName().length() > 0)
-                && ((getStatus().equals(EntityStatus.ENABLED)) || (getStatus().equals(EntityStatus.DISABLED)) || ((getStatus()
-                        .equals(EntityStatus.NEW)) && (getId() == 0L)))) {
+        if (StringUtils.isNotEmpty(getDomainName()) && (getStatus().equals(EntityStatus.ENABLED)
+            || getStatus().equals(EntityStatus.DISABLED) || getStatus().equals(EntityStatus.NEW) && getId() == 0L)) {
 
             result = true;
         }
@@ -328,14 +326,9 @@ public class Domain {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         return "[ID: " + getId() + " | Domain: " + getDomainName() + " | Status: " + getStatus().toString()
-                + " | Addresses: " + getAddresses().size() + "]";
+            + " | Addresses: " + getAddresses().size() + "]";
     }
 }

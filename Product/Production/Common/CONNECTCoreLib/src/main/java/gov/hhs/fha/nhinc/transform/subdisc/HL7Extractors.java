@@ -33,6 +33,8 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.hl7.v3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +64,7 @@ public class HL7Extractors {
         }
 
         List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = controlActProcess.getSubject();
-        if ((subjects == null) || (subjects.isEmpty())) {
+        if (CollectionUtils.isEmpty(subjects)) {
             LOG.info("subjects is blank/null - no patient");
             return null;
         }
@@ -85,7 +87,7 @@ public class HL7Extractors {
         }
 
         List<PRPAIN201302UV02MFMIMT700701UV01Subject1> subjects = controlActProcess.getSubject();
-        if ((subjects == null) || (subjects.isEmpty())) {
+        if (CollectionUtils.isEmpty(subjects)) {
             LOG.info("subjects is blank/null - no patient");
             return null;
         }
@@ -109,7 +111,7 @@ public class HL7Extractors {
         }
 
         List<PRPAIN201310UV02MFMIMT700711UV01Subject1> subjects = controlActProcess.getSubject();
-        if ((subjects == null) || (subjects.isEmpty())) {
+        if (CollectionUtils.isEmpty(subjects)) {
             LOG.info("subjects is blank/null - no patient");
             return null;
         }
@@ -212,20 +214,20 @@ public class HL7Extractors {
     /**
      * This method translates a List<PN> into an PersonName object.
      *
-     * @param The List of PN objects to be translated
-     * @param The Person object
+     * @param names The List of PN objects to be translated
+     * @return The Person object
      */
     public static PersonNameType translatePNListtoPersonNameType(List<PNExplicit> names) {
         LOG.debug("HL7Extractor.translatePNListtoPersonNameType() -- Begin");
         PersonNameType personName = new PersonNameType();
         // NameType
-        if (names.get(0).getUse().size() > 0) {
+        if (!names.get(0).getUse().isEmpty()) {
             CeType nameType = new CeType();
             nameType.setCode(names.get(0).getUse().get(0));
             personName.setNameType(nameType);
         }
         // Name parts
-        if (names.size() > 0 && (!names.get(0).getContent().isEmpty())) {
+        if (!names.isEmpty() && !names.get(0).getContent().isEmpty()) {
             List<Serializable> choice = names.get(0).getContent();
             Iterator<Serializable> iterSerialObjects = choice.iterator();
 
@@ -244,37 +246,36 @@ public class HL7Extractors {
                     } else {
                         nameString = strValue;
                     }
-                    System.out.println("Here is the contents of the string: " + strValue);
+                    LOG.debug("Here is the contents of the string: {}", strValue);
                 } else if (contentItem instanceof JAXBElement) {
                     JAXBElement oJAXBElement = (JAXBElement) contentItem;
                     LOG.debug("Found JAXBElement");
                     if (oJAXBElement.getValue() instanceof EnExplicitFamily) {
                         familyName = (EnExplicitFamily) oJAXBElement.getValue();
-                        LOG.debug("Found FamilyName " + familyName.getContent());
+                        LOG.debug("Found FamilyName {}", familyName.getContent());
                         hasName = true;
                     } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
                         givenName = (EnExplicitGiven) oJAXBElement.getValue();
-                        LOG.debug("Found GivenName " + givenName.getContent());
+                        LOG.debug("Found GivenName {}", givenName.getContent());
                         hasName = true;
                     }
                 }
             }
             // If text string, then set in familyName
             // else set in element.
-            if (nameString != null && hasName == false) {
+            if (!hasName) {
                 LOG.debug("set org name text ");
                 personName.setFamilyName(nameString);
             } else {
-                if (givenName.getContent() != null && givenName.getContent().length() > 0) {
+                if (StringUtils.isNotEmpty(givenName.getContent())) {
                     LOG.debug("set org name given ");
                     personName.setGivenName(givenName.getContent());
 
                 }
-                if (familyName.getContent() != null && familyName.getContent().length() > 0) {
+                if (StringUtils.isNotEmpty(familyName.getContent())) {
                     LOG.debug("set org name family ");
                     personName.setFamilyName(familyName.getContent());
                 }
-
             }
         }
         LOG.debug("HL7Extractor.translatePNListtoPersonNameType() -- End");
@@ -285,19 +286,19 @@ public class HL7Extractors {
     /**
      * This method translates a List of EN objects to a PersonName object.
      *
-     * @param The List<EN> objects to be translated
-     * @param The PersonName object
+     * @param names The List<EN> objects to be translated
+     * @return The PersonName object
      */
     public static PersonNameType translateENListtoPersonNameType(List<ENExplicit> names) {
         LOG.debug("HL7Extractor.translateENListtoPersonNameType() -- Begin");
         PersonNameType personName = new PersonNameType();
         // NameType
-        if (names.size() > 0 && names.get(0).getUse().size() > 0) {
+        if (!names.isEmpty() && !names.get(0).getUse().isEmpty()) {
             CeType nameType = new CeType();
             nameType.setCode(names.get(0).getUse().get(0));
             personName.setNameType(nameType);
         }
-        if (names.size() > 0 && names.get(0).getContent() != null) {
+        if (!names.isEmpty() && names.get(0).getContent() != null) {
             List<Serializable> choice = names.get(0).getContent();
             Iterator<Serializable> iterSerialObjects = choice.iterator();
 
@@ -315,7 +316,7 @@ public class HL7Extractors {
                     } else {
                         nameString = strValue;
                     }
-                    System.out.println("Here is the contents of the string: " + strValue);
+                    LOG.debug("Here is the contents of the string: {}", strValue);
                 } else if (contentItem instanceof JAXBElement) {
                     JAXBElement oJAXBElement = (JAXBElement) contentItem;
 
@@ -334,12 +335,12 @@ public class HL7Extractors {
                 LOG.debug("set org name text ");
                 personName.setFamilyName(nameString);
             } else {
-                if (givenName.getContent() != null && givenName.getContent().length() > 0) {
+                if (StringUtils.isNotEmpty(givenName.getContent())) {
                     LOG.debug("set org name given ");
                     personName.setGivenName(givenName.getContent());
 
                 }
-                if (familyName.getContent() != null && familyName.getContent().length() > 0) {
+                if (StringUtils.isNotEmpty(familyName.getContent())) {
                     LOG.debug("set org name family ");
                     personName.setFamilyName(familyName.getContent());
                 }

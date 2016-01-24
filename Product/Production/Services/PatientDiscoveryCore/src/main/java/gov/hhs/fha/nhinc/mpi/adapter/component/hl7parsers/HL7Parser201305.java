@@ -36,6 +36,8 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.AdxpExplicitCity;
 import org.hl7.v3.AdxpExplicitPostalCode;
@@ -74,7 +76,7 @@ public class HL7Parser201305 {
     /**
      * Method to extract Gender Code from a PRPAMT201306UV02ParameterList.
      *
-     * @param params the Paramater list from which to extract a Gender Code
+     * @param params the Parameter list from which to extract a Gender Code
      * @return The Gender Code is returned
      */
     public static String extractGender(PRPAMT201306UV02ParameterList params) {
@@ -83,13 +85,13 @@ public class HL7Parser201305 {
         String genderCode = null;
 
         // Extract the gender from the query parameters - Assume only one was specified
-        if (params.getLivingSubjectAdministrativeGender() != null
-                && params.getLivingSubjectAdministrativeGender().size() > 0
-                && params.getLivingSubjectAdministrativeGender().get(0) != null) {
-            PRPAMT201306UV02LivingSubjectAdministrativeGender gender =
-                    params.getLivingSubjectAdministrativeGender().get(0);
+        if (CollectionUtils.isNotEmpty(params.getLivingSubjectAdministrativeGender())
+            && params.getLivingSubjectAdministrativeGender().get(0) != null) {
 
-            if (gender.getValue() != null && gender.getValue().size() > 0 && gender.getValue().get(0) != null) {
+            PRPAMT201306UV02LivingSubjectAdministrativeGender gender =
+                params.getLivingSubjectAdministrativeGender().get(0);
+
+            if (CollectionUtils.isNotEmpty(gender.getValue()) && gender.getValue().get(0) != null) {
                 CE administrativeGenderCode = gender.getValue().get(0);
 
                 LOG.info("Found gender in query parameters = " + administrativeGenderCode.getCode());
@@ -117,14 +119,14 @@ public class HL7Parser201305 {
         String birthDate = null;
 
         // Extract the birth time from the query parameters - Assume only one was specified
-        if (params.getLivingSubjectBirthTime() != null && params.getLivingSubjectBirthTime().size() > 0
-                && params.getLivingSubjectBirthTime().get(0) != null) {
+        if (CollectionUtils.isNotEmpty(params.getLivingSubjectBirthTime())
+            && params.getLivingSubjectBirthTime().get(0) != null) {
+
             PRPAMT201306UV02LivingSubjectBirthTime birthTime = params.getLivingSubjectBirthTime().get(0);
 
-            if (birthTime.getValue() != null && birthTime.getValue().size() > 0
-                    && birthTime.getValue().get(0) != null) {
+            if (CollectionUtils.isNotEmpty(birthTime.getValue()) && birthTime.getValue().get(0) != null) {
                 IVLTSExplicit birthday = birthTime.getValue().get(0);
-                LOG.info("Found birthTime in query parameters = " + birthday.getValue());
+                LOG.info("Found birthTime in query parameters = {}", birthday.getValue());
                 birthDate = birthday.getValue();
             } else {
                 LOG.info("message does not contain a birthtime");
@@ -148,14 +150,13 @@ public class HL7Parser201305 {
         PersonName personname = new PersonName();
 
         // Extract the name from the query parameters - Assume only one was specified
-        if (params.getLivingSubjectName() != null && params.getLivingSubjectName().size() > 0
-                && params.getLivingSubjectName().get(0) != null) {
+        if (CollectionUtils.isNotEmpty(params.getLivingSubjectName()) && params.getLivingSubjectName().get(0) != null) {
             PRPAMT201306UV02LivingSubjectName name = params.getLivingSubjectName().get(0);
 
-            if (name.getValue() != null && name.getValue().size() > 0 && name.getValue().get(0) != null) {
+            if (CollectionUtils.isNotEmpty(name.getValue()) && name.getValue().get(0) != null) {
                 List<Serializable> choice = name.getValue().get(0).getContent();
 
-                LOG.info("choice.size()=" + choice.size());
+                LOG.info("choice.size()={}", choice.size());
 
                 Iterator<Serializable> iterSerialObjects = choice.iterator();
 
@@ -184,17 +185,14 @@ public class HL7Parser201305 {
                         JAXBElement<?> oJAXBElement = (JAXBElement) contentItem;
 
                         if (oJAXBElement.getValue() instanceof EnExplicitFamily) {
-                            lastname = new EnExplicitFamily();
                             lastname = (EnExplicitFamily) oJAXBElement.getValue();
                             LOG.info("found lastname element; content=" + lastname.getContent());
                         } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
                             if (firstname == null) {
-                                firstname = new EnExplicitGiven();
                                 firstname = (EnExplicitGiven) oJAXBElement.getValue();
-                                LOG.info("found firstname element; content=" + firstname.getContent());
-                            } else {
-                                // this would be where to add handle for middlename
+                                LOG.info("found firstname element; content={}", firstname.getContent());
                             }
+                            // else case can be added here to add handle for middlename
                         } else {
                             LOG.info("other name part=" + oJAXBElement.getValue());
                         }
@@ -208,20 +206,19 @@ public class HL7Parser201305 {
                 boolean namefound = false;
                 if (lastname != null && lastname.getContent() != null) {
                     personname.setLastName(lastname.getContent());
-                    LOG.info("FamilyName : " + personname.getLastName());
+                    LOG.info("FamilyName : {}", personname.getLastName());
                     namefound = true;
                 }
 
                 if (firstname != null && firstname.getContent() != null) {
                     personname.setFirstName(firstname.getContent());
-                    LOG.info("GivenName : " + personname.getFirstName());
+                    LOG.info("GivenName : {}", personname.getFirstName());
                     namefound = true;
                 }
 
                 if (!namefound && !nameString.trim().contentEquals("")) {
-                    LOG.info("setting name by nameString " + nameString);
+                    LOG.info("setting name by nameString {}", nameString);
                     personname.setLastName(nameString);
-
                 }
             } else {
                 LOG.info("message does not contain a subject name");
@@ -245,20 +242,17 @@ public class HL7Parser201305 {
         Identifiers ids = new Identifiers();
         Identifier id = new Identifier();
 
-        if (params.getLivingSubjectId() != null && params.getLivingSubjectId().size() > 0
-                && params.getLivingSubjectId().get(0) != null) {
+        if (CollectionUtils.isNotEmpty(params.getLivingSubjectId()) && params.getLivingSubjectId().get(0) != null) {
             PRPAMT201306UV02LivingSubjectId livingSubjectId = params.getLivingSubjectId().get(0);
 
-            if (livingSubjectId.getValue() != null && livingSubjectId.getValue().size() > 0
-                    && livingSubjectId.getValue().get(0) != null) {
+            if (CollectionUtils.isNotEmpty(livingSubjectId.getValue()) && livingSubjectId.getValue().get(0) != null) {
                 II subjectId = livingSubjectId.getValue().get(0);
 
-                if (subjectId.getExtension() != null && subjectId.getExtension().length() > 0
-                        && subjectId.getRoot() != null && subjectId.getRoot().length() > 0) {
+                if (StringUtils.isNotEmpty(subjectId.getExtension()) && StringUtils.isNotEmpty(subjectId.getRoot())) {
                     id.setId(subjectId.getExtension());
                     id.setOrganizationId(subjectId.getRoot());
-                    LOG.info("Created id from patient identifier [organization=" + id.getOrganizationId() + "][id="
-                            + id.getId() + "]");
+                    LOG.info("Created id from patient identifier [organization={}][id={}]", id.getOrganizationId(),
+                        id.getId());
                     ids.add(id);
                 } else {
                     LOG.info("message does not contain an id");
@@ -284,17 +278,15 @@ public class HL7Parser201305 {
 
         Address address = null;
 
-        if (params.getPatientAddress() != null && params.getPatientAddress().size() > 0
-                && params.getPatientAddress().get(0) != null) {
+        if (CollectionUtils.isNotEmpty(params.getPatientAddress()) && params.getPatientAddress().get(0) != null) {
             PRPAMT201306UV02PatientAddress patientAddress = params.getPatientAddress().get(0);
 
-            if (patientAddress.getValue() != null && patientAddress.getValue().size() > 0
-                    && patientAddress.getValue().get(0) != null) {
+            if (CollectionUtils.isNotEmpty(patientAddress.getValue()) && patientAddress.getValue().get(0) != null) {
                 ADExplicit adExplicit = patientAddress.getValue().get(0);
 
                 List<Serializable> choice = adExplicit.getContent();
 
-                LOG.info("choice.size()=" + choice.size());
+                LOG.info("choice.size()={}", choice.size());
 
                 Iterator<Serializable> iterSerialObjects = choice.iterator();
 
@@ -318,7 +310,6 @@ public class HL7Parser201305 {
                         if (oJAXBElement.getValue() instanceof AdxpExplicitStreetAddressLine) {
                             addressLineCounter++;
                             if (addressLineCounter == 1) {
-                                addressLine1 = new AdxpExplicitStreetAddressLine();
                                 addressLine1 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
                                 LOG.info("found addressLine1 element; content=" + addressLine1.getContent());
                                 if (address == null) {
@@ -327,7 +318,6 @@ public class HL7Parser201305 {
                                 address.setStreet1(addressLine1.getContent());
                             }
                             if (addressLineCounter == 2) {
-                                addressLine2 = new AdxpExplicitStreetAddressLine();
                                 addressLine2 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
                                 LOG.info("found addressLine2 element; content=" + addressLine2.getContent());
                                 if (address == null) {
@@ -336,7 +326,6 @@ public class HL7Parser201305 {
                                 address.setStreet2(addressLine2.getContent());
                             }
                         } else if (oJAXBElement.getValue() instanceof AdxpExplicitCity) {
-                            city = new AdxpExplicitCity();
                             city = (AdxpExplicitCity) oJAXBElement.getValue();
                             LOG.info("found city element; content=" + city.getContent());
                             if (address == null) {
@@ -344,7 +333,6 @@ public class HL7Parser201305 {
                             }
                             address.setCity(city.getContent());
                         } else if (oJAXBElement.getValue() instanceof AdxpExplicitState) {
-                            state = new AdxpExplicitState();
                             state = (AdxpExplicitState) oJAXBElement.getValue();
                             LOG.info("found state element; content=" + state.getContent());
                             if (address == null) {
@@ -352,7 +340,6 @@ public class HL7Parser201305 {
                             }
                             address.setState(state.getContent());
                         } else if (oJAXBElement.getValue() instanceof AdxpExplicitPostalCode) {
-                            postalCode = new AdxpExplicitPostalCode();
                             postalCode = (AdxpExplicitPostalCode) oJAXBElement.getValue();
                             LOG.info("found postalCode element; content=" + postalCode.getContent());
                             if (address == null) {
@@ -384,21 +371,17 @@ public class HL7Parser201305 {
         String telecom = null;
 
         // Extract the telecom (phone number) from the query parameters - Assume only one was specified
-        if (params.getPatientTelecom() != null && params.getPatientTelecom().size() > 0
-                && params.getPatientTelecom().get(0) != null) {
+        if (CollectionUtils.isNotEmpty(params.getPatientTelecom()) && params.getPatientTelecom().get(0) != null) {
             PRPAMT201306UV02PatientTelecom patientTelecom = params.getPatientTelecom().get(0);
 
-            if (patientTelecom.getValue() != null && patientTelecom.getValue().size() > 0
-                    && patientTelecom.getValue().get(0) != null) {
+            if (CollectionUtils.isNotEmpty(patientTelecom.getValue()) && patientTelecom.getValue().get(0) != null) {
                 TELExplicit telecomValue = patientTelecom.getValue().get(0);
-                LOG.info("Found patientTelecom in query parameters = " + telecomValue.getValue());
+                LOG.info("Found patientTelecom in query parameters = {}", telecomValue.getValue());
                 telecom = telecomValue.getValue();
-                if (telecom != null) {
-                    if (!telecom.startsWith("tel:")) {
-                        // telecom is not valid without tel: prefix
-                        telecom = null;
-                        LOG.info("Found patientTelecom in query parameters is not in the correct uri format");
-                    }
+                if (telecom != null && !telecom.startsWith("tel:")) {
+                    // telecom is not valid without tel: prefix
+                    telecom = null;
+                    LOG.info("Found patientTelecom in query parameters is not in the correct uri format");
                 }
             } else {
                 LOG.info("message does not contain a patientTelecom");
