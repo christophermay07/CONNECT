@@ -62,7 +62,7 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
      * @param webContextProperties
      * @return
      */
-    abstract public InboundDocRetrieveOrchestratable createInboundOrchestrable(RetrieveDocumentSetRequestType body,
+    public abstract InboundDocRetrieveOrchestratable createInboundOrchestrable(RetrieveDocumentSetRequestType body,
         AssertionType assertion, Properties webContextProperties);
 
     public void auditResponse(RetrieveDocumentSetRequestType request, RetrieveDocumentSetResponseType response,

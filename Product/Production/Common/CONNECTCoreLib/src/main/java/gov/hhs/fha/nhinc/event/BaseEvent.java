@@ -96,7 +96,7 @@ public abstract class BaseEvent implements Event {
     }
 
     @Override
-    abstract public String getEventName();
+    public abstract String getEventName();
 
     @Override
     public String getServiceType() {

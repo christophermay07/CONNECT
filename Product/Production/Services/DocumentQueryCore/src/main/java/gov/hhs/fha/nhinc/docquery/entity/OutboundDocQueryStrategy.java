@@ -66,13 +66,13 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
      *
      * @return
      */
-    abstract protected String getServiceName();
+    protected abstract String getServiceName();
 
     /**
      *
      * @return
      */
-    abstract protected GATEWAY_API_LEVEL getAPILevel();
+    protected abstract GATEWAY_API_LEVEL getAPILevel();
 
     /**
      * {@inheritDoc}

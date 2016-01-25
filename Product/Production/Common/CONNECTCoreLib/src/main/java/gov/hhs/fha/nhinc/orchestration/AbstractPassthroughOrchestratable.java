@@ -52,7 +52,7 @@ public abstract class AbstractPassthroughOrchestratable extends AbstractOrchestr
      * @returns true
      */
     @Override
-    final public boolean isPassthru() {
+    public final boolean isPassthru() {
         return true;
     }
 

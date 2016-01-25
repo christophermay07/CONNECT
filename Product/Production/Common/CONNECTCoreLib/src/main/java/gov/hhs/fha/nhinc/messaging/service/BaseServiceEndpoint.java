@@ -55,12 +55,12 @@ public class BaseServiceEndpoint<T> implements ServiceEndpoint<T> {
     }
 
     @Override
-    final public HTTPClientPolicy getHTTPClientPolicy() {
+    public final HTTPClientPolicy getHTTPClientPolicy() {
         return getHTTPClientPolicy((BindingProvider) getPort());
     }
 
     @Override
-    final public SOAPBinding getSOAPBinding() {
+    public final SOAPBinding getSOAPBinding() {
         return (SOAPBinding) ((BindingProvider) getPort()).getBinding();
     }
 

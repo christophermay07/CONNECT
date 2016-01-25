@@ -79,7 +79,7 @@ public class OutboundStandardDocRetrieveOrchestratable extends OutboundDocRetrie
      * @see gov.hhs.fha.nhinc.orchestration.Orchestratable#isPassthru()
      */
     @Override
-    final public boolean isPassthru() {
+    public final boolean isPassthru() {
         return false;
     }
 

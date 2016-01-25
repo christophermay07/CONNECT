@@ -41,14 +41,11 @@ import javax.xml.ws.WebServiceFeature;
  * @author nsubrama
  */
 @WebServiceClient(name = "ConfigurationServiceImplService", targetNamespace = "http://nhind.org/config", wsdlLocation = "http://localhost:8080/CONNECTDirectConfig/ConfigurationService?wsdl")
-public class ConfigurationServiceImplService
-    extends Service
+public class ConfigurationServiceImplService extends Service {
 
-{
-
-    private final static URL CONFIGURATIONSERVICEIMPLSERVICE_WSDL_LOCATION;
-    private final static WebServiceException CONFIGURATIONSERVICEIMPLSERVICE_EXCEPTION;
-    private final static QName CONFIGURATIONSERVICEIMPLSERVICE_QNAME = new QName("http://nhind.org/config", "ConfigurationServiceImplService");
+    private static final URL CONFIGURATIONSERVICEIMPLSERVICE_WSDL_LOCATION;
+    private static final WebServiceException CONFIGURATIONSERVICEIMPLSERVICE_EXCEPTION;
+    private static final QName CONFIGURATIONSERVICEIMPLSERVICE_QNAME = new QName("http://nhind.org/config", "ConfigurationServiceImplService");
 
     static {
         URL url = null;

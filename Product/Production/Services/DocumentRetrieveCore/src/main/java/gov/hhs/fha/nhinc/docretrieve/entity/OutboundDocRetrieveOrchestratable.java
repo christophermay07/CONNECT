@@ -50,7 +50,7 @@ public abstract class OutboundDocRetrieveOrchestratable implements OutboundOrche
      * @param na the Aggregator to use
      * @return a concrete instance of the orchestratable
      */
-    abstract public OutboundDocRetrieveOrchestratable create(PolicyTransformer pt,
+    public abstract OutboundDocRetrieveOrchestratable create(PolicyTransformer pt,
         OutboundDelegate od, NhinAggregator na);
 
     protected RetrieveDocumentSetRequestType request = null;

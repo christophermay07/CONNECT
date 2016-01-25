@@ -58,14 +58,14 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
      *
      * @return Concrete Event object
      */
-    abstract protected Event createBeginEvent();
+    protected abstract Event createBeginEvent();
 
     /**
      * overridden in sub class to return the correct End event object.
      *
      * @return Concrete Event object
      */
-    abstract protected Event createEndEvent();
+    protected abstract Event createEndEvent();
 
     /**
      * inject the eventRecorder.

@@ -51,7 +51,7 @@ public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationS
         }
     }
 
-    abstract public void execute(OutboundPatientDiscoveryOrchestratable message);
+    public abstract void execute(OutboundPatientDiscoveryOrchestratable message);
 
     protected NhinTargetCommunityType createNhinTargetCommunityType(String hcid) {
         NhinTargetCommunityType target = new NhinTargetCommunityType();

@@ -54,7 +54,7 @@ import org.junit.Test;
  */
 public class HL7AckTransformsTest {
 
-    private final static String TEST_PROPERTIES_NAME = "gatewaytest.properties";
+    private static final String TEST_PROPERTIES_NAME = "gatewaytest.properties";
 
     private HL7MessageIdGenerator idGenerator;
 

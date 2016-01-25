@@ -115,7 +115,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
      * <b>JVM Parameter/Options Name:</b>
      * gov.hhs.fha.nhinc.directconfig.processor.impl.bundlerefresh.AllowNonVerifiedSSL
      */
-    public final static String BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED
+    public static final String BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED
         = "BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED";
 
     protected static final int DEFAULT_URL_CONNECTION_TIMEOUT = 10000; // 10 seconds
@@ -141,7 +141,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
     /**
      * Initializes system preferences using the Direct {@link OptionsManager} pattern.
      */
-    public synchronized static void initJVMParams() {
+    public static synchronized void initJVMParams() {
         final Map<String, String> jvmParams = new HashMap<>();
         jvmParams.put(BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED,
             "gov.hhs.fha.nhinc.directconfig.processor.impl.bundlerefresh.AllowNonVerifiedSSL");

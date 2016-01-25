@@ -48,8 +48,8 @@ public class MpiDataSaverTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final static String mockMpiName = System.getProperty("user.dir", ".") + File.separator + "mockmpi.xml";
-    final static String mockMpiDirectoryName = System.getProperty("user.dir", ".") + File.separator;
+    static final String mockMpiName = System.getProperty("user.dir", ".") + File.separator + "mockmpi.xml";
+    static final String mockMpiDirectoryName = System.getProperty("user.dir", ".") + File.separator;
 
     public MpiDataSaverTest() {
     }

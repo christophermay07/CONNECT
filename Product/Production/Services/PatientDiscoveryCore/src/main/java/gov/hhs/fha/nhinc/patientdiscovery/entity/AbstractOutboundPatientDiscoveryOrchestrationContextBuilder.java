@@ -57,9 +57,9 @@ public abstract class AbstractOutboundPatientDiscoveryOrchestrationContextBuilde
         return new OrchestrationContext(getStrategy(), getOrchestratable());
     }
 
-    abstract protected OutboundPatientDiscoveryOrchestratable getOrchestratable();
+    protected abstract OutboundPatientDiscoveryOrchestratable getOrchestratable();
 
-    abstract protected OutboundPatientDiscoveryStrategy getStrategy();
+    protected abstract OutboundPatientDiscoveryStrategy getStrategy();
 
     public void setTarget(NhinTargetSystemType t) {
         this.target = t;

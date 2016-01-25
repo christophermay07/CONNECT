@@ -52,7 +52,7 @@ import org.slf4j.LoggerFactory;
 
 public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOutboundPatientDiscoveryDeferredResponse {
 
-    private final static MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    private static final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
     private final PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker;
     private final PatientDiscovery201306Processor pd201306Processor;

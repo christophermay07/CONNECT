@@ -35,7 +35,7 @@ import org.w3c.dom.Element;
  * @author bhumphrey
  *
  */
-abstract public class SAMLAssertionBuilder {
+public abstract class SAMLAssertionBuilder {
 
     static final String ID_PREFIX = "_";
 
@@ -110,6 +110,6 @@ abstract public class SAMLAssertionBuilder {
         return VALID_NAME_LIST.contains(format);
     }
 
-    abstract public Element build(CallbackProperties properties) throws Exception;
+    public abstract Element build(CallbackProperties properties) throws Exception;
 
 }

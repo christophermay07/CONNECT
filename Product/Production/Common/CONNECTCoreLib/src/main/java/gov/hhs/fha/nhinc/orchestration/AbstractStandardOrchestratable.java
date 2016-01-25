@@ -51,7 +51,7 @@ public abstract class AbstractStandardOrchestratable extends AbstractOrchestrabl
      * @return false.
      */
     @Override
-    final public boolean isPassthru() {
+    public final boolean isPassthru() {
         return false;
     }
 
