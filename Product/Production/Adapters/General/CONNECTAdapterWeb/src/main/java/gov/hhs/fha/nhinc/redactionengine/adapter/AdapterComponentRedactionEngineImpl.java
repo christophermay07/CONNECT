@@ -87,20 +87,18 @@ public class AdapterComponentRedactionEngineImpl {
     }
 
     protected AdhocQueryResponse invokeRedactionEngineForQuery(
-            FilterDocQueryResultsRequestType filterDocQueryResultsRequest) {
-        AdhocQueryResponse adhocQueryResponse = new AdapterRedactionEngineOrchImpl().filterAdhocQueryResults(
-                filterDocQueryResultsRequest.getAdhocQueryRequest(),
-                filterDocQueryResultsRequest.getAdhocQueryResponse());
+        FilterDocQueryResultsRequestType filterDocQueryResultsRequest) {
 
-        return adhocQueryResponse;
+        return new AdapterRedactionEngineOrchImpl().filterAdhocQueryResults(
+            filterDocQueryResultsRequest.getAdhocQueryRequest(),
+            filterDocQueryResultsRequest.getAdhocQueryResponse());
     }
 
     protected RetrieveDocumentSetResponseType invokeRedactionEngineForRetrieve(
-            FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest) {
-        RetrieveDocumentSetResponseType retrieveDocSetResponse = new AdapterRedactionEngineOrchImpl()
-                .filterRetrieveDocumentSetResults(filterDocRetrieveResultsRequest.getRetrieveDocumentSetRequest(),
-                        filterDocRetrieveResultsRequest.getRetrieveDocumentSetResponse());
+        FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest) {
 
-        return retrieveDocSetResponse;
+        return new AdapterRedactionEngineOrchImpl().filterRetrieveDocumentSetResults(
+            filterDocRetrieveResultsRequest.getRetrieveDocumentSetRequest(),
+            filterDocRetrieveResultsRequest.getRetrieveDocumentSetResponse());
     }
 }

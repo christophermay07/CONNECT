@@ -129,10 +129,7 @@ public class UDDIAccessor {
     public BusinessDetail retrieveFromUDDIServer() throws UDDIAccessorException {
         loadProperties();
 
-        BusinessList businessList = retrieveBusinessesListFromUDDI();
-        BusinessDetail businessDetail = retrieveBusinessDetail(businessList);
-
-        return businessDetail;
+        return retrieveBusinessDetail(retrieveBusinessesListFromUDDI());
     }
 
     /**

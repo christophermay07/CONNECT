@@ -47,35 +47,25 @@ public class DeferredQueueManagerFacade implements DeferredGUIConstants {
     private static final Logger LOG = LoggerFactory.getLogger(DeferredQueueManagerFacade.class);
 
     protected AsyncMsgRecordDao getAsyncMsgRecordDao() {
-        AsyncMsgRecordDao dao = new AsyncMsgRecordDao();
-        return dao;
+        return new AsyncMsgRecordDao();
     }
 
     public List<AsyncMsgRecord> queryQueueRecords(QueryDeferredQueueRequestType queryCriteria) {
         LOG.debug("Performing DeferredQueueManagerFacade:: queryQueueRecords API.");
 
-        AsyncMsgRecordDao asyncMsgRecordDao = getAsyncMsgRecordDao();
-        List<AsyncMsgRecord> asyncMsgRecs = asyncMsgRecordDao.queryByCriteria(queryCriteria);
-
-        return asyncMsgRecs;
+        return getAsyncMsgRecordDao().queryByCriteria(queryCriteria);
     }
 
     public List<AsyncMsgRecord> queryForDeferredQueueProcessing() {
         LOG.debug("Performing DeferredQueueManagerFacade:: queryForDeferredQueueProcessing API.");
 
-        AsyncMsgRecordDao asyncMsgRecordDao = getAsyncMsgRecordDao();
-        List<AsyncMsgRecord> asyncMsgRecs = asyncMsgRecordDao.queryForDeferredQueueProcessing();
-
-        return asyncMsgRecs;
+        return getAsyncMsgRecordDao().queryForDeferredQueueProcessing();
     }
 
     public List<AsyncMsgRecord> queryForDeferredQueueSelected() {
         LOG.debug("Performing DeferredQueueManagerFacade:: queryForDeferredQueueSelected API.");
 
-        AsyncMsgRecordDao asyncMsgRecordDao = getAsyncMsgRecordDao();
-        List<AsyncMsgRecord> asyncMsgRecs = asyncMsgRecordDao.queryForDeferredQueueSelected();
-
-        return asyncMsgRecs;
+        return getAsyncMsgRecordDao().queryForDeferredQueueSelected();
     }
 
     public List<AsyncMsgRecord> queryBySearchCriteria(Date startDate, Date stopDate, String status) {
@@ -86,15 +76,13 @@ public class DeferredQueueManagerFacade implements DeferredGUIConstants {
         queryCriteria.setCreationBeginTime(XMLDateUtil.date2Gregorian(startDate));
         queryCriteria.setCreationEndTime(XMLDateUtil.date2Gregorian(stopDate));
         queryCriteria.getStatus().add(status);
-        List<AsyncMsgRecord> asyncMsgRecs = asyncMsgRecordDao.queryByCriteria(queryCriteria);
 
-        return asyncMsgRecs;
+        return asyncMsgRecordDao.queryByCriteria(queryCriteria);
     }
 
     public List<Option> queryForDeferredQueueStatuses() {
         LOG.debug("Performing DeferredQueueManagerFacade:: queryForDeferredQueueStatuses API.");
-        List<Option> statuses = loadDeferredQueueStatuses();
-        return statuses;
+        return loadDeferredQueueStatuses();
     }
 
     private List<Option> loadDeferredQueueStatuses() {

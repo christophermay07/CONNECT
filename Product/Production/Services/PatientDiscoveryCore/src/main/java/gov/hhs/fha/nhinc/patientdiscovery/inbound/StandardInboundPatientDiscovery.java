@@ -82,18 +82,11 @@ public class StandardInboundPatientDiscovery extends AbstractInboundPatientDisco
     PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties)
         throws PatientDiscoveryException {
 
-        PRPAIN201306UV02 response = patientDiscoveryProcessor.process201305(body, assertion);
-        return response;
+        return patientDiscoveryProcessor.process201305(body, assertion);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.patientdiscovery.inbound.AbstractInboundPatientDiscovery#getAuditLogger()
-     */
     @Override
     PatientDiscoveryAuditLogger getAuditLogger() {
         return auditLogger;
     }
-
 }

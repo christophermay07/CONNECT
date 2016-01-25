@@ -83,8 +83,7 @@ public class NhinPatientDiscovery extends BaseService implements RespondingGatew
             PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
             type.setErrorCode("920");
             type.setMessage(e.getLocalizedMessage());
-            PRPAIN201305UV02Fault fault = new PRPAIN201305UV02Fault(e.getMessage(), type);
-            throw fault;
+            throw new PRPAIN201305UV02Fault(e.getMessage(), type);
         }
     }
 

@@ -47,7 +47,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 package gov.hhs.fha.nhinc.directconfig.entity.helpers;
 
-import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -68,16 +67,14 @@ public class BundleThumbprint {
      * @param bytes
      *            The byte array to convert to a thumbprint.
      * @return A thumbprint of the byte array.
-     * @throws CertificateException
+     * @throws java.security.NoSuchAlgorithmException
      */
     public static BundleThumbprint toThumbprint(byte[] bytes) throws NoSuchAlgorithmException {
         if (bytes == null) {
             throw new IllegalArgumentException();
         }
 
-        final BundleThumbprint retVal = new BundleThumbprint(bytes);
-
-        return retVal;
+        return new BundleThumbprint(bytes);
     }
 
     private BundleThumbprint (byte[] bytes) throws NoSuchAlgorithmException {

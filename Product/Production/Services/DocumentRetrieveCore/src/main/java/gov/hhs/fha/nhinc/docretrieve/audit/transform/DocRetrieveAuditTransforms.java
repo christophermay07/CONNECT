@@ -249,14 +249,12 @@ public class DocRetrieveAuditTransforms
     }
 
     private ParticipantObjectIdentificationType buildBaseParticipantObjectIdentificationType() {
-        ParticipantObjectIdentificationType participantObject = createParticipantObjectIdentification(
+        return createParticipantObjectIdentification(
             DocRetrieveAuditTransformsConstants.PARTICIPANT_DOCUMENT_OBJ_TYPE_CODE,
             DocRetrieveAuditTransformsConstants.PARTICIPANT_DOCUMENT_OBJ_TYPE_CODE_ROLE,
             DocRetrieveAuditTransformsConstants.PARTICIPANT_DOCUMENT_OBJ_ID_TYPE_CODE,
             DocRetrieveAuditTransformsConstants.PARTICIPANT_DOCUMENT_OBJ_ID_TYPE_CODE_SYSTEM,
             DocRetrieveAuditTransformsConstants.PARTICIPANT_DOCUMENT_OBJ_ID_TYPE_DISPLAY_NAME);
-
-        return participantObject;
     }
 
     @Override

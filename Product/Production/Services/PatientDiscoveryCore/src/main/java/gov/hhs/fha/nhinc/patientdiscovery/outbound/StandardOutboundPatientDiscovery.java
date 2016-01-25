@@ -260,10 +260,9 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
         AssertionType assertion, NhinTargetSystemType target, NhincConstants.GATEWAY_API_LEVEL gatewayLevel) {
         OutboundDelegate nd = new OutboundPatientDiscoveryDelegate();
         OutboundResponseProcessor np = new OutboundPatientDiscoveryProcessor(gatewayLevel);
-        OutboundPatientDiscoveryOrchestratable orchestratable = new OutboundPatientDiscoveryOrchestratable(nd,
-            Optional.of(np), null, assertion, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, target, message);
 
-        return orchestratable;
+        return new OutboundPatientDiscoveryOrchestratable(nd, Optional.of(np), null, assertion,
+            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, target, message);
     }
 
     protected CommunityPRPAIN201306UV02ResponseType createFailedPolicyCommunityResponseFromRequest(

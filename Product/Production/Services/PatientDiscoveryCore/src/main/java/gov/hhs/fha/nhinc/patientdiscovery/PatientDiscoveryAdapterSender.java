@@ -56,10 +56,8 @@ public class PatientDiscoveryAdapterSender {
 
         adapterReq.setAssertion(assertion);
         adapterReq.setPRPAIN201305UV02(request);
-        PRPAIN201306UV02 adapterResp = proxy.respondingGatewayPRPAIN201305UV02(adapterReq.getPRPAIN201305UV02(),
-                adapterReq.getAssertion());
 
-        return adapterResp;
+        return proxy.respondingGatewayPRPAIN201305UV02(adapterReq.getPRPAIN201305UV02(), adapterReq.getAssertion());
     }
 
     public MCCIIN000002UV01 sendDeferredReqErrorToAgency(PRPAIN201305UV02 request, AssertionType assertion,
@@ -74,9 +72,7 @@ public class PatientDiscoveryAdapterSender {
         adapterReq.setErrorMsg(errMsg);
         PRPAIN201306UV02 response = new HL7PRPA201306Transforms().createPRPA201306ForPatientNotFound(request);
 
-        MCCIIN000002UV01 adapterResp = proxy.processPatientDiscoveryAsyncReqError(request, response, assertion, errMsg);
-
-        return adapterResp;
+        return proxy.processPatientDiscoveryAsyncReqError(request, response, assertion, errMsg);
     }
 
     public MCCIIN000002UV01 sendDeferredRespToAgency(PRPAIN201306UV02 request, AssertionType assertion) {
@@ -87,9 +83,7 @@ public class PatientDiscoveryAdapterSender {
 
         adapterReq.setAssertion(assertion);
         adapterReq.setPRPAIN201306UV02(request);
-        MCCIIN000002UV01 adapterResp = proxy.processPatientDiscoveryAsyncResp(request, assertion);
 
-        return adapterResp;
+        return proxy.processPatientDiscoveryAsyncResp(request, assertion);
     }
-
 }

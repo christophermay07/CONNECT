@@ -110,9 +110,7 @@ public class PatientSearchFacade {
      * @return
      */
     private AdapterComponentMpiProxy getAdapterComponentMpiProxy() {
-        AdapterComponentMpiProxyObjectFactory mpiFactory = new AdapterComponentMpiProxyObjectFactory();
-        AdapterComponentMpiProxy mpiProxy = mpiFactory.getAdapterComponentMpiProxy();
-        return mpiProxy;
+        return new AdapterComponentMpiProxyObjectFactory().getAdapterComponentMpiProxy();
     }
 
     /**

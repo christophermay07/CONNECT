@@ -82,12 +82,9 @@ public class Thumbprint {
         }
 
         try {
-            final Thumbprint retVal = new Thumbprint(cert);
-            return retVal;
-        } catch (NoSuchAlgorithmException nsae) {
+            return new Thumbprint(cert);
+        } catch (NoSuchAlgorithmException | CertificateEncodingException nsae) {
             throw new CertificateException(nsae);
-        } catch (CertificateEncodingException cee) {
-            throw new CertificateException(cee);
         }
     }
 

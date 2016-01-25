@@ -190,10 +190,8 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
 
         OutboundDocSubmissionDelegate dsDelegate = getOutboundDocSubmissionDelegate();
         OutboundDocSubmissionOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, request, assertion);
-        RegistryResponseType response = ((OutboundDocSubmissionOrchestratable) dsDelegate.process(dsOrchestratable)).
-            getResponse();
 
-        return response;
+        return ((OutboundDocSubmissionOrchestratable) dsDelegate.process(dsOrchestratable)).getResponse();
     }
 
     protected OutboundDocSubmissionOrchestratable createOrchestratable(

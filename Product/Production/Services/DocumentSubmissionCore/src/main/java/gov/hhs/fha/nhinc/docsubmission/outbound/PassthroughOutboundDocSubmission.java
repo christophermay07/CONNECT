@@ -67,10 +67,8 @@ public class PassthroughOutboundDocSubmission implements OutboundDocSubmission {
 
         OutboundDocSubmissionOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, body, targetSystem,
             assertionWithId);
-        RegistryResponseType response = ((OutboundDocSubmissionOrchestratable) dsDelegate.process(dsOrchestratable))
-            .getResponse();
 
-        return response;
+        return ((OutboundDocSubmissionOrchestratable) dsDelegate.process(dsOrchestratable)).getResponse();
     }
 
     private void auditRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,

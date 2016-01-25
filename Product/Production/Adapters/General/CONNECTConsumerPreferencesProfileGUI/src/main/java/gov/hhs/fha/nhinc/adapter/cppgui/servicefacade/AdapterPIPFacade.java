@@ -72,9 +72,7 @@ public class AdapterPIPFacade {
     }
 
     public AdapterPIPProxy getAdapterPIPProxy() {
-        AdapterPIPProxyObjectFactory factory = new AdapterPIPProxyObjectFactory();
-        AdapterPIPProxy adapterPIPProxy = factory.getAdapterPIPProxy();
-        return adapterPIPProxy;
+        return new AdapterPIPProxyObjectFactory().getAdapterPIPProxy();
     }
 
     public RetrievePtConsentByPtIdResponseType retrieveConsumerPreferences(
@@ -84,10 +82,8 @@ public class AdapterPIPFacade {
         if (consentRequest != null) {
             assertion = consentRequest.getAssertion();
         }
-        RetrievePtConsentByPtIdResponseType consentResponse = adapterPIPProxy.retrievePtConsentByPtId(consentRequest,
-                assertion);
 
-        return consentResponse;
+        return adapterPIPProxy.retrievePtConsentByPtId(consentRequest, assertion);
     }
 
     public PatientPreferencesVO retriveConsumerPreferences(ConsumerPreferencesSearchCriteria criteria) {
@@ -174,9 +170,7 @@ public class AdapterPIPFacade {
     }
 
     public String saveOptInConsumerPreference(PatientVO patientVO) {
-        StorePtConsentRequestType consentRequest = createStorePtConsentRequestType(patientVO);
-        String status = saveConsumerPreferences(consentRequest);
-        return status;
+        return saveConsumerPreferences(createStorePtConsentRequestType(patientVO));
     }
 
     private StorePtConsentRequestType createStorePtConsentRequestType(PatientVO patientVO) {

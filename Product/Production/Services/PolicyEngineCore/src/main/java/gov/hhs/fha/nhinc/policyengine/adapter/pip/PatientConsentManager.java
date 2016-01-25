@@ -586,9 +586,7 @@ public class PatientConsentManager {
             AdhocQueryRequest oRequest = queryUtil.createAdhocQueryRequest(sPatientId, sAssigningAuthority);
             AdhocQueryResponse oResponse = invokeDocRegistryStoredQuery(oRequest);
 
-            List<DocumentRequest> olDocReq = queryUtil.createDocumentRequest(oResponse);
-
-            return olDocReq;
+            return queryUtil.createDocumentRequest(oResponse);
         } catch (Exception ex) {
             String message = "Error occurred calling PatientConsentManager.retrieveCPPDocIdentifiers.  Error: "
                 + ex.getMessage();
