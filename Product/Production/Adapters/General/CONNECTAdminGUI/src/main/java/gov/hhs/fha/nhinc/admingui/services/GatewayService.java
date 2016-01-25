@@ -69,9 +69,8 @@ public class GatewayService {
 
     private static final Logger LOG = LoggerFactory.getLogger(GatewayService.class);
 
-    private PatientService patientService;
-    private DocumentQueryService documentQueryService;
-    private DocumentRetrieveService documentRetrieveService;
+    private final PatientService patientService;
+    private final DocumentRetrieveService documentRetrieveService;
 
     //Should be moved to a constant file later
     public static final String CONTENT_TYPE_IMAGE_PNG = org.springframework.http.MediaType.IMAGE_PNG.toString();
@@ -90,7 +89,6 @@ public class GatewayService {
     private GatewayService() {
         //create the Service implementation instances
         this.patientService = new PatientServiceImpl();
-        this.documentQueryService = new DocumentQueryServiceImpl();
         this.documentRetrieveService = new DocumentRetrieveServiceImpl();
     }
 

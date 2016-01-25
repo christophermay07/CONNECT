@@ -64,13 +64,13 @@ import org.uddi.api_v3.Name;
 public class ConnectionManagerCache implements ConnectionManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerCache.class);
-    private PropertyAccessor accessor;
+    private final PropertyAccessor accessor;
     public static final String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
-    private static final String HOME_COMMUNITY_PREFIX = "urn:oid:";
+
     // Hash maps for the UDDI connection information. This hash map is keyed by home community ID.
     // --------------------------------------------------------------------------------------------
     // Array of connection information
-    private HashMap<String, BusinessEntity> m_hUDDIConnectInfo = new HashMap<>();
+    private final HashMap<String, BusinessEntity> m_hUDDIConnectInfo = new HashMap<>();
 
     // TRUE if the properties have been loaded
     private boolean m_bUDDILoaded = false;
@@ -79,7 +79,7 @@ public class ConnectionManagerCache implements ConnectionManager {
     // Hash maps for the Internal connection information. This hash map is keyed by home community ID.
     // --------------------------------------------------------------------------------------------------
     // Array of connection information
-    private HashMap<String, BusinessEntity> m_hInternalConnectInfo = new HashMap<>();
+    private final HashMap<String, BusinessEntity> m_hInternalConnectInfo = new HashMap<>();
 
     // TRUE if the properties have been loaded
     private boolean m_bInternalLoaded = false;

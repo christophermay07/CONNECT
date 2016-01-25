@@ -96,7 +96,6 @@ public class AdapterComponentDocRegistryOrchImpl {
     // XDS.b does not have a search parameter slot name defined for repository ID
     // and document ID. So we had to create our own custom ones.
     // ----------------------------------------------------------------------------
-    private static final String NHINC_CUSTOM_REPOSITORY_ID = "$XDSRepositoryUniqueId";
     private static final String NHINC_CUSTOM_DOCUMENT_ID = "$XDSDocumentEntryUniqueId";
 
     private static final String EBXML_RESPONSE_REPOSITORY_UNIQUE_ID_SLOTNAME = "repositoryUniqueId";

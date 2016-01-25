@@ -78,8 +78,6 @@ public class AdapterPEPImpl {
     private static final String PROPERTY_FILE_NAME_GATEWAY = "gateway";
     private static final String PROPERTY_FILE_KEY_HOME_COMMUNITY = "localHomeCommunityId";
     private static final String DEFAULT_PURPOSE_TEXT = "Purpose for Use code not provided";
-    private static final String VALID_PURPOSE = "PUBLICHEALTH";
-    private static final String VALID_USER_ROLE_CODE = "307969004";
     private static final String XSPA_SUBJECT_ID = "urn:oasis:names:tc:xacml:1.0:subject:subject-id";
     private static final String XSPA_SUBJECT_ORG = "urn:oasis:names:tc:xspa:1.0:subject:organization";
     private static final String XSPA_SUBJECT_ORG_ID = "urn:oasis:names:tc:xspa:1.0:subject:organization-id";

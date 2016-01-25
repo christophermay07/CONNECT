@@ -46,14 +46,6 @@ import org.slf4j.LoggerFactory;
 public class PRPAIN201309UVParser {
 
     private static final Logger LOG = LoggerFactory.getLogger(PRPAIN201309UVParser.class);
-    private static String CODE = "CA";
-    private static String CNTRL_MODCODE = "EVN";
-    private static String CNTRL_CODE = "PRPA_TE201310UV";
-    private static String CNTRL_SUBJ_TYPECODE = "SUBJ";
-    private static String STATUS_CD = "active";
-    private static String CNTRL_SUBJ_EVENT_SUBJ_CLASS_CODE = "PAT";
-    private static String PATIENTPERSON_CLASSCODE = "PSN";
-    private static String QUERY_RESPONSE = "OK";
 
     private PRPAIN201309UVParser() {
     }

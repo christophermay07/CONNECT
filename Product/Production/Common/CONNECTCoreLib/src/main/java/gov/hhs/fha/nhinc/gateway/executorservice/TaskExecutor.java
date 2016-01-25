@@ -52,6 +52,9 @@ import org.slf4j.LoggerFactory;
  * contains all the responses from the individual CallableRequest
  *
  * @author paul.eftis
+ * @param <Target>
+ * @param <Request>
+ * @param <Response>
  */
 public class TaskExecutor<Target, Request, Response> {
 
@@ -62,7 +65,6 @@ public class TaskExecutor<Target, Request, Response> {
     private WebServiceClient client = null;
     private List<Target> targetList = null;
     private Request request = null;
-    private String transactionId = null;
 
     private List<CallableRequest<Target, Request, Response>> requestList = new ArrayList<>();
 
@@ -72,14 +74,18 @@ public class TaskExecutor<Target, Request, Response> {
      *
      * Constructs with the RequestProcessor to use and WebServiceClient to use. The targetlist, request and response are
      * generics
+     * @param e
+     * @param p
+     * @param c
+     * @param t
+     * @param req
+     * @param id
      */
     public TaskExecutor(Executor e, ResponseProcessor p, WebServiceClient c, List<Target> t, Request req, String id) {
-
         processor = p;
         client = c;
         targetList = t;
         request = req;
-        transactionId = id;
         executor = e;
     }
 
@@ -148,5 +154,4 @@ public class TaskExecutor<Target, Request, Response> {
             ExecutorServiceHelper.getInstance().outputCompleteException(e);
         }
     }
-
 }

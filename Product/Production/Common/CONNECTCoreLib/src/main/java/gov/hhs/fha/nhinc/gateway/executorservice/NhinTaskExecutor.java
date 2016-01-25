@@ -54,6 +54,8 @@ import org.slf4j.LoggerFactory;
  * contains all the responses from the individual NhinCallableRequest
  *
  * @author paul.eftis
+ * @param <CumulativeResponse>
+ * @param <IndividualResponse>
  */
 public class NhinTaskExecutor<CumulativeResponse extends OutboundOrchestratableMessage, IndividualResponse extends OutboundOrchestratableMessage> {
 
@@ -62,14 +64,15 @@ public class NhinTaskExecutor<CumulativeResponse extends OutboundOrchestratableM
     private CumulativeResponse cumulativeResponse = null;
 
     private Executor executor = null;
-    private String transactionId = null;
     private List<NhinCallableRequest<IndividualResponse>> callableList = new ArrayList<>();
 
     /**
      *
+     * @param e
+     * @param list
+     * @param id
      */
     public NhinTaskExecutor(Executor e, List<NhinCallableRequest<IndividualResponse>> list, String id) {
-        transactionId = id;
         executor = e;
         callableList = list;
     }

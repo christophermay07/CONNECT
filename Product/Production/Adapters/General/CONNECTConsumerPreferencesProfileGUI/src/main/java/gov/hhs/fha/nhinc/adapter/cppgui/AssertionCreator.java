@@ -57,9 +57,6 @@ public class AssertionCreator {
     private static final String PROPERTY_KEY_USER_SYSTEM = "AssertionUserSystem";
     private static final String PROPERTY_KEY_USER_SYSTEM_NAME = "AssertionUserSystemName";
     private static final String PROPERTY_KEY_USER_DISPLAY = "AssertionUserDisplay";
-    private static final String PROPERTY_KEY_EXPIRE = "AssertionExpiration";
-    private static final String PROPERTY_KEY_SIGN = "AssertionSignDate";
-    private static final String PROPERTY_KEY_ACCESS_CONSENT = "AssertionAccessConsent";
 
     private static final Logger LOG = LoggerFactory.getLogger(AssertionCreator.class);
 

@@ -40,8 +40,6 @@ import java.io.IOException;
 import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,8 +52,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class LoginServiceImpl implements LoginService {
 
     public static final String CONNECT_ADMIN_USER = "CONNECTAdmin";
-
-    private static final Logger LOG = LoggerFactory.getLogger(LoginServiceImpl.class);
 
     @Autowired
     private UserLoginDAO userLoginDAO;

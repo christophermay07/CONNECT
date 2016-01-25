@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import javax.xml.ws.WebServiceContext;
 
 /**
@@ -35,8 +34,6 @@ import javax.xml.ws.WebServiceContext;
  * @author Neil Webb
  */
 public class DocumentRepositoryServiceImpl {
-    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
-
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, WebServiceContext context) {
 

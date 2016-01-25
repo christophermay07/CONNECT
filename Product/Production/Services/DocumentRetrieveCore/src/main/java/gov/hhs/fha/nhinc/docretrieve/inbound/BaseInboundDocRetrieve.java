@@ -41,8 +41,6 @@ import java.util.Properties;
  */
 public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
 
-    private DocRetrieveAuditLogger docRetrieveAuditLogger;
-
     /**
      * Returns the orchestrator.
      *
@@ -51,11 +49,9 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
     abstract CONNECTInboundOrchestrator getOrchestrator();
 
     public BaseInboundDocRetrieve() {
-        docRetrieveAuditLogger = new DocRetrieveAuditLogger();
     }
 
     public BaseInboundDocRetrieve(DocRetrieveAuditLogger auditLogger) {
-        docRetrieveAuditLogger = auditLogger;
     }
 
     /**

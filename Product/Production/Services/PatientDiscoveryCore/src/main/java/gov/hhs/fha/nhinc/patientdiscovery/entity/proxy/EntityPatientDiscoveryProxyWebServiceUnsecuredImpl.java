@@ -50,10 +50,8 @@ import org.slf4j.LoggerFactory;
 public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements EntityPatientDiscoveryProxy {
 
     private static final Logger LOG = LoggerFactory.getLogger(EntityPatientDiscoveryProxyWebServiceUnsecuredImpl.class);
-    private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
-        oProxyHelper = createWebServiceProxyHelper();
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {

@@ -54,8 +54,7 @@ import org.slf4j.LoggerFactory;
 public class PatientDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientDAO.class);
-    private static PatientDAO patientDAO = new PatientDAO();
-    private static final String ALLOW_SSN_QUERY = "mpi.db.allow.ssn.query";
+    private static final PatientDAO PATIENT_DAO = new PatientDAO();
 
     /**
      * Constructor
@@ -71,7 +70,7 @@ public class PatientDAO {
      */
     public static PatientDAO getPatientDAOInstance() {
         LOG.debug("getPatientDAOInstance()..");
-        return patientDAO;
+        return PATIENT_DAO;
     }
 
     // =========================

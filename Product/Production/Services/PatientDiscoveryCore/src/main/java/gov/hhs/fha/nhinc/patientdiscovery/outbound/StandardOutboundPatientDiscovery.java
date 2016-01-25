@@ -79,7 +79,6 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
     private ExecutorService regularExecutor = null;
     private ExecutorService largejobExecutor = null;
     private final TransactionLogger transactionLogger = new TransactionLogger();
-    private PatientDiscoveryAuditLogger patientDiscoveryAuditor;
 
     /**
      * Add default constructor that is used by test cases Note that implementations should always use constructor that

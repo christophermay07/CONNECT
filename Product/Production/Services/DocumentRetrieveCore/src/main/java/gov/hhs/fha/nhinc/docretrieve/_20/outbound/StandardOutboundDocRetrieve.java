@@ -44,14 +44,11 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  */
 public class StandardOutboundDocRetrieve extends gov.hhs.fha.nhinc.docretrieve.outbound.StandardOutboundDocRetrieve {
 
-    private DocRetrieveAuditLogger auditLogger;
-
     /**
      * Constructor.
      */
     public StandardOutboundDocRetrieve() {
         super();
-        auditLogger = new DocRetrieveAuditLogger();
     }
 
     /**

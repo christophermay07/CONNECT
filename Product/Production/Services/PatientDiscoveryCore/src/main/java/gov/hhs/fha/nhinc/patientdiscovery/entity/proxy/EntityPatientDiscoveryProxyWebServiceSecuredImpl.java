@@ -49,7 +49,6 @@ import org.slf4j.LoggerFactory;
  */
 public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityPatientDiscoveryProxy {
     private static final Logger LOG = LoggerFactory.getLogger(EntityPatientDiscoveryProxyWebServiceSecuredImpl.class);
-    private WebServiceProxyHelper oProxyHelper = null;
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();

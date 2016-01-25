@@ -44,7 +44,6 @@ import org.slf4j.LoggerFactory;
 public class AdapterPIPImpl {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdapterPIPImpl.class);
-    private static final String ASSERTIONINFO_PROPFILE_NAME = "assertioninfo";
 
     protected PatientConsentManager getPatientConsentManager() {
         return new PatientConsentManager();

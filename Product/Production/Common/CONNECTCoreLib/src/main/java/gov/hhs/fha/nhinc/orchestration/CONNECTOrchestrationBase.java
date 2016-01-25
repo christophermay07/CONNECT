@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
 import org.slf4j.Logger;
@@ -45,13 +44,10 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
 
     private static final Logger LOG = LoggerFactory.getLogger(CONNECTOrchestrationBase.class);
 
-    private final IPropertyAcessor propertyAccessor;
-
     /**
      *
      */
     public CONNECTOrchestrationBase() {
-        propertyAccessor = PropertyAccessor.getInstance();
     }
 
     /**
@@ -59,7 +55,6 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
      * @param propertyAccessor
      */
     public CONNECTOrchestrationBase(IPropertyAcessor propertyAccessor) {
-        this.propertyAccessor = propertyAccessor;
     }
 
     @Override

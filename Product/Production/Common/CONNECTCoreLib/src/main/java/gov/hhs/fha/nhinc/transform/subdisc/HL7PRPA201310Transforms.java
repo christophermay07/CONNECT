@@ -58,7 +58,6 @@ public class HL7PRPA201310Transforms {
     private static final String PROCESSING_CODE_VALUE = "P";
     private static final String PROCESSING_CODE_MODE = "T";
     private static final String ACCEPT_ACK_CODE_VALUE = "AL";
-    private static final String CONTROL_MOOD_CODE = "EVN";
     private static final String CONTROL_CODE_CODE = "PRPA_TE201310UV";
     private static final String REG_EVENT_CLASS_CODE = "EVN";
     private static final String REG_EVENT_MOOD_CODE = "REG";

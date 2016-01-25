@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docregistry.adapter;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -37,8 +36,6 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
  * @author Neil Webb
  */
 public class DocumentRegistryImpl {
-    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
-
     public AdhocQueryResponse documentRegistryRegistryStoredQuery(AdhocQueryRequest body, WebServiceContext context) {
         return new AdapterComponentDocRegistryOrchImpl().registryStoredQuery(body);
     }

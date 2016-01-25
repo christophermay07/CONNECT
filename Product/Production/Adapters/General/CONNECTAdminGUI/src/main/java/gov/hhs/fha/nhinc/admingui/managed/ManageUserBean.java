@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -61,8 +60,6 @@ public class ManageUserBean {
     private String role;
 
     private UserLogin selectedUser;
-
-    private List<UserLogin> users = new ArrayList<>();
 
     /**
      * The login service.
