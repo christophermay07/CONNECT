@@ -49,35 +49,35 @@ public abstract class AbstractAdminDistributionWebServicesMXBean extends Abstrac
     public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.admindistribution.outbound.PassthroughOutboundAdminDistribution";
 
     /** The Constant Standard_OutboundOrch_AD_BEAN_NAME. */
-    private static final String StdOutbound_AD_Bean_Name = "stdADOutbound";
+    private static final String STD_OUTBOUND_AD_BEAN_NAME = "stdADOutbound";
 
     /** The Constant Passthrough_OutboundOrch_AD_BEAN_NAME. */
-    private static final String PtOutbound_AD_Bean_Name = "ptADOutbound";
+    private static final String PT_OUTBOUND_AD_BEAN_NAME = "ptADOutbound";
 
     /** The Constant Standard_InboundOrch_AD_BEAN_NAME. */
-    private static final String StdInbound_AD_Bean_Name = "stdADInbound";
+    private static final String STD_INBOUND_AD_BEAN_NAME = "stdADInbound";
 
     /** The Constant Passthrough_InboundOrch_AD_BEAN_NAME. */
-    private static final String PtInbound_AD_Bean_Name = "ptADInbound";
+    private static final String PT_INBOUND_AD_BEAN_NAME = "ptADInbound";
 
     @Override
     protected String getStandardOutboundBeanName() {
-        return StdOutbound_AD_Bean_Name;
+        return STD_OUTBOUND_AD_BEAN_NAME;
     }
 
     @Override
     protected String getPassthroughOutboundBeanName() {
-        return PtOutbound_AD_Bean_Name;
+        return PT_OUTBOUND_AD_BEAN_NAME;
     }
 
     @Override
     protected String getStandardInboundBeanName() {
-        return StdInbound_AD_Bean_Name;
+        return STD_INBOUND_AD_BEAN_NAME;
     }
 
     @Override
     protected String getPassthroughInboundBeanName() {
-        return PtInbound_AD_Bean_Name;
+        return PT_INBOUND_AD_BEAN_NAME;
     }
 
     /**

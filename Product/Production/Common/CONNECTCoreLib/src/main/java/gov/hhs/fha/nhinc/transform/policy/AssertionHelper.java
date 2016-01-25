@@ -54,7 +54,7 @@ import org.slf4j.LoggerFactory;
 public class AssertionHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(AssertionHelper.class);
-    private static final boolean appendAttributesIfNull = false;
+    private static final boolean APPEND_ATTRIBUTES_IF_NULL = false;
 
     public void appendAssertionDataToRequest(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending assertion data to xacml request");
@@ -173,11 +173,11 @@ public class AssertionHelper {
     private void appendAuthnStatementAuthnInstant(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending AuthnStatementAuthnInstant");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.AuthnStatementAuthnInstant;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.AUTHN_STATEMENT_AUTHN_INSTANT;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractAuthnStatementAuthnInstant(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending AuthnStatementAuthnInstant");
     }
 
@@ -197,11 +197,11 @@ public class AssertionHelper {
     private void appendAuthnStatementSessionIndex(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending AuthnStatementSessionIndex");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.AuthnStatementSessionIndex;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.AUTHN_STATEMENT_SESSION_INDEX;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractAuthnStatementSessionIndex(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending AuthnStatementSessionIndex");
     }
 
@@ -220,11 +220,11 @@ public class AssertionHelper {
     private void appendAuthnStatementAthnContextClassRef(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending AuthnStatementAthnContextClassRef");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.AuthnStatementAthnContextClassRef;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.AUTHN_STATEMENT_AUTHN_CONTEXT_CLASS_REF;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractAuthnStatementAthnContextClassRef(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending AuthnStatementAthnContextClassRef");
     }
 
@@ -243,11 +243,11 @@ public class AssertionHelper {
     private void appendAuthnStatementSubjectLocalityAddress(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending AuthnStatementSubjectLocalityAddress");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.AuthnStatementSubjectLocalityAddress;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.AUTHN_STATEMENT_SUBJECT_LOCALITY_ADDRESS;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractAuthnStatementSubjectLocalityAddress(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending AuthnStatementSubjectLocalityAddress");
     }
 
@@ -266,11 +266,11 @@ public class AssertionHelper {
     private void appendAuthnStatementDNSName(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending AuthnStatementDNSName");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.AuthnStatementDNSName;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.AUTHN_STATEMENT_DNS_NAME;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractAuthnStatementDNSName(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending AuthnStatementDNSName");
     }
 
@@ -289,11 +289,11 @@ public class AssertionHelper {
     private void appendUserPersonName(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending UserPersonName");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.UserPersonName;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.USER_PERSON_NAME;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractUserPersonName(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending UserPersonName");
     }
 
@@ -312,11 +312,11 @@ public class AssertionHelper {
     private void appendUserOrganizationName(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending UserOrganizationName");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.UserOrganizationName;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.USER_ORGANIZATION_NAME;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractUserOrganizationName(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending UserOrganizationName");
     }
 
@@ -335,8 +335,8 @@ public class AssertionHelper {
     private void appendUserOrganizationId(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending UserOrganizationId");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.UserOrganizationId;
-        String dataType = Constants.DataTypeAnyURI;
+        String attributeId = XacmlAttributeId.USER_ORGANIZATION_ID;
+        String dataType = Constants.DATA_TYPE_ANY_URI;
         String attributeValue = extractUserOrganizationId(assertion);
         URI orgIdURI = null;
         if (attributeValue != null) {
@@ -350,7 +350,7 @@ public class AssertionHelper {
             LOG.warn("User org in SAML is not a valid URI, it will not be included in message to policy engine");
         }
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, orgIdURI, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, orgIdURI, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending UserOrganizationId");
     }
 
@@ -369,8 +369,8 @@ public class AssertionHelper {
     private void appendHomeCommunityName(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending HomeCommunityName");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.HomeCommunityName;
-        String dataType = Constants.DataTypeAnyURI;
+        String attributeId = XacmlAttributeId.HOME_COMMUNITY_NAME;
+        String dataType = Constants.DATA_TYPE_ANY_URI;
         String attributeValue = extractHomeCommunityName(assertion);
         URI orgIdURI = null;
         if (attributeValue != null) {
@@ -387,7 +387,7 @@ public class AssertionHelper {
                 + " engine");
         }
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, orgIdURI, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, orgIdURI, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending HomeCommunityName");
     }
 
@@ -406,11 +406,11 @@ public class AssertionHelper {
     private void appendUniquePatientId(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending UniquePatientId");
         ResourceType parent = getResource(policyRequest);
-        String attributeId = XacmlAttributeId.UniquePatientId;
-        String dataType = Constants.DataTypeHL7II;
+        String attributeId = XacmlAttributeId.UNIQUE_PATIENT_ID;
+        String dataType = Constants.DATA_TYPE_HL7_II;
         II attributeValue = extractUniquePatientId(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending UniquePatientId");
     }
 
@@ -449,11 +449,11 @@ public class AssertionHelper {
     private void appendUserRoleCode(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending UserRoleCode");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.UserRoleCode;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.USER_ROLE_CODE;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractUserRoleCode(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending UserRoleCode");
     }
 
@@ -472,11 +472,11 @@ public class AssertionHelper {
     private void appendUserRoleCodeSystem(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending UserRoleCodeSystem");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.UserRoleCodeSystem;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.USER_ROLE_CODE_SYSTEM;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractUserRoleCodeSystem(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending UserRoleCodeSystem");
     }
 
@@ -495,11 +495,11 @@ public class AssertionHelper {
     private void appendUserRoleCodeSystemName(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending UserRoleCodeSystemName");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.UserRoleCodeSystemName;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.USER_ROLE_CODE_SYSTEM_NAME;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractUserRoleCodeSystemName(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending UserRoleCodeSystemName");
     }
 
@@ -518,11 +518,11 @@ public class AssertionHelper {
     private void appendUserRoleCodeDiplayName(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending UserRoleCodeDiplayName");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.UserRoleCodeDiplayName;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.USER_ROLE_CODE_DISPLAY_NAME;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractUserRoleCodeDiplayName(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending UserRoleCodeDiplayName");
     }
 
@@ -541,11 +541,11 @@ public class AssertionHelper {
     private void appendPurposeOfUseCode(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending PurposeOfUseCode");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.PurposeOfUseCode;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.PURPOSE_OF_USE_CODE;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractPurposeOfUseCode(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending PurposeOfUseCode");
     }
 
@@ -561,11 +561,11 @@ public class AssertionHelper {
     private void appendPurposeOfUseCodeSystem(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending PurposeOfUseCodeSystem");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.PurposeOfUseCodeSystem;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.PURPOSE_OF_USE_CODE_SYSTEM;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractPurposeOfUseCodeSystem(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending PurposeOfUseCodeSystem");
     }
 
@@ -581,11 +581,11 @@ public class AssertionHelper {
     private void appendPurposeOfUseCodeSystemName(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending PurposeOfUseCodeSystemName");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.PurposeOfUseCodeSystemName;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.PURPOSE_OF_USE_CODE_SYSTEM_NAME;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractPurposeOfUseCodeSystemName(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending PurposeOfUseCodeSystemName");
     }
 
@@ -601,11 +601,11 @@ public class AssertionHelper {
     private void appendPurposeOfUseCodeDisplayName(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending PurposeOfUseCodeDisplayName");
         SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.PurposeOfUseCodeDisplayName;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.PURPOSE_OF_USE_CODE_DISPLAY_NAME;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractPurposeOfUseCodeDisplayName(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending PurposeOfUseCodeDisplayName");
     }
 
@@ -621,11 +621,11 @@ public class AssertionHelper {
     private void appendAuthzDecisionStatementDecision(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending AuthzDecisionStatementDecision");
         ResourceType parent = getResource(policyRequest);
-        String attributeId = XacmlAttributeId.AuthzDecisionStatementDecision;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.AUTHZ_DECISION_STATEMENT_DECISION;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractAuthzDecisionStatementDecision(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending AuthzDecisionStatementDecision");
     }
 
@@ -646,11 +646,11 @@ public class AssertionHelper {
     private void appendAuthzDecisionStatementResource(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending AuthzDecisionStatementResource");
         ResourceType parent = getResource(policyRequest);
-        String attributeId = XacmlAttributeId.AuthzDecisionStatementResource;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.AUTHZ_DECISION_STATEMENT_RESOURCE;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractAuthzDecisionStatementResource(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending AuthzDecisionStatementResource");
     }
 
@@ -670,11 +670,11 @@ public class AssertionHelper {
     private void appendAuthzDecisionStatementAction(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending AuthzDecisionStatementAction");
         ResourceType parent = getResource(policyRequest);
-        String attributeId = XacmlAttributeId.AuthzDecisionStatementAction;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.AUTHZ_DECISION_STATEMENT_ACTION;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractAuthzDecisionStatementAction(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending AuthzDecisionStatementAction");
     }
 
@@ -694,11 +694,11 @@ public class AssertionHelper {
     private void appendAuthzDecisionStatementEvidenceAssertionID(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending AuthzDecisionStatementEvidenceAssertionID");
         ResourceType parent = getResource(policyRequest);
-        String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionID;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.AUTHZ_DECISION_STATEMENT_EVIDENCE_ASSERTION_ID;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractAuthzDecisionStatementEvidenceAssertionID(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending AuthzDecisionStatementEvidenceAssertionID");
     }
 
@@ -722,11 +722,11 @@ public class AssertionHelper {
         AssertionType assertion) {
         LOG.debug("begin appending AuthzDecisionStatementEvidenceAssertionIssueInstant");
         ResourceType parent = getResource(policyRequest);
-        String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionIssueInstant;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.AUTHZ_DECISION_STATEMENT_EVIDENCE_ASSERTION_ISSUE_INSTANT;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractAuthzDecisionStatementEvidenceAssertionIssueInstant(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending AuthzDecisionStatementEvidenceAssertionIssueInstant");
     }
 
@@ -750,11 +750,11 @@ public class AssertionHelper {
         AssertionType assertion) {
         LOG.debug("begin appending AuthzDecisionStatementEvidenceAssertionVersion");
         ResourceType parent = getResource(policyRequest);
-        String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionVersion;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.AUTHZ_DECISION_STATEMENT_EVIDENCE_ASSERTION_VERSION;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractAuthzDecisionStatementEvidenceAssertionVersion(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending AuthzDecisionStatementEvidenceAssertionVersion");
     }
 
@@ -779,11 +779,11 @@ public class AssertionHelper {
         AssertionType assertion) {
         LOG.debug("begin appending AuthzDecisionStatementEvidenceAssertionIssuer");
         ResourceType parent = getResource(policyRequest);
-        String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionIssuer;
-        String dataType = Constants.DataTypeString;
+        String attributeId = XacmlAttributeId.AUTHZ_DECISION_STATEMENT_EVIDENCE_ASSERTION_ISSUER;
+        String dataType = Constants.DATA_TYPE_STRING;
         String attributeValue = extractAuthzDecisionStatementEvidenceAssertionIssuer(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending AuthzDecisionStatementEvidenceAssertionIssuer");
     }
 
@@ -824,12 +824,12 @@ public class AssertionHelper {
         AssertionType assertion) {
         LOG.debug("begin appending AuthzDecisionStatementEvidenceAssertionConditionsNotBefore");
         ResourceType parent = getResource(policyRequest);
-        String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionConditionsNotBefore;
-        String dataType = Constants.DataTypeDate;
+        String attributeId = XacmlAttributeId.AUTHZ_DECISION_STATEMENT_EVIDENCE_ASSERTION_CONDITIONS_NOT_BEFORE;
+        String dataType = Constants.DATA_TYPE_DATE;
         String attributeValue = extractAuthzDecisionStatementEvidenceAssertionConditionsNotBefore(assertion);
         XMLGregorianCalendar calValue = createCal(attributeValue);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, calValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, calValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending AuthzDecisionStatementEvidenceAssertionConditionsNotBefore");
     }
 
@@ -856,12 +856,12 @@ public class AssertionHelper {
         AssertionType assertion) {
         LOG.debug("begin appending AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter");
         ResourceType parent = getResource(policyRequest);
-        String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter;
-        String dataType = Constants.DataTypeDate;
+        String attributeId = XacmlAttributeId.AUTHZ_DECISION_STATEMENT_EVIDENCE_ASSERTION_CONDITIONS_NOT_ON_OR_AFTER;
+        String dataType = Constants.DATA_TYPE_DATE;
         String attributeValue = extractAuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter(assertion);
         XMLGregorianCalendar calValue = createCal(attributeValue);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, calValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, calValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter");
     }
 
@@ -916,11 +916,11 @@ public class AssertionHelper {
         AssertionType assertion) {
         LOG.debug("begin appending AuthzDecisionStatementEvidenceAssertionAccessConsentPolicy");
         ResourceType parent = getResource(policyRequest);
-        String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionAccessConsentPolicy;
-        String dataType = Constants.DataTypeAnyURI;
+        String attributeId = XacmlAttributeId.AUTHZ_DECISION_STATEMENT_EVIDENCE_ASSERTION_ACCESS_CONSENT_POLICY;
+        String dataType = Constants.DATA_TYPE_ANY_URI;
         List<String> attributeValue = extractAuthzDecisionStatementEvidenceAssertionAccessConsentPolicy(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending AuthzDecisionStatementEvidenceAssertionAccessConsentPolicy");
     }
 
@@ -948,12 +948,12 @@ public class AssertionHelper {
         AssertionType assertion) {
         LOG.debug("begin appending AuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy");
         ResourceType parent = getResource(policyRequest);
-        String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy;
-        String dataType = Constants.DataTypeAnyURI;
+        String attributeId = XacmlAttributeId.AUTHZ_DECISION_STATEMENT_EVIDENCE_ASSERTION_INSTANCE_ACCESS_CONSENT_POLICY;
+        String dataType = Constants.DATA_TYPE_ANY_URI;
         List<String> attributeValue
             = extractAuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
-        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, APPEND_ATTRIBUTES_IF_NULL);
         LOG.debug("end appending AuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy");
     }
 }

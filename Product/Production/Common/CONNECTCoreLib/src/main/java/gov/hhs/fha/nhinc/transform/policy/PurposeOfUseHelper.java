@@ -36,8 +36,8 @@ import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
  */
 public class PurposeOfUseHelper {
 
-    private static final String PurposeOfUseActionAttributeId = "urn:oasis:names:tc:xacml:2.0:action:purpose";
-    private static final String PurposeOfUseSubjectAttributeId = "urn:gov:hhs:fha:nhinc:purpose-of-use";
+    private static final String PURPOSE_OF_USE_ACTION_ATTRIBUTE_ID = "urn:oasis:names:tc:xacml:2.0:action:purpose";
+    private static final String PURPOSE_OF_USE_SUBJECT_ATTRIBUTE_ID = "urn:gov:hhs:fha:nhinc:purpose-of-use";
 
     public void appendPurposeOfUse(RequestType policyXacmlRequest, AssertionType assertion) {
         AssertionHelper assertHelp = new AssertionHelper();
@@ -52,8 +52,8 @@ public class PurposeOfUseHelper {
     private void appendPurposeOfUseToAction(RequestType policyXacmlRequest, String purposeOfUse) {
         if ((policyXacmlRequest != null) && (policyXacmlRequest.getAction() != null)) {
             AttributeHelper attrHelper = new AttributeHelper();
-            AttributeType purposeOfUseAttribute = attrHelper.attributeFactory(PurposeOfUseActionAttributeId,
-                    Constants.DataTypeString, purposeOfUse);
+            AttributeType purposeOfUseAttribute = attrHelper.attributeFactory(PURPOSE_OF_USE_ACTION_ATTRIBUTE_ID,
+                    Constants.DATA_TYPE_STRING, purposeOfUse);
             policyXacmlRequest.getAction().getAttribute().add(purposeOfUseAttribute);
         }
     }
@@ -61,8 +61,8 @@ public class PurposeOfUseHelper {
     private void appendPurposeOfUseToSubject(RequestType policyXacmlRequest, String purposeOfUse) {
         if ((policyXacmlRequest != null) && (policyXacmlRequest.getSubject() != null)) {
             AttributeHelper attrHelper = new AttributeHelper();
-            AttributeType purposeOfUseAttribute = attrHelper.attributeFactory(PurposeOfUseSubjectAttributeId,
-                    Constants.DataTypeString, purposeOfUse);
+            AttributeType purposeOfUseAttribute = attrHelper.attributeFactory(PURPOSE_OF_USE_SUBJECT_ATTRIBUTE_ID,
+                    Constants.DATA_TYPE_STRING, purposeOfUse);
             policyXacmlRequest.getSubject().get(0).getAttribute().add(purposeOfUseAttribute);
         }
     }

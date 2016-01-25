@@ -37,27 +37,25 @@ import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
  */
 public class SubjectHelper {
 
-    public static final String SubjectCategory = "urn:oasis:names:tc:xacml:1.0:subject-category:access-subject";
-    public static final String UserRoleAttributeId = "urn:gov:hhs:fha:nhinc:user-role-code";
-    public static final String PurposeAttributeId = "urn:gov:hhs:fha:nhinc:purpose-of-use";
-    public static final String UserHomeCommunityAttributeId = "urn:gov:hhs:fha:nhinc:home-community-id";
+    public static final String SUBJECT_CATEGORY = "urn:oasis:names:tc:xacml:1.0:subject-category:access-subject";
+    public static final String USER_ROLE_ATTRIBUTE_ID = "urn:gov:hhs:fha:nhinc:user-role-code";
+    public static final String PURPOSE_ATTRIBUTE_ID = "urn:gov:hhs:fha:nhinc:purpose-of-use";
+    public static final String USER_HOME_COMMUNITY_ATTRIBUTE_ID = "urn:gov:hhs:fha:nhinc:home-community-id";
 
     public SubjectType subjectFactory(HomeCommunityType sendingHomeCommunity, AssertionType assertion) {
         SubjectType subject = new SubjectType();
-        subject.setSubjectCategory(SubjectCategory);
+        subject.setSubjectCategory(SUBJECT_CATEGORY);
         AttributeHelper attrHelper = new AttributeHelper();
-        subject.getAttribute().add(
-                attrHelper.attributeFactory(UserHomeCommunityAttributeId, Constants.DataTypeString,
+        subject.getAttribute().add(attrHelper.attributeFactory(USER_HOME_COMMUNITY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING,
                         determineSendingHomeCommunityId(sendingHomeCommunity, assertion)));
         return subject;
     }
 
     public SubjectType subjectFactoryReident(HomeCommunityType sendingHomeCommunity, AssertionType assertion) {
         SubjectType subject = new SubjectType();
-        subject.setSubjectCategory(SubjectCategory);
+        subject.setSubjectCategory(SUBJECT_CATEGORY);
         AttributeHelper attrHelper = new AttributeHelper();
-        subject.getAttribute().add(
-                attrHelper.attributeFactory(UserHomeCommunityAttributeId, Constants.DataTypeString,
+        subject.getAttribute().add(attrHelper.attributeFactory(USER_HOME_COMMUNITY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING,
                         determineSendingHomeCommunityId(sendingHomeCommunity, assertion)));
         return subject;
     }

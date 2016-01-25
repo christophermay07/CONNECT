@@ -48,17 +48,17 @@ import org.slf4j.LoggerFactory;
 public class XDRPolicyTransformHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(XDRPolicyTransformHelper.class);
-    private static final String ActionInValue = "XDRIn";
-    private static final String ActionOutValue = "XDROut";
+    private static final String ACTION_IN_VALUE = "XDRIn";
+    private static final String ACTION_OUT_VALUE = "XDROut";
     private static final String XDRRESPONSE_ACTION_IN_VALUE = "XDRResponseIn";
     private static final String XDRRESPONSE_ACTION_OUT_VALUE = "XDRResponseOut";
-    private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
-    private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
+    private static final String ASSIGNING_AUTHORITY_ATTRIBUTE_ID = Constants.ASSIGNING_AUTHORITY_ATTRIBUTE_ID;
+    private static final String PATIENT_ID_ATTRIBUTE_ID = Constants.RESOURCE_ID_ATTRIBUTE_ID;
 
     /**
      * Transform method to create a CheckPolicyRequest object from a 201306 message
      *
-     * @param request
+     * @param event
      * @return CheckPolicyRequestType
      */
 
@@ -89,12 +89,12 @@ public class XDRPolicyTransformHelper {
             ResourceType resource = new ResourceType();
             AttributeHelper attrHelper = new AttributeHelper();
             resource.getAttribute().add(
-                    attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString,
+                    attrHelper.attributeFactory(ASSIGNING_AUTHORITY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING,
                             assigningAuthorityId));
 
             LOG.debug("transformXDRToCheckPolicy: sStrippedPatientId = " + patId);
             resource.getAttribute().add(
-                    attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, patId));
+                    attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING, patId));
 
             request.getResource().add(resource);
         }
@@ -104,9 +104,9 @@ public class XDRPolicyTransformHelper {
         assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
 
         if (NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION.equals(event.getDirection())) {
-            request.setAction(ActionHelper.actionFactory(ActionOutValue));
+            request.setAction(ActionHelper.actionFactory(ACTION_OUT_VALUE));
         } else if (NhincConstants.POLICYENGINE_INBOUND_DIRECTION.equals(event.getDirection())) {
-            request.setAction(ActionHelper.actionFactory(ActionInValue));
+            request.setAction(ActionHelper.actionFactory(ACTION_IN_VALUE));
         }
 
         checkPolicyRequest.setRequest(request);

@@ -98,7 +98,7 @@ public class XDRHelperTest {
         assertEquals(1, result.getRegistryError().size());
         assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, result.getHighestSeverity());
         assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
-        assertEquals(XDRHelper.XDR_EC_XDSMissingDocument, result.getRegistryError().get(0).getErrorCode());
+        assertEquals(XDRHelper.XDR_EC_XDS_MISSING_DOCUMENT, result.getRegistryError().get(0).getErrorCode());
         assertNotNull(result.getRegistryError().get(0).getCodeContext());
 
     }
@@ -178,7 +178,7 @@ public class XDRHelperTest {
         assertEquals(1, result.getRegistryError().size());
         assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, result.getHighestSeverity());
         assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
-        assertEquals(XDRHelper.XDR_EC_XDSMissingDocument, result.getRegistryError().get(0).getErrorCode());
+        assertEquals(XDRHelper.XDR_EC_XDS_MISSING_DOCUMENT, result.getRegistryError().get(0).getErrorCode());
         assertNotNull(result.getRegistryError().get(0).getCodeContext());
 
     }
@@ -222,7 +222,7 @@ public class XDRHelperTest {
         assertEquals(1, result.getRegistryError().size());
         assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, result.getHighestSeverity());
         assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
-        assertEquals(XDRHelper.XDR_EC_XDSPatientIdDoesNotMatch, result.getRegistryError().get(0).getErrorCode());
+        assertEquals(XDRHelper.XDR_EC_XDS_PATIENT_ID_DOES_NOT_MATCH, result.getRegistryError().get(0).getErrorCode());
         assertNotNull(result.getRegistryError().get(0).getCodeContext());
     }
 

@@ -34,7 +34,7 @@ import oasis.names.tc.xacml._2_0.context.schema.os.ActionType;
  */
 public class ActionHelper {
 
-    private static final String ActionAttributeId = "urn:oasis:names:tc:xacml:1.0:action:action-id";
+    private static final String ACTION_ATTRIBUTE_ID = "urn:oasis:names:tc:xacml:1.0:action:action-id";
 
     private ActionHelper() {
     }
@@ -46,7 +46,7 @@ public class ActionHelper {
     public static ActionType actionFactory(final ActionType action, final String actionValue) {
         ActionType returnAction = action == null ? new ActionType() : action;
         returnAction.getAttribute().add(new AttributeHelper()
-            .attributeFactory(ActionAttributeId, Constants.DataTypeString, (Object) actionValue));
+            .attributeFactory(ACTION_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING, (Object) actionValue));
         return returnAction;
     }
 }

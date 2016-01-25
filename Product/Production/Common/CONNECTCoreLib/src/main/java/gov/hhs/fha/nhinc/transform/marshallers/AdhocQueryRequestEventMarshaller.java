@@ -34,13 +34,13 @@ import org.w3c.dom.Element;
  * @author rayj
  */
 public class AdhocQueryRequestEventMarshaller {
-    private static final String AdhocQueryRequestEventContextPath = "gov.hhs.fha.nhinc.common.eventcommon";
+    private static final String ADHOC_QUERY_REQUEST_EVENT_CONTEXT_PATH = "gov.hhs.fha.nhinc.common.eventcommon";
 
     public Element marshalAdhocQueryRequestEvent(AdhocQueryRequestEventType object) {
-        return new Marshaller().marshal(object, AdhocQueryRequestEventContextPath);
+        return new Marshaller().marshal(object, ADHOC_QUERY_REQUEST_EVENT_CONTEXT_PATH);
     }
 
     public AdhocQueryRequestEventType unmarshalAdhocQueryRequestEvent(Element element) {
-        return (AdhocQueryRequestEventType) new Marshaller().unmarshal(element, AdhocQueryRequestEventContextPath);
+        return (AdhocQueryRequestEventType) new Marshaller().unmarshal(element, ADHOC_QUERY_REQUEST_EVENT_CONTEXT_PATH);
     }
 }

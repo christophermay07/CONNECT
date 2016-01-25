@@ -36,7 +36,7 @@ import org.hl7.v3.TSExplicit;
  */
 public class CreationTimeHelper {
 
-    public static final String DateFormat = "yyyyMMDDhhmmss";
+    public static final String DATE_FORMAT = "yyyyMMDDhhmmss";
 
     private CreationTimeHelper() {
     }
@@ -45,7 +45,7 @@ public class CreationTimeHelper {
         TSExplicit time = new TSExplicit();
         String formattedTime;
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat(DateFormat);
+            SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
             formattedTime = sdf.format(new Date());
             time.setValue(formattedTime);
         } catch (Exception ex) {

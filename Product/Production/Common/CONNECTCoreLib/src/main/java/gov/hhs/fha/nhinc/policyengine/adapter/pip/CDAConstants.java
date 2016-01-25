@@ -115,7 +115,7 @@ public class CDAConstants {
     public static final String PURPOSE_FOR_USE_DISPLAY_NAME = "PurposeOfUseDisplayName";
     public static final String ACCESS_POLICY_CONSENT = "AccessPolicyConsent";
     public static final String INSTANCE_ACCESS_POLICY_CONSENT = "InstanceAccessPolicyConsent";
-    public static final String SubscribeeCommunityList_PROPFILE_NAME = "SubscribeeCommunityList";
+    public static final String SUBSCRIBEE_COMMUNITY_LIST_PROPFILE_NAME = "SubscribeeCommunityList";
     public static final String EBXML_RESPONSE_PATIENTID_IDENTIFICATION_SCHEME = "urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427";
     public static final String ENTITY_NOTIFICATION_CONSUMER_ENDPOINT_URL = "EntityNotificationConsumerURL";
 

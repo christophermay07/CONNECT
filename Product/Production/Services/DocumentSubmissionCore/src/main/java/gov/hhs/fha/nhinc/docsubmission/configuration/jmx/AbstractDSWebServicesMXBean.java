@@ -48,16 +48,16 @@ public abstract class AbstractDSWebServicesMXBean extends AbstractWebServicesMXB
     public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docsubmission.outbound.PassthroughOutboundDocSubmission";
 
     /** The Constant Standard_OutboundOrch_DS_BEAN_NAME. */
-    private static final String StdOutbound_DS_Bean_Name = "stdDSOutbound";
+    private static final String STD_OUTBOUND_DS_BEAN_NAME = "stdDSOutbound";
 
     /** The Constant Passthrough_OutboundOrch_DS_BEAN_NAME. */
-    private static final String PtOutbound_DS_Bean_Name = "ptDSOutbound";
+    private static final String PT_OUTBOUND_DS_BEAN_NAME = "ptDSOutbound";
 
     /** The Constant Standard_InboundOrch_DS_BEAN_NAME. */
-    private static final String StdInbound_DS_Bean_Name = "stdDSInbound";
+    private static final String STD_INBOUND_DS_BEAN_NAME = "stdDSInbound";
 
     /** The Constant Passthrough_InboundOrch_DS_BEAN_NAME. */
-    private static final String PtInbound_DS_Bean_Name = "ptDSInbound";
+    private static final String PT_INBOUND_DS_BEAN_NAME = "ptDSInbound";
 
     /**
      * @param sc
@@ -73,7 +73,7 @@ public abstract class AbstractDSWebServicesMXBean extends AbstractWebServicesMXB
      */
     @Override
     protected String getStandardOutboundBeanName() {
-        return StdOutbound_DS_Bean_Name;
+        return STD_OUTBOUND_DS_BEAN_NAME;
     }
 
     /*
@@ -83,7 +83,7 @@ public abstract class AbstractDSWebServicesMXBean extends AbstractWebServicesMXB
      */
     @Override
     protected String getPassthroughOutboundBeanName() {
-        return PtOutbound_DS_Bean_Name;
+        return PT_OUTBOUND_DS_BEAN_NAME;
     }
 
     /*
@@ -93,7 +93,7 @@ public abstract class AbstractDSWebServicesMXBean extends AbstractWebServicesMXB
      */
     @Override
     protected String getStandardInboundBeanName() {
-        return StdInbound_DS_Bean_Name;
+        return STD_INBOUND_DS_BEAN_NAME;
     }
 
     /*
@@ -103,7 +103,7 @@ public abstract class AbstractDSWebServicesMXBean extends AbstractWebServicesMXB
      */
     @Override
     protected String getPassthroughInboundBeanName() {
-        return PtInbound_DS_Bean_Name;
+        return PT_INBOUND_DS_BEAN_NAME;
     }
 
 

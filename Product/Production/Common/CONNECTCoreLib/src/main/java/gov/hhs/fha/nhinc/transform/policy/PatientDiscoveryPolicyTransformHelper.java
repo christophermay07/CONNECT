@@ -57,8 +57,8 @@ public class PatientDiscoveryPolicyTransformHelper {
     private static final Logger LOG = LoggerFactory.getLogger(PatientDiscoveryPolicyTransformHelper.class);
     private static final String ACTION_IN_VALUE = "PatientDiscoveryIn";
     private static final String ACTION_OUT_VALUE = "PatientDiscoveryOut";
-    private static final String PATIENT_ASSIGNING_AUTHORITY_ATTRIBUTE_ID = Constants.AssigningAuthorityAttributeId;
-    private static final String PATIENT_ID_ATTRIBUTE_ID = Constants.ResourceIdAttributeId;
+    private static final String PATIENT_ASSIGNING_AUTHORITY_ATTRIBUTE_ID = Constants.ASSIGNING_AUTHORITY_ATTRIBUTE_ID;
+    private static final String PATIENT_ID_ATTRIBUTE_ID = Constants.RESOURCE_ID_ATTRIBUTE_ID;
 
     /**
      * Transform method to create a CheckPolicyRequest object from a 201306 message.
@@ -93,7 +93,7 @@ public class PatientDiscoveryPolicyTransformHelper {
             AttributeHelper attrHelper = new AttributeHelper();
 
             resource.getAttribute().add(
-                attrHelper.attributeFactory(PATIENT_ASSIGNING_AUTHORITY_ATTRIBUTE_ID, Constants.DataTypeString,
+                attrHelper.attributeFactory(PATIENT_ASSIGNING_AUTHORITY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING,
                     qualifiedPatientIdentifier.getRoot()));
 
             String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(qualifiedPatientIdentifier.getExtension());
@@ -101,7 +101,7 @@ public class PatientDiscoveryPolicyTransformHelper {
             LOG.debug("transformPatientDiscoveryNhincToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
 
             resource.getAttribute().add(
-                attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DataTypeString, sStrippedPatientId));
+                attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING, sStrippedPatientId));
 
             request.getResource().add(resource);
 
@@ -144,7 +144,7 @@ public class PatientDiscoveryPolicyTransformHelper {
         SubjectHelper subjHelp = new SubjectHelper();
 
         SubjectType subject = new SubjectType();
-        subject.setSubjectCategory(SubjectHelper.SubjectCategory);
+        subject.setSubjectCategory(SubjectHelper.SUBJECT_CATEGORY);
 
         LOG.debug("Adding subject.");
 
@@ -157,7 +157,7 @@ public class PatientDiscoveryPolicyTransformHelper {
 
         if (qualifiedPatientIdentifier != null) {
             resource.getAttribute().add(
-                attrHelper.attributeFactory(PATIENT_ASSIGNING_AUTHORITY_ATTRIBUTE_ID, Constants.DataTypeString,
+                attrHelper.attributeFactory(PATIENT_ASSIGNING_AUTHORITY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING,
                     qualifiedPatientIdentifier.getRoot()));
 
             String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(qualifiedPatientIdentifier.getExtension());
@@ -165,14 +165,14 @@ public class PatientDiscoveryPolicyTransformHelper {
             LOG.debug("transformPRPAIN201305UV02ToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
 
             resource.getAttribute().add(
-                attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DataTypeString, sStrippedPatientId));
+                attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING, sStrippedPatientId));
         }
 
         HomeCommunityType homeCommunityId = extractHomeCommunityId(prpain201305UV02);
 
         if (homeCommunityId != null) {
             resource.getAttribute().add(
-                attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString,
+                attrHelper.attributeFactory(Constants.HOME_COMMUNITY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING,
                     subjHelp.determineSendingHomeCommunityId(homeCommunityId, assertion)));
         }
 
@@ -337,7 +337,7 @@ public class PatientDiscoveryPolicyTransformHelper {
             resource = new ResourceType();
 
             resource.getAttribute().add(
-                attrHelper.attributeFactory(PATIENT_ASSIGNING_AUTHORITY_ATTRIBUTE_ID, Constants.DataTypeString,
+                attrHelper.attributeFactory(PATIENT_ASSIGNING_AUTHORITY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING,
                     ii.getRoot()));
 
             String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(ii.getExtension());
@@ -345,7 +345,7 @@ public class PatientDiscoveryPolicyTransformHelper {
             LOG.debug("transformSubjectAddedInToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
 
             resource.getAttribute().add(
-                attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DataTypeString, sStrippedPatientId));
+                attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING, sStrippedPatientId));
 
             request.getResource().add(resource);
         }
@@ -369,7 +369,7 @@ public class PatientDiscoveryPolicyTransformHelper {
             resource = new ResourceType();
 
             resource.getAttribute().add(
-                attrHelper.attributeFactory(PATIENT_ASSIGNING_AUTHORITY_ATTRIBUTE_ID, Constants.DataTypeString,
+                attrHelper.attributeFactory(PATIENT_ASSIGNING_AUTHORITY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING,
                     ii.getRoot()));
 
             String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(ii.getExtension());
@@ -377,7 +377,7 @@ public class PatientDiscoveryPolicyTransformHelper {
             LOG.debug("transformSubjectAddedInToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
 
             resource.getAttribute().add(
-                attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DataTypeString, sStrippedPatientId));
+                attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING, sStrippedPatientId));
 
             request.getResource().add(resource);
         }
@@ -401,7 +401,7 @@ public class PatientDiscoveryPolicyTransformHelper {
             resource = new ResourceType();
 
             resource.getAttribute().add(
-                attrHelper.attributeFactory(PATIENT_ASSIGNING_AUTHORITY_ATTRIBUTE_ID, Constants.DataTypeString,
+                attrHelper.attributeFactory(PATIENT_ASSIGNING_AUTHORITY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING,
                     ii.getRoot()));
 
             String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(ii.getExtension());
@@ -409,7 +409,7 @@ public class PatientDiscoveryPolicyTransformHelper {
             LOG.debug("transformSubjectAddedInToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
 
             resource.getAttribute().add(
-                attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DataTypeString, sStrippedPatientId));
+                attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING, sStrippedPatientId));
 
             request.getResource().add(resource);
         }

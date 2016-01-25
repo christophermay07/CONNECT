@@ -91,7 +91,7 @@ public class SenderReceiverHelperMCCIMT000200UV01 {
     private static MCCIMT000200UV01Device createDevice(II deviceId) {
 
         MCCIMT000200UV01Device device = new MCCIMT000200UV01Device();
-        device.setDeterminerCode(Constants.determinerCodeValue);
+        device.setDeterminerCode(Constants.DETERMINER_CODE_VALUE);
         device.setClassCode(EntityClassDevice.DEV);
 
         device.getId().add(deviceId);

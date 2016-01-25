@@ -1385,7 +1385,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getUniquePatientId().get(0);
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", XacmlAttributeId.UniquePatientId, sourceValue,
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", XacmlAttributeId.UNIQUE_PATIENT_ID, sourceValue,
                 II_DATATYPE);
     }
 
@@ -1395,7 +1395,7 @@ public class AssertionHelperTest {
         assertion.getUniquePatientId().clear();
         assertion.getUniquePatientId().add(null);
         String sourceValue = assertion.getUniquePatientId().get(0);
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", XacmlAttributeId.UniquePatientId, sourceValue,
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", XacmlAttributeId.UNIQUE_PATIENT_ID, sourceValue,
                 II_DATATYPE);
     }
 }

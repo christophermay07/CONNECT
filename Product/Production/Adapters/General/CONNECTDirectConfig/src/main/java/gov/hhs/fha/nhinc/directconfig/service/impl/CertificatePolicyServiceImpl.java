@@ -67,7 +67,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 @Service("certPolicySvc")
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.CertificatePolicyService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config")
 public class CertificatePolicyServiceImpl extends SpringBeanAutowiringSupport implements CertificatePolicyService {
-    private static final Log log = LogFactory.getLog(CertificatePolicyServiceImpl.class);
+    private static final Log LOG = LogFactory.getLog(CertificatePolicyServiceImpl.class);
 
     @Autowired
     private CertPolicyDao dao;
@@ -78,7 +78,7 @@ public class CertificatePolicyServiceImpl extends SpringBeanAutowiringSupport im
     @PostConstruct
     public void init() {
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-        log.info("CertificatePolicyServiceImpl initialized");
+        LOG.info("CertificatePolicyServiceImpl initialized");
     }
 
     /**

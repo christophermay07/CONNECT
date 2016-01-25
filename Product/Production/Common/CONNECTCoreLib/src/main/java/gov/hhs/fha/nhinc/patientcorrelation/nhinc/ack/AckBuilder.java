@@ -35,11 +35,11 @@ import org.hl7.v3.*;
  */
 public class AckBuilder {
 
-    private static final String AcceptAckCodeValue = "NE";
-    private static final String ITSVersion = "XML_1.0";
-    private static final String InteractionIdExtension = "MCCI_IN000002UV01";
-    private static final String ProcessingCodeValue = "P";
-    private static final String ProcessingModeCode = "R";
+    private static final String ACCEPT_ACK_CODE_VALUE = "NE";
+    private static final String ITS_VERSION = "XML_1.0";
+    private static final String INTERACTION_ID_EXTENSION = "MCCI_IN000002UV01";
+    private static final String PROCESSING_CODE_VALUE = "P";
+    private static final String PROCESSING_MODE_CODE = "R";
 
     private AckBuilder() {
     }
@@ -70,14 +70,14 @@ public class AckBuilder {
         II originalMessageId) {
         MCCIIN000002UV01 message = new MCCIIN000002UV01();
 
-        message.setITSVersion(ITSVersion);
+        message.setITSVersion(ITS_VERSION);
         message.setId(UniqueIdHelper.createUniqueId());
         message.setCreationTime(CreationTimeHelper.getCreationTime());
-        message.setInteractionId(InteractionIdHelper.createInteractionId(InteractionIdExtension));
+        message.setInteractionId(InteractionIdHelper.createInteractionId(INTERACTION_ID_EXTENSION));
 
-        message.setProcessingCode(CSHelper.buildCS(ProcessingCodeValue));
-        message.setProcessingModeCode(CSHelper.buildCS(ProcessingModeCode));
-        message.setAcceptAckCode(CSHelper.buildCS(AcceptAckCodeValue));
+        message.setProcessingCode(CSHelper.buildCS(PROCESSING_CODE_VALUE));
+        message.setProcessingModeCode(CSHelper.buildCS(PROCESSING_MODE_CODE));
+        message.setAcceptAckCode(CSHelper.buildCS(ACCEPT_ACK_CODE_VALUE));
 
         message.getReceiver().add(SenderReceiverHelperMCCIMT000200UV01.CreateReceiver(receiverId));
         message.setSender(SenderReceiverHelperMCCIMT000200UV01.CreateSender(senderId));

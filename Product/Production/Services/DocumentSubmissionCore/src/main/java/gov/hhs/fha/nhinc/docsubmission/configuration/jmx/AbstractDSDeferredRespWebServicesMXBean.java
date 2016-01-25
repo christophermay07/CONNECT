@@ -49,16 +49,16 @@ public abstract class AbstractDSDeferredRespWebServicesMXBean extends AbstractWe
     public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response.PassthroughOutboundDocSubmissionDeferredResponse";
 
     /** The Constant Standard_OutboundOrch_DS_BEAN_NAME. */
-    private static final String StdOutbound_DS_Bean_Name = "stdDSRespOutbound";
+    private static final String STD_OUTBOUND_DS_BEAN_NAME = "stdDSRespOutbound";
 
     /** The Constant Passthrough_OutboundOrch_DS_BEAN_NAME. */
-    private static final String PtOutbound_DS_Bean_Name = "ptDSRespOutbound";
+    private static final String PT_OUTBOUND_DS_BEAN_NAME = "ptDSRespOutbound";
 
     /** The Constant Standard_InboundOrch_DS_BEAN_NAME. */
-    private static final String StdInbound_DS_Bean_Name = "stdDSRespInbound";
+    private static final String STD_INBOUND_DS_BEAN_NAME = "stdDSRespInbound";
 
     /** The Constant Passthrough_InboundOrch_DS_BEAN_NAME. */
-    private static final String PtInbound_DS_Bean_Name = "ptDSRespInbound";
+    private static final String PT_INBOUND_DS_BEAN_NAME = "ptDSRespInbound";
 
     /**
      * Instantiates a new abstract ds deferred req web services mx bean.
@@ -76,7 +76,7 @@ public abstract class AbstractDSDeferredRespWebServicesMXBean extends AbstractWe
      */
     @Override
     protected String getStandardOutboundBeanName() {
-        return StdOutbound_DS_Bean_Name;
+        return STD_OUTBOUND_DS_BEAN_NAME;
     }
 
     /*
@@ -86,7 +86,7 @@ public abstract class AbstractDSDeferredRespWebServicesMXBean extends AbstractWe
      */
     @Override
     protected String getPassthroughOutboundBeanName() {
-        return PtOutbound_DS_Bean_Name;
+        return PT_OUTBOUND_DS_BEAN_NAME;
     }
 
     /*
@@ -96,7 +96,7 @@ public abstract class AbstractDSDeferredRespWebServicesMXBean extends AbstractWe
      */
     @Override
     protected String getStandardInboundBeanName() {
-        return StdInbound_DS_Bean_Name;
+        return STD_INBOUND_DS_BEAN_NAME;
     }
 
     /*
@@ -106,7 +106,7 @@ public abstract class AbstractDSDeferredRespWebServicesMXBean extends AbstractWe
      */
     @Override
     protected String getPassthroughInboundBeanName() {
-        return PtInbound_DS_Bean_Name;
+        return PT_INBOUND_DS_BEAN_NAME;
     }
 
     /**

@@ -41,12 +41,12 @@ public class IIHelper {
 
     public static II IIFactoryCreateNull(String nullFlavor) {
         II ii = new II();
-        ii.getNullFlavor().add(Constants.NullFlavor_NotAvailable);
+        ii.getNullFlavor().add(Constants.NULL_FLAVOR_NOT_AVAILABLE);
         return ii;
     }
 
     public static II IIFactoryCreateNull() {
-        return IIFactoryCreateNull(Constants.NullFlavor_NotAvailable);
+        return IIFactoryCreateNull(Constants.NULL_FLAVOR_NOT_AVAILABLE);
     }
 
     public static II IIFactory(String root, String extension) {

@@ -73,22 +73,22 @@ public abstract class AbstractPDDeferredResponseWebServicesMXBean extends Abstra
     /**
      * The Constant Standard_OutboundOrch_PDDeferredResponse_BEAN_NAME.
      */
-    private static final String StdOutbound_PD_Bean_Name = "stdPDRespOutbound";
+    private static final String STD_OUTBOUND_PD_BEAN_NAME = "stdPDRespOutbound";
 
     /**
      * The Constant Passthrough_OutboundOrch_PDDeferredResponse_BEAN_NAME.
      */
-    private static final String PtOutbound_PD_Bean_Name = "ptPDRespOutbound";
+    private static final String PT_OUTBOUND_PD_BEAN_NAME = "ptPDRespOutbound";
 
     /**
      * The Constant Standard_InboundOrch_PDDeferredResponse_BEAN_NAME.
      */
-    private static final String StdInbound_PD_Bean_Name = "stdPDRespInbound";
+    private static final String STD_INBOUND_PD_BEAN_NAME = "stdPDRespInbound";
 
     /**
      * The Constant Passthrough_InboundOrch_PDDeferredResponse_BEAN_NAME.
      */
-    private static final String PtInbound_PD_Bean_Name = "ptPDRespInbound";
+    private static final String PT_INBOUND_PD_BEAN_NAME = "ptPDRespInbound";
 
     /**
      * Constructor for AbstractPDWebServicesMXBean.
@@ -116,7 +116,7 @@ public abstract class AbstractPDDeferredResponseWebServicesMXBean extends Abstra
      */
     @Override
     protected String getStandardOutboundBeanName() {
-        return StdOutbound_PD_Bean_Name;
+        return STD_OUTBOUND_PD_BEAN_NAME;
     }
 
     /*
@@ -126,7 +126,7 @@ public abstract class AbstractPDDeferredResponseWebServicesMXBean extends Abstra
      */
     @Override
     protected String getPassthroughOutboundBeanName() {
-        return PtOutbound_PD_Bean_Name;
+        return PT_OUTBOUND_PD_BEAN_NAME;
     }
 
     /*
@@ -136,7 +136,7 @@ public abstract class AbstractPDDeferredResponseWebServicesMXBean extends Abstra
      */
     @Override
     protected String getStandardInboundBeanName() {
-        return StdInbound_PD_Bean_Name;
+        return STD_INBOUND_PD_BEAN_NAME;
     }
 
     /*
@@ -146,7 +146,7 @@ public abstract class AbstractPDDeferredResponseWebServicesMXBean extends Abstra
      */
     @Override
     protected String getPassthroughInboundBeanName() {
-        return PtInbound_PD_Bean_Name;
+        return PT_INBOUND_PD_BEAN_NAME;
     }
 
     /*

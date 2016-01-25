@@ -46,16 +46,16 @@ public abstract class AbstractDQWebServicesMXBean extends AbstractWebServicesMXB
     private static final String ENTITY_SECURED_DQ_BEAN_NAME = "entityDQSecured";
 
     /** The Constant Standard_OutboundOrch_PD_BEAN_NAME. */
-    private static final String StdOutbound_DQ_Bean_Name = "stdDQOutbound";
+    private static final String STD_OUTBOUND_DQ_BEAN_NAME = "stdDQOutbound";
 
     /** The Constant Passthrough_OutboundOrch_PD_BEAN_NAME. */
-    private static final String PtOutbound_DQ_Bean_Name = "ptDQOutbound";
+    private static final String PT_OUTBOUND_DQ_BEAN_NAME = "ptDQOutbound";
 
     /** The Constant Standard_InboundOrch_PD_BEAN_NAME. */
-    private static final String StdInbound_DQ_Bean_Name = "stdDQInbound";
+    private static final String STD_INBOUND_DQ_BEAN_NAME = "stdDQInbound";
 
     /** The Constant Passthrough_InboundOrch_PD_BEAN_NAME. */
-    private static final String PtInbound_DQ_Bean_Name = "ptDQInbound";
+    private static final String PT_INBOUND_DQ_BEAN_NAME = "ptDQInbound";
 
     /** The Constant DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME. */
     public static final String DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docquery.inbound.StandardInboundDocQuery";
@@ -95,7 +95,7 @@ public abstract class AbstractDQWebServicesMXBean extends AbstractWebServicesMXB
      */
     @Override
     protected String getStandardOutboundBeanName() {
-        return StdOutbound_DQ_Bean_Name;
+        return STD_OUTBOUND_DQ_BEAN_NAME;
     }
 
     /*
@@ -105,7 +105,7 @@ public abstract class AbstractDQWebServicesMXBean extends AbstractWebServicesMXB
      */
     @Override
     protected String getPassthroughOutboundBeanName() {
-        return PtOutbound_DQ_Bean_Name;
+        return PT_OUTBOUND_DQ_BEAN_NAME;
     }
 
     /*
@@ -115,7 +115,7 @@ public abstract class AbstractDQWebServicesMXBean extends AbstractWebServicesMXB
      */
     @Override
     protected String getStandardInboundBeanName() {
-        return StdInbound_DQ_Bean_Name;
+        return STD_INBOUND_DQ_BEAN_NAME;
     }
 
     /*
@@ -125,7 +125,7 @@ public abstract class AbstractDQWebServicesMXBean extends AbstractWebServicesMXB
      */
     @Override
     protected String getPassthroughInboundBeanName() {
-        return PtInbound_DQ_Bean_Name;
+        return PT_INBOUND_DQ_BEAN_NAME;
     }
 
 

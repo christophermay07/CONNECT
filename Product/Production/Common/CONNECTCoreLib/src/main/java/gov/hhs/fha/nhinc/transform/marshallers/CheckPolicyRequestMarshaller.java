@@ -34,13 +34,13 @@ import org.w3c.dom.Element;
  * @author rayj
  */
 public class CheckPolicyRequestMarshaller {
-    private static final String CheckPolicyRequestContextPath = "gov.hhs.fha.nhinc.common.nhinccommonadapter";
+    private static final String CHECK_POLICY_REQUEST_CONTEXT_PATH = "gov.hhs.fha.nhinc.common.nhinccommonadapter";
 
     public Element marshalCheckPolicyRequest(CheckPolicyRequestType object) {
-        return new Marshaller().marshal(object, CheckPolicyRequestContextPath);
+        return new Marshaller().marshal(object, CHECK_POLICY_REQUEST_CONTEXT_PATH);
     }
 
     public CheckPolicyRequestType unmarshalCheckPolicyRequest(Element element) {
-        return (CheckPolicyRequestType) new Marshaller().unmarshal(element, CheckPolicyRequestContextPath);
+        return (CheckPolicyRequestType) new Marshaller().unmarshal(element, CHECK_POLICY_REQUEST_CONTEXT_PATH);
     }
 }

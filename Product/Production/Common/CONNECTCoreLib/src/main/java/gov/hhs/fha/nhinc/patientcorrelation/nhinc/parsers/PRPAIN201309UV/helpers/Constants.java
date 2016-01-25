@@ -32,8 +32,8 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helper
  */
 public class Constants {
 
-    public static final String NullFlavor_NotAvailable = "NA";
-    public static final String determinerCodeValue = "INSTANCE";
+    public static final String NULL_FLAVOR_NOT_AVAILABLE = "NA";
+    public static final String DETERMINER_CODE_VALUE = "INSTANCE";
     public static final String HL7_OID = "2.16.840.1.113883.1.6";
 
     private Constants() {

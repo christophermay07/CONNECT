@@ -46,8 +46,8 @@ import org.slf4j.LoggerFactory;
 public class DocRetrieveTransformHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(DocRetrieveTransformHelper.class);
-    private static final String ActionInValue = "DocumentRetrieveIn";
-    private static final String ActionOutValue = "DocumentRetrieveOut";
+    private static final String ACTION_IN_VALUE = "DocumentRetrieveIn";
+    private static final String ACTION_OUT_VALUE = "DocumentRetrieveOut";
 
     private DocRetrieveTransformHelper() {
     }
@@ -58,10 +58,10 @@ public class DocRetrieveTransformHelper {
         RequestType request = new RequestType();
 
         if (InboundOutboundChecker.isInbound(event.getDirection())) {
-            request.setAction(ActionHelper.actionFactory(ActionInValue));
+            request.setAction(ActionHelper.actionFactory(ACTION_IN_VALUE));
         }
         if (InboundOutboundChecker.isOutbound(event.getDirection())) {
-            request.setAction(ActionHelper.actionFactory(ActionOutValue));
+            request.setAction(ActionHelper.actionFactory(ACTION_OUT_VALUE));
         }
 
         SubjectHelper subjHelp = new SubjectHelper();
@@ -96,13 +96,13 @@ public class DocRetrieveTransformHelper {
         ResourceType resource = new ResourceType();
         AttributeHelper attrHelper = new AttributeHelper();
         resource.getAttribute().add(
-                attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString,
+                attrHelper.attributeFactory(Constants.HOME_COMMUNITY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING,
                         homeCommunityId));
         resource.getAttribute().add(
-                attrHelper.attributeFactory(Constants.RespositoryAttributeId, Constants.DataTypeString,
+                attrHelper.attributeFactory(Constants.REPOSITORY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING,
                         repositoryUniqueId));
         resource.getAttribute().add(
-                attrHelper.attributeFactory(Constants.DocumentAttributeId, Constants.DataTypeString, documentId));
+                attrHelper.attributeFactory(Constants.DOCUMENT_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING, documentId));
         return resource;
     }
 }

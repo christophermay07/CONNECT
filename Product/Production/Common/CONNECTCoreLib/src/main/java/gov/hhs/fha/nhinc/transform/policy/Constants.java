@@ -32,19 +32,19 @@ package gov.hhs.fha.nhinc.transform.policy;
  */
 public class Constants {
 
-    public static final String HomeCommunityAttributeId = "urn:gov:hhs:fha:nhinc:home-community-id";
-    public static final String AssigningAuthorityAttributeId = "urn:gov:hhs:fha:nhinc:assigning-authority-id";
-    public static final String ResourceIdAttributeId = "urn:oasis:names:tc:xacml:1.0:resource:resource-id";
-    public static final String RespositoryAttributeId = "urn:gov:hhs:fha:nhinc:document-repository-id";
-    public static final String DocumentAttributeId = "urn:gov:hhs:fha:nhinc:document-id";
+    public static final String HOME_COMMUNITY_ATTRIBUTE_ID = "urn:gov:hhs:fha:nhinc:home-community-id";
+    public static final String ASSIGNING_AUTHORITY_ATTRIBUTE_ID = "urn:gov:hhs:fha:nhinc:assigning-authority-id";
+    public static final String RESOURCE_ID_ATTRIBUTE_ID = "urn:oasis:names:tc:xacml:1.0:resource:resource-id";
+    public static final String REPOSITORY_ATTRIBUTE_ID = "urn:gov:hhs:fha:nhinc:document-repository-id";
+    public static final String DOCUMENT_ATTRIBUTE_ID = "urn:gov:hhs:fha:nhinc:document-id";
 
     public static final String ATTRIBUTE_ID_SUBSCRIPTION_TOPIC = "urn:gov:hhs:fha:nhinc:subscription-topic";
 
-    public static final String DataTypeString = "http://www.w3.org/2001/XMLSchema#string";
-    public static final String DataTypeBinary = "http://www.w3.org/2001/XMLSchema#base64Binary";
-    public static final String DataTypeDate = "http://www.w3.org/2001/XMLSchema#date";
-    public static final String DataTypeAnyURI = "http://www.w3.org/2001/XMLSchema#anyURI";
-    public static final String DataTypeHL7II = "urn:hl7-org:v3#II";
+    public static final String DATA_TYPE_STRING = "http://www.w3.org/2001/XMLSchema#string";
+    public static final String DATA_TYPE_BINARY = "http://www.w3.org/2001/XMLSchema#base64Binary";
+    public static final String DATA_TYPE_DATE = "http://www.w3.org/2001/XMLSchema#date";
+    public static final String DATA_TYPE_ANY_URI = "http://www.w3.org/2001/XMLSchema#anyURI";
+    public static final String DATA_TYPE_HL7_II = "urn:hl7-org:v3#II";
 
     private Constants() {
     }

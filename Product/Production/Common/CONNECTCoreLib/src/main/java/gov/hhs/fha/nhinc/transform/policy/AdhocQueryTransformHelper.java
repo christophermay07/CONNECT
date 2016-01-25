@@ -51,8 +51,8 @@ public class AdhocQueryTransformHelper {
     private static final Logger LOG = LoggerFactory.getLogger(AdhocQueryTransformHelper.class);
     private static final String ACTIONVALUEIN = "DocumentQueryIn";
     private static final String ACTIONVALUEOUT = "DocumentQueryOut";
-    private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
-    private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
+    private static final String ASSIGNING_AUTHORITY_ATTRIBUTE_ID = Constants.ASSIGNING_AUTHORITY_ATTRIBUTE_ID;
+    private static final String PATIENT_ID_ATTRIBUTE_ID = Constants.RESOURCE_ID_ATTRIBUTE_ID;
 
     private AdhocQueryTransformHelper() {
     }
@@ -116,10 +116,10 @@ public class AdhocQueryTransformHelper {
         LOG.debug("transformAdhocQueryResponseToCheckPolicyBase PatientId: " + sStrippedPatientId);
 
         resource.getAttribute().add(
-            attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, aaId));
+            attrHelper.attributeFactory(ASSIGNING_AUTHORITY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING, aaId));
 
         resource.getAttribute().add(
-            attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
+            attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING, sStrippedPatientId));
         request.getResource().add(resource);
 
         SubjectHelper subjHelp = new SubjectHelper();
@@ -159,7 +159,7 @@ public class AdhocQueryTransformHelper {
                 .getResource()
                 .get(0)
                 .getAttribute()
-                .add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString,
+                .add(attrHelper.attributeFactory(Constants.HOME_COMMUNITY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING,
                 CommunityHelper.extractCommunityId(event.getReceivingHomeCommunity())));
         }
         return checkPolicy;
@@ -203,10 +203,10 @@ public class AdhocQueryTransformHelper {
         ResourceType resource = new ResourceType();
         AttributeHelper attrHelper = new AttributeHelper();
         resource.getAttribute().add(
-            attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, aaId));
+            attrHelper.attributeFactory(ASSIGNING_AUTHORITY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING, aaId));
 
         resource.getAttribute().add(
-            attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
+            attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING, sStrippedPatientId));
         request.getResource().add(resource);
 
         SubjectHelper subjHelp = new SubjectHelper();
@@ -243,7 +243,7 @@ public class AdhocQueryTransformHelper {
                 .getResource()
                 .get(0)
                 .getAttribute()
-                .add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString,
+                .add(attrHelper.attributeFactory(Constants.HOME_COMMUNITY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING,
                 CommunityHelper.extractCommunityId(event.getReceivingHomeCommunity())));
         }
         return checkPolicy;

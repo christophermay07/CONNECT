@@ -165,7 +165,7 @@ public class PatientDiscoveryPolicyTransformHelperTest {
         boolean match = false;
 
         for (AttributeType attr : result.getRequest().getResource().get(0).getAttribute()) {
-            if (attr.getAttributeId().equalsIgnoreCase(Constants.HomeCommunityAttributeId)) {
+            if (attr.getAttributeId().equalsIgnoreCase(Constants.HOME_COMMUNITY_ATTRIBUTE_ID)) {
                 if (((String) attr.getAttributeValue().get(0).getContent().get(0)).equalsIgnoreCase(hcid)) {
                     match = true;
                     break;
@@ -183,7 +183,7 @@ public class PatientDiscoveryPolicyTransformHelperTest {
         boolean patIdMatch = false;
 
         for (AttributeType attr : result.getRequest().getResource().get(0).getAttribute()) {
-            if (attr.getAttributeId().equalsIgnoreCase(Constants.AssigningAuthorityAttributeId)) {
+            if (attr.getAttributeId().equalsIgnoreCase(Constants.ASSIGNING_AUTHORITY_ATTRIBUTE_ID)) {
                 if (((String) attr.getAttributeValue().get(0).getContent().get(0)).equalsIgnoreCase(patId.getRoot())) {
                     aaMatch = true;
                     break;
@@ -192,7 +192,7 @@ public class PatientDiscoveryPolicyTransformHelperTest {
         }
 
         for (AttributeType attr : result.getRequest().getResource().get(0).getAttribute()) {
-            if (attr.getAttributeId().equalsIgnoreCase(Constants.ResourceIdAttributeId)) {
+            if (attr.getAttributeId().equalsIgnoreCase(Constants.RESOURCE_ID_ATTRIBUTE_ID)) {
                 if (((String) attr.getAttributeValue().get(0).getContent().get(0)).equalsIgnoreCase(patId
                         .getExtension())) {
                     patIdMatch = true;
@@ -212,14 +212,14 @@ public class PatientDiscoveryPolicyTransformHelperTest {
         boolean patIdMatch = false;
 
         for (AttributeType attr : result.getRequest().getResource().get(0).getAttribute()) {
-            if (attr.getAttributeId().equalsIgnoreCase(Constants.AssigningAuthorityAttributeId)) {
+            if (attr.getAttributeId().equalsIgnoreCase(Constants.ASSIGNING_AUTHORITY_ATTRIBUTE_ID)) {
                 aaMatch = true;
                 break;
             }
         }
 
         for (AttributeType attr : result.getRequest().getResource().get(0).getAttribute()) {
-            if (attr.getAttributeId().equalsIgnoreCase(Constants.ResourceIdAttributeId)) {
+            if (attr.getAttributeId().equalsIgnoreCase(Constants.RESOURCE_ID_ATTRIBUTE_ID)) {
                 patIdMatch = true;
                 break;
             }

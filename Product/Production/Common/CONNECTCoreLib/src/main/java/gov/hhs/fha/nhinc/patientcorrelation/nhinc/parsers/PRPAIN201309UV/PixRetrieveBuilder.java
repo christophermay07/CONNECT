@@ -61,15 +61,14 @@ import org.hl7.v3.XParticipationAuthorPerformer;
  */
 public class PixRetrieveBuilder {
 
-    private AssigningAuthorityHomeCommunityMappingHelper aaMappingHelper;
+    private final AssigningAuthorityHomeCommunityMappingHelper aaMappingHelper;
 
-    public static final String ControlActProcessCode = "PRPA_TE201309UV";
-    private static final String AcceptAckCodeValue = "AL";
-    private static final String InteractionIdExtension = "PRPA_IN201309";
-    private static final String ProcessingCodeValue = "P";
-    private static final String ProcessingModeCode = "T";
-    private static final String ITSVersion = "XML_1.0";
-    private static final String MoodCodeValue = "EVN";
+    public static final String CONTROL_ACT_PROCESS_CODE = "PRPA_TE201309UV";
+    private static final String ACCEPT_ACK_CODE_VALUE = "AL";
+    private static final String INTERACTION_ID_EXTENSION = "PRPA_IN201309";
+    private static final String PROCESSING_CODE_VALUE = "P";
+    private static final String PROCESSING_MODE_CODE = "T";
+    private static final String ITS_VERSION = "XML_1.0";
 
     /**
      *
@@ -163,14 +162,14 @@ public class PixRetrieveBuilder {
     private static PRPAIN201309UV02 createTransmissionWrapper(String senderId, String receiverId) {
         PRPAIN201309UV02 message = new PRPAIN201309UV02();
 
-        message.setITSVersion(ITSVersion);
+        message.setITSVersion(ITS_VERSION);
         message.setId(UniqueIdHelper.createUniqueId());
         message.setCreationTime(CreationTimeHelper.getCreationTime());
-        message.setInteractionId(InteractionIdHelper.createInteractionId(InteractionIdExtension));
+        message.setInteractionId(InteractionIdHelper.createInteractionId(INTERACTION_ID_EXTENSION));
 
-        message.setProcessingCode(CSHelper.buildCS(ProcessingCodeValue));
-        message.setProcessingModeCode(CSHelper.buildCS(ProcessingModeCode));
-        message.setAcceptAckCode(CSHelper.buildCS(AcceptAckCodeValue));
+        message.setProcessingCode(CSHelper.buildCS(PROCESSING_CODE_VALUE));
+        message.setProcessingModeCode(CSHelper.buildCS(PROCESSING_MODE_CODE));
+        message.setAcceptAckCode(CSHelper.buildCS(ACCEPT_ACK_CODE_VALUE));
 
         message.getReceiver().add(SenderReceiverHelper.CreateReceiver(receiverId));
         message.setSender(SenderReceiverHelper.CreateSender(senderId));
@@ -182,7 +181,7 @@ public class PixRetrieveBuilder {
         PRPAIN201309UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201309UV02QUQIMT021001UV01ControlActProcess();
 
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
-        controlActProcess.setCode(CDHelper.CDFactory(ControlActProcessCode, Constants.HL7_OID));
+        controlActProcess.setCode(CDHelper.CDFactory(CONTROL_ACT_PROCESS_CODE, Constants.HL7_OID));
         controlActProcess.getAuthorOrPerformer().add(createAuthor());
 
         return controlActProcess;

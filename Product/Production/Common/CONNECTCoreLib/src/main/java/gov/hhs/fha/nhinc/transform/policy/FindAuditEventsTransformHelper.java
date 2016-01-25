@@ -43,10 +43,10 @@ import org.slf4j.LoggerFactory;
 public class FindAuditEventsTransformHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(FindAuditEventsTransformHelper.class);
-    private static final String ActionInValue = "AuditLogQueryIn";
-    private static final String ActionOutValue = "AuditLogQueryOut";
-    private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
-    private static final String AssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
+    private static final String ACTION_IN_VALUE = "AuditLogQueryIn";
+    private static final String ACTION_OUT_VALUE = "AuditLogQueryOut";
+    private static final String PATIENT_ID_ATTRIBUTE_ID = Constants.RESOURCE_ID_ATTRIBUTE_ID;
+    private static final String ASSIGNING_AUTHORITY_ATTRIBUTE_ID = Constants.ASSIGNING_AUTHORITY_ATTRIBUTE_ID;
 
     private FindAuditEventsTransformHelper() {
     }
@@ -58,10 +58,10 @@ public class FindAuditEventsTransformHelper {
 
         if (event != null) {
             if (InboundOutboundChecker.isInbound(event.getDirection())) {
-                request.setAction(ActionHelper.actionFactory(ActionInValue));
+                request.setAction(ActionHelper.actionFactory(ACTION_IN_VALUE));
             }
             if (InboundOutboundChecker.isOutbound(event.getDirection())) {
-                request.setAction(ActionHelper.actionFactory(ActionOutValue));
+                request.setAction(ActionHelper.actionFactory(ACTION_OUT_VALUE));
             }
             SubjectHelper subjHelp = new SubjectHelper();
             SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
@@ -80,13 +80,13 @@ public class FindAuditEventsTransformHelper {
                     String sAssigningAuthority = PatientIdFormatUtil.parseCommunityId(sPatientId);
                     LOG.debug("transformFindAuditEventsToCheckPolicy: sAssigningAuthority = " + sAssigningAuthority);
                     resource.getAttribute().add(
-                            attrHelper.attributeFactory(AssigningAuthorityAttributeId, Constants.DataTypeString,
+                            attrHelper.attributeFactory(ASSIGNING_AUTHORITY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING,
                                     sAssigningAuthority));
 
                     String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(findAudit.getPatientId());
                     LOG.debug("transformFindAuditEventsToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
                     resource.getAttribute().add(
-                            attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString,
+                            attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING,
                                     sStrippedPatientId));
                     request.getResource().add(resource);
                 }

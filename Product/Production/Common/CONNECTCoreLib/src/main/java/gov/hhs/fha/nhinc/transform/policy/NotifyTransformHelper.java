@@ -37,8 +37,8 @@ import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
  */
 public class NotifyTransformHelper {
 
-    private static final String ActionInValue = "HIEMNotifyIn";
-    private static final String ActionOutValue = "HIEMNotifyOut";
+    private static final String ACTION_IN_VALUE = "HIEMNotifyIn";
+    private static final String ACTION_OUT_VALUE = "HIEMNotifyOut";
 
     private NotifyTransformHelper() {
     }
@@ -47,10 +47,10 @@ public class NotifyTransformHelper {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
         RequestType request = new RequestType();
         if (InboundOutboundChecker.isInbound(event.getDirection())) {
-            request.setAction(ActionHelper.actionFactory(ActionInValue));
+            request.setAction(ActionHelper.actionFactory(ACTION_IN_VALUE));
         }
         if (InboundOutboundChecker.isOutbound(event.getDirection())) {
-            request.setAction(ActionHelper.actionFactory(ActionOutValue));
+            request.setAction(ActionHelper.actionFactory(ACTION_OUT_VALUE));
         }
         SubjectHelper subjHelp = new SubjectHelper();
         SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()

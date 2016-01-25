@@ -43,8 +43,8 @@ import org.slf4j.LoggerFactory;
  */
 public class AdminDistributionTransformHelper {
 
-    private static final String ActionInValue = "AdminDistIn";
-    private static final String ActionOutValue = "AdminDistOut";
+    private static final String ACTION_IN_VALUE = "AdminDistIn";
+    private static final String ACTION_OUT_VALUE = "AdminDistOut";
     private static final Logger LOG = LoggerFactory.getLogger(AdminDistributionTransformHelper.class);
 
     public CheckPolicyRequestType transformNhinAlertToCheckPolicy(EDXLDistribution message, AssertionType assertion) {
@@ -64,7 +64,7 @@ public class AdminDistributionTransformHelper {
         AssertionHelper assertHelp = new AssertionHelper();
         assertHelp.appendAssertionDataToRequest(request, assertion);
 
-        request.setAction(ActionHelper.actionFactory(ActionInValue));
+        request.setAction(ActionHelper.actionFactory(ACTION_IN_VALUE));
 
         result.setAssertion(assertion);
         result.setRequest(request);
@@ -102,13 +102,13 @@ public class AdminDistributionTransformHelper {
 
         LOG.debug("transformEntityAlertToCheckPolicy - adding subject");
         SubjectType subject = new SubjectType();
-        subject.setSubjectCategory(SubjectHelper.SubjectCategory);
+        subject.setSubjectCategory(SubjectHelper.SUBJECT_CATEGORY);
         LOG.debug("transformEntityAlertToCheckPolicy - adding subject");
         request.getSubject().add(subject);
 
         ResourceType resource = new ResourceType();
         resource.getAttribute().add(
-            attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, message
+            attrHelper.attributeFactory(Constants.HOME_COMMUNITY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING, message
             .getAssertion().getHomeCommunity().getHomeCommunityId()));
 
         request.getResource().add(resource);
@@ -117,7 +117,7 @@ public class AdminDistributionTransformHelper {
         AssertionHelper assertHelp = new AssertionHelper();
         assertHelp.appendAssertionDataToRequest(request, message.getAssertion());
 
-        request.setAction(ActionHelper.actionFactory(ActionOutValue));
+        request.setAction(ActionHelper.actionFactory(ACTION_OUT_VALUE));
         result.setAssertion(message.getAssertion());
         result.setRequest(request);
         return result;
@@ -127,7 +127,7 @@ public class AdminDistributionTransformHelper {
     protected SubjectType createSubject(HomeCommunityType hc, AssertionType assertion) {
         SubjectHelper subjHelp = new SubjectHelper();
         SubjectType subject = subjHelp.subjectFactory(hc, assertion);
-        subject.setSubjectCategory(SubjectHelper.SubjectCategory);
+        subject.setSubjectCategory(SubjectHelper.SUBJECT_CATEGORY);
         return subject;
     }
 }

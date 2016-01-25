@@ -40,16 +40,16 @@ public abstract class AbstractDRWebServicesMXBean extends AbstractWebServicesMXB
 
 
    /** The Constant Standard_OutboundOrch_DR_BEAN_NAME. */
-    private static final String StdOutbound_DR_Bean_Name = "stdDROutbound";
+    private static final String STD_OUTBOUND_DR_BEAN_NAME = "stdDROutbound";
 
     /** The Constant Passthrough_OutboundOrch_DR_BEAN_NAME. */
-    private static final String PtOutbound_DR_Bean_Name = "ptDROutbound";
+    private static final String PT_OUTBOUND_DR_BEAN_NAME = "ptDROutbound";
 
     /** The Constant Standard_InboundOrch_DR_BEAN_NAME. */
-    private static final String StdInbound_DR_Bean_Name = "stdDRInbound";
+    private static final String STD_INBOUND_DR_BEAN_NAME = "stdDRInbound";
 
     /** The Constant Passthrough_InboundOrch_DR_BEAN_NAME. */
-    private static final String PtInbound_DR_Bean_Name = "ptDRInbound";
+    private static final String PT_INBOUND_DR_BEAN_NAME = "ptDRInbound";
 
 
     /** The Constant NHIN_DR_BEAN_NAME. */
@@ -89,7 +89,7 @@ public abstract class AbstractDRWebServicesMXBean extends AbstractWebServicesMXB
      */
     @Override
     protected String getStandardOutboundBeanName() {
-        return StdOutbound_DR_Bean_Name;
+        return STD_OUTBOUND_DR_BEAN_NAME;
     }
 
     /*
@@ -99,7 +99,7 @@ public abstract class AbstractDRWebServicesMXBean extends AbstractWebServicesMXB
      */
     @Override
     protected String getPassthroughOutboundBeanName() {
-        return PtOutbound_DR_Bean_Name;
+        return PT_OUTBOUND_DR_BEAN_NAME;
     }
 
     /*
@@ -109,7 +109,7 @@ public abstract class AbstractDRWebServicesMXBean extends AbstractWebServicesMXB
      */
     @Override
     protected String getStandardInboundBeanName() {
-        return StdInbound_DR_Bean_Name;
+        return STD_INBOUND_DR_BEAN_NAME;
     }
 
     /*
@@ -119,7 +119,7 @@ public abstract class AbstractDRWebServicesMXBean extends AbstractWebServicesMXB
      */
     @Override
     protected String getPassthroughInboundBeanName() {
-        return PtInbound_DR_Bean_Name;
+        return PT_INBOUND_DR_BEAN_NAME;
     }
 
 

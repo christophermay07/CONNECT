@@ -45,19 +45,18 @@ import org.hl7.v3.*;
  */
 public class PixRetrieveResponseBuilder {
 
-    private static String CODE = "CA";
-    private static String MoodCode = "EVN";
-    private static String ControlActProcessCode = "PRPA_TE201310UV";
-    private static String SubjectTypeCode = "SUBJ";
-    private static String StatusCodeValue = "active";
-    private static String PatientClassCode = "PAT";
-    private static String PATIENTPERSON_CLASSCODE = "PSN";
-    private static String QUERY_RESPONSE = "OK";
-    private static final String AcceptAckCodeValue = "AL";
-    private static final String InteractionIdExtension = "PRPA_IN201310";
-    private static final String ProcessingCodeValue = "P";
-    private static final String ProcessingModeCode = "T";
-    private static final String ITSVersion = "XML_1.0";
+    private static final String CODE = "CA";
+    private static final String CONTROL_ACT_PROCESS_CODE = "PRPA_TE201310UV";
+    private static final String SUBJECT_TYPE_CODE = "SUBJ";
+    private static final String STATUS_CODE_VALUE = "active";
+    private static final String PATIENT_CLASS_CODE = "PAT";
+    private static final String PATIENTPERSON_CLASSCODE = "PSN";
+    private static final String QUERY_RESPONSE = "OK";
+    private static final String ACCEPT_ACK_CODE_VALUE = "AL";
+    private static final String INTERACTION_ID_EXTENSION = "PRPA_IN201310";
+    private static final String PROCESSING_CODE_VALUE = "P";
+    private static final String PROCESSING_MODE_CODE = "T";
+    private static final String ITS_VERSION = "XML_1.0";
 
     private PixRetrieveResponseBuilder() {
     }
@@ -85,7 +84,7 @@ public class PixRetrieveResponseBuilder {
 
         PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent registrationEvent = new PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent();
         registrationEvent.getId().add(IIHelper.IIFactoryCreateNull());
-        registrationEvent.setStatusCode(CSHelper.buildCS(StatusCodeValue));
+        registrationEvent.setStatusCode(CSHelper.buildCS(STATUS_CODE_VALUE));
         PRPAIN201310UV02MFMIMT700711UV01Subject2 subject1 = createSubject1(patientIds,
                 originalRetrievePatientCorrelationsRequest);
 
@@ -99,7 +98,7 @@ public class PixRetrieveResponseBuilder {
             PRPAIN201309UV02 originalRetrievePatientCorrelationsRequest) {
 
         PRPAIN201310UV02MFMIMT700711UV01Subject1 subject = new PRPAIN201310UV02MFMIMT700711UV01Subject1();
-        subject.getTypeCode().add(SubjectTypeCode);
+        subject.getTypeCode().add(SUBJECT_TYPE_CODE);
         PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent registrationEvent = createRegistrationEvent(patientIds,
                 originalRetrievePatientCorrelationsRequest);
 
@@ -130,7 +129,7 @@ public class PixRetrieveResponseBuilder {
             PRPAIN201309UV02 originalRetrievePatientCorrelationsRequest) {
         PRPAIN201310UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201310UV02MFMIMT700711UV01ControlActProcess();
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
-        controlActProcess.setCode(CDHelper.CDFactory(ControlActProcessCode, Constants.HL7_OID));
+        controlActProcess.setCode(CDHelper.CDFactory(CONTROL_ACT_PROCESS_CODE, Constants.HL7_OID));
 
         PRPAIN201310UV02MFMIMT700711UV01Subject1 subject = createSubject(patientIds,
                 originalRetrievePatientCorrelationsRequest);
@@ -156,12 +155,12 @@ public class PixRetrieveResponseBuilder {
 
     private static PRPAMT201304UV02Patient createPatient(List<II> patientIds) {
         PRPAMT201304UV02Patient patient = new PRPAMT201304UV02Patient();
-        patient.getClassCode().add(PatientClassCode);
+        patient.getClassCode().add(PATIENT_CLASS_CODE);
         for (II patientId : patientIds) {
             patient.getId().add(patientId);
         }
 
-        patient.setStatusCode(CSHelper.buildCS(StatusCodeValue));
+        patient.setStatusCode(CSHelper.buildCS(STATUS_CODE_VALUE));
 
         PRPAMT201304UV02Person patientPerson = new PRPAMT201304UV02Person();
         // create patient person element
@@ -182,14 +181,14 @@ public class PixRetrieveResponseBuilder {
     private static PRPAIN201310UV02 createTransmissionWrapper(II senderId, II receiverId) {
         PRPAIN201310UV02 message = new PRPAIN201310UV02();
 
-        message.setITSVersion(ITSVersion);
+        message.setITSVersion(ITS_VERSION);
         message.setId(UniqueIdHelper.createUniqueId());
         message.setCreationTime(CreationTimeHelper.getCreationTime());
-        message.setInteractionId(InteractionIdHelper.createInteractionId(InteractionIdExtension));
+        message.setInteractionId(InteractionIdHelper.createInteractionId(INTERACTION_ID_EXTENSION));
 
-        message.setProcessingCode(CSHelper.buildCS(ProcessingCodeValue));
-        message.setProcessingModeCode(CSHelper.buildCS(ProcessingModeCode));
-        message.setAcceptAckCode(CSHelper.buildCS(AcceptAckCodeValue));
+        message.setProcessingCode(CSHelper.buildCS(PROCESSING_CODE_VALUE));
+        message.setProcessingModeCode(CSHelper.buildCS(PROCESSING_MODE_CODE));
+        message.setAcceptAckCode(CSHelper.buildCS(ACCEPT_ACK_CODE_VALUE));
 
         message.getReceiver().add(SenderReceiverHelperMCCIMT000300UV01.CreateReceiver(receiverId));
         message.setSender(SenderReceiverHelperMCCIMT000300UV01.CreateSender(senderId));

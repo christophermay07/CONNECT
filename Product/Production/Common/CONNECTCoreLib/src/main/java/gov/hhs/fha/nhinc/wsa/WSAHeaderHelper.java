@@ -34,7 +34,7 @@ import java.util.UUID;
  */
 public class WSAHeaderHelper {
 
-    public static final String prefix = "urn:uuid:";
+    public static final String PREFIX = "urn:uuid:";
 
     public WSAHeaderHelper() {
 
@@ -46,10 +46,10 @@ public class WSAHeaderHelper {
      */
     public String addUrnUuid(String identifier) {
         if (identifier != null) {
-            if (identifier.startsWith(prefix)) {
+            if (identifier.startsWith(PREFIX)) {
                 return identifier;
             } else {
-                return prefix.concat(identifier);
+                return PREFIX.concat(identifier);
             }
         } else {
             return null;
@@ -57,7 +57,7 @@ public class WSAHeaderHelper {
     }
 
     /**
-     * Generates a message ID with the correct prefix
+     * Generates a message ID with the correct PREFIX
      *
      * @return the message ID
      */
@@ -74,7 +74,7 @@ public class WSAHeaderHelper {
             if (hasPrefix(messageId, "uuid:")) {
                 return "urn:" + messageId;
             } else {
-                return prefix.concat(messageId);
+                return PREFIX.concat(messageId);
             }
         }
 
@@ -82,7 +82,7 @@ public class WSAHeaderHelper {
     }
 
     private boolean hasProperMessageIDPrefix(String messageId) {
-        return messageId.trim().startsWith(prefix);
+        return messageId.trim().startsWith(PREFIX);
     }
 
     private boolean hasPrefix(String messageId, String illegalPrefix) {
