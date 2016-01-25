@@ -132,7 +132,8 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
             }
         } else if (NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509.equals(format)) {
             try {
-                new LdapName(value);
+                LdapName ldap = new LdapName(value);
+                LOG.debug("Validated X509 Subject Name: {}", ldap.toString());
             } catch (Exception e) {
                 LOG.info("Validation of X509 Subject Name failed:", e);
                 throw new ValidationException("Not a valid X509 Subject Name.");
