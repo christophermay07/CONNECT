@@ -63,7 +63,7 @@ public class CryptoRandomGenerator {
      */
     public synchronized String createToken() {
         if (random != null) {
-            return (new BigInteger(130, random).toString(32));
+            return new BigInteger(130, random).toString(32);
         }
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);

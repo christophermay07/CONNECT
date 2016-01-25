@@ -43,7 +43,7 @@ public class CommonChecks {
      * @return true if patients only has one Patient. False otherwise
      */
     public static boolean isSingleSearchResult(Patients patients) {
-        return ((patients != null) && (patients.size() == 1));
+        return patients != null && patients.size() == 1;
     }
 
     /**
@@ -52,7 +52,7 @@ public class CommonChecks {
      * @return true if patients has more than one Patient within. False otherwise
      */
     public static boolean isMultipleSearchResult(Patients patients) {
-        return ((patients != null) && (patients.size() > 1));
+        return patients != null && patients.size() > 1;
     }
 
     /**
@@ -61,6 +61,6 @@ public class CommonChecks {
      * @return true if null or has no size. False otherwise
      */
     public static boolean isZeroSearchResult(Patients patients) {
-        return ((patients == null) || (patients.isEmpty()));
+        return patients == null || patients.isEmpty();
     }
 }

@@ -37,14 +37,14 @@ public class CommonChecks {
     }
 
     public static boolean isSingleSearchResult(Patients patients) {
-        return ((patients != null) && (patients.size() == 1));
+        return patients != null && patients.size() == 1;
     }
 
     public static boolean isMultipleSearchResult(Patients patients) {
-        return ((patients != null) && (patients.size() > 1));
+        return patients != null && patients.size() > 1;
     }
 
     public static boolean isZeroSearchResult(Patients patients) {
-        return ((patients == null) || (patients.isEmpty()));
+        return patients == null || patients.isEmpty();
     }
 }

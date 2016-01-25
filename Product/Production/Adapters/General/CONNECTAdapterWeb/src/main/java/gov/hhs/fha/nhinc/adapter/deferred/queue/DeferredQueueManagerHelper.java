@@ -214,7 +214,7 @@ public class DeferredQueueManagerHelper {
 
         if (CollectionUtils.isNotEmpty(queueRecords)) {
             int count = 0;
-            int maxCount = (queueRecords.size() > iGlobalThreshold ? iGlobalThreshold : queueRecords.size());
+            int maxCount = queueRecords.size() > iGlobalThreshold ? iGlobalThreshold : queueRecords.size();
             LOG.debug("***** Found " + queueRecords.size() + " queue message records; will process " + maxCount
                     + " records. *****");
 
@@ -222,7 +222,8 @@ public class DeferredQueueManagerHelper {
             for (AsyncMsgRecord queueRecord : queueRecords) {
                 count++;
                 if (count > maxCount) {
-                    break; // stop processing if max threshold reached
+                    // stop processing if max threshold reached
+                    break;
                 }
 
                 queueRecord.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_RSPSELECT);
@@ -234,7 +235,8 @@ public class DeferredQueueManagerHelper {
             for (AsyncMsgRecord queueRecord : queueRecords) {
                 count++;
                 if (count > maxCount) {
-                    break; // stop processing if max threshold reached
+                    // stop processing if max threshold reached
+                    break;
                 }
 
                 forceProcessOnRequest(queueRecord);

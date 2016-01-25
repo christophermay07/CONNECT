@@ -165,13 +165,13 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
     protected boolean hasNhinTargetHomeCommunityId(
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request) {
 
-        return (request != null
+        return request != null
             && request.getNhinTargetCommunities() != null
             && NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity())
             && request.getNhinTargetCommunities().getNhinTargetCommunity().get(0) != null
             && request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity() != null
             && NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity().get(0)
-                .getHomeCommunity().getHomeCommunityId()));
+                .getHomeCommunity().getHomeCommunityId());
     }
 
     private HomeCommunityType getNhinTargetHomeCommunity(

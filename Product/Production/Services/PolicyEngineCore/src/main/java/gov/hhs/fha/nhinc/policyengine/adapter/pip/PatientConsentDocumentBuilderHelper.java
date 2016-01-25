@@ -80,7 +80,7 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     protected UTCDateUtil createUTCDateUtil() {
-        return ((utcDateUtil != null) ? utcDateUtil : new UTCDateUtil());
+        return utcDateUtil != null ? utcDateUtil : new UTCDateUtil();
     }
 
     protected String getPropertiesFilePath() {

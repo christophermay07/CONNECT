@@ -395,13 +395,13 @@ public class AsyncMsgRecordDao {
             }
 
             LOG.debug("Completed database record retrieve by criteria. Results found: {}",
-                ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+                asyncMsgRecs == null ? "0" : Integer.toString(asyncMsgRecs.size()));
         } finally {
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getLocalizedMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
         }

@@ -528,7 +528,7 @@ public class PatientSearchBean {
     public Document getSelectedCurrentDocument() {
         if (this.getDocumentList().isEmpty()) {
             //required for rendering the page for the first time
-            return (new Document());
+            return new Document();
         }
         return this.getDocumentList().get(selectedDocument);
     }
@@ -587,7 +587,7 @@ public class PatientSearchBean {
         if ((getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
             || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML) || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
             || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML))) {
-            return (new String(getSelectedCurrentDocument().getDocumentContent()));
+            return new String(getSelectedCurrentDocument().getDocumentContent());
         }
         return null;
     }

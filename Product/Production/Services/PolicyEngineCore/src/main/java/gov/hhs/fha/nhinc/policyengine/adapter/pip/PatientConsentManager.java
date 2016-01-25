@@ -677,7 +677,7 @@ public class PatientConsentManager {
                 LOG.info("Doc: " + oDocResponse.getDocumentUniqueId() + " Mime type: " + oDocResponse.getMimeType());
                 if (oDocRequest.getDocumentUniqueId().equals(oDocResponse.getDocumentUniqueId())) {
                     if (PDF_MIME_TYPE.equals(oDocResponse.getMimeType())) {
-                        if ((oDocResponse.getDocument() != null)) {
+                        if (oDocResponse.getDocument() != null) {
                             try {
                                 byte[] rawData = LargeFileUtils.getInstance()
                                     .convertToBytes(oDocResponse.getDocument());

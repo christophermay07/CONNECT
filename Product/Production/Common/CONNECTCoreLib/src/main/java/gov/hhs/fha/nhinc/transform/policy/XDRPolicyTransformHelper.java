@@ -92,7 +92,7 @@ public class XDRPolicyTransformHelper {
                     attrHelper.attributeFactory(ASSIGNING_AUTHORITY_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING,
                             assigningAuthorityId));
 
-            LOG.debug("transformXDRToCheckPolicy: sStrippedPatientId = " + patId);
+            LOG.debug("transformXDRToCheckPolicy: sStrippedPatientId = {}", patId);
             resource.getAttribute().add(
                     attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DATA_TYPE_STRING, patId));
 
@@ -123,27 +123,24 @@ public class XDRPolicyTransformHelper {
         String result = "";
 
         if (request == null) {
-            LOG.error(("Incoming ProvideAndRegisterDocumentSetRequestType was null"));
+            LOG.error("Incoming ProvideAndRegisterDocumentSetRequestType was null");
             return null;
         }
 
-        if (request.getSubmitObjectsRequest() == null)
-
-        {
-            LOG.error(("Incoming ProvideAndRegisterDocumentSetRequestType metadata was null"));
+        if (request.getSubmitObjectsRequest() == null) {
+            LOG.error("Incoming ProvideAndRegisterDocumentSetRequestType metadata was null");
             return null;
         }
 
-        System.out.println(request.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable());
         RegistryObjectListType object = request.getSubmitObjectsRequest().getRegistryObjectList();
 
         for (int x = 0; x < object.getIdentifiable().size(); x++) {
-            System.out.println(object.getIdentifiable().get(x).getName());
+            LOG.debug("{}", object.getIdentifiable().get(x).getName().toString());
 
             if (object.getIdentifiable().get(x).getDeclaredType().equals(RegistryPackageType.class)) {
                 RegistryPackageType registryPackage = (RegistryPackageType) object.getIdentifiable().get(x).getValue();
 
-                System.out.println(registryPackage.getSlot().size());
+                LOG.debug("{}", registryPackage.getSlot().size());
 
                 for (int y = 0; y < registryPackage.getExternalIdentifier().size(); y++) {
                     String test = registryPackage.getExternalIdentifier().get(y).getName().getLocalizedString().get(0)
@@ -192,7 +189,7 @@ public class XDRPolicyTransformHelper {
 
         SubjectHelper subjHelp = new SubjectHelper();
         SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
-                .getAssertion());
+            .getAssertion());
         LOG.debug("transformXDRResponseToCheckPolicy - adding subject");
         request.getSubject().add(subject);
 
@@ -211,5 +208,4 @@ public class XDRPolicyTransformHelper {
         LOG.debug("End -- XDRPolicyTransformHelper.transformXDRResponseToCheckPolicy()");
         return checkPolicyRequest;
     }
-
 }

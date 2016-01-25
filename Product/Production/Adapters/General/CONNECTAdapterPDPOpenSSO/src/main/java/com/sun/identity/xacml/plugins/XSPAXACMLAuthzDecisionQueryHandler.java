@@ -442,7 +442,7 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
             Attribute attr = getAttribute(attributes, OPT_IN);
             if (attr != null) {
                 value = getStringValue(attr);
-                optIn = (value.equalsIgnoreCase("Yes")) ? true : false;
+                optIn = value.equalsIgnoreCase("Yes") ? true : false;
             }
         }
         return optIn;

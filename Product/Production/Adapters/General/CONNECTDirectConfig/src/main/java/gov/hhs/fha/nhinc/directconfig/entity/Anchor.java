@@ -314,7 +314,7 @@ public class Anchor {
     }
 
     private boolean hasData() {
-        return (data != null && !Arrays.equals(data, Certificate.getNullCert()));
+        return data != null && !Arrays.equals(data, Certificate.getNullCert());
     }
 
     /**

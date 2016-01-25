@@ -160,26 +160,19 @@ public class PatientMatcher {
     }
 
     private boolean isAddressNullish(Address address) {
-        boolean result;
-        if (address == null) {
-            result = true;
-        } else {
-            result = false; // Individual contents of address can be null
-        }
-        return result;
+        // Individual contents of address can be null
+        return address == null;
     }
 
     private boolean isAddressEquals(Address address, Address searchAddress) {
-        boolean result;
+        boolean result = false;
 
-        if (isAddressNullish(searchAddress)) {
-            result = false;
-        } else {
-            result = (isAddressPartEquals(address.getStreet1(), searchAddress.getStreet1())
-                    && isAddressPartEquals(address.getStreet2(), searchAddress.getStreet2())
-                    && isAddressPartEquals(address.getCity(), searchAddress.getCity())
-                    && isAddressPartEquals(address.getState(), searchAddress.getState()) && isAddressPartEquals(
-                    address.getZip(), searchAddress.getZip()));
+        if (!isAddressNullish(searchAddress)) {
+            result = isAddressPartEquals(address.getStreet1(), searchAddress.getStreet1())
+                && isAddressPartEquals(address.getStreet2(), searchAddress.getStreet2())
+                && isAddressPartEquals(address.getCity(), searchAddress.getCity())
+                && isAddressPartEquals(address.getState(), searchAddress.getState())
+                && isAddressPartEquals(address.getZip(), searchAddress.getZip());
         }
 
         return result;

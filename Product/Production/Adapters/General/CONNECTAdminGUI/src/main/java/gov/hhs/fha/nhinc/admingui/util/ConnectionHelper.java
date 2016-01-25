@@ -105,7 +105,7 @@ public class ConnectionHelper {
         List<KeyedReference> keyedReference = new ArrayList<>();
         if (entity != null && entity.getIdentifierBag() != null && entity.getIdentifierBag().getKeyedReference() != null
             && !entity.getIdentifierBag().getKeyedReference().isEmpty()) {
-            keyedReference = (entity.getIdentifierBag().getKeyedReference());
+            keyedReference = entity.getIdentifierBag().getKeyedReference();
         }
         return keyedReference;
     }

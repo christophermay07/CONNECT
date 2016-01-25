@@ -189,7 +189,7 @@ public class EventCodeDao {
                                                 orCondition.add(andCondition);
                                                 eventCodesList.add(innereventCode);
                                                 eventCodeSchemeList.add(innereventCodeScheme);
-                                                hashMap.put((innereventCode + "^^" + innereventCodeScheme),
+                                                hashMap.put(innereventCode + "^^" + innereventCodeScheme,
                                                     Integer.toString(eventCodeSlotSize));
                                             }
                                         } else {
@@ -199,7 +199,7 @@ public class EventCodeDao {
                                                 Restrictions.eq("eventCodeScheme", eventCodeScheme)));
                                             eventCodesList.add(eventCode);
                                             eventCodeSchemeList.add(eventCodeScheme);
-                                            hashMap.put((eventCode + "^^" + eventCodeScheme),
+                                            hashMap.put(eventCode + "^^" + eventCodeScheme,
                                                 Integer.toString(eventCodeSlotSize));
                                         }
                                     }
@@ -383,7 +383,7 @@ public class EventCodeDao {
     private String getEventCode(String eventCodeParam, String paramName) {
         String[] eventCodeList;
         String separate = "\\^\\^";
-        eventCodeList = (eventCodeParam.split(separate));
+        eventCodeList = eventCodeParam.split(separate);
         if (paramName.equalsIgnoreCase("eventCode")) {
             return eventCodeList[0];
         } else {

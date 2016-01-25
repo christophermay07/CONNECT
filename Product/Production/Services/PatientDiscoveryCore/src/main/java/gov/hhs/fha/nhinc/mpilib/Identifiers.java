@@ -74,8 +74,9 @@ public class Identifiers extends ArrayList<Identifier> implements java.io.Serial
     private boolean doesIdentifierExist(Identifier identifier) {
         boolean found = false;
         for (Identifier existingId : this) {
-            if ((existingId.getOrganizationId().contentEquals(identifier.getOrganizationId()) && (existingId.getId()
-                    .contentEquals(identifier.getId())))) {
+            if (existingId.getOrganizationId().contentEquals(identifier.getOrganizationId())
+                && existingId.getId().contentEquals(identifier.getId())) {
+
                 found = true;
             }
         }

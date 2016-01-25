@@ -315,7 +315,7 @@ public class Certificate {
     }
 
     private boolean hasData() {
-        return (data != null && !Arrays.equals(data, Certificate.NULL_CERT));
+        return data != null && !Arrays.equals(data, Certificate.NULL_CERT);
     }
 
     /**

@@ -165,9 +165,9 @@ public class PatientConsentHelper {
         boolean defaultCriterion = false;
         if (criterion != null) {
             // Add other values when additional options are considered.
-            defaultCriterion = ((criterion.getDocumentTypeCode() == null));
+            defaultCriterion = criterion.getDocumentTypeCode() == null;
         }
-        LOG.debug("End isDefaultFineGrainedPolicyCriterion - value: " + defaultCriterion);
+        LOG.debug("End isDefaultFineGrainedPolicyCriterion - value: {}", defaultCriterion);
         return defaultCriterion;
     }
 }

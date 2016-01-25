@@ -39,27 +39,27 @@ public class NullChecker {
     }
 
     public static boolean isNullish(String value) {
-        return ((value == null) || (value.contentEquals("")));
+        return value == null || value.contentEquals("");
     }
 
     public static boolean isNotNullish(String value) {
-        return (!isNullish(value));
+        return !isNullish(value);
     }
 
     public static boolean isNullish(List<?> value) {
-        return ((value == null) || (value.isEmpty()));
+        return value == null || value.isEmpty();
     }
 
     public static boolean isNotNullish(List<?> value) {
-        return (!isNullish(value));
+        return !isNullish(value);
     }
 
     public static boolean isNullish(Collection<?> value) {
-        return ((value == null) || (value.isEmpty()));
+        return value == null || value.isEmpty();
     }
 
     public static boolean isNotNullish(Collection<?> value) {
-        return (!isNullish(value));
+        return !isNullish(value);
     }
 
     public static boolean isNotNullishIgnoreSpace(String value) {

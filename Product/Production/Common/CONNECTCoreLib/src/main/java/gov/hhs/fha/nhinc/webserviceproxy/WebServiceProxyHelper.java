@@ -167,7 +167,7 @@ public class WebServiceProxyHelper {
                 sURL = getEndPointFromConnectionManagerByGatewayAPILevel(oTargetSystem, sServiceName, level);
             } catch (ConnectionManagerException e) {
                 LOG.error("Error: Failed to retrieve url for service {}: {}", sServiceName, e.getLocalizedMessage(), e);
-                throw (e);
+                throw e;
             }
         } else {
             String sErrorMessage = "Target system passed into the proxy is null";
@@ -194,7 +194,7 @@ public class WebServiceProxyHelper {
             sURL = getLocalEndPointFromConnectionManager(sServiceName);
         } catch (ConnectionManagerException e) {
             LOG.error("Failed to retrieve url for service {}: {}", sServiceName, e.getLocalizedMessage(), e);
-            throw (e);
+            throw e;
         }
 
         return sURL;

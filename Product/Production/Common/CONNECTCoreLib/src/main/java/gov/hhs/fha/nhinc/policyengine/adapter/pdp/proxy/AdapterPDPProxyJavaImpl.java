@@ -240,7 +240,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
             String aaId = getAttrValFromPdpRequest(pdpRequest, AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_AA_ID,
                 AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING);
 
-            uniquePatientId = (resourceId + "^^^&" + aaId + "&ISO");
+            uniquePatientId = resourceId + "^^^&" + aaId + "&ISO";
         }
 
         LOG.debug("End AdapterPDPProxyJavaImpl.getPatientIdFromPdpRequest()");

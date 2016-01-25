@@ -611,7 +611,7 @@ public class ConnectionManagerCache implements ConnectionManager {
         ArrayList<String> saHomeCommunityIds = new ArrayList<>(hKeys);
         oEntities = getBusinessEntitySetByServiceName(saHomeCommunityIds, sUniformServiceName);
 
-        return (CollectionUtils.isNotEmpty(oEntities)) ? oEntities : null;
+        return CollectionUtils.isNotEmpty(oEntities) ? oEntities : null;
     }
 
     @Override

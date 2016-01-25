@@ -81,7 +81,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
             AsyncMsgRecord asyncMsgRecord = new AsyncMsgRecord();
             AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
             LOG.info("messageId: {}", messageId);
-            if ((messageId != null)) {
+            if (messageId != null) {
                 List<AsyncMsgRecord> msgList;
                 msgList = instance.queryByMessageIdAndDirection(messageId, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
                 if (CollectionUtils.isNotEmpty(msgList)) {

@@ -358,8 +358,9 @@ public class AdapterComponentDocRegistryOrchImpl {
         List<EventCodeParam> eventCodeParams = null;
         if (NullChecker.isNotNullish(eventCodeValues)) {
             eventCodeParams = new ArrayList<>();
-            boolean hasMatchingSchemes = (NullChecker.isNotNullish(eventCodeSchemeValues)
-                && (eventCodeValues.size() == eventCodeSchemeValues.size()));
+            boolean hasMatchingSchemes = NullChecker.isNotNullish(eventCodeSchemeValues)
+                && eventCodeValues.size() == eventCodeSchemeValues.size();
+
             for (int i = 0; i < eventCodeValues.size(); i++) {
                 String eventCode = eventCodeValues.get(i);
                 EventCodeParam eventCodeParam = new EventCodeParam();

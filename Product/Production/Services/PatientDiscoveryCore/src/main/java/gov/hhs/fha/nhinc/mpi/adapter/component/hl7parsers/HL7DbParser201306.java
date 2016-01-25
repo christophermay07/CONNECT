@@ -614,7 +614,7 @@ public class HL7DbParser201306 {
 
     private static ADExplicit createAddress(Address add) {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        ADExplicit result = (factory.createADExplicit());
+        ADExplicit result = factory.createADExplicit();
         List addrlist = result.getContent();
 
         if (add != null) {
