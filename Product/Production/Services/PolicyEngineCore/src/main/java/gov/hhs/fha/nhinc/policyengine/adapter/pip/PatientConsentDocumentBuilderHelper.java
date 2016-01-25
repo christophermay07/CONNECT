@@ -103,8 +103,9 @@ public class PatientConsentDocumentBuilderHelper {
 
     public SubmitObjectsRequest createSubmitObjectRequest(String sTargetObject, String sHid, String sDocUniqueId,
             String sMimeType, PatientPreferencesType oPtPref) throws PropertyAccessException {
+
         LOG.info("------- Begin PatientConsentDocumentBuilderHelper.createSubmitObjectRequest -------");
-        LOG.info("Document: " + sDocUniqueId + " of type: " + sMimeType);
+        LOG.info("Document: {} of type: {}", sDocUniqueId, sMimeType);
         String hl7PatientId = "";
         SubmitObjectsRequest oSubmitObjectRequest = new SubmitObjectsRequest();
         RegistryObjectListType oRegistryObjectList = new RegistryObjectListType();
@@ -123,32 +124,36 @@ public class PatientConsentDocumentBuilderHelper {
         ExtrinsicObjectType oExtObj = new ExtrinsicObjectType();
         oExtObj.setId(sDocUniqueId);
         oExtObj.setHome(sHid);
+
+        PatientPreferencesType patientPreferences = oPtPref;
+
         if (sMimeType != null) {
-            if (oPtPref == null) {
-                oPtPref = new PatientPreferencesType();
+            if (patientPreferences == null) {
+                patientPreferences = new PatientPreferencesType();
             }
-            if (oPtPref.getFineGrainedPolicyMetadata() == null) {
-                oPtPref.setFineGrainedPolicyCriteria(new FineGrainedPolicyCriteriaType());
+            if (patientPreferences.getFineGrainedPolicyMetadata() == null) {
+                patientPreferences.setFineGrainedPolicyCriteria(new FineGrainedPolicyCriteriaType());
             }
-            oPtPref.getFineGrainedPolicyMetadata().setMimeType(sMimeType);
+            patientPreferences.getFineGrainedPolicyMetadata().setMimeType(sMimeType);
             oExtObj.setMimeType(sMimeType);
         }
-        setMimeTypeAndStatus(oExtObj, oPtPref);
+        setMimeTypeAndStatus(oExtObj, patientPreferences);
         oExtObj.setObjectType(CDAConstants.PROVIDE_REGISTER_OBJECT_TYPE);
-        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory = new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
+        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory
+            = new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
         List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots = oExtObj.getSlot();
 
-        setCreationDate(oSlots, oPtPref, oRimObjectFactory, sMimeType, sDocUniqueId);
-        setLanguageCode(oSlots, oPtPref, oRimObjectFactory, sMimeType);
-        setSourcePatientId(oSlots, oPtPref, oRimObjectFactory, hl7PatientId, sMimeType);
-        setPatientInfo(oSlots, oPtPref, oRimObjectFactory, sMimeType, sDocUniqueId);
-        setTitle(oExtObj, oPtPref, oRimObjectFactory, sMimeType, sDocUniqueId);
+        setCreationDate(oSlots, patientPreferences, oRimObjectFactory, sMimeType, sDocUniqueId);
+        setLanguageCode(oSlots, patientPreferences, oRimObjectFactory, sMimeType);
+        setSourcePatientId(oSlots, patientPreferences, oRimObjectFactory, hl7PatientId, sMimeType);
+        setPatientInfo(oSlots, patientPreferences, oRimObjectFactory, sMimeType, sDocUniqueId);
+        setTitle(oExtObj, patientPreferences, oRimObjectFactory, sMimeType, sDocUniqueId);
 
-        setClassCode(oExtObj, oPtPref, oRimObjectFactory, sDocUniqueId, sMimeType);
+        setClassCode(oExtObj, patientPreferences, oRimObjectFactory, sDocUniqueId, sMimeType);
 
-        setConfidentialityCode(oExtObj, oRimObjectFactory, sDocUniqueId, oPtPref, sMimeType);
-        setHealthcareFacilityTypeCode(oExtObj, oPtPref, oRimObjectFactory, sDocUniqueId, sMimeType);
-        setPracticeSettingCode(oExtObj, oPtPref, oRimObjectFactory, sDocUniqueId, sMimeType);
+        setConfidentialityCode(oExtObj, oRimObjectFactory, sDocUniqueId, patientPreferences, sMimeType);
+        setHealthcareFacilityTypeCode(oExtObj, patientPreferences, oRimObjectFactory, sDocUniqueId, sMimeType);
+        setPracticeSettingCode(oExtObj, patientPreferences, oRimObjectFactory, sDocUniqueId, sMimeType);
         setPatientId(oExtObj, oRimObjectFactory, sDocUniqueId, hl7PatientId);
         setDocumentUniqueId(oExtObj, oRimObjectFactory, sDocUniqueId);
         JAXBElement<? extends IdentifiableType> oJAXBExtId = oRimObjectFactory.createExtrinsicObject(oExtObj);
@@ -158,7 +163,7 @@ public class PatientConsentDocumentBuilderHelper {
         oRegistryPackage.setId(CDAConstants.EXTERNAL_IDENTIFICATION_SCHEMA_REGISTRYOBJECT);
         List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlotsReg = oRegistryPackage.getSlot();
 
-        setSubmissionDate(oSlotsReg, oPtPref, oRimObjectFactory);
+        setSubmissionDate(oSlotsReg, patientPreferences, oRimObjectFactory);
 
         ClassificationType oClassificationContentType = createClassification(oRimObjectFactory,
                 CDAConstants.XDS_REGISTRY_CONTENT_TYPE_UUID,
@@ -219,17 +224,17 @@ public class PatientConsentDocumentBuilderHelper {
                 .createClassification(oClassificationSumissionSet);
         oRegistryObjectList.getIdentifiable().add(oJAXBClass);
 
-        setAuthor(oExtObj, oRimObjectFactory, sDocUniqueId, oPtPref, sMimeType);
-        setEventCodes(oExtObj, oRimObjectFactory, sDocUniqueId, oPtPref);
-        setLegalAuthenticator(oSlots, oPtPref, oRimObjectFactory, sDocUniqueId, sMimeType);
-        setServiceStartTime(oSlots, oPtPref, oRimObjectFactory, sDocUniqueId, sMimeType);
-        setServiceStopTime(oSlots, oPtPref, oRimObjectFactory, sDocUniqueId, sMimeType);
-        setSize(oSlots, oPtPref, oRimObjectFactory);
+        setAuthor(oExtObj, oRimObjectFactory, sDocUniqueId, patientPreferences, sMimeType);
+        setEventCodes(oExtObj, oRimObjectFactory, sDocUniqueId, patientPreferences);
+        setLegalAuthenticator(oSlots, patientPreferences, oRimObjectFactory, sDocUniqueId, sMimeType);
+        setServiceStartTime(oSlots, patientPreferences, oRimObjectFactory, sDocUniqueId, sMimeType);
+        setServiceStopTime(oSlots, patientPreferences, oRimObjectFactory, sDocUniqueId, sMimeType);
+        setSize(oSlots, patientPreferences, oRimObjectFactory);
         setDocumentUri(oSlots, sDocUniqueId, oRimObjectFactory);
-        setComments(oExtObj, oPtPref, oRimObjectFactory);
+        setComments(oExtObj, patientPreferences, oRimObjectFactory);
         setFormatCode(oExtObj, oRimObjectFactory, sDocUniqueId);
-        setTypeCode(oExtObj, oPtPref, oRimObjectFactory, sDocUniqueId, sMimeType);
-        setIntendedRecipient(oSlots, oPtPref, oRimObjectFactory, sDocUniqueId, sMimeType);
+        setTypeCode(oExtObj, patientPreferences, oRimObjectFactory, sDocUniqueId, sMimeType);
+        setIntendedRecipient(oSlots, patientPreferences, oRimObjectFactory, sDocUniqueId, sMimeType);
         oSubmitObjectRequest.setRegistryObjectList(oRegistryObjectList);
         LOG.info("------- End PatientConsentDocumentBuilderHelper.createSubmitObjectRequest -------");
         return oSubmitObjectRequest;
@@ -254,7 +259,7 @@ public class PatientConsentDocumentBuilderHelper {
 
     private void setComments(ExtrinsicObjectType oExtObj, PatientPreferencesType oPtPref,
             oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory) {
-        if ((oExtObj != null) && (oPtPref != null) && (oPtPref.getFineGrainedPolicyMetadata() != null)
+        if (oExtObj != null && oPtPref != null && oPtPref.getFineGrainedPolicyMetadata() != null
                 && NullChecker.isNotNullish(oPtPref.getFineGrainedPolicyMetadata().getComments())) {
             String sComments = oPtPref.getFineGrainedPolicyMetadata().getComments();
             InternationalStringType description = oExtObj.getDescription();
@@ -269,9 +274,10 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setCreationDate(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots,
-            PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
-            String sMimeType, String sDocUniqueId) {
-        if ((oSlots != null) && (oRimObjectFactory != null)) {
+        PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
+        String sMimeType, String sDocUniqueId) {
+
+        if (oSlots != null && oRimObjectFactory != null) {
             String sFormattedDate = null;
             if (oPtPref != null) {
                 if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
@@ -296,16 +302,18 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setSubmissionDate(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlotsReg,
-            PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory) {
+        PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory) {
+
         Date date = new Date();
         oSlotsReg.add(createSlot(oRimObjectFactory, CDAConstants.XDS_REGISTRY_SLOT_NAME_SUBMISSION_TIME,
-                utcDateUtil.formatUTCDate(date)));
+            utcDateUtil.formatUTCDate(date)));
     }
 
     private void setLanguageCode(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots,
-            PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
-            String sMimeType) {
-        if ((oSlots != null) && (oRimObjectFactory != null)) {
+        PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
+        String sMimeType) {
+
+        if (oSlots != null && oRimObjectFactory != null) {
             String sLanguageCode = null;
             if (oPtPref != null) {
                 if (PDF_MIME_TYPE.equals(sMimeType)) {
@@ -322,10 +330,11 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setSize(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots, PatientPreferencesType oPtPref,
-            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory) {
-        if ((oSlots != null) && (oRimObjectFactory != null)) {
+        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory) {
+
+        if (oSlots != null && oRimObjectFactory != null) {
             String sSize;
-            if ((oPtPref != null) && (oPtPref.getFineGrainedPolicyMetadata() != null)) {
+            if (oPtPref != null && oPtPref.getFineGrainedPolicyMetadata() != null) {
                 sSize = oPtPref.getFineGrainedPolicyMetadata().getSize();
                 if (NullChecker.isNotNullish(sSize)) {
                     oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_SIZE, sSize));
@@ -335,10 +344,11 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setLegalAuthenticator(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots,
-            PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
-            String sDocUniqueId, String sMimeType) {
+        PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
+        String sDocUniqueId, String sMimeType) {
+
         String sLegalAuthenticator;
-        if ((oSlots != null) && (oRimObjectFactory != null)) {
+        if (oSlots != null && oRimObjectFactory != null) {
             if (oPtPref != null) {
                 if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
                         && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
@@ -366,8 +376,9 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setDocumentUri(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots, String sDocumentURI,
-            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory) {
-        if ((oSlots != null) && (oRimObjectFactory != null)) {
+        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory) {
+
+        if (oSlots != null && oRimObjectFactory != null) {
             if (NullChecker.isNotNullish(sDocumentURI)) {
                 oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_URI, sDocumentURI));
             }
@@ -375,9 +386,10 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setServiceStartTime(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots,
-            PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
-            String sDocUniqueId, String sMimeType) {
-        if ((oSlots != null) && (oRimObjectFactory != null)) {
+        PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
+        String sDocUniqueId, String sMimeType) {
+
+        if (oSlots != null && oRimObjectFactory != null) {
             if (oPtPref != null) {
                 if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
                         && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
@@ -401,9 +413,10 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setServiceStopTime(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots,
-            PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
-            String sDocUniqueId, String sMimeType) {
-        if ((oSlots != null) && (oRimObjectFactory != null)) {
+        PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
+        String sDocUniqueId, String sMimeType) {
+
+        if (oSlots != null && oRimObjectFactory != null) {
             if (oPtPref != null) {
                 if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
                         && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
@@ -416,8 +429,8 @@ public class PatientConsentDocumentBuilderHelper {
                             break;
                         }
                     }
-                } else if ((oPtPref.getFineGrainedPolicyMetadata() != null)
-                        && (NullChecker.isNotNullish(oPtPref.getFineGrainedPolicyMetadata().getServiceStopTime()))) {
+                } else if (oPtPref.getFineGrainedPolicyMetadata() != null
+                        && NullChecker.isNotNullish(oPtPref.getFineGrainedPolicyMetadata().getServiceStopTime())) {
                     oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_SERVICE_STOP_TIME, oPtPref
                             .getFineGrainedPolicyMetadata().getServiceStopTime()));
                 }
@@ -426,9 +439,10 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setIntendedRecipient(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots,
-            PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
-            String sDocUniqueId, String sMimeType) {
-        if ((oSlots != null) && (oRimObjectFactory != null)) {
+        PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
+        String sDocUniqueId, String sMimeType) {
+
+        if (oSlots != null && oRimObjectFactory != null) {
             if (oPtPref != null) {
                 if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
                         && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
@@ -450,9 +464,10 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setSourcePatientId(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots,
-            PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
-            String defaultSourcePatientId, String sMimeType) {
-        if ((oSlots != null) && (oRimObjectFactory != null)) {
+        PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
+        String defaultSourcePatientId, String sMimeType) {
+
+        if (oSlots != null && oRimObjectFactory != null) {
             String sSourcePatientId = null;
             if (oPtPref != null) {
                 if (PDF_MIME_TYPE.equals(sMimeType)) {
@@ -469,8 +484,7 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setTitle(ExtrinsicObjectType oExtObj, PatientPreferencesType oPtPref,
-            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sMimeType,
-        String sDocUniqueId) {
+        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sMimeType, String sDocUniqueId) {
 
         if (oExtObj != null) {
             String sTitle = null;
@@ -500,9 +514,10 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setPatientInfo(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots,
-            PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
-            String sMimeType, String sDocUniqueId) {
-        if ((oSlots != null) && (oRimObjectFactory != null)) {
+        PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
+        String sMimeType, String sDocUniqueId) {
+
+        if (oSlots != null && oRimObjectFactory != null) {
             String sPid3 = null;
             String sPid5 = null;
             String sPid7 = null;
@@ -550,8 +565,9 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setClassCode(ExtrinsicObjectType oExtObj, PatientPreferencesType oPtPref,
-            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
-            String sMimeType) {
+        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
+        String sMimeType) {
+
         ClassificationType oClassificationClassCode = null;
         if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
                 && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
@@ -583,7 +599,8 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setFormatCode(ExtrinsicObjectType oExtObj,
-            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId) {
+        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId) {
+
         String sFormatCode = CDAConstants.METADATA_FORMAT_CODE_XACML;
         if (PDF_MIME_TYPE.equals(oExtObj.getMimeType())) {
             sFormatCode = CDAConstants.METADATA_FORMAT_CODE_PDF;
@@ -598,8 +615,9 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setTypeCode(ExtrinsicObjectType oExtObj, PatientPreferencesType oPtPref,
-            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
-            String sMimeType) {
+        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
+        String sMimeType) {
+
         String sTypeCd = "";
         String sTypeCdOid = "";
         String sTypeCdDisplayName = "";
@@ -636,8 +654,9 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setConfidentialityCode(ExtrinsicObjectType oExtObj,
-            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
-            PatientPreferencesType oPtPref, String sMimeType) {
+        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
+        PatientPreferencesType oPtPref, String sMimeType) {
+
         String sConfidentialityCode = null;
         String sConfidentialityCodeScheme = null;
         String sConfidentialityCodeDisplayName = null;
@@ -679,8 +698,9 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setHealthcareFacilityTypeCode(ExtrinsicObjectType oExtObj, PatientPreferencesType oPtPref,
-            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
-            String sMimeType) {
+        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
+        String sMimeType) {
+
         String sCode = "";
         String sCodeSyst = "";
         String sDisplayName = "";
@@ -718,8 +738,9 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setPracticeSettingCode(ExtrinsicObjectType oExtObj, PatientPreferencesType oPtPref,
-            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
-            String sMimeType) {
+        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
+        String sMimeType) {
+
         String sPracticeSetting = "";
         String sPracticeSettingScheme = "";
         String sPracticeSettingDisplayName = "";
@@ -755,8 +776,9 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setPatientId(ExtrinsicObjectType oExtObj,
-            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
-            String hl7PatientId) {
+        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
+        String hl7PatientId) {
+
         ExternalIdentifierType oExtIdTypePat = createExternalIdentifier(oRimObjectFactory, sDocUniqueId,
                 CDAConstants.EBXML_RESPONSE_PATIENTID_IDENTIFICATION_SCHEME,
                 CDAConstants.EXTERNAL_OBJECT_IDENTIFIER_TYPE, hl7PatientId, CDAConstants.CHARACTER_SET,
@@ -765,7 +787,8 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setDocumentUniqueId(ExtrinsicObjectType oExtObj,
-            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId) {
+        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId) {
+
         ExternalIdentifierType oExtIdTypePat = createExternalIdentifier(oRimObjectFactory, sDocUniqueId,
                 CDAConstants.DOCUMENT_ID_IDENT_SCHEME, CDAConstants.EXTERNAL_OBJECT_IDENTIFIER_TYPE, sDocUniqueId,
                 CDAConstants.CHARACTER_SET, CDAConstants.LANGUAGE_CODE_ENGLISH,
@@ -774,7 +797,8 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setHomeCommunityId(RegistryPackageType oRegistryPackage,
-            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sHomeCommunityId) {
+        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sHomeCommunityId) {
+
         ExternalIdentifierType oExtIdTypePatForReg = createExternalIdentifier(oRimObjectFactory,
                 CDAConstants.EXTERNAL_IDENTIFICATION_SCHEMA_REGISTRYOBJECT,
                 CDAConstants.PROVIDE_REGISTER_SUBMISSION_SET_SOURCE_ID_UUID,
@@ -784,8 +808,9 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setAuthor(ExtrinsicObjectType oExtObj,
-            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
-            PatientPreferencesType oPtPref, String sMimeType) {
+        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
+        PatientPreferencesType oPtPref, String sMimeType) {
+
         String sAuthorPerson = "";
         String sAuthorInstitution = "";
         String sAuthorRole = "";
@@ -852,9 +877,10 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setEventCodes(ExtrinsicObjectType oExtObj,
-            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
-            PatientPreferencesType oPtPref) {
-        if ((oPtPref != null) && (oPtPref.getFineGrainedPolicyMetadata() != null)) {
+        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
+        PatientPreferencesType oPtPref) {
+
+        if (oPtPref != null && oPtPref.getFineGrainedPolicyMetadata() != null) {
             for (CeType eventCode : oPtPref.getFineGrainedPolicyMetadata().getEventCodes()) {
                 setEventCode(oExtObj, oRimObjectFactory, sDocUniqueId, eventCode);
             }
@@ -862,8 +888,7 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private void setEventCode(ExtrinsicObjectType oExtObj,
-            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId,
-            CeType eventCode) {
+        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId, CeType eventCode) {
 
         if (eventCode != null) {
             String sCode = eventCode.getCode();
@@ -911,7 +936,8 @@ public class PatientConsentDocumentBuilderHelper {
      * @return ExternalIdentifierType
      */
     private ExternalIdentifierType createExternalIdentifier(ObjectFactory fact, String regObject, String identScheme,
-            String objType, String value, String nameCharSet, String nameLang, String nameVal) {
+        String objType, String value, String nameCharSet, String nameLang, String nameVal) {
+
         LOG.info("------- Begin PatientConsentDocumentBuilderHelper.createExternalIdentifier -------");
         String id = UUID.randomUUID().toString();
         ExternalIdentifierType idType = fact.createExternalIdentifierType();
@@ -941,8 +967,9 @@ public class PatientConsentDocumentBuilderHelper {
      * @return ClassificationType
      */
     private ClassificationType createClassification(ObjectFactory fact, String scheme, String clObject, String id,
-            String nodeRep, String objType, String slotName, String slotVal, String nameCharSet, String nameLang,
-            String nameVal) {
+        String nodeRep, String objType, String slotName, String slotVal, String nameCharSet, String nameLang,
+        String nameVal) {
+
         LOG.info("------- Begin PatientConsentDocumentBuilderHelper.createClassification -------");
         ClassificationType cType = fact.createClassificationType();
         cType.setClassificationScheme(scheme);
@@ -969,7 +996,8 @@ public class PatientConsentDocumentBuilderHelper {
      * @return InternationalStringType
      */
     private InternationalStringType createInternationalStringType(ObjectFactory fact, String charSet, String language,
-            String value) {
+        String value) {
+
         LOG.info("------- Begin PatientConsentDocumentBuilderHelper.createInternationalStringType -------");
         InternationalStringType intStr = fact.createInternationalStringType();
         LocalizedStringType locStr = fact.createLocalizedStringType();
@@ -982,7 +1010,7 @@ public class PatientConsentDocumentBuilderHelper {
     }
 
     private String extractAddressFromPatInfo(PolicyPatientInfoType patInfo) {
-        StringBuffer sAddr = new StringBuffer();
+        StringBuilder sAddr = new StringBuilder();
         if (patInfo != null) {
             AddressesType addressesType = patInfo.getAddr();
             if (addressesType != null && addressesType.getAddress() != null && !addressesType.getAddress().isEmpty()) {

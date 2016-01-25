@@ -129,29 +129,28 @@ public class ConnectionManagerCacheHelper {
      * @param oEntities The entities to search.
      * @param oEntity The entity to replace...
      */
-    public void replaceBusinessEntity(List<BusinessEntity> oEntities, BusinessEntity oEntity) {
+    public void replaceBusinessEntity(final List<BusinessEntity> oEntities, final BusinessEntity oEntity) {
         if (oEntity != null) {
-            if (oEntities == null) {
-                oEntities = new ArrayList<>();
-            }
+            List<BusinessEntity> searchEntities = oEntities == null ? new ArrayList<BusinessEntity>() : oEntities;
 
-            int iCnt = oEntities.size();
+            int iCnt = searchEntities.size();
             if (iCnt == 0) {
-                oEntities.add(oEntity);
+                searchEntities.add(oEntity);
                 return;
             }
+
             String homeCommunityId = getCommunityId(oEntity);
             for (int i = 0; i < iCnt; i++) {
-                BusinessEntity oLocalEntity = oEntities.get(i);
+                BusinessEntity oLocalEntity = searchEntities.get(i);
                 String localHomeCommunityId = getCommunityId(oLocalEntity);
                 if (localHomeCommunityId != null && localHomeCommunityId.equals(homeCommunityId)) {
-                    oEntities.set(i, oEntity);
+                    searchEntities.set(i, oEntity);
                     // We are done
                     return;
                 }
             }
 
-            oEntities.add(oEntity);
+            searchEntities.add(oEntity);
         }
     }
 

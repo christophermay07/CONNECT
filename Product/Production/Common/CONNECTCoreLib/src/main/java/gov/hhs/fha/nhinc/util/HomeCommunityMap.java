@@ -234,7 +234,7 @@ public class HomeCommunityMap {
     public static String formatHomeCommunityId(String communityId) {
         if (communityId != null) {
             if (communityId.startsWith("urn:oid:")) {
-                communityId = communityId.substring(8);
+                return communityId.substring(8);
             }
         }
         return communityId;
@@ -273,7 +273,7 @@ public class HomeCommunityMap {
         if (communityId != null) {
             if (!communityId.startsWith(NhincConstants.HCID_PREFIX)) {
                 LOG.trace("Prefixing communityId with urn:oid");
-                communityId = NhincConstants.HCID_PREFIX + communityId;
+                return NhincConstants.HCID_PREFIX + communityId;
             }
         }
         return communityId;

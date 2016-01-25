@@ -67,17 +67,13 @@ public class MpiDataSaver {
      * @param file the file to save the MPI to
      */
     public void saveMpi(Patients patientList, String file) {
-        if ((patientList == null)) {
-            patientList = new Patients();
-        }
-
-        LOG.info("Saving " + patientList.size() + " patient(s)");
-        LOG.info("Filename=" + file);
+        LOG.info("Saving {} patient(s)", patientList == null ? 0 : patientList.size());
+        LOG.info("Filename={}", file);
 
         FileOutputStream fos = null;
         try {
             fos = createFileOutputStream(file);
-            writePatientList(fos, patientList);
+            writePatientList(fos, patientList == null ? new Patients() : patientList);
         } catch (Exception e) {
             throw new MpiException("Failed to save MPI.", e);
         } finally {

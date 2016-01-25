@@ -69,7 +69,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * Default Spring/JPA implemenation
+ * Default Spring/JPA implementation
  *
  * @author ppyette
  */
@@ -79,7 +79,7 @@ public class DomainDaoImpl implements DomainDao {
     @Autowired
     protected AddressDao addressDao;
 
-    private static final Log log = LogFactory.getLog(DomainDaoImpl.class);
+    private static final Log LOG = LogFactory.getLog(DomainDaoImpl.class);
 
     /**
      * {@inheritDoc}
@@ -100,7 +100,7 @@ public class DomainDaoImpl implements DomainDao {
             DaoUtils.closeSession(session);
         }
 
-        log.debug("Domain Count: " + count);
+        LOG.debug("Domain Count: " + count);
 
         return count;
     }
@@ -211,7 +211,7 @@ public class DomainDaoImpl implements DomainDao {
                 DaoUtils.closeSession(session);
             }
         } else {
-            log.warn("Unable to delete: No matching domain found.");
+            LOG.warn("Unable to delete: No matching domain found.");
         }
     }
 
@@ -241,7 +241,7 @@ public class DomainDaoImpl implements DomainDao {
                 DaoUtils.closeSession(session);
             }
         } else {
-            log.warn("No domain matching the id: " + anId + " found.  Unable to delete.");
+            LOG.warn("No domain matching the id: " + anId + " found.  Unable to delete.");
         }
     }
 
@@ -318,7 +318,7 @@ public class DomainDaoImpl implements DomainDao {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public List<Domain> listDomains(String name, int count) {
+    public List<Domain> listDomains(final String name, int count) {
         // Direct RI Comment:
         // TODO I'm not sure if this is doing the right thing. I suspect that the
         // real intent is to do some kind of db paging
@@ -334,11 +334,7 @@ public class DomainDaoImpl implements DomainDao {
             if (session != null) {
                 query = session.getNamedQuery("getDomainsByName");
 
-                if (name != null) {
-                    name = name.toUpperCase(Locale.getDefault());
-                }
-
-                query.setParameter("domainName", name);
+                query.setParameter("domainName", name == null ? name : name.toUpperCase(Locale.getDefault()));
 
                 // Direct RI Comment:
                 // assuming that a count of zero really means no limit

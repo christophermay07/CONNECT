@@ -434,8 +434,8 @@ public class PatientConsentManager {
         return sPatientId;
     }
 
-    private II extractUniquePatientIdToII(String uniquePatientId) {
-        LOG.debug("Begin extractUniquePatientIdToII - uniquePatientId is " + uniquePatientId);
+    private II extractUniquePatientIdToII(final String uniquePatientId) {
+        LOG.debug("Begin extractUniquePatientIdToII - uniquePatientId is {}", uniquePatientId);
 
         II patII = new II();
 
@@ -443,15 +443,13 @@ public class PatientConsentManager {
         String aaId = "";
 
         if (uniquePatientId != null && !uniquePatientId.isEmpty()) {
-            if (uniquePatientId.startsWith("'")) {
-                uniquePatientId = uniquePatientId.substring(1);
-            }
+            String pidToSplit = uniquePatientId.startsWith("'") ? uniquePatientId.substring(1) : uniquePatientId;
             int pos;
-            String[] tokens = uniquePatientId.split("\\&");
-            LOG.debug("extractUniquePatientIdToII - tokens length is " + tokens.length);
+            String[] tokens = pidToSplit.split("\\&");
+            LOG.debug("extractUniquePatientIdToII - tokens length is {}", tokens.length);
             if (tokens.length > 0) {
                 for (String token : tokens) {
-                    LOG.debug("token: " + token);
+                    LOG.debug("token: {}", token);
                 }
             }
 
@@ -466,11 +464,11 @@ public class PatientConsentManager {
 
             if (patientId != null && !patientId.isEmpty()) {
                 patII.setExtension(patientId);
-                LOG.debug("extracted patient id is " + patientId);
+                LOG.debug("extracted patient id is {}", patientId);
             }
             if (aaId != null && !aaId.isEmpty()) {
                 patII.setRoot(aaId);
-                LOG.debug("extracted aa id is " + aaId);
+                LOG.debug("extracted aa id is {}", aaId);
             }
         }
 

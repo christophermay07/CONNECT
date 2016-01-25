@@ -222,12 +222,15 @@ public class AggregationService {
      * @param sTargetHomeCommunityId
      * @return
      */
-    protected AdhocQueryRequest setTargetHomeCommunityId(AdhocQueryRequest request, String sTargetHomeCommunityId) {
+    protected AdhocQueryRequest setTargetHomeCommunityId(AdhocQueryRequest request,
+        final String sTargetHomeCommunityId) {
+
         if (NullChecker.isNotNullish(sTargetHomeCommunityId)) {
-            if (!(sTargetHomeCommunityId.startsWith(NhincConstants.HCID_PREFIX))) {
-                sTargetHomeCommunityId = NhincConstants.HCID_PREFIX + sTargetHomeCommunityId;
+            String targetHcidWithPrefix = sTargetHomeCommunityId;
+            if (!sTargetHomeCommunityId.startsWith(NhincConstants.HCID_PREFIX)) {
+                targetHcidWithPrefix = NhincConstants.HCID_PREFIX + sTargetHomeCommunityId;
             }
-            request.getAdhocQuery().setHome(sTargetHomeCommunityId);
+            request.getAdhocQuery().setHome(targetHcidWithPrefix);
         }
         return request;
     }

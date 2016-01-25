@@ -58,15 +58,15 @@ public abstract class PassthroughOutboundX12Batch implements OutboundX12Batch {
 
     @Override
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg,
-        AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
+        final AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
 
         NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance()
             .convertFirstToNhinTargetSystemType(targets);
-        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
-        auditRequestToNhin(msg, assertion, targetSystem);
+        AssertionType assertionWithId = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
+        auditRequestToNhin(msg, assertionWithId, targetSystem);
 
         OutboundX12BatchOrchestratable dsOrchestratable = createOrchestratable(getDelegate(), msg,
-            targetSystem, assertion);
+            targetSystem, assertionWithId);
 
         return ((OutboundX12BatchOrchestratable) getDelegate().process(dsOrchestratable))
             .getResponse();

@@ -50,14 +50,11 @@ public class HL7MessageIdGenerator {
      * @param myDeviceId
      * @return messageId
      */
-    public II generateHL7MessageId(String myDeviceId) {
+    public II generateHL7MessageId(final String myDeviceId) {
         II messageId = new II();
 
-        if (NullChecker.isNullish(myDeviceId)) {
-            myDeviceId = getDefaultLocalDeviceId();
-        }
-
-        messageId.setRoot(HomeCommunityMap.formatHomeCommunityId(myDeviceId));
+        messageId.setRoot(HomeCommunityMap.formatHomeCommunityId(
+            NullChecker.isNullish(myDeviceId) ? getDefaultLocalDeviceId() : myDeviceId));
         messageId.setExtension(generateMessageId());
         return messageId;
     }
@@ -81,8 +78,8 @@ public class HL7MessageIdGenerator {
             defaultLocalId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, PROPERTY_NAME);
         } catch (PropertyAccessException e) {
             LOG.error(
-                "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties",
-                e);
+                "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties: {}",
+                e.getLocalizedMessage(), e);
         }
 
         return defaultLocalId;

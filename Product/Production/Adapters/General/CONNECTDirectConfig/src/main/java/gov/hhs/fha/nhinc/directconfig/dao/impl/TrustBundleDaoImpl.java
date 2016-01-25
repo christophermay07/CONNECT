@@ -132,7 +132,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
      * {@inheritDoc}
      */
     @Override
-    public TrustBundle getTrustBundleByName(String bundleName) throws ConfigurationStoreException {
+    public TrustBundle getTrustBundleByName(final String bundleName) throws ConfigurationStoreException {
         TrustBundle result = null;
 
         Session session = null;
@@ -144,11 +144,8 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             if (session != null) {
                 query = session.getNamedQuery("getTrustBundleByName");
 
-                if (bundleName != null) {
-                    bundleName = bundleName.toUpperCase(Locale.getDefault());
-                }
-
-                query.setParameter("bundleName", bundleName);
+                query.setParameter("bundleName",
+                    bundleName == null ? bundleName : bundleName.toUpperCase(Locale.getDefault()));
 
                 result = (TrustBundle) query.uniqueResult();
 

@@ -82,7 +82,7 @@ public class CertificateDaoImpl implements CertificateDao {
      */
     @Override
     @SuppressWarnings({"unchecked"})
-    public Certificate load(String owner, String thumbprint) {
+    public Certificate load(final String owner, String thumbprint) {
         Session session = null;
         Query query;
 
@@ -96,12 +96,7 @@ public class CertificateDaoImpl implements CertificateDao {
                 query = session.getNamedQuery("getCertificates");
 
                 query.setParameter("thumbprint", thumbprint);
-
-                if (owner != null) {
-                    owner = owner.toUpperCase(Locale.getDefault());
-                }
-
-                query.setParameter("owner", owner);
+                query.setParameter("owner", owner == null ? owner : owner.toUpperCase(Locale.getDefault()));
 
                 results = query.list();
 

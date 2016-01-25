@@ -78,19 +78,19 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
      */
     @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
-        RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetCommunitiesType targets,
+        RetrieveDocumentSetRequestType request, final AssertionType assertion, NhinTargetCommunitiesType targets,
         ADAPTER_API_LEVEL entityAPILevel) {
 
         RetrieveDocumentSetResponseType response;
-        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
+        AssertionType assertionWithId = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
 
         if (validateGuidance(targets, entityAPILevel)) {
             NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
                 targets);
-            auditRequest(request, assertion, targetSystem);
+            auditRequest(request, assertionWithId, targetSystem);
             OutboundDocRetrieveDelegate delegate = new OutboundDocRetrieveDelegate();
             OutboundDocRetrieveOrchestratable orchestratable = new OutboundPassthroughDocRetrieveOrchestratable(null,
-                delegate, null, request, assertion, targetSystem);
+                delegate, null, request, assertionWithId, targetSystem);
 
             OutboundDocRetrieveOrchestratable orchResponse = (OutboundDocRetrieveOrchestratable) orchestrator
                 .process(orchestratable);
@@ -106,7 +106,7 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
         } else {
             NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
                 targets);
-            auditRequest(request, assertion, target);
+            auditRequest(request, assertionWithId, target);
             response = createGuidanceErrorResponse(entityAPILevel);
         }
 

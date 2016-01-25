@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.adaptermpimanager.HL7Parsers;
 
+import java.util.List;
+import org.apache.commons.lang.StringUtils;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.slf4j.Logger;
@@ -54,19 +56,16 @@ public class HL7Parser {
         LOG.debug("End HL7Parser.PrintMessageIdFromMessage(Object)");
     }
 
-    public static void PrintId(II id, String idname) {
-        if (idname == null) {
-            idname = "";
-        }
+    public static void PrintId(final II id, final String idname) {
         if (id != null) {
-            LOG.info(idname + ".id.root=" + id.getRoot() + ";");
-            LOG.info(idname + ".id.extension=" + id.getExtension() + ";");
+            LOG.info("{}.id.root={};", StringUtils.defaultString(idname), id.getRoot());
+            LOG.info("{}.id.extension={};", StringUtils.defaultString(idname), id.getExtension());
         } else {
-            LOG.info("id for " + idname + " is null");
+            LOG.info("id for {} is null", StringUtils.defaultString(idname));
         }
     }
 
-    public static void PrintId(java.util.List<II> ids, String idname) {
+    public static void PrintId(List<II> ids, String idname) {
         for (II id : ids) {
             PrintId(id, idname);
         }

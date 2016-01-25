@@ -30,8 +30,10 @@ import gov.hhs.fha.nhinc.util.StringUtil;
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
 import javax.xml.namespace.NamespaceContext;
+import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
@@ -50,8 +52,7 @@ public class XpathHelper {
     }
 
     public static Node performXpathQuery(String sourceXml, String xpathQuery) throws XPathExpressionException {
-        javax.xml.xpath.XPathFactory factory = javax.xml.xpath.XPathFactory.newInstance();
-        javax.xml.xpath.XPath xpath = factory.newXPath();
+        XPath xpath = XPathFactory.newInstance().newXPath();
 
         InputSource inputSource = null;
         try {
@@ -60,7 +61,7 @@ public class XpathHelper {
             LOG.error("Error converting String to UTF8 format: {}", ex.getLocalizedMessage(), ex);
         }
 
-        LOG.debug("perform xpath query (query='" + xpathQuery + "'");
+        LOG.debug("perform xpath query (query='{}'", xpathQuery);
         Node result;
         if (XmlUtfHelper.isUtf16(sourceXml)) {
             try {
@@ -70,13 +71,12 @@ public class XpathHelper {
                 // retry using UTF-8
                 LOG.warn("failed to perform xpath query - retrying with UTF-8: {}", ex.getLocalizedMessage());
                 LOG.trace("failed to perform xpath query - retrying with UTF-8: {}", ex.getLocalizedMessage(), ex);
-                sourceXml = XmlUtfHelper.convertToUtf8(sourceXml);
-                result = performXpathQuery(sourceXml, xpathQuery);
+                result = performXpathQuery(XmlUtfHelper.convertToUtf8(sourceXml), xpathQuery);
             }
         } else {
             result = (Node) xpath.evaluate(xpathQuery, inputSource, XPathConstants.NODE);
         }
-        LOG.debug("xpath query complete [result?=" + result + "]");
+        LOG.debug("xpath query complete [result?={}]", result);
         return result;
     }
 
@@ -93,7 +93,7 @@ public class XpathHelper {
             xpath.setNamespaceContext(namespaceContext);
         }
 
-        LOG.debug("About to perform xpath query (query='" + xpathQuery + "'");
+        LOG.debug("About to perform xpath query (query='{}'", xpathQuery);
         return (Node) xpath.evaluate(xpathQuery, sourceElement, XPathConstants.NODE);
     }
 }

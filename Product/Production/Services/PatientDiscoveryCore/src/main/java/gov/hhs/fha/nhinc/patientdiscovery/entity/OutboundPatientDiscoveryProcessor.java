@@ -71,23 +71,23 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
      */
     @Override
     public OutboundOrchestratableMessage processNhinResponse(OutboundOrchestratableMessage individual,
-        OutboundOrchestratableMessage cumulativeResponse) {
+        final OutboundOrchestratableMessage cumulativeResponse) {
 
         count++;
         LOG.debug("EntityPatientDiscoveryProcessor::processNhinResponse count=" + count);
 
-        OutboundOrchestratableMessage response;
+        OutboundOrchestratableMessage response = cumulativeResponse;
         if (cumulativeResponse == null) {
             switch (cumulativeSpecLevel) {
                 case LEVEL_g0: {
                     LOG.debug("EntityPatientDiscoveryProcessor::processNhinResponse createNewCumulativeResponse");
-                    cumulativeResponse = OutboundPatientDiscoveryProcessorHelper
+                    response = OutboundPatientDiscoveryProcessorHelper
                         .createNewCumulativeResponse((OutboundPatientDiscoveryOrchestratable) individual);
                     break;
                 }
                 default: {
                     LOG.debug("EntityPatientDiscoveryProcessor::processNhinResponse unknown cumulativeSpecLevel.");
-                    cumulativeResponse = OutboundPatientDiscoveryProcessorHelper
+                    response = OutboundPatientDiscoveryProcessorHelper
                         .createNewCumulativeResponse((OutboundPatientDiscoveryOrchestratable) individual);
                     break;
                 }
@@ -98,11 +98,9 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
             // can't get here as NhinCallableRequest will always return something
             // but if we ever do, log it and return cumulativeResponse passed in
             LOG.error("EntityPatientDiscoveryProcessor::handleNhinResponse individual received was null!!!");
-            response = cumulativeResponse;
         } else {
             OutboundOrchestratableMessage individualResponse = processResponse(individual);
-            response = aggregateResponse((OutboundPatientDiscoveryOrchestratable) individualResponse,
-                cumulativeResponse);
+            response = aggregateResponse((OutboundPatientDiscoveryOrchestratable) individualResponse, response);
         }
 
         return response;
@@ -122,7 +120,7 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
     public OutboundOrchestratableMessage processResponse(OutboundOrchestratableMessage individualResponse) {
         try {
             if (individualResponse instanceof OutboundPatientDiscoveryOrchestratable) {
-                LOG.debug("EntityPatientDiscoveryProcessor::processResponse for start count=" + count);
+                LOG.debug("EntityPatientDiscoveryProcessor::processResponse for start count={}", count);
 
                 OutboundPatientDiscoveryOrchestratable individual = (OutboundPatientDiscoveryOrchestratable) individualResponse;
                 OutboundPatientDiscoveryOrchestratable responseOrch = new OutboundPatientDiscoveryOrchestratable(null,

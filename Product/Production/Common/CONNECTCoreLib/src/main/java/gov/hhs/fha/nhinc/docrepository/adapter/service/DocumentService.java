@@ -127,19 +127,20 @@ public class DocumentService {
      * @param document Document to delete
      * @throws DocumentServiceException
      */
-    public void deleteDocument(Document document) throws DocumentServiceException {
+    public void deleteDocument(final Document document) throws DocumentServiceException {
         LOG.debug("Deleting a document");
         DocumentDao dao = getDocumentDao();
+        Document docToDelete = document;
 
-        if ((document != null) && (document.getDocumentid() == null) && (document.getDocumentUniqueId() != null)) {
+        if (document != null && document.getDocumentid() == null && document.getDocumentUniqueId() != null) {
             // Query by unique id and delete if only one exists.
             DocumentQueryParams params = new DocumentQueryParams();
             List<String> uniqueIds = new ArrayList<>();
             uniqueIds.add(document.getDocumentUniqueId());
 
             List<Document> docs = documentQuery(params);
-            if ((docs != null) && (docs.size() == 1)) {
-                document = docs.get(0);
+            if (docs != null && docs.size() == 1) {
+                docToDelete = docs.get(0);
             } else {
                 throw new DocumentServiceException("Single document match not found for document unique id: "
                     + document.getDocumentUniqueId());
@@ -152,7 +153,7 @@ public class DocumentService {
             }
         }
 
-        dao.delete(document);
+        dao.delete(docToDelete);
     }
 
     /**

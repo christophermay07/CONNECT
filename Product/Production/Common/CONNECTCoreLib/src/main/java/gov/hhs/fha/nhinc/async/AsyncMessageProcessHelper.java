@@ -154,7 +154,8 @@ public class AsyncMessageProcessHelper {
                 LOG.error("Failed to insert asynchronous record in the database");
             }
         } catch (Exception e) {
-            LOG.error("ERROR: Failed to add the async request to async msg repository.", e);
+            LOG.error("ERROR: Failed to add the async request to async msg repository: {}",
+                e.getLocalizedMessage(), e);
         }
 
         LOG.debug("End AsyncMessageProcessHelper.addPatientDiscoveryRequest()...");
@@ -163,7 +164,7 @@ public class AsyncMessageProcessHelper {
     }
 
     /**
-     * Process an acknowledgement for a Deferred Patient Discovery asyncmsgs record.
+     * Process an acknowledgment for a Deferred Patient Discovery asyncmsgs record.
      *
      * @param messageId
      * @param newStatus
@@ -171,21 +172,22 @@ public class AsyncMessageProcessHelper {
      * @param ack
      * @return true - success; false - error
      */
-    public boolean processAck(String messageId, String newStatus, String errorStatus, MCCIIN000002UV01 ack) {
+    public boolean processAck(final String messageId, final String newStatus, final String errorStatus,
+        MCCIIN000002UV01 ack) {
+
         LOG.debug("Begin AsyncMessageProcessHelper.processAck()...");
 
         boolean result = false;
 
         try {
-            if (isAckError(ack)) {
-                newStatus = errorStatus;
-            }
+            String status = isAckError(ack) ? errorStatus : newStatus;
+
             AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
 
-            String direction = getInitialDirectionFromStatus(newStatus);
+            String direction = getInitialDirectionFromStatus(status);
             List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
             if (CollectionUtils.isNotEmpty(records)) {
-                records.get(0).setStatus(newStatus);
+                records.get(0).setStatus(status);
                 records.get(0).setAckData(getBlobFromMCCIIN000002UV01(ack));
                 instance.save(records.get(0));
             }
@@ -193,7 +195,7 @@ public class AsyncMessageProcessHelper {
             // Success if we got this far
             result = true;
         } catch (Exception e) {
-            LOG.error("ERROR: Failed to update the async request.", e);
+            LOG.error("ERROR: Failed to update the async request: {}", e.getLocalizedMessage(), e);
         }
 
         LOG.debug("End AsyncMessageProcessHelper.processAck()...");
@@ -226,7 +228,7 @@ public class AsyncMessageProcessHelper {
             // Success if we got this far
             result = true;
         } catch (Exception e) {
-            LOG.error("ERROR: Failed to update the async request status.", e);
+            LOG.error("ERROR: Failed to update the async request status: {}", e.getLocalizedMessage(), e);
         }
 
         LOG.debug("End AsyncMessageProcessHelper.processMessageStatus()...");
@@ -243,19 +245,18 @@ public class AsyncMessageProcessHelper {
      * @param response
      * @return true - success; false - error
      */
-    public boolean processPatientDiscoveryResponse(String messageId, String newStatus, String errorStatus,
-        RespondingGatewayPRPAIN201306UV02RequestType response) {
+    public boolean processPatientDiscoveryResponse(final String messageId, final String newStatus,
+        final String errorStatus, RespondingGatewayPRPAIN201306UV02RequestType response) {
 
         LOG.debug("Begin AsyncMessageProcessHelper.processPatientDiscoveryResponse()...");
 
         boolean result = false;
 
         try {
-            if (response == null) {
-                newStatus = errorStatus;
-            }
+            String status = response == null ? errorStatus : newStatus;
+
             AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
-            String direction = getInitialDirectionFromStatus(newStatus);
+            String direction = getInitialDirectionFromStatus(status);
 
             List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
             if (CollectionUtils.isNotEmpty(records)) {
@@ -265,7 +266,7 @@ public class AsyncMessageProcessHelper {
                 Long duration = records.get(0).getResponseTime().getTime() - records.get(0).getCreationTime().getTime();
                 records.get(0).setDuration(duration);
 
-                records.get(0).setStatus(newStatus);
+                records.get(0).setStatus(status);
                 records.get(0).setRspData(getBlobFromPRPAIN201306UV02RequestType(response));
                 instance.save(records.get(0));
 
@@ -273,7 +274,7 @@ public class AsyncMessageProcessHelper {
                 result = true;
             }
         } catch (Exception e) {
-            LOG.error("ERROR: Failed to update the async response.", e);
+            LOG.error("ERROR: Failed to update the async response: {}", e.getLocalizedMessage(), e);
         }
 
         LOG.debug("End AsyncMessageProcessHelper.processPatientDiscoveryResponse()...");

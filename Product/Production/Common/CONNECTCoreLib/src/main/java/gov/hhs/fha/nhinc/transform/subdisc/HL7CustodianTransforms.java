@@ -54,14 +54,12 @@ public class HL7CustodianTransforms {
      * @param localDeviceId
      * @return custodian
      */
-    public static MFMIMT700701UV01Custodian createMFMIMT700701UV01Custodian(String localDeviceId) {
+    public static MFMIMT700701UV01Custodian createMFMIMT700701UV01Custodian(final String localDeviceId) {
         MFMIMT700701UV01Custodian custodian = new MFMIMT700701UV01Custodian();
         custodian.getTypeCode().add("CST");
-        if (NullChecker.isNullish(localDeviceId)) {
-            localDeviceId = getDefaultLocalDeviceId();
-        }
 
-        custodian.setAssignedEntity(createCOCTMT090003UVAssignedEntity(localDeviceId));
+        custodian.setAssignedEntity(createCOCTMT090003UVAssignedEntity(
+            NullChecker.isNullish(localDeviceId) ? getDefaultLocalDeviceId() : localDeviceId));
 
         return custodian;
     }
@@ -73,13 +71,12 @@ public class HL7CustodianTransforms {
      * @param localDeviceId
      * @return entity
      */
-    public static COCTMT090003UV01AssignedEntity createCOCTMT090003UVAssignedEntity(String localDeviceId) {
+    public static COCTMT090003UV01AssignedEntity createCOCTMT090003UVAssignedEntity(final String localDeviceId) {
         COCTMT090003UV01AssignedEntity entity = new COCTMT090003UV01AssignedEntity();
         entity.setClassCode(HL7Constants.ASSIGNED_DEVICE_CLASS_CODE);
-        if (NullChecker.isNullish(localDeviceId)) {
-            localDeviceId = getDefaultLocalDeviceId();
-        }
-        entity.getId().add(HL7DataTransformHelper.IIFactory(localDeviceId));
+
+        entity.getId().add(HL7DataTransformHelper.IIFactory(
+            NullChecker.isNullish(localDeviceId) ? getDefaultLocalDeviceId() : localDeviceId));
 
         return entity;
     }
@@ -90,13 +87,12 @@ public class HL7CustodianTransforms {
      * @param localDeviceId
      * @return custodian
      */
-    public static MFMIMT700711UV01Custodian createMFMIMT700711UV01Custodian(String localDeviceId) {
+    public static MFMIMT700711UV01Custodian createMFMIMT700711UV01Custodian(final String localDeviceId) {
         MFMIMT700711UV01Custodian custodian = new MFMIMT700711UV01Custodian();
         custodian.getTypeCode().add("CST");
-        if (NullChecker.isNullish(localDeviceId)) {
-            localDeviceId = getDefaultLocalDeviceId();
-        }
-        custodian.setAssignedEntity(createCOCTMT090003UVAssignedEntity(localDeviceId));
+
+        custodian.setAssignedEntity(createCOCTMT090003UVAssignedEntity(
+            NullChecker.isNullish(localDeviceId) ? getDefaultLocalDeviceId() : localDeviceId));
 
         return custodian;
     }
@@ -108,8 +104,8 @@ public class HL7CustodianTransforms {
             defaultLocalId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, PROPERTY_NAME);
         } catch (PropertyAccessException e) {
             LOG.error(
-                    "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties",
-                    e);
+                "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties: {}",
+                e.getLocalizedMessage(), e);
         }
 
         return defaultLocalId;

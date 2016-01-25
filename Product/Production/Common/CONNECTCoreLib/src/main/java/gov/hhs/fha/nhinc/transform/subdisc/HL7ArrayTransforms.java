@@ -90,7 +90,8 @@ public class HL7ArrayTransforms {
     }
 
     public static MFMIMT700701UV01InformationRecipient copyNullFlavors(MFMIMT700711UV01InformationRecipient from,
-            MFMIMT700701UV01InformationRecipient to) {
+        MFMIMT700701UV01InformationRecipient to) {
+
         if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
@@ -147,7 +148,8 @@ public class HL7ArrayTransforms {
     }
 
     public static MFMIMT700701UV01DataEnterer copyNullFlavors(MFMIMT700711UV01DataEnterer from,
-            MFMIMT700701UV01DataEnterer to) {
+        MFMIMT700701UV01DataEnterer to) {
+
         if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
@@ -159,7 +161,8 @@ public class HL7ArrayTransforms {
     }
 
     public static MFMIMT700701UV01DataEnterer copyNullFlavors(QUQIMT021001UV01DataEnterer from,
-            MFMIMT700701UV01DataEnterer to) {
+        MFMIMT700701UV01DataEnterer to) {
+
         if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
@@ -171,7 +174,8 @@ public class HL7ArrayTransforms {
     }
 
     public static PRPAIN201301UV02MFMIMT700701UV01ControlActProcess copyNullFlavors(
-            PRPAIN201306UV02MFMIMT700711UV01ControlActProcess from, PRPAIN201301UV02MFMIMT700701UV01ControlActProcess to) {
+        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess from, PRPAIN201301UV02MFMIMT700701UV01ControlActProcess to) {
+
         if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
@@ -183,7 +187,8 @@ public class HL7ArrayTransforms {
     }
 
     public static PRPAIN201301UV02MFMIMT700701UV01ControlActProcess copyNullFlavors(
-            PRPAIN201305UV02QUQIMT021001UV01ControlActProcess from, PRPAIN201301UV02MFMIMT700701UV01ControlActProcess to) {
+        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess from, PRPAIN201301UV02MFMIMT700701UV01ControlActProcess to) {
+
         if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
@@ -195,7 +200,8 @@ public class HL7ArrayTransforms {
     }
 
     public static MFMIMT700701UV01AuthorOrPerformer copyNullFlavors(MFMIMT700711UV01AuthorOrPerformer from,
-            MFMIMT700701UV01AuthorOrPerformer to) {
+        MFMIMT700701UV01AuthorOrPerformer to) {
+
         if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
@@ -207,7 +213,8 @@ public class HL7ArrayTransforms {
     }
 
     public static MFMIMT700701UV01AuthorOrPerformer copyNullFlavors(QUQIMT021001UV01AuthorOrPerformer from,
-            MFMIMT700701UV01AuthorOrPerformer to) {
+        MFMIMT700701UV01AuthorOrPerformer to) {
+
         if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
@@ -218,19 +225,19 @@ public class HL7ArrayTransforms {
         return to;
     }
 
-    public static PRPAIN201301UV02 copyMCCIMT000100UV01AttentionLine(PRPAIN201306UV02 from, PRPAIN201301UV02 to) {
-        if (to == null) {
-            to = new PRPAIN201301UV02();
-        }
-        if (!from.getAttentionLine().isEmpty()) {
-            to.getAttentionLine().clear();
-            for (MCCIMT000300UV01AttentionLine line : from.getAttentionLine()) {
+    public static PRPAIN201301UV02 copyMCCIMT000100UV01AttentionLine(final PRPAIN201306UV02 from,
+        final PRPAIN201301UV02 to) {
 
-                to.getAttentionLine().add(copyAttentionLine(line));
+        PRPAIN201301UV02 toCopy = to == null ? new PRPAIN201301UV02() : to;
+
+        if (!from.getAttentionLine().isEmpty()) {
+            toCopy.getAttentionLine().clear();
+            for (MCCIMT000300UV01AttentionLine line : from.getAttentionLine()) {
+                toCopy.getAttentionLine().add(copyAttentionLine(line));
             }
         }
 
-        return to;
+        return toCopy;
     }
 
     private static MCCIMT000100UV01AttentionLine copyAttentionLine(MCCIMT000300UV01AttentionLine line) {
@@ -250,32 +257,34 @@ public class HL7ArrayTransforms {
         return result;
     }
 
-    public static PRPAIN201301UV02 copyMCCIMT000100UV01AttentionLine(PRPAIN201305UV02 from, PRPAIN201301UV02 to) {
-        if (to == null) {
-            to = new PRPAIN201301UV02();
-        }
+    public static PRPAIN201301UV02 copyMCCIMT000100UV01AttentionLine(final PRPAIN201305UV02 from,
+        final PRPAIN201301UV02 to) {
+
+        PRPAIN201301UV02 toCopy = to == null ? new PRPAIN201301UV02() : to;
+
         if (!from.getAttentionLine().isEmpty()) {
-            to.getAttentionLine().clear();
+            toCopy.getAttentionLine().clear();
             for (MCCIMT000100UV01AttentionLine line : from.getAttentionLine()) {
-                to.getAttentionLine().add(line);
+                toCopy.getAttentionLine().add(line);
             }
         }
 
-        return to;
+        return toCopy;
     }
 
-    public static PRPAIN201301UV02 copyMCCIMT000100UV01Receiver(PRPAIN201306UV02 from, PRPAIN201301UV02 to) {
-        if (to == null) {
-            to = new PRPAIN201301UV02();
-        }
+    public static PRPAIN201301UV02 copyMCCIMT000100UV01Receiver(final PRPAIN201306UV02 from,
+        final PRPAIN201301UV02 to) {
+
+        PRPAIN201301UV02 toCopy = to == null ? new PRPAIN201301UV02() : to;
+
         if (!from.getReceiver().isEmpty()) {
-            to.getReceiver().clear();
+            toCopy.getReceiver().clear();
             for (MCCIMT000300UV01Receiver rec : from.getReceiver()) {
-                to.getReceiver().add(copyReceiver(rec));
+                toCopy.getReceiver().add(copyReceiver(rec));
             }
         }
 
-        return to;
+        return toCopy;
     }
 
     private static MCCIMT000100UV01Receiver copyReceiver(MCCIMT000300UV01Receiver orig) {
@@ -329,18 +338,19 @@ public class HL7ArrayTransforms {
         return result;
     }
 
-    public static PRPAIN201301UV02 copyMCCIMT000100UV01Receiver(PRPAIN201305UV02 from, PRPAIN201301UV02 to) {
-        if (to == null) {
-            to = new PRPAIN201301UV02();
-        }
+    public static PRPAIN201301UV02 copyMCCIMT000100UV01Receiver(final PRPAIN201305UV02 from,
+        final PRPAIN201301UV02 to) {
+
+        PRPAIN201301UV02 toCopy = to == null ? new PRPAIN201301UV02() : to;
+
         if (!from.getReceiver().isEmpty()) {
-            to.getReceiver().clear();
+            toCopy.getReceiver().clear();
             for (MCCIMT000100UV01Receiver rec : from.getReceiver()) {
-                to.getReceiver().add(rec);
+                toCopy.getReceiver().add(rec);
             }
         }
 
-        return to;
+        return toCopy;
     }
 
     public static PRPAIN201301UV02 copyRealmCodes(PRPAIN201305UV02 from, PRPAIN201301UV02 to) {
@@ -368,7 +378,8 @@ public class HL7ArrayTransforms {
     }
 
     public static MCCIMT000100UV01AttentionLine copyRealmCodes(MCCIMT000300UV01AttentionLine from,
-            MCCIMT000100UV01AttentionLine to) {
+        MCCIMT000100UV01AttentionLine to) {
+
         if (from != null) {
             to.getRealmCode().clear();
 
@@ -381,7 +392,8 @@ public class HL7ArrayTransforms {
     }
 
     public static MFMIMT700701UV01InformationRecipient copyRealmCodes(MFMIMT700711UV01InformationRecipient from,
-            MFMIMT700701UV01InformationRecipient to) {
+        MFMIMT700701UV01InformationRecipient to) {
+
         if (from != null) {
             to.getRealmCode().clear();
 
@@ -394,7 +406,7 @@ public class HL7ArrayTransforms {
     }
 
     public static MFMIMT700701UV01AuthorOrPerformer copyRealmCodes(QUQIMT021001UV01AuthorOrPerformer from,
-            MFMIMT700701UV01AuthorOrPerformer to) {
+        MFMIMT700701UV01AuthorOrPerformer to) {
 
         if (from != null) {
             to.getRealmCode().clear();
@@ -408,7 +420,7 @@ public class HL7ArrayTransforms {
     }
 
     public static PRPAIN201301UV02MFMIMT700701UV01ControlActProcess copyRealmCodes(
-            PRPAIN201306UV02MFMIMT700711UV01ControlActProcess from, PRPAIN201301UV02MFMIMT700701UV01ControlActProcess to) {
+        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess from, PRPAIN201301UV02MFMIMT700701UV01ControlActProcess to) {
 
         if (from != null) {
             to.getRealmCode().clear();
@@ -422,7 +434,8 @@ public class HL7ArrayTransforms {
     }
 
     public static MFMIMT700701UV01InformationRecipient copyTemplateIds(MFMIMT700711UV01InformationRecipient from,
-            MFMIMT700701UV01InformationRecipient to) {
+        MFMIMT700701UV01InformationRecipient to) {
+
         if (from != null) {
             to.getTemplateId().clear();
 
@@ -435,7 +448,8 @@ public class HL7ArrayTransforms {
     }
 
     public static MCCIMT000100UV01AttentionLine copyTemplateIds(MCCIMT000300UV01AttentionLine from,
-            MCCIMT000100UV01AttentionLine to) {
+        MCCIMT000100UV01AttentionLine to) {
+
         if (from != null) {
             to.getTemplateId().clear();
 

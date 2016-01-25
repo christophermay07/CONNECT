@@ -49,17 +49,19 @@ public class PassthroughOutboundDocSubmissionDeferredRequest implements Outbound
 
     @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
-        ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion,
+        ProvideAndRegisterDocumentSetRequestType body, final AssertionType assertion,
         NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
-        NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
-        auditRequest(body, assertion, targetSystem);
+
+        AssertionType assertionWithId = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
+        NhinTargetSystemType targetSystem
+            = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
+        auditRequest(body, assertionWithId, targetSystem);
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = createRequestForInternalProcessing(
             body, targetSystem);
 
         OutboundDocSubmissionDeferredRequestDelegate delegate = getOutboundDocSubmissionDeferredRequestDelegate();
         OutboundDocSubmissionDeferredRequestOrchestratable dsOrchestratable = createOrchestratable(delegate, request,
-            assertion);
+            assertionWithId);
         return ((OutboundDocSubmissionDeferredRequestOrchestratable) delegate
             .process(dsOrchestratable)).getResponse();
     }
@@ -67,8 +69,8 @@ public class PassthroughOutboundDocSubmissionDeferredRequest implements Outbound
     private OutboundDocSubmissionDeferredRequestOrchestratable createOrchestratable(
         OutboundDocSubmissionDeferredRequestDelegate delegate,
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
-        OutboundDocSubmissionDeferredRequestOrchestratable orchestratable = new OutboundDocSubmissionDeferredRequestOrchestratable(
-            delegate);
+        OutboundDocSubmissionDeferredRequestOrchestratable orchestratable
+            = new OutboundDocSubmissionDeferredRequestOrchestratable(delegate);
         orchestratable.setAssertion(assertion);
         orchestratable.setRequest(request.getProvideAndRegisterDocumentSetRequest());
         orchestratable.setTarget(request.getNhinTargetSystem());
@@ -78,7 +80,9 @@ public class PassthroughOutboundDocSubmissionDeferredRequest implements Outbound
 
     private RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType createRequestForInternalProcessing(
         ProvideAndRegisterDocumentSetRequestType body, NhinTargetSystemType targetSystem) {
-        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
+
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request
+            = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
         request.setNhinTargetSystem(targetSystem);
         request.setProvideAndRegisterDocumentSetRequest(body);
 
@@ -95,6 +99,7 @@ public class PassthroughOutboundDocSubmissionDeferredRequest implements Outbound
 
     private void auditRequest(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
         NhinTargetSystemType target) {
+
         auditLogger.auditRequestMessage(request, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
     }

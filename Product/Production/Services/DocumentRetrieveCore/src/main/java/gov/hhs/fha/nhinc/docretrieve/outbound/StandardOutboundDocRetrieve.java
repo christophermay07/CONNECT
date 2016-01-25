@@ -84,22 +84,22 @@ public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve imp
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request,
         AssertionType assertion, NhinTargetCommunitiesType targets, ADAPTER_API_LEVEL entityAPILevel) {
 
-        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
+        AssertionType assertionWithId = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
         RetrieveDocumentSetResponseType response;
 
         if (validateGuidance(targets, entityAPILevel)) {
             PolicyTransformer pt = new OutboundDocRetrievePolicyTransformer_a0();
             OutboundDelegate nd = new OutboundDocRetrieveDelegate();
             NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
-            auditRequest(request, assertion, getTarget(targets));
+            auditRequest(request, assertionWithId, getTarget(targets));
             OutboundDocRetrieveOrchestratable orchestratable = new OutboundStandardDocRetrieveOrchestratable(pt,
-                nd, na, request, assertion, getTarget(targets));
+                nd, na, request, assertionWithId, getTarget(targets));
             OutboundDocRetrieveOrchestratable orchResponse = (OutboundDocRetrieveOrchestratable) orchestrator
                 .process(orchestratable);
 
             response = orchResponse.getResponse();
         } else {
-            auditRequest(request, assertion, getTarget(targets));
+            auditRequest(request, assertionWithId, getTarget(targets));
             response = createGuidanceErrorResponse(entityAPILevel);
         }
 

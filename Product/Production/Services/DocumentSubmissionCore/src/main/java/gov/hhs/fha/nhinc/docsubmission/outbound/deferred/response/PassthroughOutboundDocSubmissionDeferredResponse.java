@@ -53,11 +53,11 @@ public class PassthroughOutboundDocSubmissionDeferredResponse implements Outboun
         AssertionType assertion, NhinTargetCommunitiesType targets) {
 
         NhinTargetSystemType targetSystem = msgUtils.convertFirstToNhinTargetSystemType(targets);
-        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
+        AssertionType assertionWithId = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
         OutboundDocSubmissionDeferredResponseDelegate delegate = getOutboundDocSubmissionDeferredResponseDelegate();
         OutboundDocSubmissionDeferredResponseOrchestratable dsOrchestratable = createOrchestratable(delegate, body,
-            assertion, targetSystem);
-        auditRequest(body, assertion, targetSystem);
+            assertionWithId, targetSystem);
+        auditRequest(body, assertionWithId, targetSystem);
         return ((OutboundDocSubmissionDeferredResponseOrchestratable) delegate
             .process(dsOrchestratable)).getResponse();
     }

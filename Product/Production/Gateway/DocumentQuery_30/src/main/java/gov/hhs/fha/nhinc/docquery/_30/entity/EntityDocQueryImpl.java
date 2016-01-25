@@ -63,12 +63,10 @@ public class EntityDocQueryImpl extends BaseService {
      * @return AdhocQueryResponse
      */
     public AdhocQueryResponse respondingGatewayCrossGatewayQuerySecured(
-            RespondingGatewayCrossGatewayQuerySecuredRequestType request, WebServiceContext context) {
+        RespondingGatewayCrossGatewayQuerySecuredRequestType request, WebServiceContext context) {
 
-        AssertionType assertion = getAssertion(context, null);
-
-        return respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(), assertion,
-                request.getNhinTargetCommunities());
+        return respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(), getAssertion(context),
+            request.getNhinTargetCommunities());
     }
 
     /**
@@ -80,26 +78,29 @@ public class EntityDocQueryImpl extends BaseService {
      * @return AdhocQueryResponse
      */
     public AdhocQueryResponse respondingGatewayCrossGatewayQueryUnsecured(
-            RespondingGatewayCrossGatewayQueryRequestType request, WebServiceContext context) {
+        RespondingGatewayCrossGatewayQueryRequestType request, WebServiceContext context) {
 
         return respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(), request.getAssertion(),
-                request.getNhinTargetCommunities());
+            request.getNhinTargetCommunities());
     }
 
     private AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
-            NhinTargetCommunitiesType targets) {
+        final NhinTargetCommunitiesType targets) {
 
         AdhocQueryResponse response = null;
 
         try {
-            if (targets == null) {
-                targets = new ObjectFactory().createNhinTargetCommunitiesType();
+            NhinTargetCommunitiesType targetsWithSpec
+                = targets == null ? new ObjectFactory().createNhinTargetCommunitiesType() : targets;
+
+            if (targetsWithSpec == null) {
+                targetsWithSpec = new ObjectFactory().createNhinTargetCommunitiesType();
             }
 
-            if (StringUtils.isBlank(targets.getUseSpecVersion())) {
-                targets.setUseSpecVersion("3.0");
+            if (StringUtils.isBlank(targetsWithSpec.getUseSpecVersion())) {
+                targetsWithSpec.setUseSpecVersion("3.0");
             }
-            response = outboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion, targets);
+            response = outboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion, targetsWithSpec);
         } catch (Exception e) {
             LOG.error("Failed to send request to Nwhin.", e);
         }

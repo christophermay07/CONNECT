@@ -121,7 +121,7 @@ public class PropertyAccessorFileUtilities {
 
     private String addFileSeparatorSuffix(String dirPath) {
         if (dirPath != null && !dirPath.endsWith(File.separator)) {
-            dirPath = dirPath + File.separator;
+            return dirPath + File.separator;
         }
 
         return dirPath;

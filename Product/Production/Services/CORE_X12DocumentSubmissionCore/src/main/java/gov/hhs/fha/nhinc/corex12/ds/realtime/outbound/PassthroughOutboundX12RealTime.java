@@ -72,15 +72,15 @@ public class PassthroughOutboundX12RealTime implements OutboundX12RealTime {
      * @return COREEnvelopeRealTimeResponse
      */
     @Override
-    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest body, AssertionType assertion,
-        NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
+    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest body,
+        final AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
 
         NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
             targets);
-        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
-        this.auditRequestToNhin(body, assertion, targetSystem);
+        AssertionType assertionWithId = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
+        this.auditRequestToNhin(body, assertionWithId, targetSystem);
         OutboundX12RealTimeOrchestratable dsOrchestratable = createOrchestratable(getDelegate(), body,
-            targetSystem, assertion);
+            targetSystem, assertionWithId);
         return ((OutboundX12RealTimeOrchestratable) getDelegate().process(dsOrchestratable)).getResponse();
     }
 

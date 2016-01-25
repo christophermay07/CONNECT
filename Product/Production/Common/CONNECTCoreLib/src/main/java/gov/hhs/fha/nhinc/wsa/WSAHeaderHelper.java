@@ -67,13 +67,14 @@ public class WSAHeaderHelper {
 
     /**
      * @param messageId
+     * @return
      */
-    public String fixMessageIDPrefix(String messageId) {
+    public String fixMessageIDPrefix(final String messageId) {
         if (!hasProperMessageIDPrefix(messageId)) {
             if (hasPrefix(messageId, "uuid:")) {
-                messageId = "urn:" + messageId;
+                return "urn:" + messageId;
             } else {
-                messageId = prefix.concat(messageId);
+                return prefix.concat(messageId);
             }
         }
 

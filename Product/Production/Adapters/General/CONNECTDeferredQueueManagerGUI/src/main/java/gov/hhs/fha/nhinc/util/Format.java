@@ -61,9 +61,7 @@ public final class Format {
     public static boolean isValidDateString(String dateStr, String format) {
         boolean isValidDate = false;
 
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("=== isValidDateString('" + dateStr + "','" + format + "') ===");
-        }
+        LOG.debug("=== isValidDateString('{}','{}') ===", dateStr, format);
 
         try {
             Calendar calendar = getCalendarInstance(format, dateStr, true);
@@ -71,12 +69,12 @@ public final class Format {
                 isValidDate = true;
             }
         } catch (Exception e) {
-            LOG.debug("Could not verify date: " + e.getLocalizedMessage(), e);
+            LOG.debug("Could not verify date: {}", e.getLocalizedMessage(), e);
             isValidDate = false;
         }
 
         if (LOG.isDebugEnabled()) {
-            LOG.debug("=== isValidDateString('" + dateStr + "','" + format + "') = " + isValidDate + " ===");
+            LOG.debug("=== isValidDateString('{}','{}') = {} ===", dateStr, format, isValidDate);
         }
 
         return isValidDate;
@@ -106,15 +104,9 @@ public final class Format {
 
                 if (strict && ((pos.getIndex() < format.length()) || date.length() != format.length())) {
                     // no-op
-                    if (LOG.isDebugEnabled()) {
-                        LOG.debug("Strict Formatting Failed! [format='" + format + "'; date='" + date + "'; strict="
-                            + strict + "]");
-                    }
+                    LOG.debug("Strict Formatting Failed! [format='{}'; date='{}'; strict={}]", format, date, strict);
                 } else {
-                    if (LOG.isDebugEnabled()) {
-                        LOG.debug("parseDate = " + parseDate + "[format='" + format + "'; date='" + date + "'; strict="
-                            + strict + "]");
-                    }
+                    LOG.debug("parseDate = {}[format='{}'; date='{}'; strict={}]", parseDate, format, date, strict);
                     if (parseDate != null) {
                         dateValue = new java.sql.Date(parseDate.getTime());
                         calendar = Calendar.getInstance();
@@ -150,15 +142,9 @@ public final class Format {
 
                 if (strict && ((pos.getIndex() < format.length()) || date.length() != format.length())) {
                     // no-op
-                    if (LOG.isDebugEnabled()) {
-                        LOG.debug("Strict Formatting Failed! [format='" + format + "'; date='" + date + "'; strict="
-                            + strict + "]");
-                    }
+                    LOG.debug("Strict Formatting Failed! [format='{}'; date='{}'; strict={}]", format, date, strict);
                 } else {
-                    if (LOG.isDebugEnabled()) {
-                        LOG.debug("parseDate = " + parseDate + "[format='" + format + "'; date='" + date + "'; strict="
-                            + strict + "]");
-                    }
+                    LOG.debug("parseDate = {}[format='{}'; date='{}'; strict={}]", parseDate, format, date, strict);
                     if (parseDate != null) {
                         ts = new Timestamp(parseDate.getTime());
                     }
@@ -215,63 +201,56 @@ public final class Format {
      * String Functions
      */
     public static String padLeading(int value, String pad, int length) {
-        String str = Integer.toString(value);
-        return padLeading(str, pad, length);
+        return padLeading(Integer.toString(value), pad, length);
     }
 
-    public static String padLeading(String str, String pad, int length) {
+    public static String padLeading(final String str, final String pad, int length) {
         StringBuffer strbuf = new StringBuffer("");
+        String strToPad = str == null ? "" : str;
+        String padChar = pad;
+        int strLength = strToPad.length();
 
-        if (str == null) {
-            str = "";
-        }
-        int strLength = str.length();
-
-        if (pad == null) {
-            pad = " ";
-        }
-        if (pad.length() > 1) {
-            pad = pad.substring(0, 1);
+        if (padChar == null) {
+            padChar = " ";
+        } else if (padChar.length() > 1) {
+            padChar = padChar.substring(0, 1);
         }
 
         if (strLength < length) {
             int padLength = length - strLength;
             for (int i = 0; i < padLength; i++) {
-                strbuf.append(pad);
+                strbuf.append(padChar);
             }
-            strbuf.append(str);
+            strbuf.append(strToPad);
         } else {
-            str = str.substring(0, length);
-            strbuf = new StringBuffer(str);
+            strToPad = strToPad.substring(0, length);
+            strbuf = new StringBuffer(strToPad);
         }
 
         return strbuf.toString();
     }
 
-    public static String padTrailing(String str, String pad, int length) {
+    public static String padTrailing(final String str, final String pad, int length) {
         StringBuffer strbuf = new StringBuffer("");
+        String strToPad = str == null ? "" : str;
+        String padChar = pad;
+        int strLength = strToPad.length();
 
-        if (str == null) {
-            str = "";
-        }
-        int strLength = str.length();
-
-        if (pad == null) {
-            pad = " ";
-        }
-        if (pad.length() > 1) {
-            pad = pad.substring(0, 1);
+        if (padChar == null) {
+            padChar = " ";
+        } else if (padChar.length() > 1) {
+            padChar = padChar.substring(0, 1);
         }
 
         if (strLength < length) {
-            strbuf.append(str);
+            strbuf.append(strToPad);
             int padLength = length - strLength;
             for (int i = 0; i < padLength; i++) {
-                strbuf.append(pad);
+                strbuf.append(padChar);
             }
         } else {
-            str = str.substring(0, length);
-            strbuf = new StringBuffer(str);
+            strToPad = strToPad.substring(0, length);
+            strbuf = new StringBuffer(strToPad);
         }
 
         return strbuf.toString();

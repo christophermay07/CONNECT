@@ -63,19 +63,20 @@ public class StandardOutboundDocSubmissionDeferredRequest implements OutboundDoc
         serviceType = "Document Submission Deferred Request", version = "")
     @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
-        ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
+        ProvideAndRegisterDocumentSetRequestType request, final AssertionType assertion,
         NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
 
         XDRAcknowledgementType response;
-        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
+        AssertionType assertionWithId = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType internalRequest
-            = createRequestForInternalProcessing(request, assertion, targets, urlInfo);
+            = createRequestForInternalProcessing(request, assertionWithId, targets, urlInfo);
 
-        auditRequest(request, assertion, MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets));
+        auditRequest(request, assertionWithId,
+            MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets));
 
-        if (isPolicyValid(internalRequest, assertion)) {
+        if (isPolicyValid(internalRequest, assertionWithId)) {
             LOG.info("Policy check successful");
-            response = getResponseFromTarget(internalRequest, assertion);
+            response = getResponseFromTarget(internalRequest, assertionWithId);
         } else {
             LOG.error("Failed policy check.  Sending error response.");
             response = createFailedPolicyCheckResponse();
@@ -86,6 +87,7 @@ public class StandardOutboundDocSubmissionDeferredRequest implements OutboundDoc
     private RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType createRequestForInternalProcessing(
         ProvideAndRegisterDocumentSetRequestType msg, AssertionType assertion, NhinTargetCommunitiesType targets,
         UrlInfoType urlInfo) {
+
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request
             = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
         request.setProvideAndRegisterDocumentSetRequest(msg);

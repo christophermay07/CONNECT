@@ -68,7 +68,7 @@ public class DocRetrieveAuditTransforms
          object will be created otherwise not*/
         if (CollectionUtils.isNotEmpty(assertion.getUniquePatientId())
             && !assertion.getUniquePatientId().get(0).isEmpty()) {
-            
+
             auditMsg = createPatientParticipantObjectIdentification(auditMsg, assertion.getUniquePatientId().get(0));
         }
         try {

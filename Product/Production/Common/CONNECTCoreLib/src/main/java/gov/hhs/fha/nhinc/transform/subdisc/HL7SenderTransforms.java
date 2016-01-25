@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+import org.apache.commons.lang.StringUtils;
 import org.hl7.v3.CommunicationFunctionType;
 import org.hl7.v3.EntityClassDevice;
 import org.hl7.v3.II;
@@ -63,39 +65,33 @@ public class HL7SenderTransforms {
      * @param oid
      * @return sender
      */
-    public static MCCIMT000200UV01Sender createMCCIMT000200UV01Sender(String oid) {
+    public static MCCIMT000200UV01Sender createMCCIMT000200UV01Sender(final String oid) {
         MCCIMT000200UV01Sender sender = new MCCIMT000200UV01Sender();
-
-        // Check the input parameter
-        if (oid == null) {
-            oid = "";
-        }
 
         sender.setTypeCode(CommunicationFunctionType.SND);
 
         MCCIMT000200UV01Device senderDevice = new MCCIMT000200UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
         senderDevice.setClassCode(EntityClassDevice.DEV);
-        LOG.debug("Setting sender device id (applicationId) to " + oid);
-        senderDevice.getId().add(HL7DataTransformHelper.IIFactory(oid));
+        LOG.debug("Setting sender device id (applicationId) to {}", StringUtils.defaultString(oid));
+        senderDevice.getId().add(HL7DataTransformHelper.IIFactory(StringUtils.defaultString(oid)));
 
         MCCIMT000200UV01Agent agent = new MCCIMT000200UV01Agent();
         MCCIMT000200UV01Organization org = new MCCIMT000200UV01Organization();
         org.setClassCode(HL7Constants.ORG_CLASS_CODE);
         org.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
-        II id = HL7DataTransformHelper.IIFactory(oid);
+        II id = HL7DataTransformHelper.IIFactory(StringUtils.defaultString(oid));
         org.getId().add(id);
 
-        javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3",
-                "representedOrganization");
+        QName xmlqnameorg = new QName("urn:hl7-org:v3", "representedOrganization");
         JAXBElement<MCCIMT000200UV01Organization> orgElem = new JAXBElement<>(xmlqnameorg,
-                MCCIMT000200UV01Organization.class, org);
+            MCCIMT000200UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
-        javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
+        QName xmlqnameagent = new QName("urn:hl7-org:v3", "asAgent");
         JAXBElement<MCCIMT000200UV01Agent> agentElem = new JAXBElement<>(xmlqnameagent,
-                MCCIMT000200UV01Agent.class, agent);
+            MCCIMT000200UV01Agent.class, agent);
 
         senderDevice.setAsAgent(agentElem);
 
@@ -111,36 +107,31 @@ public class HL7SenderTransforms {
      * @param oid
      * @return sender
      */
-    public static MCCIMT000100UV01Sender createMCCIMT000100UV01Sender(String oid) {
+    public static MCCIMT000100UV01Sender createMCCIMT000100UV01Sender(final String oid) {
         MCCIMT000100UV01Sender sender = new MCCIMT000100UV01Sender();
-
-        // Check the input parameter
-        if (oid == null) {
-            oid = "";
-        }
 
         sender.setTypeCode(CommunicationFunctionType.SND);
 
         MCCIMT000100UV01Device senderDevice = new MCCIMT000100UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
         senderDevice.setClassCode(EntityClassDevice.DEV);
-        senderDevice.getId().add(HL7DataTransformHelper.IIFactory(oid));
+        senderDevice.getId().add(HL7DataTransformHelper.IIFactory(StringUtils.defaultString(oid)));
 
         MCCIMT000100UV01Agent agent = new MCCIMT000100UV01Agent();
         MCCIMT000100UV01Organization org = new MCCIMT000100UV01Organization();
         org.setClassCode(HL7Constants.ORG_CLASS_CODE);
         org.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
-        II id = HL7DataTransformHelper.IIFactory(oid);
+        II id = HL7DataTransformHelper.IIFactory(StringUtils.defaultString(oid));
         org.getId().add(id);
 
-        javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3",
+        QName xmlqnameorg = new QName("urn:hl7-org:v3",
                 "representedOrganization");
         JAXBElement<MCCIMT000100UV01Organization> orgElem = new JAXBElement<>(xmlqnameorg,
                 MCCIMT000100UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
-        javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
+        QName xmlqnameagent = new QName("urn:hl7-org:v3", "asAgent");
         JAXBElement<MCCIMT000100UV01Agent> agentElem = new JAXBElement<>(xmlqnameagent,
                 MCCIMT000100UV01Agent.class, agent);
 
@@ -161,35 +152,29 @@ public class HL7SenderTransforms {
     public static MCCIMT000300UV01Sender createMCCIMT000300UV01Sender(String oid) {
         MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
 
-        // Check the input parameter
-        if (oid == null) {
-            oid = "";
-        }
-
         sender.setTypeCode(CommunicationFunctionType.SND);
 
         MCCIMT000300UV01Device senderDevice = new MCCIMT000300UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
         senderDevice.setClassCode(EntityClassDevice.DEV);
-        senderDevice.getId().add(HL7DataTransformHelper.IIFactory(oid));
+        senderDevice.getId().add(HL7DataTransformHelper.IIFactory(StringUtils.defaultString(oid)));
 
         MCCIMT000300UV01Agent agent = new MCCIMT000300UV01Agent();
         MCCIMT000300UV01Organization org = new MCCIMT000300UV01Organization();
         org.setClassCode(HL7Constants.ORG_CLASS_CODE);
         org.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
-        II id = HL7DataTransformHelper.IIFactory(oid);
+        II id = HL7DataTransformHelper.IIFactory(StringUtils.defaultString(oid));
         org.getId().add(id);
 
-        javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3",
-                "representedOrganization");
+        QName xmlqnameorg = new QName("urn:hl7-org:v3", "representedOrganization");
         JAXBElement<MCCIMT000300UV01Organization> orgElem = new JAXBElement<>(xmlqnameorg,
-                MCCIMT000300UV01Organization.class, org);
+            MCCIMT000300UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
-        javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
+        QName xmlqnameagent = new QName("urn:hl7-org:v3", "asAgent");
         JAXBElement<MCCIMT000300UV01Agent> agentElem = new JAXBElement<>(xmlqnameagent,
-                MCCIMT000300UV01Agent.class, agent);
+            MCCIMT000300UV01Agent.class, agent);
 
         senderDevice.setAsAgent(agentElem);
 

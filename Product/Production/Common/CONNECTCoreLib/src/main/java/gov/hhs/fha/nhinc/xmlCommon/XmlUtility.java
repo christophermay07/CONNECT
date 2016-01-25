@@ -150,8 +150,7 @@ public class XmlUtility {
                     // retry using UTF-8
                     LOG.warn("Failed to convert xml to element, retrying with UTF-8: {}", e.getLocalizedMessage());
                     LOG.trace("Failed to convert xml to element, retrying with UTF-8: {}", e.getLocalizedMessage(), e);
-                    xml = XmlUtfHelper.convertToUtf8(xml);
-                    element = convertXmlToElementWorker(xml);
+                    element = convertXmlToElementWorker(XmlUtfHelper.convertToUtf8(xml));
                 }
             } else {
                 element = convertXmlToElementWorker(xml);

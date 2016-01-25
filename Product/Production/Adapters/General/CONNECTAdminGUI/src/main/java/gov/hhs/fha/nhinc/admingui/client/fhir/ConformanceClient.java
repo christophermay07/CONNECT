@@ -145,18 +145,16 @@ public class ConformanceClient {
         return resource;
     }
 
-    protected static Parser getParser(String format) {
-        if (StringUtils.isBlank(format)) {
-            format = ResourceFormat.RESOURCE_XML.getHeader();
-        }
-        if (format.equalsIgnoreCase("json") || format.equalsIgnoreCase(ResourceFormat.RESOURCE_JSON.getHeader())
-            || format.equalsIgnoreCase(FeedFormat.FEED_JSON.getHeader())) {
-
-            return new JsonParser();
-        } else if (format.equalsIgnoreCase("xml") || format.equalsIgnoreCase(ResourceFormat.RESOURCE_XML.getHeader())
+    protected static Parser getParser(final String format) {
+        if (StringUtils.isBlank(format) || format.equalsIgnoreCase("xml")
+            || format.equalsIgnoreCase(ResourceFormat.RESOURCE_XML.getHeader())
             || format.equalsIgnoreCase(FeedFormat.FEED_XML.getHeader())) {
 
             return new XmlParser();
+        } else if (format.equalsIgnoreCase("json") || format.equalsIgnoreCase(ResourceFormat.RESOURCE_JSON.getHeader())
+            || format.equalsIgnoreCase(FeedFormat.FEED_JSON.getHeader())) {
+
+            return new JsonParser();
         } else {
             throw new EFhirClientException("Invalid format: " + format);
         }

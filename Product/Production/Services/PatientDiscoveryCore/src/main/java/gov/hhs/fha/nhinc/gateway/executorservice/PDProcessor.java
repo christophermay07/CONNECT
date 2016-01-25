@@ -139,12 +139,12 @@ public class PDProcessor<Target extends UrlInfo, Request extends RespondingGatew
      * @param t is the UrlInfo target to send the web service request (needed for response processing) WebServiceClient
      */
     @SuppressWarnings("static-access")
-    private void processPDResponse(RespondingGatewayPRPAIN201305UV02RequestType request, PRPAIN201306UV02 current,
+    private void processPDResponse(RespondingGatewayPRPAIN201305UV02RequestType request, final PRPAIN201306UV02 current,
         Target t) throws Exception {
 
         // for debug
         count++;
-        LOG.debug("PDProcessor::processPDResponse combine next response count=" + count);
+        LOG.debug("PDProcessor::processPDResponse combine next response count={}", count);
 
         try {
             // store the correlation result and handle Trust/Verify Mode
@@ -165,15 +165,15 @@ public class PDProcessor<Target extends UrlInfo, Request extends RespondingGatew
             params.response = current;
 
             // process response (store correlation and handle trust/verify mode)
-            current = new ResponseFactory().getResponseMode().processResponse(params);
+            PRPAIN201306UV02 response = new ResponseFactory().getResponseMode().processResponse(params);
             // store the AA to HCID mapping
-            new PatientDiscovery201306Processor().storeMapping(current);
+            new PatientDiscovery201306Processor().storeMapping(response);
 
             // aggregate the response
             CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
-            communityResponse.setPRPAIN201306UV02(current);
+            communityResponse.setPRPAIN201306UV02(response);
             cumulativeResponse.getCommunityResponse().add(communityResponse);
-            LOG.debug("PDProcessor::processPDResponse done count=" + count);
+            LOG.debug("PDProcessor::processPDResponse done count={}", count);
         } catch (Exception ex) {
             ExecutorServiceHelper.getInstance().outputCompleteException(ex);
             throw ex;

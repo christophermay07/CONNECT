@@ -64,16 +64,16 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
         AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
 
         RegistryResponseType response;
-        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
+        AssertionType assertionWithId = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
 
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = createRequestForInternalProcessing(
             body, targets, urlInfo);
         NhinTargetSystemType target = getMessageGeneratorUtils().convertFirstToNhinTargetSystemType(targets);
-        auditRequest(request.getProvideAndRegisterDocumentSetRequest(), assertion, target);
+        auditRequest(request.getProvideAndRegisterDocumentSetRequest(), assertionWithId, target);
 
-        if (isPolicyValid(request, assertion)) {
+        if (isPolicyValid(request, assertionWithId)) {
             LOG.info("Policy check successful");
-            response = getResponseFromTarget(request, assertion);
+            response = getResponseFromTarget(request, assertionWithId);
         } else {
             LOG.error("Failed policy check.  Sending error response.");
             response = MessageGeneratorUtils.getInstance().createFailedPolicyCheckResponse();

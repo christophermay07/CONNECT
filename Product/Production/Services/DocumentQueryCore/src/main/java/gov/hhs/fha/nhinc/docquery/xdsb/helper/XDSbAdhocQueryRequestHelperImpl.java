@@ -110,14 +110,15 @@ public class XDSbAdhocQueryRequestHelperImpl implements XDSbAdhocQueryRequestHel
     }
 
     @Override
-    public String createSingleQuoteDelimitedValue(String value) {
+    public String createSingleQuoteDelimitedValue(final String value) {
+        String quotedValue = value;
         if (!StringUtils.startsWith(value, "'")) {
-            value = "'".concat(value);
+            quotedValue = "'".concat(value);
         }
         if (!StringUtils.endsWith(value, "'")) {
-            value = value.concat("'");
+            quotedValue = value.concat("'");
         }
-        return value;
+        return quotedValue;
     }
 
     @Override

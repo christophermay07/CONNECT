@@ -40,17 +40,13 @@ public class ActionHelper {
     }
 
     public static ActionType actionFactory(String actionValue) {
-        ActionType action = new ActionType();
-        return actionFactory(action, actionValue);
+        return actionFactory(new ActionType(), actionValue);
     }
 
-    public static ActionType actionFactory(ActionType action, String actionValue) {
-        if (action == null) {
-            action = new ActionType();
-        }
-        AttributeHelper attrHelper = new AttributeHelper();
-        action.getAttribute().add(
-                attrHelper.attributeFactory(ActionAttributeId, Constants.DataTypeString, (Object) actionValue));
-        return action;
+    public static ActionType actionFactory(final ActionType action, final String actionValue) {
+        ActionType returnAction = action == null ? new ActionType() : action;
+        returnAction.getAttribute().add(new AttributeHelper()
+            .attributeFactory(ActionAttributeId, Constants.DataTypeString, (Object) actionValue));
+        return returnAction;
     }
 }

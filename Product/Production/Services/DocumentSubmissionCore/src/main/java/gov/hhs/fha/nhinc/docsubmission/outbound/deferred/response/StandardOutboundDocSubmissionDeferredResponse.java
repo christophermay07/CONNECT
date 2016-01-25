@@ -64,15 +64,16 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
         AssertionType assertion, NhinTargetCommunitiesType targets) {
 
         XDRAcknowledgementType response;
-        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
+        AssertionType assertionWithId = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType internalRequest
             = createRequestForInternalProcessing(request, targets);
 
-        auditRequest(internalRequest.getRegistryResponse(), assertion, internalRequest.getNhinTargetCommunities());
+        auditRequest(internalRequest.getRegistryResponse(), assertionWithId,
+            internalRequest.getNhinTargetCommunities());
 
-        if (isPolicyValid(internalRequest, assertion)) {
+        if (isPolicyValid(internalRequest, assertionWithId)) {
             LOG.info("Policy check successful");
-            response = getResponseFromTarget(internalRequest, assertion);
+            response = getResponseFromTarget(internalRequest, assertionWithId);
         } else {
             LOG.error("Failed policy check.  Sending error response.");
             response = createFailedPolicyCheckResponse();

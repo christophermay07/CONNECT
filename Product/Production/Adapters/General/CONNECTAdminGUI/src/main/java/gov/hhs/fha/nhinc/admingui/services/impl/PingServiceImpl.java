@@ -90,9 +90,9 @@ public class PingServiceImpl implements PingService {
         return false;
     }
 
-    private String prepUrl(String serviceUrl) {
+    private String prepUrl(final String serviceUrl) {
         if (!serviceUrl.endsWith(WSDL_SUFFIX)) {
-            serviceUrl = serviceUrl.concat(WSDL_SUFFIX);
+            return serviceUrl.concat(WSDL_SUFFIX);
         }
         return serviceUrl;
     }

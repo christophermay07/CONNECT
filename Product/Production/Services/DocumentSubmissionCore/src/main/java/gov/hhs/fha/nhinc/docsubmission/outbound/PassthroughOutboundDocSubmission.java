@@ -55,18 +55,18 @@ public class PassthroughOutboundDocSubmission implements OutboundDocSubmission {
 
     @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body,
-        AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
+        final AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
 
         NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
             targets);
-        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
-        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = createAuditRequest(body, assertion,
-            targetSystem);
+        AssertionType assertionWithId = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = createAuditRequest(body,
+            assertionWithId, targetSystem);
 
-        auditRequest(request, assertion, request.getNhinTargetSystem());
+        auditRequest(request, assertionWithId, request.getNhinTargetSystem());
 
         OutboundDocSubmissionOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, body, targetSystem,
-            assertion);
+            assertionWithId);
         RegistryResponseType response = ((OutboundDocSubmissionOrchestratable) dsDelegate.process(dsOrchestratable))
             .getResponse();
 

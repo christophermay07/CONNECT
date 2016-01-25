@@ -169,11 +169,11 @@ public class EventServiceImpl implements EventService {
         }
     }
 
-    private String setHcid(String resultHcid) {
+    private String setHcid(final String resultHcid) {
         try {
-            resultHcid = getConnectionManager().getBusinessEntityName(resultHcid);
+            return getConnectionManager().getBusinessEntityName(resultHcid);
         } catch (ConnectionManagerException e) {
-            LOG.warn("Exception getting name of HCID from ConnectionManager.", e);
+            LOG.warn("Exception getting name of HCID from ConnectionManager: {}", e.getLocalizedMessage(), e);
         }
         return resultHcid;
     }

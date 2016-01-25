@@ -58,7 +58,7 @@ public class PassthroughOutboundDocRetrieve extends gov.hhs.fha.nhinc.docretriev
      * Constructor with dependency injection parameters.
      *
      * @param orchestrator
-     * @param log
+     * @param auditLogger
      */
     public PassthroughOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator, DocRetrieveAuditLogger auditLogger) {
         super(orchestrator, auditLogger);
@@ -71,6 +71,7 @@ public class PassthroughOutboundDocRetrieve extends gov.hhs.fha.nhinc.docretriev
      * @param body
      * @param assertion
      * @param targets
+     * @param entityAPILevel
      * @return response message to be sent back to the requester
      */
     @Override
@@ -78,7 +79,7 @@ public class PassthroughOutboundDocRetrieve extends gov.hhs.fha.nhinc.docretriev
         afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
         serviceType = "Retrieve Document", version = "2.0")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
-        AssertionType assertion, NhinTargetCommunitiesType targets, ADAPTER_API_LEVEL entityAPILevel) {
+        final AssertionType assertion, NhinTargetCommunitiesType targets, ADAPTER_API_LEVEL entityAPILevel) {
 
         RetrieveDocumentSetResponseType response = super
             .respondingGatewayCrossGatewayRetrieve(body, assertion, targets, entityAPILevel);

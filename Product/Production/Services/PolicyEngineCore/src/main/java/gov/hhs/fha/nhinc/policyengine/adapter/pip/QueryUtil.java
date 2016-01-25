@@ -273,7 +273,8 @@ public class QueryUtil {
        *             error.
      */
     public AdhocQueryRequest createAdhocQueryRequest(String sPatientId, String sAssigningAuthority)
-            throws AdapterPIPException {
+        throws AdapterPIPException {
+
         LOG.debug("In createAdhocQueryRequest");
 
         AdhocQueryRequest oRequest = new AdhocQueryRequest();
@@ -298,13 +299,15 @@ public class QueryUtil {
         oSlot.setName(CDAConstants.ADHOC_QUERY_REQUEST_SLOT_NAME_CPP_PATIENT_ID);
         ValueListType oValueList = new ValueListType();
         oSlot.setValueList(oValueList);
+
         if (sPatientId != null && !sPatientId.contains("&ISO")) {
             sHL7PatId = PatientIdFormatUtil.hl7EncodePatientId(sPatientId, sAssigningAuthority);
         } else {
             if (sPatientId != null && !sPatientId.isEmpty() && !sPatientId.startsWith("'")) {
-                sPatientId = "'" + sPatientId + "'";
+                sHL7PatId = "'" + sPatientId + "'";
+            } else {
+                sHL7PatId = sPatientId;
             }
-            sHL7PatId = sPatientId;
         }
         oValueList.getValue().add(sHL7PatId);
 
@@ -316,9 +319,7 @@ public class QueryUtil {
         oValueList = new ValueListType();
         oSlot.setValueList(oValueList);
         oValueList.getValue().add(CDAConstants.ADHOC_QUERY_CLASS_CODE);
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Set class code for query to: " + CDAConstants.ADHOC_QUERY_CLASS_CODE);
-        }
+        LOG.debug("Set class code for query to: {}", CDAConstants.ADHOC_QUERY_CLASS_CODE);
 
         // Status
         // -------
@@ -328,9 +329,7 @@ public class QueryUtil {
         oValueList = new ValueListType();
         oSlot.setValueList(oValueList);
         oValueList.getValue().add(CDAConstants.STATUS_APPROVED_QUERY_VALUE);
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Set status for query to: " + CDAConstants.STATUS_APPROVED_QUERY_VALUE);
-        }
+        LOG.debug("Set status for query to: {}", CDAConstants.STATUS_APPROVED_QUERY_VALUE);
 
         return oRequest;
     }
