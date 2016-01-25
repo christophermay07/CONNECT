@@ -41,7 +41,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public abstract class OutboundDocSubmissionDeferredResponseOrchestrationContextBuilder implements
         OrchestrationContextBuilder {
 
-	private AssertionType assertionType;
+    private AssertionType assertionType;
     private OutboundDelegate nhinDelegate;
     private RegistryResponseType request;
     private NhinTargetSystemType target;

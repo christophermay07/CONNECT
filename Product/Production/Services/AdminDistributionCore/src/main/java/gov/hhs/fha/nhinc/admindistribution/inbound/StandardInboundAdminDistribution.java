@@ -63,8 +63,8 @@ public class StandardInboundAdminDistribution extends AbstractInboundAdminDistri
      * @param auditLogger
      */
     public StandardInboundAdminDistribution(AdminDistributionPolicyChecker policyChecker,
-    		AdminDistributionAuditLogger auditLogger, AdapterAdminDistributionProxyObjectFactory adapterFactory,
-    		AdminDistributionUtils adminUtils) {
+            AdminDistributionAuditLogger auditLogger, AdapterAdminDistributionProxyObjectFactory adapterFactory,
+            AdminDistributionUtils adminUtils) {
         this.policyChecker = policyChecker;
         this.auditLogger = auditLogger;
         this.adapterFactory = adapterFactory;
@@ -75,8 +75,8 @@ public class StandardInboundAdminDistribution extends AbstractInboundAdminDistri
     @Override
     void processAdminDistribution(EDXLDistribution body, AssertionType assertion) {
         if (isPolicyValid(body, assertion)) {
-        	auditRequestToAdapter(body, assertion);
-        	sendToAdapter(body, assertion, adminUtils, adapterFactory);
+            auditRequestToAdapter(body, assertion);
+            sendToAdapter(body, assertion, adminUtils, adapterFactory);
         } else {
             LOG.warn("Invalid policy.  Will not send message to adapter.");
         }

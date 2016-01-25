@@ -44,41 +44,41 @@ import static org.mockito.Mockito.when;
 
 public class AttachmentReleaseFaultOutInterceptorTest {
 
-	@Test
-	public void testHandleMessage() {
-		final LargeFileUtils largeFileUtils = mock(LargeFileUtils.class);
-		Message message = mock(Message.class);
-		Exchange exchange = mock(Exchange.class);
-		Collection<Attachment> attachments = new ArrayList<>();
-		Attachment attachment = mock(Attachment.class);
-		attachments.add(attachment);
-		DataHandler dataHandler = mock(DataHandler.class);
-		AttachmentDataSource dataSource = mock(AttachmentDataSource.class);
+    @Test
+    public void testHandleMessage() {
+        final LargeFileUtils largeFileUtils = mock(LargeFileUtils.class);
+        Message message = mock(Message.class);
+        Exchange exchange = mock(Exchange.class);
+        Collection<Attachment> attachments = new ArrayList<>();
+        Attachment attachment = mock(Attachment.class);
+        attachments.add(attachment);
+        DataHandler dataHandler = mock(DataHandler.class);
+        AttachmentDataSource dataSource = mock(AttachmentDataSource.class);
 
-		AttachmentReleaseFaultOutInterceptor interceptor = new AttachmentReleaseFaultOutInterceptor() {
-			@Override
-			protected LargeFileUtils getLargeFileUtils() {
-				return largeFileUtils;
-			}
-		};
+        AttachmentReleaseFaultOutInterceptor interceptor = new AttachmentReleaseFaultOutInterceptor() {
+            @Override
+            protected LargeFileUtils getLargeFileUtils() {
+                return largeFileUtils;
+            }
+        };
 
-		when(message.getExchange()).thenReturn(exchange);
-		when(exchange.getInMessage()).thenReturn(message);
-		when(message.getAttachments()).thenReturn(attachments);
+        when(message.getExchange()).thenReturn(exchange);
+        when(exchange.getInMessage()).thenReturn(message);
+        when(message.getAttachments()).thenReturn(attachments);
 
-		when(attachment.getDataHandler()).thenReturn(dataHandler);
-		when(dataHandler.getDataSource()).thenReturn(dataSource);
+        when(attachment.getDataHandler()).thenReturn(dataHandler);
+        when(dataHandler.getDataSource()).thenReturn(dataSource);
 
-		interceptor.handleMessage(message);
+        interceptor.handleMessage(message);
 
-		verify(dataSource).release();
-		verify(largeFileUtils).closeStreamWithoutException(
-				any(InputStream.class));
-	}
+        verify(dataSource).release();
+        verify(largeFileUtils).closeStreamWithoutException(
+                any(InputStream.class));
+    }
 
-	@Test
-	public void testGetLargeFileUtils() {
-		AttachmentReleaseFaultOutInterceptor interceptor = new AttachmentReleaseFaultOutInterceptor();
-		assertTrue(interceptor.getLargeFileUtils() instanceof LargeFileUtils);
-	}
+    @Test
+    public void testGetLargeFileUtils() {
+        AttachmentReleaseFaultOutInterceptor interceptor = new AttachmentReleaseFaultOutInterceptor();
+        assertTrue(interceptor.getLargeFileUtils() instanceof LargeFileUtils);
+    }
 }

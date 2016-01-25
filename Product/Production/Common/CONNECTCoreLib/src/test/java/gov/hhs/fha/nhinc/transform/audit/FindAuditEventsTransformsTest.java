@@ -51,7 +51,7 @@ import org.junit.Test;
  */
 public class FindAuditEventsTransformsTest {
 
-	public FindAuditEventsTransformsTest() {
+    public FindAuditEventsTransformsTest() {
     }
 
     @BeforeClass

@@ -46,121 +46,121 @@ import org.opensaml.xml.validation.ValidationException;
 
 public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
 
-	@Test
-	public void testValidateSubject() throws ValidationException {
-		Assertion assertion = mock(Assertion.class);
-		Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
+    @Test
+    public void testValidateSubject() throws ValidationException {
+        Assertion assertion = mock(Assertion.class);
+        Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
 
-		Statement statement = mock(Statement.class);
-		List<Statement> statementList = new ArrayList<>();
-		statementList.add(statement);
-		AuthnStatement authnStatement = mock(AuthnStatement.class);
-		List<AuthnStatement> authnStatementList = new ArrayList<>();
-		authnStatementList.add(authnStatement);
-		AttributeStatement attrStatement = mock(AttributeStatement.class);
-		List<AttributeStatement> attrStatementList = new ArrayList<>();
-		attrStatementList.add(attrStatement);
-		AuthzDecisionStatement authzDecisionStatement = mock(AuthzDecisionStatement.class);
-		List<AuthzDecisionStatement> authzDecisionStatementList = new ArrayList<>();
-		authzDecisionStatementList.add(authzDecisionStatement);
-		Subject subject = mock(Subject.class);
-		Issuer issuer = mock(Issuer.class);
-		NameID name = mock(NameID.class);
+        Statement statement = mock(Statement.class);
+        List<Statement> statementList = new ArrayList<>();
+        statementList.add(statement);
+        AuthnStatement authnStatement = mock(AuthnStatement.class);
+        List<AuthnStatement> authnStatementList = new ArrayList<>();
+        authnStatementList.add(authnStatement);
+        AttributeStatement attrStatement = mock(AttributeStatement.class);
+        List<AttributeStatement> attrStatementList = new ArrayList<>();
+        attrStatementList.add(attrStatement);
+        AuthzDecisionStatement authzDecisionStatement = mock(AuthzDecisionStatement.class);
+        List<AuthzDecisionStatement> authzDecisionStatementList = new ArrayList<>();
+        authzDecisionStatementList.add(authzDecisionStatement);
+        Subject subject = mock(Subject.class);
+        Issuer issuer = mock(Issuer.class);
+        NameID name = mock(NameID.class);
 
 
-		when(assertion.getStatements()).thenReturn(statementList);
-		when(assertion.getAuthnStatements()).thenReturn(authnStatementList);
-		when(assertion.getAttributeStatements()).thenReturn(attrStatementList);
-		when(assertion.getAuthzDecisionStatements()).thenReturn(
-				authzDecisionStatementList);
-		when(assertion.getSubject()).thenReturn(subject);
-		when(subject.getNameID()).thenReturn(name);
+        when(assertion.getStatements()).thenReturn(statementList);
+        when(assertion.getAuthnStatements()).thenReturn(authnStatementList);
+        when(assertion.getAttributeStatements()).thenReturn(attrStatementList);
+        when(assertion.getAuthzDecisionStatements()).thenReturn(
+                authzDecisionStatementList);
+        when(assertion.getSubject()).thenReturn(subject);
+        when(subject.getNameID()).thenReturn(name);
         when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(name.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
-		when(assertion.getIssuer()).thenReturn(issuer);
+        when(assertion.getIssuer()).thenReturn(issuer);
         when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
 
-		validator.validate(assertion);
+        validator.validate(assertion);
 
-		assertTrue(true);
-	}
+        assertTrue(true);
+    }
 
-	@Test(expected = ValidationException.class)
-	public void testValidateSubject_FailOnGetStatemtents()
-			throws ValidationException {
-		String expectedMessage = "Subject is required when Statements are absent";
-		Assertion assertion = mock(Assertion.class);
-		Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
+    @Test(expected = ValidationException.class)
+    public void testValidateSubject_FailOnGetStatemtents()
+            throws ValidationException {
+        String expectedMessage = "Subject is required when Statements are absent";
+        Assertion assertion = mock(Assertion.class);
+        Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
 
-		List<Statement> statementList = new ArrayList<>();
+        List<Statement> statementList = new ArrayList<>();
 
-		when(assertion.getStatements()).thenReturn(statementList);
+        when(assertion.getStatements()).thenReturn(statementList);
 
-		try {
-			validator.validate(assertion);
-		} catch (ValidationException e) {
-			assertEquals(e.getMessage(), expectedMessage);
-			throw e;
-		}
-	}
+        try {
+            validator.validate(assertion);
+        } catch (ValidationException e) {
+            assertEquals(e.getMessage(), expectedMessage);
+            throw e;
+        }
+    }
 
-	@Test(expected = ValidationException.class)
-	public void testValidateSubject_FailOnGetAuthnStatements()
-			throws ValidationException {
-		String expectedMessage = "Assertions containing AuthnStatements require a Subject";
-		Assertion assertion = mock(Assertion.class);
-		Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
+    @Test(expected = ValidationException.class)
+    public void testValidateSubject_FailOnGetAuthnStatements()
+            throws ValidationException {
+        String expectedMessage = "Assertions containing AuthnStatements require a Subject";
+        Assertion assertion = mock(Assertion.class);
+        Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
 
-		Statement statement = mock(Statement.class);
-		List<Statement> statementList = new ArrayList<>();
-		statementList.add(statement);
-		AuthnStatement authnStatement = mock(AuthnStatement.class);
-		List<AuthnStatement> authnStatementList = new ArrayList<>();
-		authnStatementList.add(authnStatement);
+        Statement statement = mock(Statement.class);
+        List<Statement> statementList = new ArrayList<>();
+        statementList.add(statement);
+        AuthnStatement authnStatement = mock(AuthnStatement.class);
+        List<AuthnStatement> authnStatementList = new ArrayList<>();
+        authnStatementList.add(authnStatement);
 
-		when(assertion.getStatements()).thenReturn(statementList);
-		when(assertion.getAuthnStatements()).thenReturn(authnStatementList);
+        when(assertion.getStatements()).thenReturn(statementList);
+        when(assertion.getAuthnStatements()).thenReturn(authnStatementList);
 
-		try {
-			validator.validate(assertion);
-		} catch (ValidationException e) {
-			assertEquals(e.getMessage(), expectedMessage);
-			throw e;
-		}
-	}
+        try {
+            validator.validate(assertion);
+        } catch (ValidationException e) {
+            assertEquals(e.getMessage(), expectedMessage);
+            throw e;
+        }
+    }
 
-	@Test(expected = ValidationException.class)
-	public void testValidateSubject_FailOnGetAuthzDecisionStatements()
-			throws ValidationException {
-		String expectedMessage = "Assertions containing AuthzDecisionStatements require a Subject";
-		Assertion assertion = mock(Assertion.class);
-		Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
+    @Test(expected = ValidationException.class)
+    public void testValidateSubject_FailOnGetAuthzDecisionStatements()
+            throws ValidationException {
+        String expectedMessage = "Assertions containing AuthzDecisionStatements require a Subject";
+        Assertion assertion = mock(Assertion.class);
+        Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
 
-		Statement statement = mock(Statement.class);
-		List<Statement> statementList = new ArrayList<>();
-		statementList.add(statement);
-		List<AuthnStatement> authnStatementList = new ArrayList<>();
-		AttributeStatement attrStatement = mock(AttributeStatement.class);
-		List<AttributeStatement> attrStatementList = new ArrayList<>();
-		attrStatementList.add(attrStatement);
+        Statement statement = mock(Statement.class);
+        List<Statement> statementList = new ArrayList<>();
+        statementList.add(statement);
+        List<AuthnStatement> authnStatementList = new ArrayList<>();
+        AttributeStatement attrStatement = mock(AttributeStatement.class);
+        List<AttributeStatement> attrStatementList = new ArrayList<>();
+        attrStatementList.add(attrStatement);
 
-		AuthzDecisionStatement authzDecisionStatement = mock(AuthzDecisionStatement.class);
-		List<AuthzDecisionStatement> authzDecisionStatementList = new ArrayList<>();
-		authzDecisionStatementList.add(authzDecisionStatement);
+        AuthzDecisionStatement authzDecisionStatement = mock(AuthzDecisionStatement.class);
+        List<AuthzDecisionStatement> authzDecisionStatementList = new ArrayList<>();
+        authzDecisionStatementList.add(authzDecisionStatement);
 
-		when(assertion.getStatements()).thenReturn(statementList);
-		when(assertion.getAuthnStatements()).thenReturn(authnStatementList);
-		when(assertion.getAttributeStatements()).thenReturn(attrStatementList);
-		when(assertion.getAuthzDecisionStatements()).thenReturn(
-				authzDecisionStatementList);
+        when(assertion.getStatements()).thenReturn(statementList);
+        when(assertion.getAuthnStatements()).thenReturn(authnStatementList);
+        when(assertion.getAttributeStatements()).thenReturn(attrStatementList);
+        when(assertion.getAuthzDecisionStatements()).thenReturn(
+                authzDecisionStatementList);
 
-		try {
-			validator.validate(assertion);
-		} catch (ValidationException e) {
-			assertEquals(e.getMessage(), expectedMessage);
-			throw e;
-		}
-	}
+        try {
+            validator.validate(assertion);
+        } catch (ValidationException e) {
+            assertEquals(e.getMessage(), expectedMessage);
+            throw e;
+        }
+    }
 
 }

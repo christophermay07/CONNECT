@@ -163,7 +163,7 @@ public class ComponentProxyObjectFactoryTest {
         try {
             ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory() {
 
-            	@Override
+                @Override
                 protected String getConfigFileName() {
                     return "TEST_CONFIG_FILE_NAME";
                 }

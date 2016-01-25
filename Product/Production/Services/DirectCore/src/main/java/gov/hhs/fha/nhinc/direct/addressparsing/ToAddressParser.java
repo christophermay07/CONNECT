@@ -32,6 +32,6 @@ import org.nhindirect.xd.common.DirectDocuments;
 
 public interface ToAddressParser {
 
-	Set<Address> parse(String addresses, DirectDocuments documents);
+    Set<Address> parse(String addresses, DirectDocuments documents);
 
 }

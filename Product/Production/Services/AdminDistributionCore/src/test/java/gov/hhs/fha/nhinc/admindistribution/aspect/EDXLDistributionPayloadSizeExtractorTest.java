@@ -46,7 +46,7 @@ import static org.mockito.Mockito.*;
  */
 public class EDXLDistributionPayloadSizeExtractorTest {
 
-	@Test
+    @Test
     public void emptyBuild() {
         EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
         assertNotNull(extractor);
@@ -63,15 +63,15 @@ public class EDXLDistributionPayloadSizeExtractorTest {
 
     @Test
     public void testPayloadSizeOnSingleNonXMLEmptyPayload() {
-    	EDXLDistribution alert = new EDXLDistribution();
-    	ContentObjectType payload = new ContentObjectType();
-    	NonXMLContentType payloadContent = createMockNonXmlPayload();
-    	payload.setNonXMLContent(payloadContent);
-    	alert.getContentObject().add(payload);
-    	EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
+        EDXLDistribution alert = new EDXLDistribution();
+        ContentObjectType payload = new ContentObjectType();
+        NonXMLContentType payloadContent = createMockNonXmlPayload();
+        payload.setNonXMLContent(payloadContent);
+        alert.getContentObject().add(payload);
+        EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
 
-    	assertTrue(extractor.getPayloadSizes(alert).size() == 1);
-    	assertEquals("0", extractor.getPayloadSizes(alert).get(0));
+        assertTrue(extractor.getPayloadSizes(alert).size() == 1);
+        assertEquals("0", extractor.getPayloadSizes(alert).get(0));
     }
 
     @Test
@@ -117,19 +117,19 @@ public class EDXLDistributionPayloadSizeExtractorTest {
 
     @Test
     public void testPayloadSizeContentXMLbothXMLContentTypesEmpty() {
-    	EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
+        EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
         EDXLDistribution alert = new EDXLDistribution();
 
         final List<AnyXMLType> emptyList = mock(List.class);
         XmlContentType contentType = new XmlContentType(){
-        	@Override
-        	public List<AnyXMLType> getKeyXMLContent(){
-        		return emptyList;
-        	}
-        	@Override
-        	public List<AnyXMLType> getEmbeddedXMLContent(){
-        		return emptyList;
-        	}
+            @Override
+            public List<AnyXMLType> getKeyXMLContent(){
+                return emptyList;
+            }
+            @Override
+            public List<AnyXMLType> getEmbeddedXMLContent(){
+                return emptyList;
+            }
         };
 
         when(emptyList.size()).thenReturn(0,0);
@@ -145,21 +145,21 @@ public class EDXLDistributionPayloadSizeExtractorTest {
 
     @Test
     public void testPayloadSizeContentXMLMixedXMLContentTypeSizes() {
-    	EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
+        EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
         EDXLDistribution alert = new EDXLDistribution();
 
         final List<AnyXMLType> keyList = mock(List.class, "keyList");
         final List<AnyXMLType> embeddedList = mock(List.class, "embeddedList");
 
         XmlContentType contentType = new XmlContentType(){
-        	@Override
-        	public List<AnyXMLType> getKeyXMLContent(){
-        		return keyList;
-        	}
-        	@Override
-        	public List<AnyXMLType> getEmbeddedXMLContent(){
-        		return embeddedList;
-        	}
+            @Override
+            public List<AnyXMLType> getKeyXMLContent(){
+                return keyList;
+            }
+            @Override
+            public List<AnyXMLType> getEmbeddedXMLContent(){
+                return embeddedList;
+            }
         };
 
         when(keyList.size()).thenReturn(4);

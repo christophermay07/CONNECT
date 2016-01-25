@@ -37,8 +37,8 @@ public class PatientDiscoveryException extends Exception {
     }
 
     /**
-	 *
-	 */
+     *
+     */
     private static final long serialVersionUID = 5505637382127558889L;
 
 }

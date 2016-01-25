@@ -39,7 +39,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 public class OutboundDocQueryStrategyImpl_g1 extends OutboundDocQueryStrategy {
     // CHECKSTYLE:ON
 
-	@Override
+    @Override
     protected String getServiceName() {
         return NhincConstants.DOC_QUERY_SERVICE_NAME;
     }

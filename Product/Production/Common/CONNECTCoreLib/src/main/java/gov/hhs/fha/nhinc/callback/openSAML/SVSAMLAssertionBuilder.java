@@ -35,17 +35,17 @@ import org.w3c.dom.Element;
 public class SVSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
 
-	SVSAMLAssertionBuilder() {
+    SVSAMLAssertionBuilder() {
 
-	}
+    }
 
-	/* (non-Javadoc)
-	 * @see gov.hhs.fha.nhinc.callback.openSAML.SAMLAssertionBuilder#build()
-	 */
-	@Override
-	public Element build(CallbackProperties properties) throws Exception {
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.callback.openSAML.SAMLAssertionBuilder#build()
+     */
+    @Override
+    public Element build(CallbackProperties properties) throws Exception {
 
-		return null;
-	 }
+        return null;
+     }
 
 }

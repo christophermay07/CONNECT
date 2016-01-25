@@ -149,7 +149,7 @@ public class PatientDiscoveryDeferredResp10WebServices extends AbstractPDDeferre
     public boolean isInboundStandard() {
         boolean isStandard = false;
         NhinPatientDiscoveryDeferredResponse nhinPD = retrieveBean(
-        		NhinPatientDiscoveryDeferredResponse.class, getNhinBeanName());
+                NhinPatientDiscoveryDeferredResponse.class, getNhinBeanName());
         InboundPatientDiscoveryDeferredResponse inboundPatientDiscovery = nhinPD.getInboundPatientDiscovery();
         if (compareClassName(inboundPatientDiscovery, DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isStandard = true;

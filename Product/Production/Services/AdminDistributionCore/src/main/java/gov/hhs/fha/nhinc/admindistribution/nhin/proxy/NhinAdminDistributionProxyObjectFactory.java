@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 public class NhinAdminDistributionProxyObjectFactory extends ComponentProxyObjectFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(NhinAdminDistributionProxyObjectFactory.class);
-	private static final String CONFIG_FILE_NAME = "AdminDistProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "AdminDistProxyConfig.xml";
     private static final String BEAN_NAME_NHIN_ADMIN_DIST = "nhinadmindist";
 
     /**

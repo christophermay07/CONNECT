@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 
 public class NhinEndpointManager {
 
-	private static final Logger LOG = LoggerFactory.getLogger(NhinEndpointManager.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhinEndpointManager.class);
 
     protected ConnectionManagerCacheHelper getConnectionManagerCacheHelper() {
         return new ConnectionManagerCacheHelper();
@@ -68,8 +68,8 @@ public class NhinEndpointManager {
         GATEWAY_API_LEVEL highestApiLevel = null;
 
         try {
-        	UddiSpecVersionRegistry specRegistry = getUddiSpecVersionRegistry();
-        	highestApiLevel = specRegistry.getSupportedGatewayAPI(specVersion, serviceName);
+            UddiSpecVersionRegistry specRegistry = getUddiSpecVersionRegistry();
+            highestApiLevel = specRegistry.getSupportedGatewayAPI(specVersion, serviceName);
         } catch (Exception ex) {
             LOG.error("Error in getting highest gateway API level supported by specification: ", ex);
         }

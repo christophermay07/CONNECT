@@ -735,7 +735,7 @@ public class FileUtils {
      * Backs up a single file.
      *
      * @param configDir The directory that the file to be backed up is in.
-     * @param fileName	The name of the file to be backed up.
+     * @param fileName  The name of the file to be backed up.
      * @param log SoapUI logger.
      */
     public static void backupFile(String configDir, String fileName, Logger log) {

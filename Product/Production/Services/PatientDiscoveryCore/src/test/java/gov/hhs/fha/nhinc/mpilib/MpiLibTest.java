@@ -657,46 +657,46 @@ public class MpiLibTest {
      *
      * try {
      *
-     * p = loadPatient("BRADFORD", "BILL", "HUGH", "M", "1/20/1975", "000-00-0001", "437 TURNER LANE			", "",
+     * p = loadPatient("BRADFORD", "BILL", "HUGH", "M", "1/20/1975", "000-00-0001", "437 TURNER LANE            ", "",
      * "LEESBURG", "VA", "20176"); p.getIdentifiers().add("DoD-123", "DoD"); mpi.AddUpdate(p); p=loadPatient("BRADFORD",
-     * "KATY			", "POLK		", "F", "7/30/1974", "000-00-0002", "437 TURNER LANE			", "", "LEESBURG", "VA", "20176");
-     * p.getIdentifiers().add("DoD-124", "DoD"); mpi.AddUpdate(p); p=loadPatient("BRADFORD", "JILL			", "PAULINE	", "F",
-     * "5/24/1999", "000-00-0003", "437 TURNER LANE			", "", "LEESBURG", "VA", "20176");
-     * p.getIdentifiers().add("DoD-125", "DoD"); mpi.AddUpdate(p); p=loadPatient("BRADFORD", "TOMMY		", "CARL		", "M",
-     * "10/21/2003", "000-00-0004", "437 TURNER LANE			", "", "LEESBURG", "VA", "20176"); mpi.AddUpdate(p);
-     * p.getIdentifiers().add("DoD-126", "DoD"); p=loadPatient("BRADFORD", "CARL			", "FRANKLIN", "M", "9/4/1941",
-     * "000-00-0005", "437 TURNER LANE			", "", "LEESBURG", "VA", "20176"); mpi.AddUpdate(p);
-     * p.getIdentifiers().add("DoD-127", "DoD"); p=loadPatient("POLK", "ELIZABETH", "ROBERTS	", "F", "11/5/1947",
-     * "000-00-0006", "14 E WINDSOR DRIVE	", "", "BURKE		", "VA", "22015"); p.getIdentifiers().add("CDC-123", "CDC");
-     * mpi.AddUpdate(p); p=loadPatient("POLK", "RICHARD	", "GEORGE	", "M", "4/16/1946", "000-00-0007",
-     * "14 E WINDSOR DRIVE	", "", "BURKE		", "VA", "22015"); p.getIdentifiers().add("CDC-124", "CDC");
-     * p.getIdentifiers().add("DoD-128", "DoD"); mpi.AddUpdate(p); p=loadPatient("POLK", "JASON		", "KENNETH	", "M",
-     * "5/16/1971", "000-00-0008", "60 LINCOLN AVE			", "	APT #3			", "FAIRFAX				", "VA", "22032");
+     * "KATY            ", "POLK        ", "F", "7/30/1974", "000-00-0002", "437 TURNER LANE            ", "", "LEESBURG", "VA", "20176");
+     * p.getIdentifiers().add("DoD-124", "DoD"); mpi.AddUpdate(p); p=loadPatient("BRADFORD", "JILL            ", "PAULINE    ", "F",
+     * "5/24/1999", "000-00-0003", "437 TURNER LANE            ", "", "LEESBURG", "VA", "20176");
+     * p.getIdentifiers().add("DoD-125", "DoD"); mpi.AddUpdate(p); p=loadPatient("BRADFORD", "TOMMY        ", "CARL        ", "M",
+     * "10/21/2003", "000-00-0004", "437 TURNER LANE            ", "", "LEESBURG", "VA", "20176"); mpi.AddUpdate(p);
+     * p.getIdentifiers().add("DoD-126", "DoD"); p=loadPatient("BRADFORD", "CARL            ", "FRANKLIN", "M", "9/4/1941",
+     * "000-00-0005", "437 TURNER LANE            ", "", "LEESBURG", "VA", "20176"); mpi.AddUpdate(p);
+     * p.getIdentifiers().add("DoD-127", "DoD"); p=loadPatient("POLK", "ELIZABETH", "ROBERTS    ", "F", "11/5/1947",
+     * "000-00-0006", "14 E WINDSOR DRIVE    ", "", "BURKE        ", "VA", "22015"); p.getIdentifiers().add("CDC-123", "CDC");
+     * mpi.AddUpdate(p); p=loadPatient("POLK", "RICHARD    ", "GEORGE    ", "M", "4/16/1946", "000-00-0007",
+     * "14 E WINDSOR DRIVE    ", "", "BURKE        ", "VA", "22015"); p.getIdentifiers().add("CDC-124", "CDC");
+     * p.getIdentifiers().add("DoD-128", "DoD"); mpi.AddUpdate(p); p=loadPatient("POLK", "JASON        ", "KENNETH    ", "M",
+     * "5/16/1971", "000-00-0008", "60 LINCOLN AVE            ", "    APT #3            ", "FAIRFAX                ", "VA", "22032");
      * p.getIdentifiers().add("CDC-125", "CDC"); p.getIdentifiers().add("DoD-129", "DoD"); mpi.AddUpdate(p);
-     * p=loadPatient("POLK", "WALTER		", "MICHAEL	", "M", "12/5/1978", "000-00-0009", "PO BOX 1446					", "",
-     * "GERMANTOWN		", "MD", "20876"); p.getIdentifiers().add("KAD-124", "KAD"); p.getIdentifiers().add("CDC-126",
-     * "CDC"); mpi.AddUpdate(p); p=loadPatient("MACBETH ", "FRANK		", "EDWARD	", "M", "6/21/1963", "000-00-0010",
-     * "997 STRATFORD STREET", "UNIT 4G", "SILVER SPRING	", "MD", "20906"); p.getIdentifiers().add("KAD-125", "KAD");
-     * mpi.AddUpdate(p); p=loadPatient("JONES", "ROMEO		", "TYLER		", "M", "10/10/1992", "000-00-0011",
-     * "997 STRATFORD STREET", "UNIT 4G", "SILVER SPRING	", "MD", "20906"); p.getIdentifiers().add("KAD-126", "KAD");
-     * mpi.AddUpdate(p); p=loadPatient("SMITH", "JULIET		", "AMANDA	", "F", "4/23/1993", "000-00-0012",
-     * "997 STRATFORD STREET", "UNIT 4G", "SILVER SPRING	", "MD", "20906"); p.getIdentifiers().add("KAD-127", "KAD");
-     * mpi.AddUpdate(p); p=loadPatient("HARKNESS", "JACK			", "WINSTON	", "M", "9/3/1949", "000-00-0013",
-     * "TORCHWOOD ESTATES", "1000 CARDIFF ROAD	", "GREAT FALLS		", "VA", "22066"); p.getIdentifiers().add("INOVA-123",
+     * p=loadPatient("POLK", "WALTER        ", "MICHAEL    ", "M", "12/5/1978", "000-00-0009", "PO BOX 1446                    ", "",
+     * "GERMANTOWN        ", "MD", "20876"); p.getIdentifiers().add("KAD-124", "KAD"); p.getIdentifiers().add("CDC-126",
+     * "CDC"); mpi.AddUpdate(p); p=loadPatient("MACBETH ", "FRANK        ", "EDWARD    ", "M", "6/21/1963", "000-00-0010",
+     * "997 STRATFORD STREET", "UNIT 4G", "SILVER SPRING    ", "MD", "20906"); p.getIdentifiers().add("KAD-125", "KAD");
+     * mpi.AddUpdate(p); p=loadPatient("JONES", "ROMEO        ", "TYLER        ", "M", "10/10/1992", "000-00-0011",
+     * "997 STRATFORD STREET", "UNIT 4G", "SILVER SPRING    ", "MD", "20906"); p.getIdentifiers().add("KAD-126", "KAD");
+     * mpi.AddUpdate(p); p=loadPatient("SMITH", "JULIET        ", "AMANDA    ", "F", "4/23/1993", "000-00-0012",
+     * "997 STRATFORD STREET", "UNIT 4G", "SILVER SPRING    ", "MD", "20906"); p.getIdentifiers().add("KAD-127", "KAD");
+     * mpi.AddUpdate(p); p=loadPatient("HARKNESS", "JACK            ", "WINSTON    ", "M", "9/3/1949", "000-00-0013",
+     * "TORCHWOOD ESTATES", "1000 CARDIFF ROAD    ", "GREAT FALLS        ", "VA", "22066"); p.getIdentifiers().add("INOVA-123",
      * "INOVA"); mpi.AddUpdate(p); p=loadPatient("COOPER", "GWEN", "ELIZABETH","F", "8/16/1978", "000-00-0014",
-     * "TORCHWOOD ESTATES", "1000 CARDIFF ROAD	", "GREAT FALLS		", "VA", "22066"); p.getIdentifiers().add("INOVA-124",
-     * "INOVA"); mpi.AddUpdate(p); p=loadPatient("HARPER", "OWEN", "STEPHEN	", "M", "7/1/1968", "000-00-0015",
-     * "TORCHWOOD ESTATES", "1000 CARDIFF ROAD	", "GREAT FALLS		", "VA", "22066"); p.getIdentifiers().add("INOVA-125",
+     * "TORCHWOOD ESTATES", "1000 CARDIFF ROAD    ", "GREAT FALLS        ", "VA", "22066"); p.getIdentifiers().add("INOVA-124",
+     * "INOVA"); mpi.AddUpdate(p); p=loadPatient("HARPER", "OWEN", "STEPHEN    ", "M", "7/1/1968", "000-00-0015",
+     * "TORCHWOOD ESTATES", "1000 CARDIFF ROAD    ", "GREAT FALLS        ", "VA", "22066"); p.getIdentifiers().add("INOVA-125",
      * "INOVA"); mpi.AddUpdate(p); p=loadPatient("SATO", "TOSHIK", "", "F", "6/14/1973", "000-00-0016",
-     * "TORCHWOOD ESTATES", "1000 CARDIFF ROAD	", "GREAT FALLS		", "VA", "22066"); p.getIdentifiers().add("INOVA-126",
+     * "TORCHWOOD ESTATES", "1000 CARDIFF ROAD    ", "GREAT FALLS        ", "VA", "22066"); p.getIdentifiers().add("INOVA-126",
      * "INOVA"); p.getIdentifiers().add("CDC-127", "CDC"); p.getIdentifiers().add("DoD-123", "DoD"); mpi.AddUpdate(p);
-     * p=loadPatient("JONES", "IANTO", "WALDO		", "M", "8/19/1983", "000-00-0017", "TORCHWOOD ESTATES",
-     * "1000 CARDIFF ROAD	", "GREAT FALLS		", "VA", "22066"); mpi.AddUpdate(p); p=loadPatient("MARIANO", "JULIA",
-     * "BRIDGET	", "F", "1/13/1998", "000-00-0018", "49604 MAIN STREET", "", "ELLICOTT CITY	", "MD", "21042");
-     * mpi.AddUpdate(p); p=loadPatient("ELSTON", "MICHAEL", "BUZZ		", "M", "11/21/1928", "000-00-0019", "23 JFK DRIVE",
-     * "", "WASHINGTON		", "DC", "20004"); p.getIdentifiers().add("GH-123", "GH"); mpi.AddUpdate(p);
+     * p=loadPatient("JONES", "IANTO", "WALDO        ", "M", "8/19/1983", "000-00-0017", "TORCHWOOD ESTATES",
+     * "1000 CARDIFF ROAD    ", "GREAT FALLS        ", "VA", "22066"); mpi.AddUpdate(p); p=loadPatient("MARIANO", "JULIA",
+     * "BRIDGET    ", "F", "1/13/1998", "000-00-0018", "49604 MAIN STREET", "", "ELLICOTT CITY    ", "MD", "21042");
+     * mpi.AddUpdate(p); p=loadPatient("ELSTON", "MICHAEL", "BUZZ        ", "M", "11/21/1928", "000-00-0019", "23 JFK DRIVE",
+     * "", "WASHINGTON        ", "DC", "20004"); p.getIdentifiers().add("GH-123", "GH"); mpi.AddUpdate(p);
      * p=loadPatient("DANGERS", "JACK", "", "M", "12/11/1965", "000-00-0020", "99 PARADISE STREET NW", "",
-     * "WASHINGTON		", "DC", "20037"); p.getIdentifiers().add("GH-124", "GH"); mpi.AddUpdate(p); } catch (Exception ex)
+     * "WASHINGTON        ", "DC", "20037"); p.getIdentifiers().add("GH-124", "GH"); mpi.AddUpdate(p); } catch (Exception ex)
      * {
      *
      * }

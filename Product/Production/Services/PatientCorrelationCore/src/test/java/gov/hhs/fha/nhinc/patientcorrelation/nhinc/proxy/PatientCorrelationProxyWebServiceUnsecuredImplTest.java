@@ -41,50 +41,50 @@ import static org.mockito.Mockito.when;
 
 public class PatientCorrelationProxyWebServiceUnsecuredImplTest {
 
-	private CONNECTClientFactory mockCONNECTClientFactory = mock(CONNECTClientFactory.class);
-	@SuppressWarnings("unchecked")
-	private CONNECTClient<PatientCorrelationPortType> mockClient = mock (CONNECTClient.class);
-	@SuppressWarnings("unchecked")
-	private CONNECTClient<PatientCorrelationPortType> mockSecuredClient = mock (CONNECTClient.class);
-	private AssertionType mockAssertion = mock(AssertionType.class);
-	private PRPAIN201301UV02 mock301 = mock(PRPAIN201301UV02.class);
-	private PRPAIN201309UV02 mock309 = mock(PRPAIN201309UV02.class);
+    private CONNECTClientFactory mockCONNECTClientFactory = mock(CONNECTClientFactory.class);
+    @SuppressWarnings("unchecked")
+    private CONNECTClient<PatientCorrelationPortType> mockClient = mock (CONNECTClient.class);
+    @SuppressWarnings("unchecked")
+    private CONNECTClient<PatientCorrelationPortType> mockSecuredClient = mock (CONNECTClient.class);
+    private AssertionType mockAssertion = mock(AssertionType.class);
+    private PRPAIN201301UV02 mock301 = mock(PRPAIN201301UV02.class);
+    private PRPAIN201309UV02 mock309 = mock(PRPAIN201309UV02.class);
 
 
-	@SuppressWarnings("unchecked")
-	@Test
-	public void testAddPatientCorrelation() throws Exception {
-		PatientCorrelationProxyWebServiceUnsecuredImpl impl = getPatientCorrelationProxyWebServiceUnsecuredImpl();
-		impl.addPatientCorrelation(mock301, mockAssertion);
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testAddPatientCorrelation() throws Exception {
+        PatientCorrelationProxyWebServiceUnsecuredImpl impl = getPatientCorrelationProxyWebServiceUnsecuredImpl();
+        impl.addPatientCorrelation(mock301, mockAssertion);
 
-		verify(mockClient).invokePort(any(Class.class), any(String.class), any(Object.class));
-		verify(mockCONNECTClientFactory).getCONNECTClientUnsecured(any(ServicePortDescriptor.class), any(String.class), any(AssertionType.class));
-	}
+        verify(mockClient).invokePort(any(Class.class), any(String.class), any(Object.class));
+        verify(mockCONNECTClientFactory).getCONNECTClientUnsecured(any(ServicePortDescriptor.class), any(String.class), any(AssertionType.class));
+    }
 
-	@SuppressWarnings("unchecked")
-	@Test
-	public void testretrievePatientCorrelations() throws Exception {
-		PatientCorrelationProxyWebServiceUnsecuredImpl impl = getPatientCorrelationProxyWebServiceUnsecuredImpl();
-		impl.retrievePatientCorrelations(mock309, mockAssertion);
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testretrievePatientCorrelations() throws Exception {
+        PatientCorrelationProxyWebServiceUnsecuredImpl impl = getPatientCorrelationProxyWebServiceUnsecuredImpl();
+        impl.retrievePatientCorrelations(mock309, mockAssertion);
 
-		verify(mockClient).invokePort(any(Class.class), any(String.class), any(Object.class));
-		verify(mockCONNECTClientFactory).getCONNECTClientUnsecured(any(ServicePortDescriptor.class), any(String.class), any(AssertionType.class));
-	}
+        verify(mockClient).invokePort(any(Class.class), any(String.class), any(Object.class));
+        verify(mockCONNECTClientFactory).getCONNECTClientUnsecured(any(ServicePortDescriptor.class), any(String.class), any(AssertionType.class));
+    }
 
-	protected PatientCorrelationProxyWebServiceUnsecuredImpl getPatientCorrelationProxyWebServiceUnsecuredImpl() {
-		return new PatientCorrelationProxyWebServiceUnsecuredImpl() {
+    protected PatientCorrelationProxyWebServiceUnsecuredImpl getPatientCorrelationProxyWebServiceUnsecuredImpl() {
+        return new PatientCorrelationProxyWebServiceUnsecuredImpl() {
 
-			@Override
-			protected CONNECTClientFactory getCONNECTClientFactory() {
-				return mockCONNECTClientFactory;
-			}
-		};
-	}
+            @Override
+            protected CONNECTClientFactory getCONNECTClientFactory() {
+                return mockCONNECTClientFactory;
+            }
+        };
+    }
 
-	@SuppressWarnings("unchecked")
-	@Before
-	public void setup() {
-		when(mockCONNECTClientFactory.getCONNECTClientUnsecured(any(ServicePortDescriptor.class), any(String.class), any(AssertionType.class))).thenReturn(mockClient);
-		when(mockCONNECTClientFactory.getCONNECTClientSecured(any(ServicePortDescriptor.class), any(String.class), any(AssertionType.class))).thenReturn(mockSecuredClient);
-	}
+    @SuppressWarnings("unchecked")
+    @Before
+    public void setup() {
+        when(mockCONNECTClientFactory.getCONNECTClientUnsecured(any(ServicePortDescriptor.class), any(String.class), any(AssertionType.class))).thenReturn(mockClient);
+        when(mockCONNECTClientFactory.getCONNECTClientSecured(any(ServicePortDescriptor.class), any(String.class), any(AssertionType.class))).thenReturn(mockSecuredClient);
+    }
 }

@@ -43,9 +43,9 @@ import static org.mockito.Mockito.when;
 
 public class SOAPMessageRoutingAccessorTest {
 
-	private static final String MESSAGE_ID = UUID.randomUUID().toString();
-	private static final String RELATES_TO = UUID.randomUUID().toString();
-	private static final String TRANSACTION_ID = UUID.randomUUID().toString();
+    private static final String MESSAGE_ID = UUID.randomUUID().toString();
+    private static final String RELATES_TO = UUID.randomUUID().toString();
+    private static final String TRANSACTION_ID = UUID.randomUUID().toString();
 
     @Test
     public void nullMessageContext() {

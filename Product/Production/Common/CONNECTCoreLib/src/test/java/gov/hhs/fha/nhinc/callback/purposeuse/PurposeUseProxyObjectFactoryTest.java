@@ -33,27 +33,27 @@ import org.junit.Test;
 
 public class PurposeUseProxyObjectFactoryTest {
 
-	private PurposeUseProxyObjectFactory proxyFactory;
+    private PurposeUseProxyObjectFactory proxyFactory;
 
-	@Before
-	public void setUp() throws Exception {
-		proxyFactory = new PurposeUseProxyObjectFactory(){
-			@Override
-			protected <T extends Object> T getBean(String beanName, Class<T> type){
-				return type.cast(new PurposeUseProxyDefaultImpl());
-			}
-		};
-	}
+    @Before
+    public void setUp() throws Exception {
+        proxyFactory = new PurposeUseProxyObjectFactory(){
+            @Override
+            protected <T extends Object> T getBean(String beanName, Class<T> type){
+                return type.cast(new PurposeUseProxyDefaultImpl());
+            }
+        };
+    }
 
-	@Test
-	public void testGetConfigFileName() {
-		assertEquals(proxyFactory.getConfigFileName(), "PurposeUseProxyConfig.xml");
-	}
+    @Test
+    public void testGetConfigFileName() {
+        assertEquals(proxyFactory.getConfigFileName(), "PurposeUseProxyConfig.xml");
+    }
 
-	@Test
-	public void testGetPurposeUseProxy() {
-		PurposeUseProxy proxy = proxyFactory.getPurposeUseProxy();
-		assertTrue(proxy instanceof PurposeUseProxyDefaultImpl);
-	}
+    @Test
+    public void testGetPurposeUseProxy() {
+        PurposeUseProxy proxy = proxyFactory.getPurposeUseProxy();
+        assertTrue(proxy instanceof PurposeUseProxyDefaultImpl);
+    }
 
 }

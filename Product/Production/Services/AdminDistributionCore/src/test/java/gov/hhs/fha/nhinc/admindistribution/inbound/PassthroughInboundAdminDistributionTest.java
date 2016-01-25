@@ -62,15 +62,15 @@ public class PassthroughInboundAdminDistributionTest {
         when(adapterFactory.getAdapterAdminDistProxy()).thenReturn(adapterProxy);
 
         PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger,
-        		adminUtils, adapterFactory);
+                adminUtils, adapterFactory);
 
         passthroughAdminDist.sendAlertMessage(request, assertion);
 
         verify(adapterProxy).sendAlertMessage(eq(request), eq(assertion));
 
         verify(auditLogger, times(1)).auditNhinAdminDist(any(EDXLDistribution.class),
-        		any(AssertionType.class), any(String.class), any(NhinTargetSystemType.class),
-        		any(String.class));
+                any(AssertionType.class), any(String.class), any(NhinTargetSystemType.class),
+                any(String.class));
 
     }
 
@@ -87,7 +87,7 @@ public class PassthroughInboundAdminDistributionTest {
         doThrow(exception).when(adminUtils).convertDataToFileLocationIfEnabled(request);
 
         PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger,
-        		adminUtils, adapterFactory);
+                adminUtils, adapterFactory);
 
         passthroughAdminDist.sendAlertMessage(request, assertion);
 

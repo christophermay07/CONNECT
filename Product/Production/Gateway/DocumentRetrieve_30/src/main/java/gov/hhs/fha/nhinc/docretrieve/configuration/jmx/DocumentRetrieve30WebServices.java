@@ -100,7 +100,7 @@ public class DocumentRetrieve30WebServices extends AbstractDRWebServicesMXBean {
     @Override
     public void configureInboundPtImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-    	DocRetrieve docRetrieve = retrieveBean(DocRetrieve.class, getNhinBeanName());
+        DocRetrieve docRetrieve = retrieveBean(DocRetrieve.class, getNhinBeanName());
         InboundDocRetrieve inboundDocRetrieve = retrieveBean(InboundDocRetrieve.class,getPassthroughInboundBeanName());
 
         docRetrieve.setInboundDocRetrieve(inboundDocRetrieve);
@@ -121,7 +121,7 @@ public class DocumentRetrieve30WebServices extends AbstractDRWebServicesMXBean {
     @Override
     public void configureOutboundStdImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-    	EntityDocRetrieve docRetrieve = retrieveBean(EntityDocRetrieve.class, getEntityUnsecuredBeanName());
+        EntityDocRetrieve docRetrieve = retrieveBean(EntityDocRetrieve.class, getEntityUnsecuredBeanName());
         OutboundDocRetrieve outboundDocRetrieve = retrieveBean(OutboundDocRetrieve.class,getStandardOutboundBeanName());
 
         docRetrieve.setOutboundDocRetrieve(outboundDocRetrieve);
@@ -130,7 +130,7 @@ public class DocumentRetrieve30WebServices extends AbstractDRWebServicesMXBean {
     @Override
     public void configureOutboundPtImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-    	EntityDocRetrieve docRetrieve = retrieveBean(EntityDocRetrieve.class, getEntityUnsecuredBeanName());
+        EntityDocRetrieve docRetrieve = retrieveBean(EntityDocRetrieve.class, getEntityUnsecuredBeanName());
         OutboundDocRetrieve outboundDocRetrieve = retrieveBean(OutboundDocRetrieve.class,getPassthroughOutboundBeanName());
 
         docRetrieve.setOutboundDocRetrieve(outboundDocRetrieve);

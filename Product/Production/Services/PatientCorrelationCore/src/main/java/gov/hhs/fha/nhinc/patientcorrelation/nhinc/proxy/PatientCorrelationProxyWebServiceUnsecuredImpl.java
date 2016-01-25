@@ -67,7 +67,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
     }
 
     protected CONNECTClientFactory getCONNECTClientFactory() {
-    	return CONNECTClientFactory.getInstance();
+        return CONNECTClientFactory.getInstance();
     }
 
     /**

@@ -52,7 +52,7 @@ public class EDXLDistributionPayloadSizeExtractor {
         if (alertMessage != null) {
             List<ContentObjectType> contents = alertMessage.getContentObject();
             for (ContentObjectType message : contents) {
-            		payloadSize.add(getPayloadSize(message));
+                    payloadSize.add(getPayloadSize(message));
             }
         }
         return payloadSize;
@@ -61,32 +61,32 @@ public class EDXLDistributionPayloadSizeExtractor {
     private String getPayloadSize(ContentObjectType message) {
         int result = 0;
         result += getContentXMLSize(message.getXmlContent());
-    	result += getNonContentXMLSize(message.getNonXMLContent());
-    	return "" + result;
+        result += getNonContentXMLSize(message.getNonXMLContent());
+        return "" + result;
     }
 
     private int getContentXMLSize(XmlContentType contentXML){
-    	if(contentXML == null){
-    		return 0;
-    	}else {
-    		int embeddedXMLSize = contentXML.getEmbeddedXMLContent().size();
-    		int keyXMLSize = contentXML.getKeyXMLContent().size();
-    		return embeddedXMLSize + keyXMLSize;
-    	}
+        if(contentXML == null){
+            return 0;
+        }else {
+            int embeddedXMLSize = contentXML.getEmbeddedXMLContent().size();
+            int keyXMLSize = contentXML.getKeyXMLContent().size();
+            return embeddedXMLSize + keyXMLSize;
+        }
     }
 
     private int getNonContentXMLSize(NonXMLContentType nonContentXML){
-    	if(nonContentXML == null){
-    		return 0;
-    	}else{
-    		BigInteger size = nonContentXML.getSize();
-    		if(size != null) {
-    			return size.intValue();
-    		}
-    		else {
-    			return 0;
-    		}
-    	}
+        if(nonContentXML == null){
+            return 0;
+        }else{
+            BigInteger size = nonContentXML.getSize();
+            if(size != null) {
+                return size.intValue();
+            }
+            else {
+                return 0;
+            }
+        }
     }
 
 }

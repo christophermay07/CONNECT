@@ -86,7 +86,7 @@ public class AdapterPIPImplTest {
         // AdapterPIPImpl pipImpl = new AdapterPIPImpl();
         AdapterPIPImpl pipImpl = new AdapterPIPImpl() {
 
-        	@Override
+            @Override
             protected PatientConsentManager getPatientConsentManager() {
                 return consentManager;
             }
@@ -348,17 +348,17 @@ public class AdapterPIPImplTest {
     }
 
     private static final String STORE_OPTIN_CONSENT_MESSAGE = "<urn:StorePtConsentRequest xmlns:urn=\"urn:gov:hhs:fha:nhinc:common:nhinccommonadapter\">"
-            + "	<urn:patientPreferences>"
-            + "		<urn:patientId>ADPTPIPTST54325432M</urn:patientId>"
-            + "		<urn:assigningAuthority>1.1</urn:assigningAuthority>"
-            + "		<urn:optIn>true</urn:optIn>"
-            + "	</urn:patientPreferences>" + "</urn:StorePtConsentRequest>";
+            + "    <urn:patientPreferences>"
+            + "        <urn:patientId>ADPTPIPTST54325432M</urn:patientId>"
+            + "        <urn:assigningAuthority>1.1</urn:assigningAuthority>"
+            + "        <urn:optIn>true</urn:optIn>"
+            + "    </urn:patientPreferences>" + "</urn:StorePtConsentRequest>";
     private static final String STORE_OPTOUT_CONSENT_MESSAGE = "<urn:StorePtConsentRequest xmlns:urn=\"urn:gov:hhs:fha:nhinc:common:nhinccommonadapter\">"
-            + "	<urn:patientPreferences>"
-            + "		<urn:patientId>ADPTPIPTST54325432M</urn:patientId>"
-            + "		<urn:assigningAuthority>1.1</urn:assigningAuthority>"
-            + "		<urn:optIn>false</urn:optIn>"
-            + "	</urn:patientPreferences>" + "</urn:StorePtConsentRequest>";
+            + "    <urn:patientPreferences>"
+            + "        <urn:patientId>ADPTPIPTST54325432M</urn:patientId>"
+            + "        <urn:assigningAuthority>1.1</urn:assigningAuthority>"
+            + "        <urn:optIn>false</urn:optIn>"
+            + "    </urn:patientPreferences>" + "</urn:StorePtConsentRequest>";
     private static final String RETRIEVE_OPTIN_CONSENT_MESSAGE = "<urn:RetrievePtConsentByPtIdRequest xmlns:urn=\"urn:gov:hhs:fha:nhinc:common:nhinccommonadapter\">"
             + "   <urn:patientId>ADPTPIPTST54325432M</urn:patientId>"
             + "   <urn:assigningAuthority>1.1</urn:assigningAuthority>" + "</urn:RetrievePtConsentByPtIdRequest>";
@@ -372,10 +372,10 @@ public class AdapterPIPImplTest {
             + "   <urn:assigningAuthority>1.1</urn:assigningAuthority>" + "</urn:RetrievePtConsentByPtIdRequest>";
     private static final String STORE_FINE_CONSENT_MESSAGE = "<urn:StorePtConsentRequest  xmlns:urn=\"urn:gov:hhs:fha:nhinc:common:nhinccommonadapter\">"
             + " <urn:patientPreferences>"
-            + "	<urn:patientId>ADPTPIPTST98769876Z</urn:patientId>"
-            + "	<urn:assigningAuthority>1.1</urn:assigningAuthority>"
-            + "	<urn:optIn>true</urn:optIn>"
-            + "	<urn:fineGrainedPolicyCriteria>"
+            + "    <urn:patientId>ADPTPIPTST98769876Z</urn:patientId>"
+            + "    <urn:assigningAuthority>1.1</urn:assigningAuthority>"
+            + "    <urn:optIn>true</urn:optIn>"
+            + "    <urn:fineGrainedPolicyCriteria>"
             + "      <urn:fineGrainedPolicyCriterion>"
             + "         <urn:sequentialId>1</urn:sequentialId>"
             + "         <urn:permit>true</urn:permit>"
@@ -390,10 +390,10 @@ public class AdapterPIPImplTest {
             + "   </urn:fineGrainedPolicyMetadata>" + " </urn:patientPreferences>" + "</urn:StorePtConsentRequest>";
     private static final String STORE_BINARY_CONSENT_MESSAGE = "<urn:StorePtConsentRequest  xmlns:urn=\"urn:gov:hhs:fha:nhinc:common:nhinccommonadapter\">"
             + " <urn:patientPreferences>"
-            + "	<urn:patientId>ADPTPIPTST24688642A</urn:patientId>"
-            + "	<urn:assigningAuthority>1.1</urn:assigningAuthority>"
-            + "	<urn:optIn>true</urn:optIn>"
-            + "	<urn:fineGrainedPolicyCriteria>"
+            + "    <urn:patientId>ADPTPIPTST24688642A</urn:patientId>"
+            + "    <urn:assigningAuthority>1.1</urn:assigningAuthority>"
+            + "    <urn:optIn>true</urn:optIn>"
+            + "    <urn:fineGrainedPolicyCriteria>"
             + "      <urn:fineGrainedPolicyCriterion>"
             + "         <urn:sequentialId>1</urn:sequentialId>"
             + "         <urn:permit>true</urn:permit>"
@@ -404,15 +404,15 @@ public class AdapterPIPImplTest {
             + "      </urn:fineGrainedPolicyCriterion>"
             + "   </urn:fineGrainedPolicyCriteria>"
             + "   <urn:binaryDocumentPolicyCriteria>"
-            + "	   <urn:binaryDocumentPolicyCriterion>"
+            + "       <urn:binaryDocumentPolicyCriterion>"
             + "         <urn:documentUniqueId>99.999.9.9</urn:documentUniqueId>"
             + "         <urn:storeAction>add</urn:storeAction>"
             + "      </urn:binaryDocumentPolicyCriterion>"
-            + "	   <urn:binaryDocumentPolicyCriterion>"
+            + "       <urn:binaryDocumentPolicyCriterion>"
             + "         <urn:documentUniqueId>88.888.8.8</urn:documentUniqueId>"
             + "         <urn:storeAction>update</urn:storeAction>"
             + "      </urn:binaryDocumentPolicyCriterion>"
-            + "	   <urn:binaryDocumentPolicyCriterion>"
+            + "       <urn:binaryDocumentPolicyCriterion>"
             + "         <urn:documentUniqueId>77.777.7.7</urn:documentUniqueId>"
             + "         <urn:storeAction>delete</urn:storeAction>"
             + "      </urn:binaryDocumentPolicyCriterion>"

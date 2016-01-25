@@ -148,7 +148,7 @@ public class DocRetrieveResponseProcessorTest {
         try {
             DocRetrieveResponseProcessor processor = new DocRetrieveResponseProcessor() {
 
-            	@Override
+                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
@@ -331,7 +331,7 @@ public class DocRetrieveResponseProcessorTest {
         try {
             DocRetrieveResponseProcessor processor = new DocRetrieveResponseProcessor() {
 
-            	@Override
+                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }

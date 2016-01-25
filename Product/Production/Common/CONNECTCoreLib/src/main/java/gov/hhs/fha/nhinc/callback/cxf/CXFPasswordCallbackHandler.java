@@ -55,7 +55,7 @@ public class CXFPasswordCallbackHandler implements CallbackHandler {
     }
 
     public CXFPasswordCallbackHandler(String keystorePassword){
-    	this.keystorePassword = keystorePassword;
+        this.keystorePassword = keystorePassword;
     }
 
     /**
@@ -77,8 +77,8 @@ public class CXFPasswordCallbackHandler implements CallbackHandler {
 
         for (Callback callback : callbacks) {
             if(callback instanceof WSPasswordCallback){
-            	WSPasswordCallback pc = (WSPasswordCallback) callback;
-            	pc.setPassword(keystorePassword);
+                WSPasswordCallback pc = (WSPasswordCallback) callback;
+                pc.setPassword(keystorePassword);
             }
         }
         LOG.trace("end CXFPasswordCallbackHandler.handle() ... ");

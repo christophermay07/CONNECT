@@ -41,7 +41,7 @@ import javax.servlet.ServletContext;
 public class AdminDistribution10WebServices extends AbstractAdminDistributionWebServicesMXBean {
 
 
-	/** The Constant NHIN_AD_BEAN_NAME. */
+    /** The Constant NHIN_AD_BEAN_NAME. */
     private static final String NHIN_AD_BEAN_NAME = "NhinAdministrativeDistributionBean";
 
     /** The Constant ENTITY_UNSECURED_AD_BEAN_NAME. */
@@ -184,7 +184,7 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
     @Override
     public void configureInboundPtImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-    	NhinAdministrativeDistribution nhinAD;
+        NhinAdministrativeDistribution nhinAD;
         InboundAdminDistribution inboundAD;
 
         nhinAD = retrieveBean(NhinAdministrativeDistribution.class, getNhinBeanName());
@@ -209,7 +209,7 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
     @Override
     public void configureOutboundPtImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-    	EntityAdministrativeDistribution entityAD;
+        EntityAdministrativeDistribution entityAD;
         OutboundAdminDistribution outboundAD;
 
         entityAD = retrieveBean(EntityAdministrativeDistribution.class, getEntityUnsecuredBeanName());

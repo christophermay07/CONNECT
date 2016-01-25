@@ -51,7 +51,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = { "/admindistribution/_20/applicationContext.xml" })
 public class AdminDistributionSpringContextTest {
 
-	@Autowired
+    @Autowired
     StandardOutboundAdminDistribution standardOutboundOrchImpl;
 
     @Autowired

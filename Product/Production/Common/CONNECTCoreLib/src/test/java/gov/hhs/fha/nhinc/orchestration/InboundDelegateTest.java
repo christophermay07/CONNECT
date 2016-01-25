@@ -80,15 +80,15 @@ public class InboundDelegateTest {
             return null;
         }
 
-		/* (non-Javadoc)
-		 * @see gov.hhs.fha.nhinc.orchestration.OutboundDelegate#createErrorResponse(gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable, java.lang.String)
-		 */
-		@Override
-		public void createErrorResponse(OutboundOrchestratable message,
-				String error) {
-			// TODO Auto-generated method stub
+        /* (non-Javadoc)
+         * @see gov.hhs.fha.nhinc.orchestration.OutboundDelegate#createErrorResponse(gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable, java.lang.String)
+         */
+        @Override
+        public void createErrorResponse(OutboundOrchestratable message,
+                String error) {
+            // TODO Auto-generated method stub
 
-		}
+        }
     }
 
 }

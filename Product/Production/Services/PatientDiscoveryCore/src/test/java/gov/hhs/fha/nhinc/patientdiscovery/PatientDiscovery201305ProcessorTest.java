@@ -115,12 +115,12 @@ public class PatientDiscovery201305ProcessorTest {
         AssertionType assertion = new AssertionType();
 
         PRPAIN201306UV02 result = null;
-		try {
-			result = instance.process201305(request, assertion);
-		} catch (PatientDiscoveryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        try {
+            result = instance.process201305(request, assertion);
+        } catch (PatientDiscoveryException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         TestHelper.assertPatientFound(result);
     }
@@ -167,12 +167,12 @@ public class PatientDiscovery201305ProcessorTest {
         AssertionType assertion = new AssertionType();
 
         PRPAIN201306UV02 result = null;
-		try {
-			result = instance.process201305(request, assertion);
-		} catch (PatientDiscoveryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        try {
+            result = instance.process201305(request, assertion);
+        } catch (PatientDiscoveryException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         TestHelper.assertPatientNotFound(result);
     }
@@ -218,12 +218,12 @@ public class PatientDiscovery201305ProcessorTest {
         AssertionType assertion = new AssertionType();
 
         PRPAIN201306UV02 result = null;
-		try {
-			result = instance.process201305(request, assertion);
-		} catch (PatientDiscoveryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        try {
+            result = instance.process201305(request, assertion);
+        } catch (PatientDiscoveryException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         TestHelper.assertPatientNotFound(result);
     }

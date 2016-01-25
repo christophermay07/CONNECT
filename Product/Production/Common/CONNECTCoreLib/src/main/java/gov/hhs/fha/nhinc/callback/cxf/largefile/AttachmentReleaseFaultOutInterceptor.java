@@ -81,7 +81,7 @@ public class AttachmentReleaseFaultOutInterceptor extends AbstractPhaseIntercept
     }
 
     protected LargeFileUtils getLargeFileUtils(){
-    	return LargeFileUtils.getInstance();
+        return LargeFileUtils.getInstance();
     }
 
 }

@@ -39,12 +39,12 @@ import org.slf4j.LoggerFactory;
 
 public abstract class AbstractInboundAdminDistribution implements InboundAdminDistribution {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AbstractInboundAdminDistribution.class);
-	protected AdminDistributionAuditLogger auditLogger = new AdminDistributionAuditLogger();
-	protected AdminDistributionUtils adminUtils = AdminDistributionUtils.getInstance();
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractInboundAdminDistribution.class);
+    protected AdminDistributionAuditLogger auditLogger = new AdminDistributionAuditLogger();
+    protected AdminDistributionUtils adminUtils = AdminDistributionUtils.getInstance();
     protected AdapterAdminDistributionProxyObjectFactory adapterFactory = new AdapterAdminDistributionProxyObjectFactory();
 
-	abstract void processAdminDistribution(EDXLDistribution body, AssertionType assertion);
+    abstract void processAdminDistribution(EDXLDistribution body, AssertionType assertion);
 
     /**
      * This method sends sendAlertMessage to agency/agencies.
@@ -67,12 +67,12 @@ public abstract class AbstractInboundAdminDistribution implements InboundAdminDi
     }
 
     protected void sendToAdapter(EDXLDistribution body, AssertionType assertion,
-    		AdminDistributionUtils adminUtils, AdapterAdminDistributionProxyObjectFactory adapterFactory) {
-    	try {
-        	adminUtils.convertDataToFileLocationIfEnabled(body);
-        	AdapterAdminDistributionProxy adapterProxy = adapterFactory.getAdapterAdminDistProxy();
-        	adapterProxy.sendAlertMessage(body, assertion);
-    	} catch (LargePayloadException lpe) {
+            AdminDistributionUtils adminUtils, AdapterAdminDistributionProxyObjectFactory adapterFactory) {
+        try {
+            adminUtils.convertDataToFileLocationIfEnabled(body);
+            AdapterAdminDistributionProxy adapterProxy = adapterFactory.getAdapterAdminDistProxy();
+            adapterProxy.sendAlertMessage(body, assertion);
+        } catch (LargePayloadException lpe) {
             LOG.error("Failed to retrieve payload document.", lpe);
         }
     }

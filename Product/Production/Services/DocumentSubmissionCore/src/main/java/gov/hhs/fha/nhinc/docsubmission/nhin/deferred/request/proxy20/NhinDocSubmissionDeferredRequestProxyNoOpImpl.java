@@ -43,18 +43,18 @@ import org.slf4j.LoggerFactory;
 public class NhinDocSubmissionDeferredRequestProxyNoOpImpl implements NhinDocSubmissionDeferredRequestProxy {
     private static final Logger LOG = LoggerFactory.getLogger(NhinDocSubmissionDeferredRequestProxyNoOpImpl.class);
 
-	@Override
-	@NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+    @Override
+    @NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
     afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
     serviceType = "Document Submission Deferred Request",
     version = "")
-	public RegistryResponseType provideAndRegisterDocumentSetBRequest20(
-			ProvideAndRegisterDocumentSetRequestType request,
-			AssertionType assertion, NhinTargetSystemType targetSystem) {
+    public RegistryResponseType provideAndRegisterDocumentSetBRequest20(
+            ProvideAndRegisterDocumentSetRequestType request,
+            AssertionType assertion, NhinTargetSystemType targetSystem) {
         LOG.trace("Using NoOp Implementation for Nhin Doc Submission Deferred Request Service");
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
         return regResp;
-	}
+    }
 
 }

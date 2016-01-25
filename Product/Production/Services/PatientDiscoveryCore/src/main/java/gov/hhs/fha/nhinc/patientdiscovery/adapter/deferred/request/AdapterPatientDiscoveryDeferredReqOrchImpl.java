@@ -39,7 +39,7 @@ import org.hl7.v3.PRPAIN201305UV02;
  */
 public class AdapterPatientDiscoveryDeferredReqOrchImpl {
 
-	protected AsyncMessageProcessHelper createAsyncProcesser() {
+    protected AsyncMessageProcessHelper createAsyncProcesser() {
         return new AsyncMessageProcessHelper();
     }
 

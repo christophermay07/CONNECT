@@ -56,9 +56,9 @@ package gov.hhs.fha.nhinc.directconfig.processor;
  */
 public interface BundleCacheUpdateProcessor
 {
-	/**
-	 * Updates all anchors within each bundle in the system based on the bundles's refresh interval.  If the bundles
-	 * refresh threshold has not been met, then the bundle will not be checked for updates.  Anchors are loaded from the bundle's URL.
-	 */
-	public void updateBundleCache();
+    /**
+     * Updates all anchors within each bundle in the system based on the bundles's refresh interval.  If the bundles
+     * refresh threshold has not been met, then the bundle will not be checked for updates.  Anchors are loaded from the bundle's URL.
+     */
+    public void updateBundleCache();
 }

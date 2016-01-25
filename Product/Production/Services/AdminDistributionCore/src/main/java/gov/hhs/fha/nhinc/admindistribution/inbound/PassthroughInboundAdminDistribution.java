@@ -62,7 +62,7 @@ public class PassthroughInboundAdminDistribution extends AbstractInboundAdminDis
 
     @Override
     void processAdminDistribution(EDXLDistribution body, AssertionType assertion) {
-    	sendToAdapter(body, assertion, adminUtils, adapterFactory);
+        sendToAdapter(body, assertion, adminUtils, adapterFactory);
 
     }
 

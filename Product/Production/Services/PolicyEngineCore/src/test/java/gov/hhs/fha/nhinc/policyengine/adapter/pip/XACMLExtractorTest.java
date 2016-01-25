@@ -224,7 +224,7 @@ public class XACMLExtractorTest {
             + "          <ResourceMatch MatchId=\"urn:oasis:names:tc:xacml:1.0:function:string-equal\">"
             + "            <AttributeValue DataType=\"http://www.w3.org/2001/XMLSchema#string\">1234567</AttributeValue>"
             + "            <ResourceAttributeDesignator AttributeId=\"urn:oasis:names:tc:xacml:1.0:resource:resource-id\" "
-            + "                  								       DataType=\"http://www.w3.org/2001/XMLSchema#string\"/>"
+            + "                                                         DataType=\"http://www.w3.org/2001/XMLSchema#string\"/>"
             + "          </ResourceMatch>" + "        </Resource>" + "      </Resources>" + "    </Target>"
             + "  </Rule>" + "  <Rule RuleId=\"5\" Effect=\"Deny\">"
             + "    <Description>Rule specifying fine grained criteria.</Description>" + "    <Target/>" + "  </Rule>"

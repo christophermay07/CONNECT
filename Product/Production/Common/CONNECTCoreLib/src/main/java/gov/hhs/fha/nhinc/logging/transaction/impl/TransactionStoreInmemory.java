@@ -66,19 +66,19 @@ public class TransactionStoreInmemory implements TransactionStore {
     public boolean insertIntoTransactionRepo(TransactionRepo transactionRepo) {
         boolean inserted = false;
         if (transactionRepo != null && map != null) {
-        	String messageId = transactionRepo.getMessageId();
-        	String transactionId = transactionRepo.getTransactionId();
-        	List<String> transactionIds;
+            String messageId = transactionRepo.getMessageId();
+            String transactionId = transactionRepo.getTransactionId();
+            List<String> transactionIds;
 
-        	if (map.containsKey(messageId)) {
-        		transactionIds = map.get(messageId);
-        	} else {
-        		transactionIds = new LinkedList<>();
-        	}
+            if (map.containsKey(messageId)) {
+                transactionIds = map.get(messageId);
+            } else {
+                transactionIds = new LinkedList<>();
+            }
 
-        	if (!transactionIds.contains(transactionId)) {
-        		transactionIds.add(transactionId);
-        	}
+            if (!transactionIds.contains(transactionId)) {
+                transactionIds.add(transactionId);
+            }
 
             map.put(messageId, transactionIds);
             inserted = true;
@@ -93,10 +93,10 @@ public class TransactionStoreInmemory implements TransactionStore {
     public String getTransactionId(String messageId) {
         String transactionId = null;
         if (map != null) {
-        	List<String> transactionIds = map.get(messageId);
-        	if (transactionIds != null) {
-        		transactionId = transactionIds.get(0);
-        	}
+            List<String> transactionIds = map.get(messageId);
+            if (transactionIds != null) {
+                transactionId = transactionIds.get(0);
+            }
         }
         return transactionId;
     }

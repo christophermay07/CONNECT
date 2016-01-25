@@ -33,9 +33,9 @@ package gov.hhs.fha.nhinc.orchestration;
 public interface OutboundDelegate extends Delegate {
     public OutboundOrchestratable process(OutboundOrchestratable message);
 
-	/**
-	 * @param message
-	 * @param error
-	 */
-	public void createErrorResponse(OutboundOrchestratable message, String error);
+    /**
+     * @param message
+     * @param error
+     */
+    public void createErrorResponse(OutboundOrchestratable message, String error);
 }

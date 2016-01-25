@@ -45,15 +45,15 @@ import org.junit.Test;
 
 public class UTCDateUtilTest {
 
-	private SimpleDateFormat sd;
+    private SimpleDateFormat sd;
 
-	@Before
+    @Before
     public void setUp() {
-		sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	    sd.setTimeZone(TimeZone.getTimeZone("GMT"));
-	}
+        sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sd.setTimeZone(TimeZone.getTimeZone("GMT"));
+    }
 
-	@Test
+    @Test
     public void testParseUTCDateStringWithAMHour() {
         try {
             // Create SUT instance
@@ -191,7 +191,7 @@ public class UTCDateUtilTest {
     @Test
     public void testFormatUTCDatePM() {
         try {
-        	// Create SUT instance
+            // Create SUT instance
             UTCDateUtil utcDateUtil = new UTCDateUtil();
 
             // Exercise test

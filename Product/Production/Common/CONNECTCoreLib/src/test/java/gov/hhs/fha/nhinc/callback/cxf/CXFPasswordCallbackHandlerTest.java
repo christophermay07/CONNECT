@@ -35,34 +35,34 @@ import org.junit.Test;
 
 public class CXFPasswordCallbackHandlerTest {
 
-	@Test
-	public void testHandle() throws IOException, UnsupportedCallbackException {
-		WSPasswordCallback wsPasswordCallback = new WSPasswordCallback(null, 0);
-		Callback[] callbacks = new Callback[1];
-		callbacks[0] = wsPasswordCallback;
+    @Test
+    public void testHandle() throws IOException, UnsupportedCallbackException {
+        WSPasswordCallback wsPasswordCallback = new WSPasswordCallback(null, 0);
+        Callback[] callbacks = new Callback[1];
+        callbacks[0] = wsPasswordCallback;
 
-		String password = "password";
-		CXFPasswordCallbackHandler passwordHandler = new CXFPasswordCallbackHandler(
-				password);
-		passwordHandler.handle(callbacks);
+        String password = "password";
+        CXFPasswordCallbackHandler passwordHandler = new CXFPasswordCallbackHandler(
+                password);
+        passwordHandler.handle(callbacks);
 
-		wsPasswordCallback = (WSPasswordCallback) callbacks[0];
-		String resultPassword = wsPasswordCallback.getPassword();
+        wsPasswordCallback = (WSPasswordCallback) callbacks[0];
+        String resultPassword = wsPasswordCallback.getPassword();
 
-		assertEquals(password, resultPassword);
-	}
+        assertEquals(password, resultPassword);
+    }
 
-	@Test(expected = IOException.class)
-	public void testHandle_IOException() throws IOException,
-			UnsupportedCallbackException {
-		WSPasswordCallback wsPasswordCallback = new WSPasswordCallback(null, 0);
-		Callback[] callbacks = new Callback[1];
-		callbacks[0] = wsPasswordCallback;
+    @Test(expected = IOException.class)
+    public void testHandle_IOException() throws IOException,
+            UnsupportedCallbackException {
+        WSPasswordCallback wsPasswordCallback = new WSPasswordCallback(null, 0);
+        Callback[] callbacks = new Callback[1];
+        callbacks[0] = wsPasswordCallback;
 
-		String password = "";
-		CXFPasswordCallbackHandler passwordHandler = new CXFPasswordCallbackHandler(
-				password);
-		passwordHandler.handle(callbacks);
-	}
+        String password = "";
+        CXFPasswordCallbackHandler passwordHandler = new CXFPasswordCallbackHandler(
+                password);
+        passwordHandler.handle(callbacks);
+    }
 
 }

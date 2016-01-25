@@ -35,21 +35,21 @@ import org.junit.Test;
 
 public class TimestampInterceptorTest {
 
-	@Test
-	public void testHandleMessage() {
-		Message message = new MessageImpl();
+    @Test
+    public void testHandleMessage() {
+        Message message = new MessageImpl();
 
-		Date beforeDate = new Date();
+        Date beforeDate = new Date();
 
-		TimestampInterceptor interceptor = new TimestampInterceptor();
-		interceptor.handleMessage(message);
+        TimestampInterceptor interceptor = new TimestampInterceptor();
+        interceptor.handleMessage(message);
 
-		Date interceptorDate = (Date) message
-				.get(interceptor.INVOCATION_TIME_KEY);
+        Date interceptorDate = (Date) message
+                .get(interceptor.INVOCATION_TIME_KEY);
 
-		assertNotNull(interceptorDate);
-		assertTrue(beforeDate.before(interceptorDate)
-				|| beforeDate.equals(interceptorDate));
-	}
+        assertNotNull(interceptorDate);
+        assertTrue(beforeDate.before(interceptorDate)
+                || beforeDate.equals(interceptorDate));
+    }
 
 }

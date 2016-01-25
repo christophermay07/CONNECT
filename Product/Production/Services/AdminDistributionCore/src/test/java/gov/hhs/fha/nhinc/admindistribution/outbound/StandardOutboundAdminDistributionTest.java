@@ -98,7 +98,7 @@ public class StandardOutboundAdminDistributionTest {
      * Expectations for successful sendAlertMessage().
      */
     private void expectationsInAlertMessage() {
-    	expectProcessOrchestratable();
+        expectProcessOrchestratable();
     }
 
     /**

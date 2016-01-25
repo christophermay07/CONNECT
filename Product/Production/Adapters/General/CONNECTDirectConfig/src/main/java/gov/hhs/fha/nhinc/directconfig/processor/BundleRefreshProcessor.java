@@ -57,11 +57,11 @@ import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
  */
 public interface BundleRefreshProcessor
 {
-	/**
-	 * Refreshes the set of anchors within a bundle.  The bundle is downloaded from the bundle's URL, validated for authenticity if the bundle is signed
-	 * and a signing certificate has been configured, and the anchors are updated in the store.  If the bundle has not changed (which can be checked
-	 * using the bundle checksum), then the anchors in the bundle may not be updated.
-	 * @param bundle The bundle that will be updated.
-	 */
-	public void refreshBundle(TrustBundle bundle);
+    /**
+     * Refreshes the set of anchors within a bundle.  The bundle is downloaded from the bundle's URL, validated for authenticity if the bundle is signed
+     * and a signing certificate has been configured, and the anchors are updated in the store.  If the bundle has not changed (which can be checked
+     * using the bundle checksum), then the anchors in the bundle may not be updated.
+     * @param bundle The bundle that will be updated.
+     */
+    public void refreshBundle(TrustBundle bundle);
 }

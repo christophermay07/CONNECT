@@ -129,7 +129,7 @@ public class TestHelper {
         String pat1Name = extractName(patient1.getName().get(0));
         System.out.println("Patient 1 name:" + pat1Name);
         String pat2Name = extractName(patient2.getName().get(0));
-       	System.out.println("Patient 2 name:" + pat2Name);
+           System.out.println("Patient 2 name:" + pat2Name);
         assertEquals(pat1Name, pat2Name);
     }
 

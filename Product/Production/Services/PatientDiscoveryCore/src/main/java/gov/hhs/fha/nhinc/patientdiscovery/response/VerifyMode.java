@@ -315,10 +315,10 @@ public class VerifyMode implements ResponseMode {
             AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
             LOG.info("Sending query to the Secured MPI");
             try {
-				queryResults = mpiProxy.findCandidates(query, assertion);
-			} catch (PatientDiscoveryException e) {
-				LOG.error("Error queries MPI in verify mode.", e);
-			}
+                queryResults = mpiProxy.findCandidates(query, assertion);
+            } catch (PatientDiscoveryException e) {
+                LOG.error("Error queries MPI in verify mode.", e);
+            }
 
         } else {
             LOG.error("MPI Request is null");

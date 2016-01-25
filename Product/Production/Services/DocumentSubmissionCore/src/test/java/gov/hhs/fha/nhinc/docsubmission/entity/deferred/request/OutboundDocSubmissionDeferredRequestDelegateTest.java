@@ -118,7 +118,7 @@ public class OutboundDocSubmissionDeferredRequestDelegateTest {
 
     @Test
     public void testOrchestration_NullOrchestratable() {
-    	OutboundDocSubmissionDeferredRequestDelegate delegate = createOutboundDocSubmissionDeferredRequestDelegate();
+        OutboundDocSubmissionDeferredRequestDelegate delegate = createOutboundDocSubmissionDeferredRequestDelegate();
         Orchestratable response = delegate.process(null);
 
         context.assertIsSatisfied();

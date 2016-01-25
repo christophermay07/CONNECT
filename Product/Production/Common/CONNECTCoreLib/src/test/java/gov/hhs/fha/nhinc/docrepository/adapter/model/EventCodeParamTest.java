@@ -32,32 +32,32 @@ import org.junit.Test;
 
 public class EventCodeParamTest {
 
-	@Test
-	public void testEquals() {
-		EventCodeParam param1 = getNewEventCodeParam();
-		EventCodeParam param2 = getNewEventCodeParam();
+    @Test
+    public void testEquals() {
+        EventCodeParam param1 = getNewEventCodeParam();
+        EventCodeParam param2 = getNewEventCodeParam();
 
-		assertTrue(param1.equals(param2));
-	}
+        assertTrue(param1.equals(param2));
+    }
 
-	@Test
-	public void testHashCode() {
-		String eventCode = "event code";
-		EventCodeParam eventCodeParam = new EventCodeParam();
-		eventCodeParam.setEventCode(eventCode);
+    @Test
+    public void testHashCode() {
+        String eventCode = "event code";
+        EventCodeParam eventCodeParam = new EventCodeParam();
+        eventCodeParam.setEventCode(eventCode);
 
-		assertEquals(eventCodeParam.hashCode(), eventCode.hashCode());
-	}
+        assertEquals(eventCodeParam.hashCode(), eventCode.hashCode());
+    }
 
-	private EventCodeParam getNewEventCodeParam() {
-		EventCodeParam eventCodeParam = new EventCodeParam();
+    private EventCodeParam getNewEventCodeParam() {
+        EventCodeParam eventCodeParam = new EventCodeParam();
 
-		String eventCode = "event code";
-		String eventCodeScheme = "event code scheme";
+        String eventCode = "event code";
+        String eventCodeScheme = "event code scheme";
 
-		eventCodeParam.setEventCode(eventCode);
-		eventCodeParam.setEventCodeScheme(eventCodeScheme);
+        eventCodeParam.setEventCode(eventCode);
+        eventCodeParam.setEventCodeScheme(eventCodeScheme);
 
-		return eventCodeParam;
-	}
+        return eventCodeParam;
+    }
 }
