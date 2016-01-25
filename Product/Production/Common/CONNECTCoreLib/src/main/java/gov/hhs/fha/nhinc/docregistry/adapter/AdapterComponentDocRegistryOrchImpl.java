@@ -1002,17 +1002,14 @@ public class AdapterComponentDocRegistryOrchImpl {
         if (slots != null) {
             for (SlotType1 slot : slots) {
                 if (StringUtils.isNotEmpty(slot.getName()) && slot.getValueList() != null
-                    && CollectionUtils.isNotEmpty(slot.getValueList().getValue())) {
+                    && CollectionUtils.isNotEmpty(slot.getValueList().getValue()) && slot.getName().equals(slotName)) {
 
-                    if (slot.getName().equals(slotName)) {
-                        ValueListType valueListType = slot.getValueList();
-                        List<String> slotValues = valueListType.getValue();
-                        for (String slotValue : slotValues) {
-                            returnValues.add(slotValue);
-                        }
+                    ValueListType valueListType = slot.getValueList();
+                    List<String> slotValues = valueListType.getValue();
+                    for (String slotValue : slotValues) {
+                        returnValues.add(slotValue);
                     }
                 }
-
             }
         }
         return returnValues;

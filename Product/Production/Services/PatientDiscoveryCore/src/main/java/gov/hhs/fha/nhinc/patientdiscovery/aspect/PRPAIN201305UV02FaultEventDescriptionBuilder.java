@@ -79,16 +79,13 @@ public class PRPAIN201305UV02FaultEventDescriptionBuilder extends BaseEventDescr
 
     @Override
     public void setArguments(Object... arguements) {
-        if (arguements.length == 1) {
-            if (arguements[0] instanceof PRPAIN201305UV02Fault) {
-                this.fault = (PRPAIN201305UV02Fault)arguements[0];
-            }
+        if (arguements.length == 1 && arguements[0] instanceof PRPAIN201305UV02Fault) {
+            this.fault = (PRPAIN201305UV02Fault)arguements[0];
         }
     }
 
     @Override
     public void setReturnValue(Object returnValue) {
         // TODO Auto-generated method stub
-
     }
 }

@@ -805,43 +805,42 @@ public class CdaPdfExtractor {
         PolicyCustodianInfoType oCustodian = new PolicyCustodianInfoType();
         boolean bHaveData = false;
 
-        if (oHL7Custodian != null) {
-            if (oHL7Custodian.getAssignedCustodian() != null
-                && oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization() != null) {
-                // Represented Organization Assigning Authority
-                // ----------------------------------------------
-                // Should only be one - if more take the first.
-                if (CollectionUtils
-                    .isNotEmpty(oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId())
-                    && oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId().get(0) != null
-                    && StringUtils.isNotEmpty(oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization()
-                        .getId().get(0).getRoot())) {
+        if (oHL7Custodian != null && oHL7Custodian.getAssignedCustodian() != null
+            && oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization() != null) {
 
-                    oCustodian.setOrganizationIdAssigningAuthority(oHL7Custodian.getAssignedCustodian()
-                        .getRepresentedCustodianOrganization().getId().get(0).getRoot());
+            // Represented Organization Assigning Authority
+            // ----------------------------------------------
+            // Should only be one - if more take the first.
+            if (CollectionUtils
+                .isNotEmpty(oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId())
+                && oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getId().get(0) != null
+                && StringUtils.isNotEmpty(oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization()
+                    .getId().get(0).getRoot())) {
+
+                oCustodian.setOrganizationIdAssigningAuthority(oHL7Custodian.getAssignedCustodian()
+                    .getRepresentedCustodianOrganization().getId().get(0).getRoot());
+                bHaveData = true;
+            }
+
+            // Represented Organization Name
+            // ------------------------------
+            if (oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getName() != null) {
+                String sName = extractStringFromON(oHL7Custodian.getAssignedCustodian()
+                    .getRepresentedCustodianOrganization().getName());
+                if (sName != null) {
+                    oCustodian.setOrganizationName(sName);
                     bHaveData = true;
                 }
+            }
 
-                // Represented Organization Name
-                // ------------------------------
-                if (oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getName() != null) {
-                    String sName = extractStringFromON(oHL7Custodian.getAssignedCustodian()
-                        .getRepresentedCustodianOrganization().getName());
-                    if (sName != null) {
-                        oCustodian.setOrganizationName(sName);
-                        bHaveData = true;
-                    }
-                }
-
-                // Represented Organization address
-                // ---------------------------------
-                if (oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getAddr() != null) {
-                    AddressType oAddr = createAddr(oHL7Custodian.getAssignedCustodian()
-                        .getRepresentedCustodianOrganization().getAddr());
-                    if (oAddr != null) {
-                        oCustodian.setOrganizationAddress(oAddr);
-                        bHaveData = true;
-                    }
+            // Represented Organization address
+            // ---------------------------------
+            if (oHL7Custodian.getAssignedCustodian().getRepresentedCustodianOrganization().getAddr() != null) {
+                AddressType oAddr = createAddr(oHL7Custodian.getAssignedCustodian()
+                    .getRepresentedCustodianOrganization().getAddr());
+                if (oAddr != null) {
+                    oCustodian.setOrganizationAddress(oAddr);
+                    bHaveData = true;
                 }
             }
         }

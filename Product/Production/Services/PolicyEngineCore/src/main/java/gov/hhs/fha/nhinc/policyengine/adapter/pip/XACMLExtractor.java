@@ -184,7 +184,7 @@ public class XACMLExtractor {
                             && oResourceMatch.getAttributeValue().getContent().get(0) instanceof String) {
 
                             String sValue = (String) oResourceMatch.getAttributeValue().getContent().get(0);
-                            if ((sValue != null) && (sValue.length() > 0)) {
+                            if (StringUtils.isNotEmpty(sValue)) {
                                 return sValue;
                             }
                         }
@@ -555,35 +555,33 @@ public class XACMLExtractor {
                 if (CollectionUtils.isNotEmpty(oResource.getResourceMatch())) {
                     List<ResourceMatchType> olResourceMatch = oResource.getResourceMatch();
                     for (ResourceMatchType oResMatch : olResourceMatch) {
+                        // With the way we are formatting this record - what we are looking for will be in the first
+                        // node of the content. The content object will be of type "Element" and the values will be
+                        // in the attributes.
+                        // -------------------------------------------------------------------------------------------
                         if (oResMatch.getResourceAttributeDesignator() != null
                             && oResMatch.getResourceAttributeDesignator().getAttributeId() != null
                             && oResMatch.getResourceAttributeDesignator().getAttributeId()
                                 .equals(XACMLConstants.PATIENT_SUBJECT_ID)
                             && oResMatch.getAttributeValue() != null
-                            && CollectionUtils.isNotEmpty(oResMatch.getAttributeValue().getContent())) {
+                            && CollectionUtils.isNotEmpty(oResMatch.getAttributeValue().getContent())
+                            && oResMatch.getAttributeValue().getContent().get(0) != null
+                            && oResMatch.getAttributeValue().getContent().get(0) instanceof Element) {
 
-                            // With the way we are formatting this record - what we are looking for will be in the first
-                            // node of the content. The content object will be of type "Element" and the values will be
-                            // in the attributes.
-                            // -------------------------------------------------------------------------------------------
-                            if ((oResMatch.getAttributeValue().getContent().get(0) != null)
-                                    && (oResMatch.getAttributeValue().getContent().get(0) instanceof Element)) {
-                                Element oContent = (Element) oResMatch.getAttributeValue().getContent().get(0);
+                            Element oContent = (Element) oResMatch.getAttributeValue().getContent().get(0);
 
-                                // Make sure that this is the right tag.
-                                // --------------------------------------
-                                if (oContent.getTagName().equals(XACMLConstants.NHIN_PATIENT_ID_TAG)) {
-                                    String sPatientId = oContent
-                                            .getAttribute(XACMLConstants.NHIN_PATIENT_ID_TAG_EXTENSION);
-                                    if ((sPatientId != null) && (sPatientId.length() > 0)) {
-                                        oPtPref.setPatientId(sPatientId);
-                                    }
+                            // Make sure that this is the right tag.
+                            // --------------------------------------
+                            if (oContent.getTagName().equals(XACMLConstants.NHIN_PATIENT_ID_TAG)) {
+                                String sPatientId = oContent.getAttribute(XACMLConstants.NHIN_PATIENT_ID_TAG_EXTENSION);
+                                if (StringUtils.isNotEmpty(sPatientId)) {
+                                    oPtPref.setPatientId(sPatientId);
+                                }
 
-                                    String sAssigningAuthority = oContent
-                                            .getAttribute(XACMLConstants.NHIN_PATIENT_ID_TAG_ROOT);
-                                    if ((sAssigningAuthority != null) && (sAssigningAuthority.length() > 0)) {
-                                        oPtPref.setAssigningAuthority(sAssigningAuthority);
-                                    }
+                                String sAssigningAuthority = oContent
+                                    .getAttribute(XACMLConstants.NHIN_PATIENT_ID_TAG_ROOT);
+                                if (StringUtils.isNotEmpty(sAssigningAuthority)) {
+                                    oPtPref.setAssigningAuthority(sAssigningAuthority);
                                 }
                             }
                         }

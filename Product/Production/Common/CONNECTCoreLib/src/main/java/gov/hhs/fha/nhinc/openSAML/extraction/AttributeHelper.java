@@ -207,22 +207,18 @@ public class AttributeHelper {
                 }
             }
 
-            if (!nameParts.isEmpty()) {
-                if (!nameParts.get(0).isEmpty()) {
-                    personName.setGivenName(nameParts.get(0));
-                    nameParts.remove(0);
-                    if (LOG.isTraceEnabled()) {
-                        LOG.trace("Assertion.userInfo.personName.givenName = {}", personName.getGivenName());
-                    }
+            if (!nameParts.isEmpty() && !nameParts.get(0).isEmpty()) {
+                personName.setGivenName(nameParts.get(0));
+                nameParts.remove(0);
+                if (LOG.isTraceEnabled()) {
+                    LOG.trace("Assertion.userInfo.personName.givenName = {}", personName.getGivenName());
                 }
             }
 
-            if (!nameParts.isEmpty()) {
-                if (!nameParts.get(nameParts.size() - 1).isEmpty()) {
-                    personName.setFamilyName(nameParts.get(nameParts.size() - 1));
-                    nameParts.remove(nameParts.size() - 1);
-                    LOG.trace("Assertion.userInfo.personName.familyName = {}", personName.getFamilyName());
-                }
+            if (!nameParts.isEmpty() && !nameParts.get(nameParts.size() - 1).isEmpty()) {
+                personName.setFamilyName(nameParts.get(nameParts.size() - 1));
+                nameParts.remove(nameParts.size() - 1);
+                LOG.trace("Assertion.userInfo.personName.familyName = {}", personName.getFamilyName());
             }
 
             if (!nameParts.isEmpty()) {

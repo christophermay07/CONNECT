@@ -126,15 +126,15 @@ public class PatientConsentManager {
                 List<BinaryDocumentPolicyCriterionType> olBinPolicyCriteria = oPtPref.getBinaryDocumentPolicyCriteria()
                     .getBinaryDocumentPolicyCriterion();
                 for (BinaryDocumentPolicyCriterionType oBinPolicyCriterion : olBinPolicyCriteria) {
-                    if (oBinPolicyCriterion != null && oBinPolicyCriterion.getStoreAction() != null) {
-                        if (oBinPolicyCriterion.getStoreAction().compareTo(BinaryDocumentStoreActionType.ADD) == 0
-                            || oBinPolicyCriterion.getStoreAction().compareTo(BinaryDocumentStoreActionType.UPDATE) == 0) {
-                            LOG.info(oBinPolicyCriterion.getStoreAction() + " requested for document: "
-                                + oBinPolicyCriterion.getDocumentUniqueId());
-                            olDocIds2Store.add(oBinPolicyCriterion.getDocumentUniqueId());
-                        }
-                        // TODO how do we handle the delete request ?
+                    if (oBinPolicyCriterion != null && oBinPolicyCriterion.getStoreAction() != null
+                        && (oBinPolicyCriterion.getStoreAction().compareTo(BinaryDocumentStoreActionType.ADD) == 0
+                        || oBinPolicyCriterion.getStoreAction().compareTo(BinaryDocumentStoreActionType.UPDATE) == 0)) {
+
+                        LOG.info("{} requested for document: {}", oBinPolicyCriterion.getStoreAction(),
+                            oBinPolicyCriterion.getDocumentUniqueId());
+                        olDocIds2Store.add(oBinPolicyCriterion.getDocumentUniqueId());
                     }
+                    // TODO how do we handle the delete request ?
                 }
 
                 if (!olDocIds2Store.isEmpty()) {
@@ -642,19 +642,15 @@ public class PatientConsentManager {
             if (oResponse != null && CollectionUtils.isNotEmpty(oResponse.getDocumentResponse())) {
                 List<DocumentResponse> olDocResponse = oResponse.getDocumentResponse();
                 for (DocumentResponse oDocResponse : olDocResponse) {
-                    LOG.info("Doc: " + oDocResponse.getDocumentUniqueId() + " Mime type: " + oDocResponse.getMimeType());
-                    if (oDocRequest.getDocumentUniqueId().equals(oDocResponse.getDocumentUniqueId())) {
-                        if (XACML_MIME_TYPE.equals(oDocResponse.getMimeType())) {
-                            if (oDocResponse.getDocument() != null) {
-                                LOG.info("Matching XACML document found");
+                    LOG.info("Doc: {} Mime type: {}", oDocResponse.getDocumentUniqueId(), oDocResponse.getMimeType());
+                    if (oDocRequest.getDocumentUniqueId().equals(oDocResponse.getDocumentUniqueId())
+                        && XACML_MIME_TYPE.equals(oDocResponse.getMimeType()) && oDocResponse.getDocument() != null) {
 
-                                byte[] rawData = LargeFileUtils.getInstance()
-                                    .convertToBytes(oDocResponse.getDocument());
-                                sPrefDoc = new String(rawData);
-                                break;
+                        LOG.info("Matching XACML document found");
 
-                            }
-                        }
+                        byte[] rawData = LargeFileUtils.getInstance().convertToBytes(oDocResponse.getDocument());
+                        sPrefDoc = new String(rawData);
+                        break;
                     }
                 }
             }
@@ -672,24 +668,21 @@ public class PatientConsentManager {
 
         if (oResponse != null && CollectionUtils.isNotEmpty(oResponse.getDocumentResponse())) {
             List<DocumentResponse> olDocResponse = oResponse.getDocumentResponse();
-            LOG.info(olDocResponse.size() + " documents have been found");
+            LOG.info("{} documents have been found", olDocResponse.size());
             for (DocumentResponse oDocResponse : olDocResponse) {
-                LOG.info("Doc: " + oDocResponse.getDocumentUniqueId() + " Mime type: " + oDocResponse.getMimeType());
-                if (oDocRequest.getDocumentUniqueId().equals(oDocResponse.getDocumentUniqueId())) {
-                    if (PDF_MIME_TYPE.equals(oDocResponse.getMimeType())) {
-                        if (oDocResponse.getDocument() != null) {
-                            try {
-                                byte[] rawData = LargeFileUtils.getInstance()
-                                    .convertToBytes(oDocResponse.getDocument());
+                LOG.info("Doc: {} Mime type: {}", oDocResponse.getDocumentUniqueId(), oDocResponse.getMimeType());
+                if (oDocRequest.getDocumentUniqueId().equals(oDocResponse.getDocumentUniqueId())
+                    && PDF_MIME_TYPE.equals(oDocResponse.getMimeType()) && oDocResponse.getDocument() != null) {
 
-                                String sPrefDoc = new String(rawData);
-                                LOG.info("Matching PDF document found");
-                                olBinPrefDoc.add(sPrefDoc);
-                            } catch (IOException ioe) {
-                                LOG.error("Failed to retrieve d"
-                                    + "ocument: " + oDocResponse.getDocumentUniqueId(), ioe);
-                            }
-                        }
+                    try {
+                        byte[] rawData = LargeFileUtils.getInstance()
+                            .convertToBytes(oDocResponse.getDocument());
+
+                        String sPrefDoc = new String(rawData);
+                        LOG.info("Matching PDF document found");
+                        olBinPrefDoc.add(sPrefDoc);
+                    } catch (IOException ioe) {
+                        LOG.error("Failed to retrieve document: {}", oDocResponse.getDocumentUniqueId(), ioe);
                     }
                 }
             }

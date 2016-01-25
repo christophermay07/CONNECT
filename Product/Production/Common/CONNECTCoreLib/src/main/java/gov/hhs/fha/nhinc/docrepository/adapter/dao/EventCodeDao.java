@@ -168,40 +168,39 @@ public class EventCodeDao {
                     if (slots != null) {
                         for (SlotType1 slot : slots) {
                             if (StringUtils.isNotEmpty(slot.getName()) && slot.getValueList() != null
-                                && CollectionUtils.isNotEmpty(slot.getValueList().getValue())) {
+                                && CollectionUtils.isNotEmpty(slot.getValueList().getValue())
+                                && slot.getName().equals(EBXML_EVENT_CODE_LIST)) {
 
-                                if (slot.getName().equals(EBXML_EVENT_CODE_LIST)) {
-                                    eventCodeSlotSize++;
-                                    ValueListType valueListType = slot.getValueList();
-                                    List<String> slotValues = valueListType.getValue();
-                                    classCodes = new ArrayList<>();
-                                    for (int j = 0; j < slotValues.size(); j++) {
-                                        parseParamFormattedString(slotValues.get(j), classCodes);
-                                        if (slotValues.get(j).contains(",")) {
-                                            orValues = Arrays.asList(slotValues.get(j).split("\\,"));
-                                            for (int l = 0; l < orValues.size(); l++) {
-                                                String innereventCode = getEventCode(classCodes.get(l), "eventCode");
-                                                String innereventCodeScheme = getEventCode(classCodes.get(l),
-                                                    "eventCodeScheme");
-                                                andCondition = Restrictions.and(
-                                                    Restrictions.eq("eventCode", innereventCode),
-                                                    Restrictions.eq("eventCodeScheme", innereventCodeScheme));
-                                                orCondition.add(andCondition);
-                                                eventCodesList.add(innereventCode);
-                                                eventCodeSchemeList.add(innereventCodeScheme);
-                                                hashMap.put(innereventCode + "^^" + innereventCodeScheme,
-                                                    Integer.toString(eventCodeSlotSize));
-                                            }
-                                        } else {
-                                            String eventCode = getEventCode(classCodes.get(j), "eventCode");
-                                            String eventCodeScheme = getEventCode(classCodes.get(j), "eventCodeScheme");
-                                            orCondition.add(Restrictions.and(Restrictions.eq("eventCode", eventCode),
-                                                Restrictions.eq("eventCodeScheme", eventCodeScheme)));
-                                            eventCodesList.add(eventCode);
-                                            eventCodeSchemeList.add(eventCodeScheme);
-                                            hashMap.put(eventCode + "^^" + eventCodeScheme,
+                                eventCodeSlotSize++;
+                                ValueListType valueListType = slot.getValueList();
+                                List<String> slotValues = valueListType.getValue();
+                                classCodes = new ArrayList<>();
+                                for (int j = 0; j < slotValues.size(); j++) {
+                                    parseParamFormattedString(slotValues.get(j), classCodes);
+                                    if (slotValues.get(j).contains(",")) {
+                                        orValues = Arrays.asList(slotValues.get(j).split("\\,"));
+                                        for (int l = 0; l < orValues.size(); l++) {
+                                            String innereventCode = getEventCode(classCodes.get(l), "eventCode");
+                                            String innereventCodeScheme = getEventCode(classCodes.get(l),
+                                                "eventCodeScheme");
+                                            andCondition = Restrictions.and(
+                                                Restrictions.eq("eventCode", innereventCode),
+                                                Restrictions.eq("eventCodeScheme", innereventCodeScheme));
+                                            orCondition.add(andCondition);
+                                            eventCodesList.add(innereventCode);
+                                            eventCodeSchemeList.add(innereventCodeScheme);
+                                            hashMap.put(innereventCode + "^^" + innereventCodeScheme,
                                                 Integer.toString(eventCodeSlotSize));
                                         }
+                                    } else {
+                                        String eventCode = getEventCode(classCodes.get(j), "eventCode");
+                                        String eventCodeScheme = getEventCode(classCodes.get(j), "eventCodeScheme");
+                                        orCondition.add(Restrictions.and(Restrictions.eq("eventCode", eventCode),
+                                            Restrictions.eq("eventCodeScheme", eventCodeScheme)));
+                                        eventCodesList.add(eventCode);
+                                        eventCodeSchemeList.add(eventCodeScheme);
+                                        hashMap.put(eventCode + "^^" + eventCodeScheme,
+                                            Integer.toString(eventCodeSlotSize));
                                     }
                                 }
                             }

@@ -47,11 +47,8 @@ public class HL7Parser {
 
     public static void PrintMessageIdFromMessage(Object message) {
         LOG.debug("Begin HL7Parser.PrintMessageIdFromMessage(Object)");
-        if (message != null) {
-            if (message instanceof PRPAIN201301UV02) {
-                HL7Parser201301.PrintMessageIdFromMessage((PRPAIN201301UV02) message);
-            }
-
+        if (message != null && message instanceof PRPAIN201301UV02) {
+            HL7Parser201301.PrintMessageIdFromMessage((PRPAIN201301UV02) message);
         }
         LOG.debug("End HL7Parser.PrintMessageIdFromMessage(Object)");
     }

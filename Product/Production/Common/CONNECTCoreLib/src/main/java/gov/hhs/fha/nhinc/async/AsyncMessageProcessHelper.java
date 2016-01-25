@@ -486,19 +486,18 @@ public class AsyncMessageProcessHelper {
                         .getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
                 }
                 // If represented organization is empty or null, check the device id
-                if (StringUtils.isEmpty(communityId)) {
-                    if (CollectionUtils.isNotEmpty(request.getPRPAIN201305UV02().getReceiver())
-                        && request.getPRPAIN201305UV02().getReceiver().get(0) != null
-                        && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
-                        && CollectionUtils.isNotEmpty(request.getPRPAIN201305UV02().getReceiver().get(0).getDevice()
-                            .getId())
-                        && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null
-                        && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0)
-                            .getRoot() != null) {
+                if (StringUtils.isEmpty(communityId)
+                    && CollectionUtils.isNotEmpty(request.getPRPAIN201305UV02().getReceiver())
+                    && request.getPRPAIN201305UV02().getReceiver().get(0) != null
+                    && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
+                    && CollectionUtils.isNotEmpty(request.getPRPAIN201305UV02().getReceiver().get(0).getDevice()
+                        .getId())
+                    && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null
+                    && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0)
+                        .getRoot() != null) {
 
-                        communityId = request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0)
-                            .getRoot();
-                    }
+                    communityId = request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0)
+                        .getRoot();
                 }
             } else {
                 if (request.getPRPAIN201305UV02().getSender() != null
@@ -517,15 +516,13 @@ public class AsyncMessageProcessHelper {
                         .getRepresentedOrganization().getValue().getId().get(0).getRoot();
                 }
                 // If represented organization is empty or null, check the device id
-                if (StringUtils.isEmpty(communityId)) {
-                    if (request.getPRPAIN201305UV02().getSender() != null
-                        && request.getPRPAIN201305UV02().getSender().getDevice() != null
-                        && CollectionUtils.isNotEmpty(request.getPRPAIN201305UV02().getSender().getDevice().getId())
-                        && request.getPRPAIN201305UV02().getSender().getDevice().getId().get(0) != null
-                        && request.getPRPAIN201305UV02().getSender().getDevice().getId().get(0).getRoot() != null) {
+                if (StringUtils.isEmpty(communityId) && request.getPRPAIN201305UV02().getSender() != null
+                    && request.getPRPAIN201305UV02().getSender().getDevice() != null
+                    && CollectionUtils.isNotEmpty(request.getPRPAIN201305UV02().getSender().getDevice().getId())
+                    && request.getPRPAIN201305UV02().getSender().getDevice().getId().get(0) != null
+                    && request.getPRPAIN201305UV02().getSender().getDevice().getId().get(0).getRoot() != null) {
 
-                        communityId = request.getPRPAIN201305UV02().getSender().getDevice().getId().get(0).getRoot();
-                    }
+                    communityId = request.getPRPAIN201305UV02().getSender().getDevice().getId().get(0).getRoot();
                 }
             }
         }

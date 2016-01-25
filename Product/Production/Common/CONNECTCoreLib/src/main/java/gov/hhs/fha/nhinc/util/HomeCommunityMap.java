@@ -133,10 +133,10 @@ public class HomeCommunityMap {
         if (assertion != null && assertion.getUserInfo() != null) {
             UserType userInfo = assertion.getUserInfo();
 
-            if (userInfo != null && userInfo.getOrg() != null) {
-                if (StringUtils.isNotEmpty(userInfo.getOrg().getHomeCommunityId())) {
-                    communityId = userInfo.getOrg().getHomeCommunityId();
-                }
+            if (userInfo != null && userInfo.getOrg() != null &&
+                StringUtils.isNotEmpty(userInfo.getOrg().getHomeCommunityId())) {
+
+                communityId = userInfo.getOrg().getHomeCommunityId();
             }
         }
 
@@ -232,10 +232,8 @@ public class HomeCommunityMap {
      * @return the formatted community id
      */
     public static String formatHomeCommunityId(String communityId) {
-        if (communityId != null) {
-            if (communityId.startsWith("urn:oid:")) {
-                return communityId.substring(8);
-            }
+        if (communityId != null && communityId.startsWith("urn:oid:")) {
+            return communityId.substring(8);
         }
         return communityId;
     }
@@ -270,11 +268,9 @@ public class HomeCommunityMap {
      * @return the formatted community id
      */
     public static String getHomeCommunityIdWithPrefix(String communityId) {
-        if (communityId != null) {
-            if (!communityId.startsWith(NhincConstants.HCID_PREFIX)) {
-                LOG.trace("Prefixing communityId with urn:oid");
-                return NhincConstants.HCID_PREFIX + communityId;
-            }
+        if (communityId != null && !communityId.startsWith(NhincConstants.HCID_PREFIX)) {
+            LOG.trace("Prefixing communityId with urn:oid");
+            return NhincConstants.HCID_PREFIX + communityId;
         }
         return communityId;
     }
@@ -288,10 +284,8 @@ public class HomeCommunityMap {
     }
 
     public static String getHomeCommunityWithoutPrefix(String hcid) {
-        if (NullChecker.isNotNullish(hcid)) {
-            if (hcid.startsWith(NhincConstants.HCID_PREFIX)) {
-                return hcid.substring(NhincConstants.HCID_PREFIX.length());
-            }
+        if (NullChecker.isNotNullish(hcid) && hcid.startsWith(NhincConstants.HCID_PREFIX)) {
+            return hcid.substring(NhincConstants.HCID_PREFIX.length());
         }
         return hcid;
     }

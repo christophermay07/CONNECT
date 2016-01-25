@@ -348,28 +348,29 @@ public class PatientConsentDocumentBuilderHelper {
         String sDocUniqueId, String sMimeType) {
 
         String sLegalAuthenticator;
-        if (oSlots != null && oRimObjectFactory != null) {
-            if (oPtPref != null) {
-                if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
-                        && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
-                        && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
-                    for (BinaryDocumentPolicyCriterionType eachBinaryDocumentPolicyCriteria : oPtPref
-                            .getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
-                        if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId())
-                                && eachBinaryDocumentPolicyCriteria.getLegalAuthenticator() != null) {
-                            sLegalAuthenticator = extractAuthorPerson(eachBinaryDocumentPolicyCriteria
-                                    .getLegalAuthenticator().getAuthenticatorPersonName());
-                            oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_LEGAL_AUTHENTICATOR,
-                                    sLegalAuthenticator));
-                            break;
-                        }
-                    }
-                } else if (oPtPref.getFineGrainedPolicyMetadata() != null) {
-                    sLegalAuthenticator = oPtPref.getFineGrainedPolicyMetadata().getLegalAuthenticator();
-                    if (NullChecker.isNotNullish(sLegalAuthenticator)) {
+        if (oSlots != null && oRimObjectFactory != null && oPtPref != null) {
+            if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
+                && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
+                && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
+
+                for (BinaryDocumentPolicyCriterionType eachBinaryDocumentPolicyCriteria : oPtPref
+                    .getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
+
+                    if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId())
+                        && eachBinaryDocumentPolicyCriteria.getLegalAuthenticator() != null) {
+
+                        sLegalAuthenticator = extractAuthorPerson(eachBinaryDocumentPolicyCriteria
+                            .getLegalAuthenticator().getAuthenticatorPersonName());
                         oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_LEGAL_AUTHENTICATOR,
-                                sLegalAuthenticator));
+                            sLegalAuthenticator));
+                        break;
                     }
+                }
+            } else if (oPtPref.getFineGrainedPolicyMetadata() != null) {
+                sLegalAuthenticator = oPtPref.getFineGrainedPolicyMetadata().getLegalAuthenticator();
+                if (NullChecker.isNotNullish(sLegalAuthenticator)) {
+                    oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_LEGAL_AUTHENTICATOR,
+                        sLegalAuthenticator));
                 }
             }
         }
@@ -378,10 +379,8 @@ public class PatientConsentDocumentBuilderHelper {
     private void setDocumentUri(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots, String sDocumentURI,
         oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory) {
 
-        if (oSlots != null && oRimObjectFactory != null) {
-            if (NullChecker.isNotNullish(sDocumentURI)) {
-                oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_URI, sDocumentURI));
-            }
+        if (oSlots != null && oRimObjectFactory != null && NullChecker.isNotNullish(sDocumentURI)) {
+            oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_URI, sDocumentURI));
         }
     }
 
@@ -389,51 +388,52 @@ public class PatientConsentDocumentBuilderHelper {
         PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
         String sDocUniqueId, String sMimeType) {
 
-        if (oSlots != null && oRimObjectFactory != null) {
-            if (oPtPref != null) {
-                if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
-                        && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
-                        && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
-                    for (BinaryDocumentPolicyCriterionType eachBinaryDocumentPolicyCriteria : oPtPref
-                            .getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
-                        if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId())) {
-                            oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_SERVICE_START_TIME,
-                                    eachBinaryDocumentPolicyCriteria.getStartDate()));
-                            break;
-                        }
+        if (oSlots != null && oRimObjectFactory != null && oPtPref != null) {
+            if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
+                && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
+                && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
+
+                for (BinaryDocumentPolicyCriterionType eachBinaryDocumentPolicyCriteria : oPtPref
+                    .getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
+
+                    if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId())) {
+                        oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_SERVICE_START_TIME,
+                            eachBinaryDocumentPolicyCriteria.getStartDate()));
+                        break;
                     }
-                } else if ((oPtPref.getFineGrainedPolicyMetadata() != null)
-                        && (NullChecker.isNotNullish(oPtPref.getFineGrainedPolicyMetadata().getServiceStartTime()))) {
-                    oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_SERVICE_START_TIME, oPtPref
-                            .getFineGrainedPolicyMetadata().getServiceStartTime()));
                 }
+            } else if (oPtPref.getFineGrainedPolicyMetadata() != null
+                && NullChecker.isNotNullish(oPtPref.getFineGrainedPolicyMetadata().getServiceStartTime())) {
+
+                oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_SERVICE_START_TIME, oPtPref
+                    .getFineGrainedPolicyMetadata().getServiceStartTime()));
             }
         }
-
     }
 
     private void setServiceStopTime(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots,
         PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
         String sDocUniqueId, String sMimeType) {
 
-        if (oSlots != null && oRimObjectFactory != null) {
-            if (oPtPref != null) {
-                if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
-                        && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
-                        && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
-                    for (BinaryDocumentPolicyCriterionType eachBinaryDocumentPolicyCriteria : oPtPref
-                            .getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
-                        if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId())) {
-                            oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_SERVICE_STOP_TIME,
-                                    eachBinaryDocumentPolicyCriteria.getEndDate()));
-                            break;
-                        }
+        if (oSlots != null && oRimObjectFactory != null && oPtPref != null) {
+            if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
+                && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
+                && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
+
+                for (BinaryDocumentPolicyCriterionType eachBinaryDocumentPolicyCriteria : oPtPref
+                    .getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
+
+                    if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId())) {
+                        oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_SERVICE_STOP_TIME,
+                            eachBinaryDocumentPolicyCriteria.getEndDate()));
+                        break;
                     }
-                } else if (oPtPref.getFineGrainedPolicyMetadata() != null
-                        && NullChecker.isNotNullish(oPtPref.getFineGrainedPolicyMetadata().getServiceStopTime())) {
-                    oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_SERVICE_STOP_TIME, oPtPref
-                            .getFineGrainedPolicyMetadata().getServiceStopTime()));
                 }
+            } else if (oPtPref.getFineGrainedPolicyMetadata() != null
+                && NullChecker.isNotNullish(oPtPref.getFineGrainedPolicyMetadata().getServiceStopTime())) {
+
+                oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_SERVICE_STOP_TIME, oPtPref
+                    .getFineGrainedPolicyMetadata().getServiceStopTime()));
             }
         }
     }
@@ -442,22 +442,21 @@ public class PatientConsentDocumentBuilderHelper {
         PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
         String sDocUniqueId, String sMimeType) {
 
-        if (oSlots != null && oRimObjectFactory != null) {
-            if (oPtPref != null) {
-                if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
-                        && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
-                        && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
-                    for (BinaryDocumentPolicyCriterionType eachBinaryDocumentPolicyCriteria : oPtPref
-                            .getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
-                        if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId())) {
-                            if (eachBinaryDocumentPolicyCriteria.getIntendedRecipient() != null
-                                    && !eachBinaryDocumentPolicyCriteria.getIntendedRecipient().isEmpty()) {
-                                oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_INTENDED_RECIPIENT,
-                                        eachBinaryDocumentPolicyCriteria.getIntendedRecipient()));
-                                break;
-                            }
-                        }
-                    }
+        if (oSlots != null && oRimObjectFactory != null && oPtPref != null && PDF_MIME_TYPE.equals(sMimeType)
+            && oPtPref.getBinaryDocumentPolicyCriteria() != null
+            && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
+            && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
+
+            for (BinaryDocumentPolicyCriterionType eachBinaryDocumentPolicyCriteria : oPtPref
+                .getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
+
+                if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId())
+                    && eachBinaryDocumentPolicyCriteria.getIntendedRecipient() != null
+                    && !eachBinaryDocumentPolicyCriteria.getIntendedRecipient().isEmpty()) {
+
+                    oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_INTENDED_RECIPIENT,
+                        eachBinaryDocumentPolicyCriteria.getIntendedRecipient()));
+                    break;
                 }
             }
         }
@@ -621,19 +620,18 @@ public class PatientConsentDocumentBuilderHelper {
         String sTypeCd = "";
         String sTypeCdOid = "";
         String sTypeCdDisplayName = "";
-        if (oPtPref != null) {
-            if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
-                    && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
-                    && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
-                for (BinaryDocumentPolicyCriterionType eachBinaryDocumentPolicyCriteria : oPtPref
-                        .getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
-                    if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId())
-                            && eachBinaryDocumentPolicyCriteria.getDocumentTypeCode() != null) {
-                        sTypeCd = eachBinaryDocumentPolicyCriteria.getDocumentTypeCode().getCode();
-                        sTypeCdOid = eachBinaryDocumentPolicyCriteria.getDocumentTypeCode().getCodeSystem();
-                        sTypeCdDisplayName = eachBinaryDocumentPolicyCriteria.getDocumentTypeCode().getDisplayName();
-                        break;
-                    }
+        if (oPtPref != null && PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
+            && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
+            && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
+
+            for (BinaryDocumentPolicyCriterionType eachBinaryDocumentPolicyCriteria : oPtPref
+                    .getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
+                if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId())
+                        && eachBinaryDocumentPolicyCriteria.getDocumentTypeCode() != null) {
+                    sTypeCd = eachBinaryDocumentPolicyCriteria.getDocumentTypeCode().getCode();
+                    sTypeCdOid = eachBinaryDocumentPolicyCriteria.getDocumentTypeCode().getCodeSystem();
+                    sTypeCdDisplayName = eachBinaryDocumentPolicyCriteria.getDocumentTypeCode().getDisplayName();
+                    break;
                 }
             }
         }
@@ -704,20 +702,19 @@ public class PatientConsentDocumentBuilderHelper {
         String sCode = "";
         String sCodeSyst = "";
         String sDisplayName = "";
-        if (oPtPref != null) {
-            if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
-                    && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
-                    && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
-                for (BinaryDocumentPolicyCriterionType eachBinaryDocumentPolicyCriteria : oPtPref
-                        .getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
-                    if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId())
-                            && eachBinaryDocumentPolicyCriteria.getHealthcareFacilityTypeCode() != null) {
-                        sCode = eachBinaryDocumentPolicyCriteria.getHealthcareFacilityTypeCode().getCode();
-                        sCodeSyst = eachBinaryDocumentPolicyCriteria.getHealthcareFacilityTypeCode().getCodeSystem();
-                        sDisplayName = eachBinaryDocumentPolicyCriteria.getHealthcareFacilityTypeCode()
-                                .getDisplayName();
-                        break;
-                    }
+        if (oPtPref != null && PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
+            && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
+            && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
+
+            for (BinaryDocumentPolicyCriterionType eachBinaryDocumentPolicyCriteria : oPtPref
+                    .getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
+                if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId())
+                        && eachBinaryDocumentPolicyCriteria.getHealthcareFacilityTypeCode() != null) {
+                    sCode = eachBinaryDocumentPolicyCriteria.getHealthcareFacilityTypeCode().getCode();
+                    sCodeSyst = eachBinaryDocumentPolicyCriteria.getHealthcareFacilityTypeCode().getCodeSystem();
+                    sDisplayName = eachBinaryDocumentPolicyCriteria.getHealthcareFacilityTypeCode()
+                            .getDisplayName();
+                    break;
                 }
             }
         }
@@ -744,21 +741,20 @@ public class PatientConsentDocumentBuilderHelper {
         String sPracticeSetting = "";
         String sPracticeSettingScheme = "";
         String sPracticeSettingDisplayName = "";
-        if (oPtPref != null) {
-            if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
-                    && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
-                    && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
-                for (BinaryDocumentPolicyCriterionType eachBinaryDocumentPolicyCriteria : oPtPref
-                        .getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
-                    if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId())
-                            && eachBinaryDocumentPolicyCriteria.getPracticeSettingCode() != null) {
-                        sPracticeSetting = eachBinaryDocumentPolicyCriteria.getPracticeSettingCode().getCode();
-                        sPracticeSettingScheme = eachBinaryDocumentPolicyCriteria.getPracticeSettingCode()
-                                .getCodeSystem();
-                        sPracticeSettingDisplayName = eachBinaryDocumentPolicyCriteria.getPracticeSettingCode()
-                                .getDisplayName();
-                        break;
-                    }
+        if (oPtPref != null && PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
+            && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
+            && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
+
+            for (BinaryDocumentPolicyCriterionType eachBinaryDocumentPolicyCriteria : oPtPref
+                    .getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
+                if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId())
+                        && eachBinaryDocumentPolicyCriteria.getPracticeSettingCode() != null) {
+                    sPracticeSetting = eachBinaryDocumentPolicyCriteria.getPracticeSettingCode().getCode();
+                    sPracticeSettingScheme = eachBinaryDocumentPolicyCriteria.getPracticeSettingCode()
+                            .getCodeSystem();
+                    sPracticeSettingDisplayName = eachBinaryDocumentPolicyCriteria.getPracticeSettingCode()
+                            .getDisplayName();
+                    break;
                 }
             }
         }
@@ -821,14 +817,14 @@ public class PatientConsentDocumentBuilderHelper {
                     && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
                 for (BinaryDocumentPolicyCriterionType eachBinaryDocumentPolicyCriteria : oPtPref
                         .getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
-                    if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId())) {
-                        if (eachBinaryDocumentPolicyCriteria.getAuthorOriginal() != null) {
-                            sAuthorPerson = extractAuthorPerson(eachBinaryDocumentPolicyCriteria.getAuthorOriginal()
-                                    .getName());
-                            sAuthorInstitution = eachBinaryDocumentPolicyCriteria.getAuthorOriginal()
-                                    .getRepresentedOrganizationName();
-                            break;
-                        }
+                    if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId()) &&
+                        eachBinaryDocumentPolicyCriteria.getAuthorOriginal() != null) {
+
+                        sAuthorPerson = extractAuthorPerson(eachBinaryDocumentPolicyCriteria.getAuthorOriginal()
+                                .getName());
+                        sAuthorInstitution = eachBinaryDocumentPolicyCriteria.getAuthorOriginal()
+                                .getRepresentedOrganizationName();
+                        break;
                     }
                 }
 

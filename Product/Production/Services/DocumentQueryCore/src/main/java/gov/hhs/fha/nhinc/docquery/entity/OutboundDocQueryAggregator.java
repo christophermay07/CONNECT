@@ -178,10 +178,8 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
 
     @Override
     public void aggregate(OutboundOrchestratable to, OutboundOrchestratable from) {
-        if (to instanceof OutboundDocQueryOrchestratable) {
-            if (from instanceof OutboundDocQueryOrchestratable) {
-                aggregate((OutboundDocQueryOrchestratable) to, (OutboundDocQueryOrchestratable) from);
-            }
+        if (to instanceof OutboundDocQueryOrchestratable && from instanceof OutboundDocQueryOrchestratable) {
+            aggregate((OutboundDocQueryOrchestratable) to, (OutboundDocQueryOrchestratable) from);
         }
     }
 

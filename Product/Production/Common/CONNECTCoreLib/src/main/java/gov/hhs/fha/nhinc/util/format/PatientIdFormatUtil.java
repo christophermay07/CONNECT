@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.util.format;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,13 +52,13 @@ public class PatientIdFormatUtil {
     public static String parsePatientId(String receivedPatientId) {
         LOG.debug("Parsing patient id: " + receivedPatientId);
         String patientId = receivedPatientId;
-        if ((patientId != null) && (patientId.length() > 0)) {
+        if (StringUtils.isNotEmpty(patientId)) {
             patientId = stripQuotesFromPatientId(patientId);
             int componentIndex = patientId.indexOf("^");
-            LOG.debug("Index: " + componentIndex);
+            LOG.debug("Index: {}", componentIndex);
             if (componentIndex != -1) {
                 patientId = patientId.substring(0, componentIndex);
-                LOG.debug("Parsed patient id: " + patientId);
+                LOG.debug("Parsed patient id: {}", patientId);
             }
         }
         return patientId;
@@ -75,16 +76,14 @@ public class PatientIdFormatUtil {
 
         String sbPatientId = patientId;
 
-        if (patientId != null && patientId.length() > 0) {
-            if (patientId.startsWith("'") && patientId.length() > 1) {
-                if (patientId.endsWith("'")) {
-                    // strip off the ending quote
-                    sbPatientId = sbPatientId.substring(0, sbPatientId.length() - 1);
-                }
-
-                // strip off the first char quote
-                sbPatientId = sbPatientId.substring(1);
+        if (patientId != null && patientId.length() > 1 && patientId.startsWith("'")) {
+            if (patientId.endsWith("'")) {
+                // strip off the ending quote
+                sbPatientId = sbPatientId.substring(0, sbPatientId.length() - 1);
             }
+
+            // strip off the first char quote
+            sbPatientId = sbPatientId.substring(1);
         }
 
         LOG.debug("stripQuotesFromPatientId - Parsed patient id: {}", sbPatientId);
@@ -99,16 +98,16 @@ public class PatientIdFormatUtil {
      * @return Parsed community id
      */
     public static String parseCommunityId(String encodedPatientId) {
-        LOG.debug("Parsing community id: " + encodedPatientId);
+        LOG.debug("Parsing community id: {}", encodedPatientId);
         String communityId = null;
-        if ((encodedPatientId != null) && (encodedPatientId.length() > 0)) {
+        if (encodedPatientId != null && encodedPatientId.length() > 0) {
             String workingCommunityId = encodedPatientId;
             workingCommunityId = stripQuotesFromPatientId(workingCommunityId);
 
             // First remove the first components
             int componentIndex = workingCommunityId.lastIndexOf("^");
             LOG.debug("Index: " + componentIndex);
-            if ((componentIndex != -1) && (workingCommunityId.length() > (componentIndex + 1))) {
+            if (componentIndex != -1 && workingCommunityId.length() > componentIndex + 1) {
                 workingCommunityId = workingCommunityId.substring(componentIndex + 1);
                 LOG.debug("Working community id after first components removed: " + workingCommunityId);
 
@@ -142,11 +141,11 @@ public class PatientIdFormatUtil {
             sLocalHomeCommunityId = sLocalHomeCommunityId.substring("urn:oid:".length());
         }
         String encodedPatientId = null;
-        LOG.debug("Creating HL7 encoded patient id for patient id: " + patientId + ", home community id: "
-            + sLocalHomeCommunityId);
+        LOG.debug("Creating HL7 encoded patient id for patient id: {}, home community id: {}", patientId,
+            sLocalHomeCommunityId);
         if (patientId != null) {
             encodedPatientId = "'" + patientId + "^^^&" + sLocalHomeCommunityId + "&ISO" + "'";
-            LOG.debug("HL7 encoded patient id: " + encodedPatientId);
+            LOG.debug("HL7 encoded patient id: {}", encodedPatientId);
         }
         return encodedPatientId;
     }

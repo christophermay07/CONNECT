@@ -53,11 +53,9 @@ public class XDSbAdhocQueryRequestHelperImpl implements XDSbAdhocQueryRequestHel
 
         if (message != null && message.getAdhocQuery() != null && message.getAdhocQuery().getSlot() != null) {
             for (SlotType1 slot : message.getAdhocQuery().getSlot()) {
-                if (slot != null) {
-                    if (StringUtils.equalsIgnoreCase(slot.getName(), slotName.toString())) {
-                        message.getAdhocQuery().getSlot().remove(slot);
-                        break;
-                    }
+                if (slot != null && StringUtils.equalsIgnoreCase(slot.getName(), slotName.toString())) {
+                    message.getAdhocQuery().getSlot().remove(slot);
+                    break;
                 }
             }
             message.getAdhocQuery().getSlot().add(createSlot(slotName, value));
@@ -152,11 +150,9 @@ public class XDSbAdhocQueryRequestHelperImpl implements XDSbAdhocQueryRequestHel
 
         if (message != null && message.getAdhocQuery() != null && message.getAdhocQuery().getSlot() != null) {
             for (SlotType1 slot : message.getAdhocQuery().getSlot()) {
-                if (slot != null) {
-                    if (StringUtils.equalsIgnoreCase(slot.getName(), slotName.toString())) {
-                        message.getAdhocQuery().getSlot().remove(slot);
-                        break;
-                    }
+                if (slot != null && StringUtils.equalsIgnoreCase(slot.getName(), slotName.toString())) {
+                    message.getAdhocQuery().getSlot().remove(slot);
+                    break;
                 }
             }
             message.getAdhocQuery().getSlot().add(createSlot(slotName, value));

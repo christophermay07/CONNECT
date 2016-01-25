@@ -260,15 +260,13 @@ public class AdhocQueryTransformHelper {
     private static String extractPatientIdentifier(AdhocQueryRequest docQuery) {
         String patientIdentifier = null;
 
-        if ((docQuery != null) && (docQuery.getAdhocQuery() != null)) {
+        if (docQuery != null && docQuery.getAdhocQuery() != null) {
             List<SlotType1> slots = docQuery.getAdhocQuery().getSlot();
             for (SlotType1 slot : slots) {
-                if ((slot.getName() != null) && (slot.getName().contentEquals("$XDSDocumentEntryPatientId"))) {
-                    if (slot.getValueList() != null) {
-                        if (slot.getValueList().getValue().size() == 1) {
-                            patientIdentifier = slot.getValueList().getValue().get(0);
-                        }
-                    }
+                if (slot.getName() != null && slot.getName().contentEquals("$XDSDocumentEntryPatientId")
+                    && slot.getValueList() != null && slot.getValueList().getValue().size() == 1) {
+
+                    patientIdentifier = slot.getValueList().getValue().get(0);
                 }
             }
         }

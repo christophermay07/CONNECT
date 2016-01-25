@@ -200,10 +200,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         String x509Name = properties.getUsername();
 
-        if (NullChecker.isNullish(x509Name) || !checkDistinguishedName(x509Name)) {
-            if (null != certificate && null != certificate.getSubjectDN()) {
-                x509Name = certificate.getSubjectDN().getName();
-            }
+        if ((NullChecker.isNullish(x509Name) || !checkDistinguishedName(x509Name)) && certificate != null
+            && certificate.getSubjectDN() != null) {
+
+            x509Name = certificate.getSubjectDN().getName();
         }
         return createSubject(x509Name, certificate, publicKey);
     }
@@ -234,10 +234,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         if (NullChecker.isNullish(evidenceSubject)) {
             String userName = properties.getUsername();
 
-            if (NullChecker.isNullish(userName) || !checkDistinguishedName(userName)) {
-                if (null != certificate && null != certificate.getSubjectDN()) {
-                    userName = certificate.getSubjectDN().getName();
-                }
+            if ((NullChecker.isNullish(userName) || !checkDistinguishedName(userName)) && certificate != null
+                && certificate.getSubjectDN() != null) {
+
+                userName = certificate.getSubjectDN().getName();
             }
             x509Name = userName;
         } else {

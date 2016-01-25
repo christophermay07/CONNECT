@@ -81,7 +81,7 @@ public class ConfigurationManager {
             File file = new File(fileName);
             result = loadExpirationConfiguration(file);
         } catch (Exception e) {
-            LOG.error("unable to load PCConfiguration file: " + e.getLocalizedMessage(), e);
+            LOG.error("unable to load PCConfiguration file: {}", e.getLocalizedMessage(), e);
         }
         return result;
     }
@@ -135,15 +135,9 @@ public class ConfigurationManager {
 
                 result.getExpirations().add(expItem);
             }
-        } catch (IOException e) {
-            LOG.error("unable to load PCConfiguration file", e);
-        } catch (NumberFormatException e) {
-            LOG.error("unable to load PCConfiguration file", e);
-        } catch (ParserConfigurationException e) {
-            LOG.error("unable to load PCConfiguration file", e);
-        } catch (DOMException e) {
-            LOG.error("unable to load PCConfiguration file", e);
-        } catch (SAXException e) {
+        } catch (IOException | NumberFormatException | ParserConfigurationException | DOMException |
+            SAXException e) {
+
             LOG.error("unable to load PCConfiguration file", e);
         }
 
@@ -160,15 +154,11 @@ public class ConfigurationManager {
                 }
             }
 
-            if (result == null) {
-                if (config.getDefaultDuration() >= 0 && config.getDefaultUnits().length() > 0) {
-                    result = new Expiration("", config.getDefaultUnits(), config.getDefaultDuration());
-                }
+            if (result == null && config.getDefaultDuration() >= 0 && config.getDefaultUnits().length() > 0) {
+                result = new Expiration("", config.getDefaultUnits(), config.getDefaultDuration());
             }
-
         }
 
         return result;
     }
-
 }

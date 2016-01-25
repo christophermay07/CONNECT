@@ -199,7 +199,6 @@ public class XDRHelper {
         }
 
         return processErrorList(result);
-
     }
 
     public List<String> getIntendedRecepients(ProvideAndRegisterDocumentSetRequestType body) {
@@ -221,15 +220,13 @@ public class XDRHelper {
                     if (recipSlot != null) {
                         result = recipSlot.getValueList().getValue();
                     }
-
                 }
-
             }
         } catch (Exception ex) {
             LOG.error("Unable to pull intended recipients: {}", ex.getLocalizedMessage(), ex);
         }
 
-        LOG.debug("Found " + result.size() + " recipients");
+        LOG.debug("Found {} recipients", result.size());
         return result;
     }
 
@@ -257,7 +254,7 @@ public class XDRHelper {
             result.add(RoutingObjectFactory.BEAN_REFERENCE_IMPLEMENTATION);
         }
 
-        LOG.debug("Found " + result.size() + " beans");
+        LOG.debug("Found {} beans", result.size());
         return result;
     }
 
@@ -329,12 +326,12 @@ public class XDRHelper {
         RegistryObjectListType object = body.getSubmitObjectsRequest().getRegistryObjectList();
 
         for (int x = 0; x < object.getIdentifiable().size(); x++) {
-            System.out.println(object.getIdentifiable().get(x).getName());
+            LOG.debug("{}", object.getIdentifiable().get(x).getName().toString());
 
             if (object.getIdentifiable().get(x).getDeclaredType().equals(RegistryPackageType.class)) {
                 RegistryPackageType registryPackage = (RegistryPackageType) object.getIdentifiable().get(x).getValue();
 
-                System.out.println(registryPackage.getSlot().size());
+                LOG.debug("{}", registryPackage.getSlot().size());
 
                 for (int y = 0; y < registryPackage.getExternalIdentifier().size(); y++) {
                     String test = registryPackage.getExternalIdentifier().get(y).getName().getLocalizedString().get(0)
@@ -355,23 +352,18 @@ public class XDRHelper {
         RegistryObjectListType object = body.getSubmitObjectsRequest().getRegistryObjectList();
 
         for (int x = 0; x < object.getIdentifiable().size(); x++) {
-            System.out.println(object.getIdentifiable().get(x).getName());
+            LOG.debug("{}", object.getIdentifiable().get(x).getName().toString());
 
             if (object.getIdentifiable().get(x).getDeclaredType().equals(ExtrinsicObjectType.class)) {
                 ExtrinsicObjectType extObj = (ExtrinsicObjectType) object.getIdentifiable().get(x).getValue();
 
-                System.out.println(extObj.getSlot().size());
+                LOG.debug("{}", extObj.getSlot().size());
 
                 SlotType1 slot = getNamedSlotItem(extObj.getSlot(), "sourcePatientId");
 
-                if (slot != null) {
-                    if (slot.getValueList() != null) {
-                        if (slot.getValueList().getValue().size() == 1) {
-                            result = slot.getValueList().getValue().get(0);
-                        }
-                    }
+                if (slot != null && slot.getValueList() != null && slot.getValueList().getValue().size() == 1) {
+                    result = slot.getValueList().getValue().get(0);
                 }
-
             }
         }
 
@@ -384,10 +376,8 @@ public class XDRHelper {
 
         patientIdSlot = getNamedSlotItem(slots, XDS_SOURCE_PATIENT_ID_SLOT);
 
-        if (patientIdSlot != null) {
-            if (patientIdSlot.getValueList().getValue().size() == 1) {
-                result = patientIdSlot.getValueList().getValue().get(0);
-            }
+        if (patientIdSlot != null && patientIdSlot.getValueList().getValue().size() == 1) {
+            result = patientIdSlot.getValueList().getValue().get(0);
         }
 
         return result;
@@ -401,7 +391,7 @@ public class XDRHelper {
         for (SlotType1 slot : slots) {
             if (slot.getName().equalsIgnoreCase(name)) {
                 result = slot;
-                LOG.info("Slot=" + result.getName());
+                LOG.info("Slot={}", result.getName());
                 break;
             }
         }
@@ -412,16 +402,14 @@ public class XDRHelper {
     private boolean patientIdsMatch(List<String> patIds) {
         boolean result = true;
 
-        if (checkIdsMatch()) {
-            if (patIds.size() > 1) {
-                // Get the first id
-                String patId = patIds.get(0);
-                // loop through all ids, make sure they all equal
-                for (String id : patIds) {
-                    if (id.equalsIgnoreCase(patId) == false) {
-                        result = false;
-                        break;
-                    }
+        if (checkIdsMatch() && patIds.size() > 1) {
+            // Get the first id
+            String patId = patIds.get(0);
+            // loop through all ids, make sure they all equal
+            for (String id : patIds) {
+                if (id.equalsIgnoreCase(patId) == false) {
+                    result = false;
+                    break;
                 }
             }
         }
@@ -490,5 +478,4 @@ public class XDRHelper {
 
         return result;
     }
-
 }

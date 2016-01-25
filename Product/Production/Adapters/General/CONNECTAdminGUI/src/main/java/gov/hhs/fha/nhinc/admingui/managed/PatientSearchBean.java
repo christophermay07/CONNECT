@@ -484,12 +484,10 @@ public class PatientSearchBean {
      */
     public String getCreationTimeUiDisplay() {
         String formattedDate = null;
-        if (!this.getDocumentList().isEmpty()) {
-            if (this.getDocumentList().get(selectedDocument).getCreationTime() != null) {
-                Date currentDate = this.getDocumentList().get(selectedDocument).getCreationTime();
-                SimpleDateFormat dateformat = new SimpleDateFormat("MM/dd/yyyy");
-                formattedDate = dateformat.format(currentDate);
-            }
+        if (!getDocumentList().isEmpty() && getDocumentList().get(selectedDocument).getCreationTime() != null) {
+            Date currentDate = this.getDocumentList().get(selectedDocument).getCreationTime();
+            SimpleDateFormat dateformat = new SimpleDateFormat("MM/dd/yyyy");
+            formattedDate = dateformat.format(currentDate);
         }
         return formattedDate;
     }
