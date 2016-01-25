@@ -125,7 +125,7 @@ public class PropertyFileDAO {
                 LOG.warn("Could not read property {}: {}", propertyName, ex.getLocalizedMessage(), ex);
                 String sProp = properties.getString(propertyName);
                 if (NullChecker.isNotNullish(sProp)) {
-                    return sProp.equalsIgnoreCase("t");
+                    return "t".equalsIgnoreCase(sProp);
                 }
             }
         }

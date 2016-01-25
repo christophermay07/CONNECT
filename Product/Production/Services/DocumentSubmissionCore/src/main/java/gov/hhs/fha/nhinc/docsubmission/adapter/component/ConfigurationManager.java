@@ -104,22 +104,22 @@ public class ConfigurationManager {
         ArrayList<RoutingConfig> result = new ArrayList<>();
         Node channels = list.item(0);
 
-        LOG.debug("loading " + channels.getChildNodes().getLength() + " channels");
+        LOG.debug("loading {} channels", channels.getChildNodes().getLength());
 
         for (int s = 0; s < channels.getChildNodes().getLength(); s++) {
             Node node = channels.getChildNodes().item(s);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
-                System.out.println(element.getNodeName());
-                if (element.getNodeName().equalsIgnoreCase("RoutingConfig")) {
+                LOG.debug("{}", element.getNodeName());
+                if ("RoutingConfig".equalsIgnoreCase(element.getNodeName())) {
                     RoutingConfig item = new RoutingConfig();
                     for (int x = 0; x < element.getChildNodes().getLength(); x++) {
                         String nodeName = element.getChildNodes().item(x).getNodeName();
                         String nodeValue = element.getChildNodes().item(x).getTextContent();
 
-                        if (nodeName.equalsIgnoreCase("Recipient")) {
+                        if ("Recipient".equalsIgnoreCase(nodeName)) {
                             item.setRecepient(nodeValue);
-                        } else if (nodeName.equalsIgnoreCase("Bean")) {
+                        } else if ("Bean".equalsIgnoreCase(nodeName)) {
                             item.setBean(nodeValue);
                         }
                     }

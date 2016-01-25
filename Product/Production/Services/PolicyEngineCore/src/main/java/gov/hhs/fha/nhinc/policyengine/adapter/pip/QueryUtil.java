@@ -76,8 +76,8 @@ public class QueryUtil {
                 if (oJAXBObj != null
                     && oJAXBObj.getDeclaredType() != null
                     && oJAXBObj.getDeclaredType().getCanonicalName() != null
-                    && oJAXBObj.getDeclaredType().getCanonicalName()
-                        .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType")
+                    && "oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType"
+                        .equals(oJAXBObj.getDeclaredType().getCanonicalName())
                     && oJAXBObj.getValue() != null) {
 
                     ExtrinsicObjectType oExtObj = (ExtrinsicObjectType) oJAXBObj.getValue();
@@ -188,8 +188,8 @@ public class QueryUtil {
                 if (oJAXBObj != null
                     && oJAXBObj.getDeclaredType() != null
                     && oJAXBObj.getDeclaredType().getCanonicalName() != null
-                    && oJAXBObj.getDeclaredType().getCanonicalName()
-                        .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType")
+                    && "oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType"
+                        .equals(oJAXBObj.getDeclaredType().getCanonicalName())
                     && oJAXBObj.getValue() != null) {
 
                     ExtrinsicObjectType oExtObj = (ExtrinsicObjectType) oJAXBObj.getValue();

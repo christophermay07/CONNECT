@@ -75,7 +75,7 @@ public class PurposeUseProxyDefaultImpl implements PurposeUseProxy {
             // Use CONNECT utility class to access gateway.properties
             String purposeForUseEnabled = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                 PURPOSE_FOR_USE_DEPRECATED_ENABLED);
-            if (purposeForUseEnabled != null && purposeForUseEnabled.equalsIgnoreCase("true")) {
+            if (purposeForUseEnabled != null && "true".equalsIgnoreCase(purposeForUseEnabled)) {
                 match = true;
             }
         } catch (PropertyAccessException ex) {

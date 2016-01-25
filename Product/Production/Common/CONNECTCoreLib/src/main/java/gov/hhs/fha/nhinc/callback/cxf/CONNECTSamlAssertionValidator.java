@@ -126,7 +126,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
             }
 
             Issuer issuer = assertion.getSaml2().getIssuer();
-            if (issuer.getFormat().equals("urn:oasis:names:tc:SAML:1.1:nameid-format:entity")) {
+            if ("urn:oasis:names:tc:SAML:1.1:nameid-format:entity".equals(issuer.getFormat())) {
                 if (!StringUtils.isBlank(issuer.getSPProvidedID())) {
                     throw new WSSecurityException("SOAP header element Security/Assertion/Issuer/@Format = " + ""
                             + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"

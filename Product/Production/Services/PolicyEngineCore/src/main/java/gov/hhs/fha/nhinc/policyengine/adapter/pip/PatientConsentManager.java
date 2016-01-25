@@ -318,8 +318,8 @@ public class PatientConsentManager {
                     if (oJAXBObj != null
                         && oJAXBObj.getDeclaredType() != null
                         && oJAXBObj.getDeclaredType().getCanonicalName() != null
-                        && oJAXBObj.getDeclaredType().getCanonicalName()
-                        .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType")
+                        && "oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType"
+                            .equals(oJAXBObj.getDeclaredType().getCanonicalName())
                         && oJAXBObj.getValue() != null) {
 
                         ExtrinsicObjectType oExtObj = (ExtrinsicObjectType) oJAXBObj.getValue();
@@ -686,7 +686,8 @@ public class PatientConsentManager {
                                 LOG.info("Matching PDF document found");
                                 olBinPrefDoc.add(sPrefDoc);
                             } catch (IOException ioe) {
-                                LOG.error("Failed to retrieve document: " + oDocResponse.getDocumentUniqueId(), ioe);
+                                LOG.error("Failed to retrieve d"
+                                    + "ocument: " + oDocResponse.getDocumentUniqueId(), ioe);
                             }
                         }
                     }

@@ -40,7 +40,7 @@ public class InboundOutboundChecker {
     public static boolean isInbound(String value) {
         boolean result = false;
         if (NullChecker.isNotNullish(value)) {
-            result = value.equalsIgnoreCase("inbound");
+            result = "inbound".equalsIgnoreCase(value);
         }
         return result;
     }
@@ -48,7 +48,7 @@ public class InboundOutboundChecker {
     public static boolean isOutbound(String value) {
         boolean result = false;
         if (NullChecker.isNotNullish(value)) {
-            result = value.equalsIgnoreCase("outbound");
+            result = "outbound".equalsIgnoreCase(value);
         }
         return result;
     }

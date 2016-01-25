@@ -403,7 +403,7 @@ public class FileUtils {
                                 String currVersionString = bindingKeyedRef.getAttribute("keyValue");
                                 if (currVersionString.contains("LEVEL")) {
                                     if (latestVersionBindingTemplate != null) {
-                                        if (currVersionString.equals("LEVEL_a1")) {
+                                        if ("LEVEL_a1".equals(currVersionString)) {
                                             latestVersionBindingTemplate = currBindingTemplate;
                                         }
                                         // else template is prior version and doesn't need to be set

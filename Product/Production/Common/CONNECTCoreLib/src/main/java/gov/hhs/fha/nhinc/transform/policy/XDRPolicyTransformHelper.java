@@ -145,12 +145,10 @@ public class XDRPolicyTransformHelper {
                 for (int y = 0; y < registryPackage.getExternalIdentifier().size(); y++) {
                     String test = registryPackage.getExternalIdentifier().get(y).getName().getLocalizedString().get(0)
                             .getValue();
-                    if (test.equals("XDSSubmissionSet.patientId")) {
+                    if ("XDSSubmissionSet.patientId".equals(test)) {
                         result = registryPackage.getExternalIdentifier().get(y).getValue();
                     }
-
                 }
-
             }
         }
 

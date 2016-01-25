@@ -59,7 +59,7 @@ public class CsrfBean {
         try {
             CryptoRandomGenerator randomGenerator = CryptoRandomGenerator.getInstance();
             token = randomGenerator.createToken();
-            if (!token.equals("login")) {
+            if (!"login".equals(token)) {
                 setToken(token);
             }
         } catch (Exception ex) {

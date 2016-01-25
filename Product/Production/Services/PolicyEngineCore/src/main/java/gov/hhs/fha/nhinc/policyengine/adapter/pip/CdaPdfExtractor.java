@@ -1070,7 +1070,7 @@ public class CdaPdfExtractor {
                 .getContent()) {
 
                 if (oJaxbElement.getName() != null && oJaxbElement.getName().getLocalPart() != null
-                    && oJaxbElement.getName().getLocalPart().equals("low") && oJaxbElement.getValue() != null
+                    && "low".equals(oJaxbElement.getName().getLocalPart()) && oJaxbElement.getValue() != null
                     && oJaxbElement.getValue() instanceof IVXBTSExplicit) {
 
                     // Start Time
@@ -1080,7 +1080,7 @@ public class CdaPdfExtractor {
                         bHaveData = true;
                     }
                 } else if (oJaxbElement.getName() != null && oJaxbElement.getName().getLocalPart() != null
-                    && oJaxbElement.getName().getLocalPart().equals("high") && oJaxbElement.getValue() != null
+                    && "high".equals(oJaxbElement.getName().getLocalPart()) && oJaxbElement.getValue() != null
                     && oJaxbElement.getValue() instanceof IVXBTSExplicit) {
 
                     // End Time

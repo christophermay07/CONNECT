@@ -93,14 +93,13 @@ public class SAML2AssertionExtractor {
     }
 
     private final SoapHeader getSecuritySoapHeader(MessageContext mContext) {
-
         if (mContext != null) {
             @SuppressWarnings("unchecked")
             List<Header> headers = (List<Header>) mContext.get(org.apache.cxf.headers.Header.HEADER_LIST);
 
             if (headers != null) {
                 for (Header header : headers) {
-                    if (header.getName().getLocalPart().equalsIgnoreCase("Security")) {
+                    if ("Security".equalsIgnoreCase(header.getName().getLocalPart())) {
                         return (SoapHeader) header;
                     }
                 }

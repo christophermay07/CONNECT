@@ -112,7 +112,7 @@ public class PingServiceImpl implements PingService {
             String logOutputValue
                 = propAccessor.getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME, LOG_WSDL_KEY);
 
-            if (logOutputValue.equalsIgnoreCase("true") || logOutputValue.equalsIgnoreCase("t")) {
+            if ("true".equalsIgnoreCase(logOutputValue) || "t".equalsIgnoreCase(logOutputValue)) {
                 LOG.info(output);
             }
         } catch (PropertyAccessException ex) {

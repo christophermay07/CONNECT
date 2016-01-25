@@ -226,7 +226,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
     private String getUniquePatientIdFromPdpRequest(Request pdpRequest, String serviceType) {
         LOG.debug("Begin AdapterPDPProxyJavaImpl.getPatientIdFromPdpRequest()");
         String uniquePatientId;
-        if ((serviceType != null) && (serviceType.equalsIgnoreCase("DocumentRetrieveIn"))) {
+        if (serviceType != null && "DocumentRetrieveIn".equalsIgnoreCase(serviceType)) {
             LOG.debug("getPatientIdFromPdpRequest() - serviceType: inside DocumentRetrieveIn");
             String uniqueDocumentId = getAttrValFromPdpRequest(pdpRequest,
                 AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_RESOURCEID,

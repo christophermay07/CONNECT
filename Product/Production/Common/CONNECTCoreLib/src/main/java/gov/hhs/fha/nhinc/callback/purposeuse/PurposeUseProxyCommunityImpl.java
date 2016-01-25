@@ -92,7 +92,7 @@ public class PurposeUseProxyCommunityImpl implements PurposeUseProxy {
         boolean match = false;
         try {
             String purposeForUseEnabled = propertyAccessor.getProperty(PURPOSE_FOR_USE_PROPERTY_FILE, homeCommunityId);
-            if (purposeForUseEnabled != null && purposeForUseEnabled.equalsIgnoreCase("true")) {
+            if (purposeForUseEnabled != null && "true".equalsIgnoreCase(purposeForUseEnabled)) {
                 match = true;
             }
         } catch (PropertyAccessException ex) {

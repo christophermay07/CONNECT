@@ -146,12 +146,12 @@ public class ConformanceClient {
     }
 
     protected static Parser getParser(final String format) {
-        if (StringUtils.isBlank(format) || format.equalsIgnoreCase("xml")
+        if (StringUtils.isBlank(format) || "xml".equalsIgnoreCase(format)
             || format.equalsIgnoreCase(ResourceFormat.RESOURCE_XML.getHeader())
             || format.equalsIgnoreCase(FeedFormat.FEED_XML.getHeader())) {
 
             return new XmlParser();
-        } else if (format.equalsIgnoreCase("json") || format.equalsIgnoreCase(ResourceFormat.RESOURCE_JSON.getHeader())
+        } else if ("json".equalsIgnoreCase(format) || format.equalsIgnoreCase(ResourceFormat.RESOURCE_JSON.getHeader())
             || format.equalsIgnoreCase(FeedFormat.FEED_JSON.getHeader())) {
 
             return new JsonParser();

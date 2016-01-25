@@ -384,7 +384,7 @@ public class EventCodeDao {
         String[] eventCodeList;
         String separate = "\\^\\^";
         eventCodeList = eventCodeParam.split(separate);
-        if (paramName.equalsIgnoreCase("eventCode")) {
+        if ("eventCode".equalsIgnoreCase(paramName)) {
             return eventCodeList[0];
         } else {
             return eventCodeList[1];

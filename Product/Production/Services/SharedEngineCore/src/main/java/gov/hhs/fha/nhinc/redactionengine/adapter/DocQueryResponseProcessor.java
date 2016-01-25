@@ -193,12 +193,13 @@ public class DocQueryResponseProcessor {
             if (sourceRegistryObjectList != null) {
                 List<JAXBElement<? extends IdentifiableType>> olRegObjs = sourceRegistryObjectList.getIdentifiable();
                 for (JAXBElement<? extends IdentifiableType> oJAXBObj : olRegObjs) {
-                    if ((oJAXBObj != null)
-                            && (oJAXBObj.getDeclaredType() != null)
-                            && (oJAXBObj.getDeclaredType().getCanonicalName() != null)
-                            && (oJAXBObj.getDeclaredType().getCanonicalName()
-                                    .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType"))
-                            && (oJAXBObj.getValue() != null)) {
+                    if (oJAXBObj != null
+                        && oJAXBObj.getDeclaredType() != null
+                        && oJAXBObj.getDeclaredType().getCanonicalName() != null
+                        && "oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType"
+                            .equals(oJAXBObj.getDeclaredType().getCanonicalName())
+                        && oJAXBObj.getValue() != null) {
+
                         ExtrinsicObjectType oExtObj = (ExtrinsicObjectType) oJAXBObj.getValue();
                         PatientPreferencesType workingPatientPreferences;
                         if (patientPreferences == null) {

@@ -915,7 +915,7 @@ public class ConnectionManagerCache implements ConnectionManager {
 
     private String getHcidFromIdentifierBag(BusinessEntity entity) {
         for (KeyedReference ref : entity.getIdentifierBag().getKeyedReference()) {
-            if (ref.getTModelKey().equals("uddi:nhin:nhie:homecommunityid")) {
+            if ("uddi:nhin:nhie:homecommunityid".equals(ref.getTModelKey())) {
                 return ref.getKeyValue();
             }
         }
